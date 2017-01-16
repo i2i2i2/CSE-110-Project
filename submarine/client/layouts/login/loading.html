@@ -1,0 +1,11 @@
+<template name="loading">
+  {{#if logined}}
+
+    {{> Template.dynamic template=loader}}
+
+  {{else}}
+
+    {{> Template.dynamic template=login}}
+
+  {{/if}}
+</template>

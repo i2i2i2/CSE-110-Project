@@ -1,0 +1,11 @@
+{
+  "name": "submarine",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "~0.2.0",
+    "simpl-schema": "^0.1.0"
+  }
+}
