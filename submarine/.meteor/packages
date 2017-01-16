@@ -33,3 +33,6 @@ check
 momentjs:moment
 cfs:standard-packages
 percolate:synced-cron
+
+
+npm-container

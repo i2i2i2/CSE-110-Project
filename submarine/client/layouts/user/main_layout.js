@@ -7,5 +7,5 @@ Template.mainLayout.onRendered(() => {
 });
 
 Template.mainLayout.helpers({
-  authInProgress: () => false;
-})
+  authInProgress: () => false
+});
