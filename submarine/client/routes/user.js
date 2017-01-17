@@ -1,6 +1,6 @@
 var userRoutes = FlowRouter.group({
-  prefix: '/student',
-  name: 'student'
+  prefix: '/user',
+  name: 'user'
 });
 
 userRoutes.route('/home', {
