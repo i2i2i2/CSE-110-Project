@@ -11,7 +11,7 @@ Theme TBD
  * Yuandong Zhang, philzhang01
  * Pengyu Chen, EasonChan236
  * Ruitian Lin, lrt98802
- * Zijin Fu, fuzijin
+ * Zijin Fu, zif008
  * Tianyi Wang, secondkimi
  * Jiaqi Wu, QDQD
  * Shuyi Ni, ShuyiNi
