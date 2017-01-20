@@ -22,5 +22,18 @@ Meteor.startup(function() {
   if (!Meteor.isDevelopment) {
     Meteor.isDevelopment = Meteor.settings.public.ENVIRONMENT !== 'prod'
   }
+  
+  // override navigation back button
+  if (Meteor.isCordova) {
+  
+    document.addEventListener("deviceready", deviceReady, false);
+    function deviceReady (){
+      document.addEventListener("backbutton", function(e) {
+        e.preventDefault();
+        navigator.app.exitApp();
+        console.log("App should be exit");
+      });
+    }
+  }
 });
 
