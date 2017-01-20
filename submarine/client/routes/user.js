@@ -4,16 +4,16 @@ var userRoutes = FlowRouter.group({
 });
 
 userRoutes.route('/home', {
-  name: "userHome",
+  name: "home",
   action() {
-    BlazeLayout.render('mainLayout', {content: 'userHome'});
+    BlazeLayout.render('mainLayout', {content: 'Home'});
   }
 });
 
 userRoutes.route('/friends', {
   name: "friends",
   action() {
-    BlazeLayout.render('mainLayout', {content: 'friends'});
+    BlazeLayout.render('mainLayout', {content: 'Friends'});
   }
 });
 
@@ -21,13 +21,20 @@ userRoutes.route('/friends', {
 userRoutes.route('/places', {
   name: "places",
   action() {
-    BlazeLayout.render('mainLayout', {content: 'places'});
+    BlazeLayout.render('mainLayout', {content: 'Places'});
   }
 });
 
 userRoutes.route('/chats/:id', {
   name: "chats",
   action() {
-    BlazeLayout.render('mainLayout', {content: 'chats'})
+    BlazeLayout.render('mainLayout', {content: 'Chats'})
+  }
+});
+
+userRoutes.route('/profile', {
+  name: "profile",
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'Profile'})
   }
 });

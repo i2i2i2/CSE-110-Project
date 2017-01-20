@@ -1,8 +1,18 @@
 <template name="mainLayout">
-  {{#if authInProgress}}
-    <h1>Waited to be logged in</h1>
-  {{else}}
-    <h1>Welcome!</h1>
-    {{> Template.dynamic template=content}}
-  {{/if}}
+  <h1>Hey Hey Captain!</h1>
+  {{> Template.dynamic template=content}}
+  <div class="bottom nav">
+    <div class="flex-item">
+      <div class="button" data-link="home">Home</div>
+    </div>
+    <div class="flex-item">
+      <div class="button" data-link="friends">Friends</div>
+    </div>
+    <div class="flex-item">
+      <div class="button" data-link="places">Places</div>
+    </div>
+    <div class="flex-item">
+      <div class="button" data-link="profile">Profile</div>
+    </div>
+  </div>
 </template>
