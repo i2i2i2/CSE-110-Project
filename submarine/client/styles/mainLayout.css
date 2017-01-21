@@ -9,7 +9,10 @@
   line-height: 2em;
   text-align: center;
   transition: background-color 0.5s ease, color 0.5s ease;
+}
 
+.button:hover {
+    background: #999;
 }
 
 .button.active {
