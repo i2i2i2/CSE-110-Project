@@ -23,9 +23,7 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 kadira:flow-router
 kadira:blaze-layout
 aldeed:collection2-core
-semantic:ui
 accounts-password
-useraccounts:semantic-ui
 react
 meteorhacks:npm
 cosmos:browserify
@@ -37,3 +35,5 @@ percolate:synced-cron
 
 npm-container
 session
+useraccounts:unstyled
+random
