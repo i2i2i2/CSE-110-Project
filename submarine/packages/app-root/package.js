@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   // namespace defined for each environment
   api.addFiles('lib/base_all.js', ['client', 'server']);
   api.addFiles('lib/base_client.js', 'client');
-  api.addFile('lib/base_server.js', 'server');
+  api.addFiles('lib/base_server.js', 'server');
 
   // Expose module as app and Logger
   api.export('App');
