@@ -1,5 +1,11 @@
 Template.mainLayout.onCreated(() => {
-  console.log("Welcome Back!")
+  var self = this;
+  console.log("Welcome Back!");
+  Tracker.autorun(function() {
+    if (!Meteor.userId()) {
+      FlowRouter.go("/");
+    }
+  });
 });
 
 Template.mainLayout.onRendered(function() {
@@ -8,7 +14,7 @@ Template.mainLayout.onRendered(function() {
   self.autorun(function() {
     var currentTemplate = Session.get("currentTemplate");
     self.$(".button").removeClass("active");
-    self.$(".button[data-link=" + currentTemplate + "]").addClass("active"); 
+    self.$(".button[data-link=" + currentTemplate + "]").addClass("active");
     console.log("class added");
   });
 });
@@ -19,3 +25,9 @@ Template.mainLayout.events({
     FlowRouter.go(link);
   }
 });
+
+Template.mainLayout.helpers({
+  "username": function() {
+    return Meteor.user()? Meteor.user().profile.name : null;
+  }
+})

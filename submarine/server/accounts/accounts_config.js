@@ -1,13 +1,13 @@
 /**
  * Meteor Accounts Settings,
- * define what to do when new user created, How to send reset password email 
+ * define what to do when new user created, How to send reset password email
  */
 
 /**
  * Initialize student User account with basic data on first login
  */
 Accounts.onCreateUser((options, user) => {
-  
+
   // prevent useraccount package override username
   if (options.profile) {
     var profile = {
@@ -17,19 +17,6 @@ Accounts.onCreateUser((options, user) => {
   }
 
   return user;
-});
-
-/**
- * Set what to do when user login
- */
-Accounts.onLogin(function () {
-  var user = Meteor.user();
-
-  Meteor.users.update(user._id, {
-    $set: {
-      latestLogin: new Date()
-    }
-  });
 });
 
 /**
@@ -50,4 +37,3 @@ App.Initializer.configureResetEmail = function() {
   Accounts.urls.resetPassword = (token) =>
     Meteor.absoluteUrl('reset-password/' + token);
 };
-

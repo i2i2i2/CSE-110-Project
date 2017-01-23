@@ -1,6 +1,6 @@
 FlowRouter.route('/', {
   name: 'loading',
   action: () => {
-    BlazeLayout.render('loading', {loader: 'loader', login: 'loginBox'});
+    BlazeLayout.render('Loading', {loader: 'Loader', login: 'LoginBox'});
   }
 });

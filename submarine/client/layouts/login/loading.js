@@ -1,3 +1,3 @@
-Template.loading.helpers({
-  logined: () => false
+Template.Loading.helpers({
+  logined: () => (Meteor.userId() != null)
 })
