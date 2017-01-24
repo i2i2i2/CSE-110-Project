@@ -16,6 +16,9 @@ Accounts.onCreateUser((options, user) => {
     user.profile = profile;
   }
 
+  // set profile pic random seed
+  user.profile.profileSeed = Random.id(8); 
+
   return user;
 });
 

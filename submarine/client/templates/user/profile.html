@@ -1,5 +1,8 @@
 <template name="Profile">
   <p>Profile, where user edits there personal info</p>
   {{> atForm state="changePwd"}}
+  <div class="profile_picture"></div>
+  <p>Your Profile random seed is {{randomSeed}}</p>
+  <div class="button" data-action="random">Random</div>
   <div class="button" data-action="logout">Logout</div>
 </template>

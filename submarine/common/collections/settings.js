@@ -20,5 +20,9 @@ var settingSchema = {
   smtpAuthentication: {
     type: String,
     optional: false
-  } 
+  }
 }
+
+// attach the schema
+App.Schemas.Setting = new  SimpleSchema(settingSchema);
+App.Collections.Settings.attachSchema(App.Schemas.Settings);
