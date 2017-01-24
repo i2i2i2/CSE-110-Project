@@ -69,6 +69,16 @@ AccountsTemplates.configure({
   }
 });
 
+// from useraccounts:flow-routing, needed to get the reset token instead of using flow router directly
+AccountsTemplates.configureRoute('resetPwd', {
+  name: 'resetPwd',
+  layoutType: 'blaze',
+  path: '/reset-password',
+  template: 'resetPassword',
+  layoutTemplate: 'Loading',
+  contentRegion: 'login'
+});
+
 // set what additional info to display on Account Template
 AccountsTemplates.removeField('email');
 AccountsTemplates.addFields([
@@ -91,4 +101,3 @@ AccountsTemplates.addFields([
     errStr: 'Invalid email'
   }
 ]);
-

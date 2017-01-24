@@ -7,6 +7,7 @@ Meteor.startup(function () {
   App.Seeder.Settings();
 
   // initialized essential Settings
-  App.Initializer.SMTP();
+  // App.Initializer.SMTP();
+  App.Initializer.configureResetEmail();
 
 });

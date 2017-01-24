@@ -1,3 +1,6 @@
+/**
+ * Initialize external smtp setting, sending site email
+ */
 App.Initializer.SMTP = function () {
 
   var settings = App.Collections.Settings.findOne();
