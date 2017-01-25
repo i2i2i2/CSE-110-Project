@@ -22,10 +22,10 @@ Meteor.startup(function() {
   if (!Meteor.isDevelopment) {
     Meteor.isDevelopment = Meteor.settings.public.ENVIRONMENT !== 'prod'
   }
-  
-  // override navigation back button
+
   if (Meteor.isCordova) {
-  
+
+    // override navigation back button
     document.addEventListener("deviceready", deviceReady, false);
     function deviceReady (){
       document.addEventListener("backbutton", function(e) {
@@ -34,6 +34,9 @@ Meteor.startup(function() {
         console.log("App should be exit");
       });
     }
+
+    // update GPS coord every 5s
+    
+    // update wifi config every 5s
   }
 });
-
