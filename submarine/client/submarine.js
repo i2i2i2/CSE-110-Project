@@ -32,11 +32,16 @@ Meteor.startup(function() {
         e.preventDefault();
         navigator.app.exitApp();
         console.log("App should be exit");
+        
+        App.Utils.Geolocation.stopWatchGPSChange();
+        App.Utils.WifiWizard.stopWatchWifiChange();
       });
-    }
 
-    // update GPS coord every 5s
-    
-    // update wifi config every 5s
+      // update GPS coord every 5s
+      App.Utils.Geolocation.updateGPSCoordOnChange({timeout: 5000});
+
+      // update wifi config every 5s
+      App.Utils.Geolocation.updateWifiConfigOnChange(5000);
+    }
   }
 });

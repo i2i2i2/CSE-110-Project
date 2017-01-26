@@ -25,6 +25,7 @@ App.Utils.WifiWizard.stopWatchWifiChange = function() {
   if ('WatchId' in App.Utils.WifiWizard) {
     clearInterval(App.Utils.WifiWizard.watchId);
     delete App.Utils.WifiWizard.WatchId;
+
   }
 }
 
