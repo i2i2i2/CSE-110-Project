@@ -6,7 +6,6 @@
  *   enableHighAccuracy: default to true
  * }
  */
-}
 App.Utils.Geolocation.getGPSCoordSession = function(options) {
     navigator.geolocation.getCurrentPosition(onSuccess, onErr, options);
 };
@@ -15,6 +14,9 @@ App.Utils.Geolocation.getGPSCoordSession = function(options) {
  * Wrapper for cordova geolocation plugin watch gps change
  */
 App.Utils.Geolocation.updateGPSCoordOnChange = function(options) {
+  if ('WatchId' in App.Utils.Geolocation) {
+    navigator.geolocation.clearWatch(App.Utils.Geolocation.WatchId);
+  }
   App.Utils.Geolocation.WatchId =
       navigator.geolocation.watchPosition(onSuccess, onErr, options);
 };
