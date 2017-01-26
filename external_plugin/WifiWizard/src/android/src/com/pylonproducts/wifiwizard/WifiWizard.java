@@ -479,15 +479,18 @@ public class WifiWizard extends CordovaPlugin {
         }
 
         String ssid = info.getSSID();
-        if(ssid.isEmpty()) {
-            ssid = info.getBSSID();
-        }
-        if(ssid.isEmpty()){
+        String bssid = info.getBSSID();
+        if(ssid.isEmpty() && bssid.isEmpty()){
             callbackContext.error("SSID is empty");
             return false;
         }
 
-        callbackContext.success(ssid);
+        // return JSONObject
+        JSONObject wifiInfo = new JSONObject();
+        wifiInfo.accumulate("ssid", ssid);
+        wifiInfo.accumulate("bssid", bssid);
+
+        callbackContext.success(wifiInfo);
         return true;
     }
 
