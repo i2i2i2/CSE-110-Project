@@ -487,9 +487,14 @@ public class WifiWizard extends CordovaPlugin {
 
         // return JSONObject
         JSONObject wifiInfo = new JSONObject();
-        wifiInfo.accumulate("ssid", ssid);
-        wifiInfo.accumulate("bssid", bssid);
+        try {
+            wifiInfo.put("ssid", ssid);
+            wifiInfo.put("bssid", bssid);
 
+        } catch(JSONException e) {
+            callbackContext.error("Error on creating JSON");
+            return false;
+        }
         callbackContext.success(wifiInfo);
         return true;
     }

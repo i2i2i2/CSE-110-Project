@@ -27,21 +27,20 @@ Meteor.startup(function() {
 
     // override navigation back button
     document.addEventListener("deviceready", deviceReady, false);
-    function deviceReady (){
+
+    function deviceReady() {
       document.addEventListener("backbutton", function(e) {
         e.preventDefault();
         navigator.app.exitApp();
         console.log("App should be exit");
-        
-        App.Utils.Geolocation.stopWatchGPSChange();
-        App.Utils.WifiWizard.stopWatchWifiChange();
       });
 
-      // update GPS coord every 5s
-      App.Utils.Geolocation.updateGPSCoordOnChange({timeout: 5000});
+      // App.Utils.Geolocation.updateGPSCoordOnChange({timeout: 5000});
 
       // update wifi config every 5s
-      App.Utils.Geolocation.updateWifiConfigOnChange(5000);
+      App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
+
+      console.log("interval is set.");
     }
   }
 });

@@ -7,8 +7,12 @@ Template.Debug.events({
 Template.Debug.helpers({
   "netstat": function() {
     if (Meteor.isCordova) {
-      var netstat = JSON.stringify(Session.get('wifiConfig'), undefined, 2);
-      return Spacebars.SafeString("<pre>" + netstat + "</pre>");
+
+      var netstat = Session.get('wifiConfig');
+      if (netstat)
+        return Spacebars.SafeString("<pre>" + JSON.stringify(netstat, undefined, 2) + "</pre>");
+      else
+        return Spacebars.SafeString("<pre>" + Initializing + "</pre>");
 
     } else {
       return Spacebars.SafeString("<pre>Only for Cordova</pre>");
@@ -16,8 +20,12 @@ Template.Debug.helpers({
   },
   "GPSCoords": function() {
     if (Meteor.isCordova) {
-      var GPSCoords = JSON.stringify(Session.get('GPSCoords'), undefined, 2);
-      return Spacebars.SafeString("<pre>" + GPSCoords + "</pre>");
+      var coords = Session.get('GPSCoords');
+      if (!coords) {
+          return Spacebars.SafeString("<pre>Initializing</pre>");
+      }
+
+      return Spacebars.SafeString("<pre>" + JSON.stringify(coords, undefined, 2) + "</pre>");
 
     } else {
       return Spacebars.SafeString("<pre>Only for Cordova</pre>");

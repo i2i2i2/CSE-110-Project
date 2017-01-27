@@ -15,7 +15,7 @@ App.Utils.WifiWizard.updateWifiConfigOnChange = function(interval) {
     clearInterval(App.Utils.WifiWizard.watchId);
   }
   App.Utils.WifiWizard.watchId =
-      setInterval(App.Utils.WifiWizard.getWifiConfigSession, inverval);
+      setInterval(App.Utils.WifiWizard.getWifiConfigSession, interval);
 }
 
 /**
@@ -25,7 +25,6 @@ App.Utils.WifiWizard.stopWatchWifiChange = function() {
   if ('WatchId' in App.Utils.WifiWizard) {
     clearInterval(App.Utils.WifiWizard.watchId);
     delete App.Utils.WifiWizard.WatchId;
-
   }
 }
 
@@ -33,9 +32,14 @@ App.Utils.WifiWizard.stopWatchWifiChange = function() {
  * WifiWizard's onSuccess callback, set wifi config Session
  */
 function onSuccess(wifiConfig) {
-  var config = Session.get('wifiConfig');
-  if (!wifiConfig || wifiConfig.bssid != config.bssid)
+  var pastConfig = Session.get('wifiConfig');
+
+  if (!pastConfig || pastConfig.bssid != wifiConfig.bssid) {
     Session.set('wifiConfig', wifiConfig);
+    console.log("Wifi state change.");
+  }
+
+  console.log("Wifi state checked");
 }
 
 /**

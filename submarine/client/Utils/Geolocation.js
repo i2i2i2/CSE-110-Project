@@ -39,8 +39,18 @@ App.Utils.Geolocation.stopWatchGPSChange = function() {
  * }
  */
 function onSuccess(GPSData) {
-  Session.set('GPSCoords', GPSData);
-  console.log('GPS data get.')
+  var GPS = {
+    latitude: GPSData.coords.latitude,
+    longitude: GPSData.coords.longitude,
+    altitude: GPSData.coords.altitude,
+    accuracy: GPSData.coords.accuracy,
+    altitudeAccuracy: GPSData.coords.altitudeAccuracy,
+    heading: GPSData.coords.heading,
+    speed: GPSData.coords.speed,
+    timestamp: position.timestamp
+  }
+  Session.set('GPSCoords', GPS);
+  console.log('GPS data get.');
 }
 
 /**
