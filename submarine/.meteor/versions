@@ -35,7 +35,6 @@ cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.2.3
 coffeescript@1.0.17
-cosmos:browserify@0.10.0
 ddp@1.2.5
 ddp-client@1.2.9
 ddp-common@1.2.6
@@ -66,8 +65,6 @@ logging@1.1.15
 mdg:validation-error@0.2.0
 meteor@1.2.17
 meteor-base@1.0.4
-meteorhacks:async@1.0.0
-meteorhacks:npm@1.5.0
 minifier-css@1.2.14
 minifier-js@1.2.14
 minimongo@1.0.17

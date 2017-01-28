@@ -14,6 +14,7 @@ App.Utils.WifiWizard.updateWifiConfigOnChange = function(interval) {
   if ('WatchId' in App.Utils.WifiWizard) {
     clearInterval(App.Utils.WifiWizard.watchId);
   }
+  WifiWizard.getCurrentSSID(onSuccess, onErr);
   App.Utils.WifiWizard.watchId =
       setInterval(App.Utils.WifiWizard.getWifiConfigSession, interval);
 }

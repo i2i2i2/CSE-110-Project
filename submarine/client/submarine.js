@@ -15,32 +15,24 @@ Meteor.startup(function() {
 		console.log("New User, Welcome!");
   }
 
-  // these might be implemented in later versions of meteor...
-  if (!Meteor.isProduction) {
-    Meteor.isProduction = Meteor.settings.public.ENVIRONMENT === 'prod'
-  }
-  if (!Meteor.isDevelopment) {
-    Meteor.isDevelopment = Meteor.settings.public.ENVIRONMENT !== 'prod'
-  }
-
   if (Meteor.isCordova) {
 
-    // override navigation back button
     document.addEventListener("deviceready", deviceReady, false);
 
     function deviceReady() {
+      // override navigation back button
       document.addEventListener("backbutton", function(e) {
         e.preventDefault();
         navigator.app.exitApp();
         console.log("App should be exit");
       });
 
-      // App.Utils.Geolocation.updateGPSCoordOnChange({timeout: 5000});
-
+      // update Geolocation very 10s
+      App.Utils.Geolocation.updateGPSCoordOnChange(10000);
       // update wifi config every 5s
       App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
 
-      console.log("interval is set.");
+      console.log("Device is ready");
     }
   }
 });

@@ -12,7 +12,7 @@ Template.Debug.helpers({
       if (netstat)
         return Spacebars.SafeString("<pre>" + JSON.stringify(netstat, undefined, 2) + "</pre>");
       else
-        return Spacebars.SafeString("<pre>" + Initializing + "</pre>");
+        return Spacebars.SafeString("<pre>Initializing</pre>");
 
     } else {
       return Spacebars.SafeString("<pre>Only for Cordova</pre>");

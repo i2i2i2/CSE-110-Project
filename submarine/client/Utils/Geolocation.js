@@ -6,19 +6,20 @@
  *   enableHighAccuracy: default to true
  * }
  */
-App.Utils.Geolocation.getGPSCoordSession = function(options) {
-    navigator.geolocation.getCurrentPosition(onSuccess, onErr, options);
+App.Utils.Geolocation.getGPSCoordSession = function() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onErr);
 };
 
 /**
  * Wrapper for cordova geolocation plugin watch gps change
  */
-App.Utils.Geolocation.updateGPSCoordOnChange = function(options) {
+App.Utils.Geolocation.updateGPSCoordOnChange = function(interval) {
   if ('WatchId' in App.Utils.Geolocation) {
-    navigator.geolocation.clearWatch(App.Utils.Geolocation.WatchId);
+    clearInterval(App.Utils.Geolocation.WatchId);
   }
+  navigator.geolocation.getCurrentPosition(onSuccess, onErr);
   App.Utils.Geolocation.WatchId =
-      navigator.geolocation.watchPosition(onSuccess, onErr, options);
+      setInterval(App.Utils.Geolocation.getGPSCoordSession, interval);
 };
 
 /**
@@ -42,14 +43,13 @@ function onSuccess(GPSData) {
   var GPS = {
     latitude: GPSData.coords.latitude,
     longitude: GPSData.coords.longitude,
-    altitude: GPSData.coords.altitude,
-    accuracy: GPSData.coords.accuracy,
-    altitudeAccuracy: GPSData.coords.altitudeAccuracy,
-    heading: GPSData.coords.heading,
-    speed: GPSData.coords.speed,
-    timestamp: position.timestamp
+    accuracy: GPSData.coords.accuracy
+  };
+  var prevGPS = Session.get('GPSCoords');
+  if (!prevGPS || prevGPS.latitude != GPS.latitude || prevGPS.longitude != GPS.longitude) {
+    Session.set('GPSCoords', GPS);
+    console.log('GPS location changed.');
   }
-  Session.set('GPSCoords', GPS);
   console.log('GPS data get.');
 }
 
