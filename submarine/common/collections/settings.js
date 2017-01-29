@@ -6,7 +6,7 @@ var settingSchema = {
     optional: false
   },
   smtpPort: {
-    type: String,
+    type: Number,
     optional: false
   },
   smtpUsername: {
@@ -24,5 +24,5 @@ var settingSchema = {
 }
 
 // attach the schema
-App.Schemas.Setting = new  SimpleSchema(settingSchema);
+App.Schemas.Setting = new SimpleSchema(settingSchema);
 App.Collections.Settings.attachSchema(App.Schemas.Settings);
