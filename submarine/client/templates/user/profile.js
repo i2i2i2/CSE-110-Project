@@ -18,5 +18,6 @@ Template.Profile.events({
 });
 
 Template.Profile.helpers({
-  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null
+  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
+  profilePic: () => Meteor.userId()? Spacebars.SafeString(GeoPattern.generate(Meteor.user().profile.profileSeed).toSvg()) : null
 });
