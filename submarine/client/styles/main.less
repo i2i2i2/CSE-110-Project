@@ -1,0 +1,70 @@
+@import "color.less";
+
+body {
+  background: @main_color;
+}
+
+h1 {
+  color: @sub_color2;
+}
+
+p {
+  color: @sub_color3;
+}
+
+pre {
+  color: @sub_color4;
+}
+
+
+.button {
+  border: 0.2em solid @sub_color3;
+  border-radius: 0.3em;
+  background: @sub_color2;
+  color: @sub_color3;
+  font-size: 120%;
+  width: 10ch;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  margin: 0.2em;
+  transition: background-color 0.5s ease, color 0.5s ease, border 0.5 ease;
+}
+
+.button.active {
+  background: @comp_color2;
+  color: @comp_color3;
+  border: 0.2em solid @comp_color3;
+}
+
+.bottom.nav {
+  position: absolute;
+  bottom: 0em;
+  left: 0em;
+  width: 100vw;
+  height: 7vh;
+  display: flex;
+  flex-direction: row;
+  background-color: @sub_color2;
+
+  .flex-item.button {
+    width: auto;
+    height: 100%;
+    line-height: 7vh;
+    border: 0;
+    color: @sub_color4;
+    background-color: transparent;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .flex-item.button.active {
+    background: @sub_color1;
+    color: @comp_color4;
+    border: 0;
+  }
+}
+
+.flex-item {
+  flex: 1 1 0;
+}
