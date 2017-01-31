@@ -1,6 +1,12 @@
 <template name="Profile">
   <p>Profile, where user edits there personal info</p>
   {{> atForm state="changePwd"}}
+
+  <form>
+  	<input type="text" class="email">
+  	<div class="button" data-action="changeEmail">Email</div>
+  </form>
+
   <div class="profile_picture">{{{profilePic}}}</div>
   <p>Your Profile random seed is {{randomSeed}}</p>
   <div class="button" data-action="random">Random</div>
