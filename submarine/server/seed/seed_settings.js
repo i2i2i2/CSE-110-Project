@@ -13,6 +13,6 @@ App.Seeder.Settings = function() {
       smtpAuthentication: "tls/ssl"
     };
 
-    App.Collections.Settings.insert(smtpSettings);
+    //App.Collections.Settings.insert(smtpSettings);
   }
 };

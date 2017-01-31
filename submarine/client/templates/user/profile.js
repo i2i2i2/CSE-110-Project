@@ -14,7 +14,18 @@ Template.Profile.events({
     });
 
     $('.button[data-action=random]').addClass('active');
-  }
+  },
+
+  "click .button[data-action=changeEmail]": function(e, t) {
+    console.log("changeEmail");
+    var newEmail = $('.email').val();
+
+    Meteor.call('user/changeEmail', newEmail, (err, res) => {
+            $('.button[data-action=changeEmail]').removeClass('active');
+    });
+
+    $('.button[data-action=changeEmail]').addClass('active');
+    }
 });
 
 Template.Profile.helpers({

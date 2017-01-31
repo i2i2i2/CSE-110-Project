@@ -8,5 +8,11 @@ Meteor.methods({
     console.log("New Seed " + profileSeed);
     return Meteor.users.update({"_id": this.userId},
                                {$set: {"profile.profileSeed": profileSeed}});
+  },
+  'user/changeEmail': function(newEmail) {
+  	if (this.isSimulation) return;
+  	console.log(newEmail);
+  	return Meteor.users.update({"_id": this.userId}, 
+  								{$set: {"emails.0.address": newEmail}});
   }
 })
