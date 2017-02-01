@@ -1,0 +1,213 @@
+@import "color.less";
+
+.login_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background-color: transparent;
+}
+
+.upper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 550px;
+  clip-path: polygon(0 0, 0 100%, 100% 350px, 100% 0);
+  transition: background-color 0.5 ease;
+
+  .title {
+    font-size: 150%;
+
+    h1 {
+      margin: 0.4em 0 0 0;
+      text-align: center;
+      transform: color 0.5 ease;
+    }
+
+    h5 {
+      font-size: 75%;
+      margin: 0.1em auto;
+      text-align: center;
+      transform: color 0.5 ease;
+    }
+  }
+
+  .forms {
+    position: relative;
+    height: 278px;
+    width: 100vw;
+    margin: 3em 0 0 0;
+
+    .form_wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.5s ease, opacity 0.5s ease;
+
+      .input_group {
+        position: relative;
+        font-size: 200%;
+        margin: 0 10vw;
+        width: 80vw;
+        border: 0.05em solid @main_color4;
+        border-radius: 0.2em;
+        background-color: @comp_color4;
+
+        .input_wrap {
+          border-top: 0.05em solid @main_color4;
+
+          input {
+            font-size: 50%;
+            line-height: 3;
+            background-color: @comp_color4;
+            padding-left: 0.5em;
+            margin-left: 0.5em;
+            border: 0;
+          }
+        }
+
+        .input_wrap:first-child {
+          border: 0;
+        }
+      }
+
+      p {
+        margin-left: 12vw;
+      }
+
+      .button {
+        position: absolute;
+        bottom: 0;
+        left: 10vw;
+        margin: 0;
+        font-size: 175%;
+        border: 0;
+        width: 45vw;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 0;
+        clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 52px, 100% 0);
+      }
+    }
+  }
+}
+
+.upper.signup {
+  background-color: @sub_color1;
+
+  .title {
+    h1 {
+      color: @comp_color4;
+    }
+
+    h5 {
+      color: @comp_color3;
+    }
+  }
+
+  .form_wrapper.signup {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.upper.login {
+  background-color: @main_color1;
+
+  .title {
+    h1 {
+      color: @sub_color4;
+    }
+
+    h5 {
+      color: @sub_color3;
+    }
+  }
+
+  .form_wrapper.login {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.lower {
+  position: absolute;
+  top: 350px;
+  right: 0;
+  width: 100vw;
+  height: ~"calc(100vh - 350px)";
+  clip-path: polygon(0 200px,0 100%, 100% 100%, 100% 0);
+  transition: background-color 0.5 ease;
+
+  div.login, div.signup {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s ease, opacity 0.5s ease;
+
+    p {
+      position: absolute;
+      top: 80px;
+      left: 55vw;
+      color: @comp_color4;
+      font-size: 120%;
+    }
+
+    div.button {
+      position: absolute;
+      top: 125px;
+      left: 45vw;
+      margin: 0;
+      font-size: 175%;
+      border: 0;
+      width: 45vw;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 0;
+      clip-path: polygon(0 8px, 0 100%, 100% 100%, 100% 0, 4vw 0);
+    }
+  }
+
+  .submarine_logo {
+    position: absolute;
+    bottom: 40px;
+    left: 25vw;
+    height: 100px;
+    width: 50vw;
+    background-color: @comp_color3;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100vw;
+    text-align: center;
+  }
+}
+
+.lower.signup {
+   div.signup {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.lower.signup {
+  div.signup {
+    visibility: visible;
+    opacity: 1;
+
+    div.button {
+      background-color: @main_color3;
+      color: @comp_color4;
+    }
+  }
+}

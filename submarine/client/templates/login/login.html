@@ -1,0 +1,61 @@
+<template name="Login">
+  <div class="login_box">
+    <div class="upper signup">
+      <div class="title">
+        <h1>Submarine</h1>
+        <h5>Lurk beneath Surface, yet not Alone</h5>
+      </div>
+      <div class="forms">
+        <div class="form_wrapper login">
+          <form class="login">
+            <div class="input_group">
+              <div class="input_wrap">
+                <input id="username_login" placeholder="User Name">
+              </div>
+              <div class="input_wrap">
+                <input id="password_login" placeholder="Password">
+              </div>
+            </div>
+            <p class="forget_pwd">
+              <a href="#" class="forget_pwd_link">Forget Your Password?</a>
+            </p>
+            <div class="button" data-action="login">Login</div>
+          </form>
+        </div>
+        <div class="form_wrapper signup">
+          <form class="signup">
+            <div class="input_group">
+              <div class="input_wrap">
+                <input id="username_signup" placeholder="User Name">
+              </div>
+              <div class="input_wrap">
+                <input id="email_signup" placeholder="Your Email">
+              </div>
+              <div class="input_wrap">
+                <input id="password_signup" placeholder="Password">
+              </div>
+            </div>
+            <div class="button" data-action="signup">Sign Up</div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower signup">
+      <div class="submarine_logo"></div>
+      <div class="changeView">
+        <div class="signup">
+          <p>Have an acount?</p>
+          <div class="button" data-action="switchSignIn">login</div>
+        </div>
+        <div class="login">
+          <p>Need an account?</p>
+          <div class="button" data-action="switchSignUp">Sign Up</div>
+        </div>
+      </div>
+      <div class="footer">
+        <a href="#" class="contact_us">Have a Question? Contact Us</a>
+      </div>
+    </div>
+  </div>
+</template>
