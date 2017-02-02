@@ -32,6 +32,9 @@ Meteor.startup(function() {
       // update wifi config every 5s
       App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
 
+      //Test pushing notification "World, Hello!"
+      App.Utils.Notification.scheduleSingleNotification("World, Hello!");
+
       console.log("Device is ready");
     }
   }
