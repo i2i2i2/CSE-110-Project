@@ -14,9 +14,28 @@ Template.Profile.events({
     });
 
     $('.button[data-action=random]').addClass('active');
-  }
+  },
+
+  "click .button[data-action=changeEmail]": function(e, t) {
+    console.log("changeEmail");
+    var newEmail = $('.email').val();
+    var regexpEmail = /.+@(.+){2,}\.(.+){2,}/;
+    if (regexpEmail.test(newEmail)){
+      $('.checkEmail').text("Changed Successfully");
+      Meteor.call('user/changeEmail', newEmail, (err, res) => {
+              $('.button[data-action=changeEmail]').removeClass('active');
+      });
+
+      $('.button[data-action=changeEmail]').addClass('active');
+      }
+      else{
+        console.log("Invalid");
+        $('.checkEmail').text("Invalid Email");
+      }
+    }
 });
 
 Template.Profile.helpers({
-  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null
+  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
+  profilePic: () => Meteor.userId()? Spacebars.SafeString(GeoPattern.generate(Meteor.user().profile.profileSeed).toSvg()) : null
 });

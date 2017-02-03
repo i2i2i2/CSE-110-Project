@@ -1,0 +1,260 @@
+@import "color.less";
+
+.login_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background-color: transparent;
+}
+
+.upper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 133.5vw;
+  clip-path: polygon(0 0, 0 100%, 100% 85vw, 100% 0);
+  transition: background-color 0.5 ease;
+
+  .title {
+    position: relative;
+    top: 0;
+    font-size: 150%;
+    padding: 5vw 0 0 0;
+    margin: 0;
+    height: 18.5vw;
+
+    h1 {
+      text-align: center;
+      margin: 0;
+      transform: color 0.5 ease;
+    }
+
+    h5 {
+      font-size: 75%;
+      margin: 0.1em auto;
+      text-align: center;
+      transform: color 0.5 ease;
+    }
+  }
+
+  .forms {
+    position: relative;
+    height: 110vw;
+    width: 100vw;
+
+    .form_wrapper {
+      position: absolute;
+      left: 0;
+      top: 5vh;
+      height: ~"calc(110vw - 5vh)";
+      width: 100%;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.5s ease, opacity 0.5s ease;
+
+      .input_group {
+        position: relative;
+        font-size: 200%;
+        margin: 0 10vw;
+        width: 80vw;
+        border: 0.05em solid @main_color4;
+        border-radius: 0.2em;
+        background-color: @comp_color4;
+
+        .input_wrap {
+          border-top: 0.05em solid @main_color4;
+
+          input {
+            font-size: 60%;
+            line-height: 3;
+            background-color: transparent;
+            padding-left: 0.5em;
+            margin-left: 0.5em;
+            border: 0;
+          }
+
+          input:focus {
+            outline: none;
+          }
+        }
+
+        .input_wrap:first-child {
+          border: 0;
+        }
+      }
+
+      p {
+        margin-left: 12vw;
+      }
+
+      .button {
+        position: absolute;
+        bottom: 30vw;
+        left: 10vw;
+        margin: 0;
+        font-size: 175%;
+        border: 0;
+        width: 45vw;
+        height: 14.6vw;
+        line-height: 14.6vw;
+        border-radius: 0;
+        clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 12.6vw, 100% 0);
+      }
+    }
+  }
+}
+
+.upper.signup {
+  background-color: @sub_color1;
+
+  h1 {
+    color: @sub_color4;
+  }
+
+  h5 {
+    color: @sub_color3;
+  }
+
+  .form_wrapper.signup {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.upper.login {
+  background-color: @main_color2;
+
+  h1 {
+    color: @main_color4;
+  }
+
+  h5 {
+    color: @main_color3;
+  }
+
+  .form_wrapper.login {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  div.button {
+    background-color: @main_color3;
+    color: @comp_color4;
+  }
+}
+
+.lower {
+  position: absolute;
+  top: 85vw;
+  right: 0;
+  width: 100vw;
+  height: ~"calc(100vh - 85vw)";
+  clip-path: polygon(0 48.5vw,0 100%, 100% 100%, 100% 0);
+  transition: background-color 0.5 ease;
+
+  div.login, div.signup {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s ease, opacity 0.5s ease;
+
+    p {
+      position: absolute;
+      top: 20vw;
+      left: 55vw;
+      font-size: 120%;
+    }
+
+    div.button {
+      position: absolute;
+      top: 30vw;
+      left: 45vw;
+      margin: 0;
+      font-size: 175%;
+      border: 0;
+      width: 45vw;
+      height: 14.6vw;
+      line-height: 14.6vw;
+      border-radius: 0;
+      clip-path: polygon(0 1.9vw, 0 100%, 100% 100%, 100% 0, 4vw 0);
+    }
+  }
+
+  .submarine_logo {
+    position: absolute;
+    bottom: 2.4vw;
+    left: 25vw;
+    width: 50vw;
+    height: 50vw;
+
+    use {
+      transform: scale(0.2);
+      fill: yellow;
+      stroke: red;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 2.4vw;
+    width: 100vw;
+    text-align: center;
+  }
+}
+
+.lower.signup {
+  div.signup {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.lower.signup {
+  background-color: @main_color2;
+
+  div.signup {
+    visibility: visible;
+    opacity: 1;
+
+    p {
+      color: @comp_color4;
+    }
+
+    div.button {
+      background-color: @main_color3;
+      color: @comp_color4;
+    }
+  }
+}
+
+.lower.login {
+  background-color: @sub_color1;
+
+  div.login {
+    visibility: visible;
+    opacity: 1;
+
+    p {
+      color: @comp_color4;
+    }
+  }
+}
+
+@media screen and (max-height: 108.5vw) {
+  .upper {
+    .button {
+      position: fixed !important;
+      bottom: 5vh !important;
+    }
+  }
+
+  .lower {
+    * {
+      visibility: hidden!important;
+    }
+  }
+}
