@@ -6,7 +6,7 @@ var settingSchema = {
     optional: false
   },
   smtpPort: {
-    type: String,
+    type: Number,
     optional: false
   },
   smtpUsername: {
