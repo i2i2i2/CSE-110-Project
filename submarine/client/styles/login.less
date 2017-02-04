@@ -81,6 +81,27 @@
           input:focus {
             outline: none;
           }
+
+          span {
+            position: absolute;
+            font-size: 60%;
+            line-height: 3;
+            right: 0.5em;
+
+            .fa {
+              font-size: 175%;
+              vertical-align: sub;
+              margin-left: 0.1em;
+            }
+          }
+
+          span.error {
+            color: crimson;
+          }
+
+          span.pass {
+            color: yellowgreen;
+          }
         }
 
         .input_wrap:first-child {
