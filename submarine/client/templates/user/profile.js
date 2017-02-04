@@ -32,7 +32,24 @@ Template.Profile.events({
         console.log("Invalid");
         $('.checkEmail').text("Invalid Email");
       }
-    }
+    },
+
+    "click .button[data-action=changeUserName]": function(e, t) {
+      console.log("changeUsername");
+      var newUsername = $('.userName').val();
+      Meteor.call('user/changeUserName', newUsername, (error, res) => {
+      if(error){
+        console.log("Invalid");
+        $('.Invalid').text("Invalid username");
+      }
+      else{
+        $('.button[data-action=changeUserName]').addClass('active');
+        $('.Invalid').text("Username Changed Successfully");
+        $('.button[data-action=changeUserName]').removeClass('active');
+      }
+      });
+
+      }
 });
 
 Template.Profile.helpers({
