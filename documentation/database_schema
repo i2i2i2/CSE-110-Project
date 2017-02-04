@@ -1,0 +1,96 @@
+
+collection users {
+
+	username: String
+	emails: Array
+	service: Object // password
+	createAt: Date
+	share_location: Boolean
+	credit: Number
+	allow_friends_recommendation: Boolean
+
+	UserProfile {
+
+  		img_url: String,
+  		
+		Friends: Array // userid
+		Stranger: Object // {
+			userid, recent stranger chat
+			validThru: Date
+		}
+		
+		joined_tags: Array // tag object : {
+			tagid: String,
+			validThru: Date
+		}
+		
+		recent_tags: Array // history object : {
+			tagid: String,
+			latitude: Number,
+			longtitude: Number,
+			time: Date
+		}
+
+		social_media: Object : {
+			facebook: url,
+			linkedIn: url,
+			github: url
+		}
+ 	}
+}
+
+collection pwdToken {
+	
+	_id: String,
+	userid: String,
+	validThru: Date
+}
+
+
+
+collection settings{
+
+	smtpAddress: String
+	smtpPort: String
+	smtpUsername: String
+	smtpPassword: String
+	smtpAuthentication: String
+}
+
+collection wifis{
+
+	ssid:
+	mac address:
+	GPS:
+	EXISTING TAGS:
+	// Do not suggest this
+	connected_users
+}
+
+
+collection profile_img {
+  all_img_url: ???
+}
+
+
+collection chat_history {
+
+	is_public: boolean, // if in chatroom
+	sender: userid,
+	receiver: userid or tagid,
+	message: String
+	time: Date
+	rate: Number
+}
+
+collection login_history {
+
+	login_user: username
+	login_time: Date
+	GPS:
+	// Q: must be wifi connection?
+	is_Wifi_connection:
+
+}
+
+
