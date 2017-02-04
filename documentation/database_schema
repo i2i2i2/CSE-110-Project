@@ -1,5 +1,5 @@
 
-collection users {
+n users {
 
 	username: String
 	emails: Array
@@ -61,15 +61,20 @@ collection wifis{
 
 	ssid:
 	mac address:
-	GPS:
-	EXISTING TAGS:
-	// Do not suggest this
-	connected_users
+	GPS: Object{
+		latitude: Number
+		longtitude: Number
+	}
+	tag_history: Array of tag_id // all tags once connected to this wifi
+	
 }
 
 
 collection profile_img {
-  all_img_url: ???
+	
+	img_url: String
+	isUsed: Boolean
+	user_id: String
 }
 
 
@@ -93,4 +98,9 @@ collection login_history {
 
 }
 
-
+collection tag {
+	
+	Wifi_id: String
+	connected_users: Array of User_id
+	connected_wifis: Array of wifi_id
+}
