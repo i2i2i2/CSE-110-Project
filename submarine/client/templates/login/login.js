@@ -31,7 +31,7 @@ Template.Login.onCreated(function() {
   };
 });
 
-Template.login.events({
+Template.Login.events({
 
   // switch to sign in
   "click .button[data-action=switch]": function(e, t) {
