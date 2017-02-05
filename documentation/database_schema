@@ -11,11 +11,22 @@ n users {
 
 	UserProfile {
 
-  		img_url: String,
+  		profile_seed: String,
   		
-		Friends: Array // userid
+		friends_request: Array of user_id (String)
+		
+		recommended_friends: Array of Object // prompt users to find new frineds 
+		{
+			user_id:
+			
+		}
+		Friends: Array of Object{
+			user_id: String
+			nickname: String
+		} // userid
+
 		Stranger: Object // {
-			userid, recent stranger chat
+			user_id, recent stranger chat
 			validThru: Date
 		}
 		
@@ -32,9 +43,9 @@ n users {
 		}
 
 		social_media: Object : {
-			facebook: url,
-			linkedIn: url,
-			github: url
+			facebook: url (String),
+			linkedIn: url (String),
+			github: url (String)
 		}
  	}
 }
@@ -57,17 +68,6 @@ collection settings{
 	smtpAuthentication: String
 }
 
-collection wifis{
-
-	ssid:
-	mac address:
-	GPS: Object{
-		latitude: Number
-		longtitude: Number
-	}
-	tag_history: Array of tag_id // all tags once connected to this wifi
-	
-}
 
 
 collection profile_img {
@@ -80,27 +80,37 @@ collection profile_img {
 
 collection chat_history {
 
-	is_public: boolean, // if in chatroom
-	sender: userid,
-	receiver: userid or tagid,
+	is_public: Boolean, // if in chatroom
+	sender: user_id (String),
+	sender_profile: String (copy from User collection)
+	receiver: user_id or tag_id,
 	message: String
 	time: Date
 	rate: Number
 }
 
+
+
 collection login_history {
 
-	login_user: username
+	login_user: user_id (String)
 	login_time: Date
-	GPS:
-	// Q: must be wifi connection?
-	is_Wifi_connection:
 
 }
 
 collection tag {
 	
-	Wifi_id: String
-	connected_users: Array of User_id
-	connected_wifis: Array of wifi_id
+	Wifis: Array of wifi_id (String)
+	connected_users: Array of user_id (String)
+	start_time: String
+	end: String
+	Repeat: Array of String // store Mon, Wed, etc
+}
+
+collection wifis{
+
+	ssid:
+	mac address:
+	active_tags: Array of tag_id (String)
+	
 }
