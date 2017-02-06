@@ -17,6 +17,21 @@ Meteor.methods({
   								{$set: {"emails.0.address": newEmail}});
   },
 
+  'user/changeUserName': function(newUserName) {
+  	if (this.isSimulation) return;
+  	console.log(newUserName);
+
+    if (Accounts.findUserByUsername(newUserName)){
+      throw new Meteor.Error("Sorry, this username already exists.");
+      return false;
+    }
+    else{
+      console.log("Successfully changed username!");
+      return Meteor.users.update({"_id": this.userId},
+    								{$set: {"username": newUserName}});
+    }
+  },
+
   'user/checkUsername': function(newUsername) {
     if (this.isSimulation) return;
 
