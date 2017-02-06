@@ -19,15 +19,15 @@ Meteor.methods({
   'user/changeUserName': function(newUserName) {
   	if (this.isSimulation) return;
   	console.log(newUserName);
-    //Meteor.users.find({username: newUsername}).count()==0
-    if (true){
+    
+    if (Accounts.findUserByUsername(newUserName)){
+      throw new Meteor.Error("Sorry, this username already exists.");
+      return false;
+    }
+    else{
       console.log("Successfully changed username!");
       return Meteor.users.update({"_id": this.userId},
     								{$set: {"username": newUserName}});
-    }
-    else{
-      throw new Meteor.Error("Sorry, this username already exists.");
-      return false;
     }
 
   }
