@@ -3,22 +3,23 @@
     {
       "host": "104.236.147.136",
       "username": "root",
-      "password": "iseedeadpeoplewhosyourdaddy",
+      "password": "iSEEdeadPEOPLE",
       "env": {}
     }
   ],
 
   "setupMongo": true,
-  "setupNode": false,
+  "setupNode": true,
+  "nodeVersion": "4.6.2",
   "setupPhantom": false,
   "enableUploadProgressBar": true,
   "appName": "yellow-submarine",
   "app": "../submarine",
 
   "env": {
-    "PORT": 80,
+    "PORT": 3000,
     "ROOT_URL": "https://104.236.147.136",
-    "MONGO_URL": "mongodb://root:iseedeadpeoplewhosyourdaddy@127.0.0.1:27017/submarine"
+    "MONGO_URL": "mongodb://127.0.0.1:27017/submarine"
   },
 
   "deployCheckWaitTime": 15
