@@ -3,21 +3,21 @@
  * define what to do when new user created, How to send reset password email
  */
 
+Accounts.config({
+  sendVerificationEmail: false,
+  forbidClientAccountCreation: false
+})
+
 /**
  * Initialize student User account with basic data on first login
  */
 Accounts.onCreateUser((options, user) => {
 
   // prevent useraccount package override username
-  if (options.profile) {
-    var profile = {
-      name: options.profile.fullname || options.profile.name
-    };
-    user.profile = profile;
-  }
-
-  // set profile pic random seed
-  user.profile.profileSeed = Random.id(8); 
+  user.profile = {
+    profileSeed: Random.id(8)
+  };
+  user.allowBeRecommended = true;
 
   return user;
 });

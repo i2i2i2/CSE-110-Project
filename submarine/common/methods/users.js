@@ -9,10 +9,29 @@ Meteor.methods({
     return Meteor.users.update({"_id": this.userId},
                                {$set: {"profile.profileSeed": profileSeed}});
   },
+
   'user/changeEmail': function(newEmail) {
   	if (this.isSimulation) return;
   	console.log(newEmail);
-  	return Meteor.users.update({"_id": this.userId}, 
+  	return Meteor.users.update({"_id": this.userId},
   								{$set: {"emails.0.address": newEmail}});
+  },
+
+  'user/checkUsername': function(newUsername) {
+    if (this.isSimulation) return;
+
+    if (Accounts.findUserByUsername(newUsername)) {
+      throw new Meteor.Error("Unsername Exists");
+      return false;
+    }
+  },
+
+  'user/checkEmail': function(newEmail) {
+    if (this.isSimulation) return;
+
+    if (Accounts.findUserByEmail(newEmail)) {
+      throw new Meteor.Error("Unsername Exists");
+      return false;
+    }
   }
 })

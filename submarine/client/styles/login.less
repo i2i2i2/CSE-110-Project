@@ -67,6 +67,7 @@
         background-color: @comp_color4;
 
         .input_wrap {
+          position: relative;
           border-top: 0.05em solid @main_color4;
 
           input {
@@ -90,15 +91,16 @@
           }
 
           span {
-            position: absolute;
+            position: absolute;;
             font-size: 60%;
             line-height: 3;
             right: 0.5em;
+            top: 0;
 
             .fa {
-              font-size: 175%;
+              font-size: 160%;
               vertical-align: sub;
-              margin-left: 0.1em;
+              margin-left: 0.3rem;
             }
           }
 
@@ -118,6 +120,12 @@
 
       p {
         margin-left: 12vw;
+      }
+
+      p.error {
+        color: crimson;
+        font-size: 120%;
+        margin-top: 0.6em;
       }
 
       .button {
