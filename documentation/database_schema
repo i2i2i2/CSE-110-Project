@@ -11,15 +11,21 @@ n users {
 
 	UserProfile {
 
-  		profile_seed: String,
-  		
+  	profile_seed: String,
+
 		friends_request: Array of user_id (String)
-		
-		recommended_friends: Array of Object // prompt users to find new frineds 
+
+		recommended_friends: Array of Object // prompt users to find new friends
 		{
 			user_id:
-			
+
 		}
+
+		turndownFriends: Array of Object // user turn down the friend request {
+			userId
+			validThru
+		}
+
 		Friends: Array of Object{
 			user_id: String
 			nickname: String
@@ -29,12 +35,12 @@ n users {
 			user_id, recent stranger chat
 			validThru: Date
 		}
-		
+
 		joined_tags: Array // tag object : {
 			tagid: String,
 			validThru: Date
 		}
-		
+
 		recent_tags: Array // history object : {
 			tagid: String,
 			latitude: Number,
@@ -51,7 +57,7 @@ n users {
 }
 
 collection pwdToken {
-	
+
 	_id: String,
 	userid: String,
 	validThru: Date
@@ -69,9 +75,8 @@ collection settings{
 }
 
 
-
 collection profile_img {
-	
+
 	img_url: String
 	isUsed: Boolean
 	user_id: String
@@ -90,16 +95,8 @@ collection chat_history {
 }
 
 
-
-collection login_history {
-
-	login_user: user_id (String)
-	login_time: Date
-
-}
-
 collection tag {
-	
+
 	Wifis: Array of wifi_id (String)
 	connected_users: Array of user_id (String)
 	start_time: String
@@ -112,5 +109,5 @@ collection wifis{
 	ssid:
 	mac address:
 	active_tags: Array of tag_id (String)
-	
+
 }
