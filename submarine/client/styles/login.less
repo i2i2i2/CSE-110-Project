@@ -47,6 +47,11 @@
     height: 110vw;
     width: 100vw;
 
+    .fake {
+      position: absolute;
+      visibility: hidden;
+    }
+
     .form_wrapper {
       position: absolute;
       left: 0;
@@ -79,13 +84,6 @@
             border: 0;
           }
 
-          input:-webkit-autofill,
-          input:-webkit-autofill:hover,
-          input:-webkit-autofill:focus,
-          input:-webkit-autofill:active {
-            transition: background-color 5000s ease-in-out 0s;
-          }
-
           input:focus {
             outline: none;
           }
@@ -110,6 +108,10 @@
 
           span.pass {
             color: yellowgreen;
+          }
+
+          span.load {
+            color: lightgray;
           }
         }
 

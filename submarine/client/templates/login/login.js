@@ -129,7 +129,7 @@ Template.Login.events({
 
     var errors = t.$("span.error, span.load");
     if (errors.length) {
-      t.$(".error, .load").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+      errors.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     } else {
       var username = t.$("#username_signup").val();
       var email = t.$("#email_signup").val();
@@ -168,6 +168,8 @@ Template.Login.events({
 
       else if (err.reason == "Incorrect password")
         t.displaySpan("error", t.$("#password_login").parent(), err.reason);
+
+      t.$("span.error, span.load").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     });
 
     $(e.currentTarget).html("<i class=\"fa fa-refresh fa-spin\"></i></span>");
