@@ -32,11 +32,10 @@ App.Initializer.configureResetEmail = function() {
     "Reset your password on Submarine";
 
   Accounts.emailTemplates.resetPassword.text = (user, url) =>
-    "Click on the link to reset your password: \r\n\n\n" +  url;
+    "Copy the token to specified field to reset your password: \r\n\n\n" +  url;
 
   Accounts.emailTemplates.resetPassword.html = (user, url) =>
-    "<p>Click on the link to reset your password:</p><p>" + url + "</p>";
+    "<p>Copy the token to specified field to reset your password:</p><p>" + url + "</p>";
 
-  Accounts.urls.resetPassword = (token) =>
-    Meteor.absoluteUrl('reset-password/' + token);
+  Accounts.urls.resetPassword = (token) => token
 };

@@ -9,5 +9,4 @@ Meteor.startup(function () {
   // initialized essential Settings
   // App.Initializer.SMTP();
   App.Initializer.configureResetEmail();
-
 });

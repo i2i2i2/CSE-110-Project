@@ -3,23 +3,23 @@ App.Collections.Settings = new Mongo.Collection('settings');
 var settingSchema = {
   smtpAddress: {
     type: String,
-    optional: false
+    optional: true
   },
   smtpPort: {
-    type: Number,
-    optional: false
+    type: String,
+    optional: true
   },
   smtpUsername: {
     type: String,
-    optional: false
+    optional: true
   },
   smtpPassword: {
     type: String,
-    optional: false
+    optional: true
   },
   smtpAuthentication: {
     type: String,
-    optional: false
+    optional: true
   }
 }
 
