@@ -16,8 +16,9 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 133.5vw;
-  clip-path: polygon(0 0, 0 100%, 100% 85vw, 100% 0);
+  height: 123.5vw;
+  clip-path: polygon(0 0, 0 100%, 100% 75vw, 100% 0);
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 75vw, 100% 0);
   transition: background-color 0.5 ease;
 
   .title {
@@ -55,8 +56,8 @@
     .form_wrapper {
       position: absolute;
       left: 0;
-      top: 5vh;
-      height: ~"calc(110vw - 5vh)";
+      top: 3vh;
+      height: ~"calc(100vw - 3vh)";
       width: 100%;
       visibility: hidden;
       opacity: 0;
@@ -77,7 +78,7 @@
 
           input {
             font-size: 60%;
-            line-height: 3;
+            line-height: 2.7;
             background-color: transparent;
             padding-left: 0.5em;
             margin-left: 0.5em;
@@ -98,7 +99,7 @@
           span {
             position: absolute;;
             font-size: 60%;
-            line-height: 3;
+            line-height: 2.7;
             right: 0.5em;
             top: 0;
 
@@ -129,6 +130,7 @@
 
       p {
         margin-left: 12vw;
+        font-size: 110%
       }
 
       p.error {
@@ -149,6 +151,7 @@
         line-height: 14.6vw;
         border-radius: 0;
         clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 12.6vw, 100% 0);
+        -webkit-clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 12.6vw, 100% 0);
       }
     }
   }
@@ -195,11 +198,12 @@
 
 .lower {
   position: absolute;
-  top: 85vw;
+  top: 75vw;
   right: 0;
   width: 100vw;
-  height: ~"calc(100vh - 85vw)";
+  height: ~"calc(100vh - 75vw)";
   clip-path: polygon(0 48.5vw,0 100%, 100% 100%, 100% 0);
+  -webkit-clip-path: polygon(0 48.5vw,0 100%, 100% 100%, 100% 0);
   transition: background-color 0.5 ease;
 
   div.login, div.signup {
@@ -226,18 +230,19 @@
       line-height: 14.6vw;
       border-radius: 0;
       clip-path: polygon(0 1.9vw, 0 100%, 100% 100%, 100% 0, 4vw 0);
+      -webkit-clip-path: polygon(0 1.9vw, 0 100%, 100% 100%, 100% 0, 4vw 0);
     }
   }
 
   .submarine_logo {
     position: absolute;
-    bottom: 2.4vw;
-    left: 25vw;
+    bottom: 6vh;
+    left: 27vw;
     width: 50vw;
-    height: 50vw;
+    height: 35vw;
 
     use {
-      transform: scale(0.2);
+      transform: scale(1.2, 1.1);
       fill: yellow;
       stroke: red;
     }
@@ -302,4 +307,30 @@
       visibility: hidden!important;
     }
   }
+}
+
+@media screen and (max-height: 160vw) {
+  .upper {
+    height: 113.5vw;
+    clip-path: polygon(0 0, 0 100%, 100% 65vw, 100% 0);
+    -webkit-clip-path: polygon(0 0, 0 100%, 100% 65vw, 100% 0);
+
+    .forms {
+      height: 90vw;
+
+      .form_wrapper {
+        position: absolute;
+        left: 0;
+        top: 3vh;
+        height: ~"calc(90vw - 3vh)";
+      }
+    }
+  }
+  .lower {
+      top: 65vw;
+      height: ~"calc(100vh - 65vw)";
+      clip-path: polygon(0 48.5vw,0 100%, 100% 100%, 100% 0);
+      -webkit-clip-path: polygon(0 48.5vw,0 100%, 100% 100%, 100% 0);
+  }
+
 }
