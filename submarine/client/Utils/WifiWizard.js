@@ -1,6 +1,4 @@
 //A list of wifi which can be scanned by the mobile device
-//Only includes BSSID and level
-var wifiList = [];
 
 /**
  * Wrap wifi wifizard functions to App.Utils.WifiWizard
@@ -63,7 +61,6 @@ function onErr(err) {
  */
 App.Utils.WifiWizard.getNearbyWifi = function() {
     WifiWizard.getScanResults(onSuccess2, onErr2);
-    return wifiList;
 }
 
 
@@ -71,23 +68,17 @@ App.Utils.WifiWizard.getNearbyWifi = function() {
  * Handler for getNearbyWifi when successful
  */
 function onSuccess2(network) {
-  var i;
 
-  //Print to console for five
-  for(i = 0; i < 5; i++){
-    console.log("SSID: " + JSON.stringify(network[i].SSID) + " BSSID: " + JSON.stringify(network[i].BSSID) +
-        " Level: " + JSON.stringify(network[i].level));
-  }
-  console.log("Check var wifilist for complete list!");
+  var networkList = network.map((wifi) => {
+    return {
+      bssid: wifi.BSSID,
+      ssid: wifi.SSID,
+      level: wifi.level
+    }
+  });
 
-  //Store all scanned wifi to a list
-  for(i = 0; i < network.length; i++)
-  {
-    wifiList.push({
-      BSSID: JSON.stringify(network[i].BSSID),
-        level: JSON.stringify(network[i].level)
-    });
-  }
+  console.log(JSON.stringify(networkList, undefined, 2));
+  Session.set('wifiList', networkList);
 }
 
 /*
@@ -95,6 +86,6 @@ function onSuccess2(network) {
  */
 function onErr2(network){
   var error = {err: true, msg: err};
-  Session.set('wifiConfig', error);
+  Session.set('wifiList', error);
   console.log("error when trying to scan wifi");
 }
