@@ -29,8 +29,13 @@ Meteor.startup(function() {
 
       // update Geolocation very 10s
       App.Utils.Geolocation.updateGPSCoordOnChange(10000);
+
       // update wifi config every 5s
       App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
+
+      // Return the user's mobile device nearby wifi in a list
+      // list is { BSSID: BSSID in string, level: level in string
+      var list = App.Utils.WifiWizard.getNearbyWifi();
 
       //Test pushing notification "World, Hello!"
       App.Utils.Notification.scheduleSingleNotification("World, Hello!");
