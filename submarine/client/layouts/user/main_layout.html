@@ -1,6 +1,8 @@
 <template name="mainLayout">
-  <h1>Hey Hey Captain, {{username}}</h1>
-  {{> Template.dynamic template=content}}
+  {{> TopAnchor}}
+  <div class="content">
+    {{> Template.dynamic template=content}}
+  </div>
   <div class="bottom nav">
     <div class="button flex-item" data-link="home">Home</div>
     <div class="button flex-item" data-link="friends">Friends</div>
