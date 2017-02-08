@@ -57,7 +57,7 @@ Template.TopAnchor.onCreated(function() {
 
   self.handleTouchUp = function(event) {
 
-    $("body").off('touchmove', self.handleTouchMove);
+    document.removeEventListener('touchmove', self.handleTouchMove);
     $(".top_anchor").removeClass("drag");
     $('.top_anchor').removeAttr('style');
 
