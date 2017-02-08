@@ -146,6 +146,8 @@
         margin: 0;
         font-size: 175%;
         border: 0;
+        border-style: outset;
+        border-width: thick;
         width: 45vw;
         height: 14.6vw;
         line-height: 14.6vw;
@@ -161,16 +163,21 @@
   background-color: @sub_color1;
 
   h1 {
-    color: @sub_color4;
+    color: @main_color2;
   }
 
   h5 {
-    color: @sub_color3;
+    color: @main_color3;
   }
 
   .form_wrapper.signup {
     visibility: visible;
     opacity: 1;
+  }
+
+  div.button {
+    background-color: @main_color2;
+    color: @comp_color4;
   }
 }
 
@@ -178,11 +185,11 @@
   background-color: @main_color2;
 
   h1 {
-    color: @main_color4;
+    color: @sub_color1;
   }
 
   h5 {
-    color: @main_color3;
+    color: @sub_color2;
   }
 
   .form_wrapper.login {
@@ -191,9 +198,14 @@
   }
 
   div.button {
-    background-color: @main_color3;
-    color: @comp_color4;
+    background-color: @sub_color1;
+    color: @comp_color5;
+    /*border-top-color: darkgray;
+    border-left-color: darkgray;
+    border-bottom-color: black;
+    border-right-color: black;*/
   }
+
 }
 
 .lower {
@@ -225,6 +237,8 @@
       margin: 0;
       font-size: 175%;
       border: 0;
+      border-style: outset;
+      border-width: thick;
       width: 45vw;
       height: 14.6vw;
       line-height: 14.6vw;
@@ -275,9 +289,12 @@
     }
 
     div.button {
-      background-color: @main_color3;
-      color: @comp_color4;
+      background-color: @sub_color1;
+      color: @comp_color5;
     }
+  }
+  div.svg{
+     fill: darkgray;
   }
 }
 
@@ -289,7 +306,15 @@
     opacity: 1;
 
     p {
+      color: @comp_color5;
+    }
+    div.button {
+      background-color: @main_color2;
       color: @comp_color4;
+      /*border-top-color: darkgray;
+      border-left-color: darkgray;
+      border-bottom-color: black;
+      border-right-color: black;*/
     }
   }
 }
