@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "450785665666",
+    "firebase_url": "https://yellow-submarine-messaging.firebaseio.com",
+    "project_id": "yellow-submarine-messaging",
+    "storage_bucket": "yellow-submarine-messaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450785665666:android:4fb0a51e981caacc",
+        "android_client_info": {
+          "package_name": "com.yellow.submarine.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450785665666-m8v682rvk74dm5ei7rb704atnmr7t0m8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF-6U6C7r1hcAgUVFzhbjfH2u3MDcodUc"
+        },
+        {
+          "current_key": "AIzaSyDSr_XhvwdGf3-ecjoVjmUodbV86SFOsq4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

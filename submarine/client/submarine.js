@@ -28,19 +28,37 @@ Meteor.startup(function() {
       });
 
       // update Geolocation very 10s
-      App.Utils.Geolocation.updateGPSCoordOnChange(10000);
+      // App.Utils.Geolocation.updateGPSCoordOnChange(10000);
 
       // update wifi config every 5s
-      App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
+      // App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
 
       // Return the user's mobile device nearby wifi in a list
-      // list is { BSSID: BSSID in string, level: level in string
-      var list = App.Utils.WifiWizard.getNearbyWifi();
+      list is { BSSID: BSSID in string, level: level in string
+      App.Utils.WifiWizard.getNearbyWifi();
 
-      //Test pushing notification "World, Hello!"
+      Test pushing notification "World, Hello!"
       App.Utils.Notification.scheduleSingleNotification("World, Hello!");
 
-      console.log("Device is ready");
+      window.FirebasePlugin.getToken(function(token) {
+        // save this server-side and use it to push notifications to this device
+        console.log(token);
+      }, function(error) {
+        console.error(error);
+      });
+
+      window.FirebasePlugin.onTokenRefresh(function(token) {
+        // save this server-side and use it to push notifications to this device
+        console.log(token);
+      }, function(error) {
+        console.error(error);
+      });
+
+      window.FirebasePlugin.onNotificationOpen(function(notification) {
+        console.log(notification.body);
+      }, function(error) {
+        console.error(error);
+      });
     }
   }
 });
