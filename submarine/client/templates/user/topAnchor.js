@@ -15,7 +15,16 @@ Template.TopAnchor.onCreated(function() {
     self.velocity = Math.abs((event.pageY - self.lastPointY)/(now - self.mousemoveTime));
     self.lastPointY = event.pageY;
     self.mousemoveTime = now;
-    $(".top_anchor").css("transform", "translateY(" + (self.lastPointY - self.mouseDownY) + "px)");
+    var diff = self.lastPointY - self.mouseDownY;
+    if ($(".top_anchor").hasClass("top")) {
+      if (diff < 0) diff = 0;
+      if (diff > $(window).height()) diff = $(window).height();
+    } else {
+      if (diff > 0) diff = 0;
+      if (diff < -$(window).height()) diff = -$(window).height();
+    }
+
+    self.$(".top_anchor").css("transform", "translateY(" + diff + "px)");
   }
 
   self.handleMouseLeave = function(event) {
@@ -64,7 +73,16 @@ Template.TopAnchor.onCreated(function() {
     self.velocity = Math.abs((pageY - self.lastPointY)/(now - self.mousemoveTime));
     self.lastPointY = pageY;
     self.mousemoveTime = now;
-    self.$(".top_anchor").css("transform", "translateY(" + (self.lastPointY - self.mouseDownY) + "px)");
+    var diff = self.lastPointY - self.mouseDownY;
+    if ($(".top_anchor").hasClass("top")) {
+      if (diff < 0) diff = 0;
+      if (diff > $(window).height()) diff = $(window).height();
+    } else {
+      if (diff > 0) diff = 0;
+      if (diff < -$(window).height()) diff = -$(window).height();
+    }
+
+    self.$(".top_anchor").css("transform", "translateY(" + diff + "px)");
   }
 });
 
