@@ -21,7 +21,7 @@ var settingSchema = {
     type: String,
     optional: true
   }
-}
+};
 
 // attach the schema
 App.Schemas.Settings = new SimpleSchema(settingSchema);
