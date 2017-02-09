@@ -34,10 +34,10 @@ Meteor.startup(function() {
       // App.Utils.WifiWizard.updateWifiConfigOnChange(5000);
 
       // Return the user's mobile device nearby wifi in a list
-      list is { BSSID: BSSID in string, level: level in string
+      // list is { BSSID: BSSID in string, level: level in string
       App.Utils.WifiWizard.getNearbyWifi();
 
-      Test pushing notification "World, Hello!"
+      // Test pushing notification "World, Hello!"
       App.Utils.Notification.scheduleSingleNotification("World, Hello!");
 
       window.FirebasePlugin.getToken(function(token) {
