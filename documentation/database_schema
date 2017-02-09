@@ -1,113 +1,350 @@
+collection App.Schemas.UserProfile {
+  profileSeed: {
+    type: String,
+    optional: true,
+    label: "random seed that generates the profile picture"
+  },
 
-n users {
+  friendRequest: {
+    type: Array,
+    optional: true,
+    label: "array of user's userid who send friend request to this user"
+  },
 
-	username: String
-	emails: Array
-	service: Object // password
-	createAt: Date
-	share_location: Boolean
-	credit: Number
-	allow_friends_recommendation: Boolean
+  "friendRequest.$": {
+    type: String,
+    optional: true
+  },
 
-	UserProfile {
+  recommendedFriends: {
+    type: Array,
+    optional: true,
+    label: "Array of recommendedFriends to user, include userId, user name, profile seed"
+  },
 
-  	profile_seed: String,
+  "recommendedFriends.$": {
+    type: Object,
+    optional: true
+  },
 
-		friends_request: Array of user_id (String)
+  "recommendedFriends.$.userId": {
+    type: String,
+    optional: true
+  },
 
-		recommended_friends: Array of Object // prompt users to find new friends
-		{
-			user_id:
+  "recommendedFriends.$.recommandReason": {
+    type: String,
+    optional: true,
+    label: "String of common chatroom of 2 users"
+  },
 
-		}
+  turndownFriends: {
+    type: Array,
+    optional: true,
+    label: "array of turn down friend request, future request will be blocked to some time"
+  },
 
-		turndownFriends: Array of Object // user turn down the friend request {
-			userId
-			validThru
-		}
+  "turndownFriends.$": {
+    type: Object,
+    optional: true
+  },
 
-		Friends: Array of Object{
-			user_id: String
-			nickname: String
-		} // userid
+  "turndownFriends.$.userId": {
+    type: String,
+    optional: true
+  },
 
-		Stranger: Object // {
-			user_id, recent stranger chat
-			validThru: Date
-		}
+  "turndownFriends.$.validThru": {
+    type: Date,
+    optional: true
+  },
 
-		joined_tags: Array // tag object : {
-			tagid: String,
-			validThru: Date
-		}
+  friends: {
+    type: Array,
+    optional: true
+  },
 
-		recent_tags: Array // history object : {
-			tagid: String,
-			latitude: Number,
-			longtitude: Number,
-			time: Date
-		}
+  "friends.$": {
+    type: Object,
+    optional: true
+  },
 
-		social_media: Object : {
-			facebook: url (String),
-			linkedIn: url (String),
-			github: url (String)
-		}
- 	}
+  "friends.$.userId": {
+    type: String,
+    optional: true
+  },
+
+  "friends.$.nickname": {
+    type: String,
+    optional: true
+  },
+
+  strangers: {
+    type: Array,
+    optional: true,
+    label: "Stranger that chats with user auto remove in certain time"
+  },
+
+  "strangers.$": {
+    type: Object,
+    optional: true
+  },
+
+  "strangers.$.userId": {
+    type: String,
+    optional: true
+  },
+
+  "strangers.$.profileSeed": {
+    type: String,
+    optional: true
+  },
+
+  savedTags: {
+    type: Array,
+    optional: true,
+    label: "user saved tag, can be accessed any time"
+  },
+
+  "savedTags.$": {
+    type: Object,
+    optional: true
+  },
+
+  "savedTags.$.tagid": {
+    type: String,
+    optional: true
+  },
+
+  "savedTags.$.validThru": {
+    type: Date,
+    optional: true
+  },
+
+  socialMedia: {
+    type: Object,
+    optional: true,
+    label: "store user social media info"
+  },
+
+  "socialMedia.facebook": {
+    type: String,
+    optional: true
+  },
+
+  "socialMedia.google": {
+    type: String,
+    optional: true
+  },
+
+  "socialMedia.github": {
+    type: String,
+    optional: true
+  }
 }
 
-collection pwdToken {
 
-	_id: String,
-	userid: String,
-	validThru: Date
+
+/* User collection */
+collection User {
+  username: {
+    type: String,
+    optional: true
+  },
+
+  emails: {
+    type: Array,
+    optional: true
+  },
+
+  "emails.$": {
+    type: Object
+  },
+
+  "emails.$.address": {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email
+  },
+
+  "emails.$.verified": {
+    type: Boolean
+  },
+
+  services: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+
+  createdAt: {
+    type: Date
+  },
+
+  profile: {
+    type: App.Schemas.UserProfile,
+    optional: true,
+    label: "user's profile, only field to auto publish to Client"
+  },
+
+  allowBeRecommended: {
+    type: Boolean,
+    optional: false,
+    label: "if user want to be recommaned to others as friends"
+  },
+
+  recentTags: {
+    type: Array,
+    optional: true,
+    label: "user saved tag, can be accessed any time"
+  },
+
+  "recentTags.$": {
+    type: Object,
+    optional: true
+  },
+
+  "recentTags.$.tagid": {
+    type: String,
+    optional: true
+  },
+
+  "recentTags.$.longitude": {
+    type: Number,
+    optional: true
+  },
+
+  "recentTags.$.latitude": {
+    type: Number,
+    optional: true
+  },
+
+  "recentTags.$.time": {
+    type: Date,
+    optional: true
+  },
+
+  login_history : {
+    type: Array,
+    optional: true
+  },
+  "login_history.$": {
+    type: Date,
+    optional: true
+  }
 }
 
 
+collection Setting {
+  smtpAddress: {
+    type: String,
+    optional: true
+  },
+  smtpPort: {
+    type: String,
+    optional: true
+  },
+  smtpUsername: {
+    type: String,
+    optional: true
+  },
+  smtpPassword: {
+    type: String,
+    optional: true
+  },
+  smtpAuthentication: {
+    type: String,
+    optional: true
+  }
+};
 
-collection settings{
+collection Tags {
+   
+  wifis: {
+    type: Array,
+    optional: true,
+    label: "array of wifi id under this tag"
+  },
+  "wifis.$": {
+    type: String,
+    optional: true
+  },
+  users: {
+    type: Array,
+    optional: true,
+    label: "array of user id under this tag"
+  },
+  "users.$": {
+    type: String,
+    optional: true
+  },
+  start_time: {
+    type: String,
+    optional: true
+  },
+  end_time: {
+    type: String,
+    optional: true
+  },
+  repeat: {
+    type: Number,
+    optional: true,
+    label: "a number that indicates what days the tag becomes active"
+  }
+};
 
-	smtpAddress: String
-	smtpPort: String
-	smtpUsername: String
-	smtpPassword: String
-	smtpAuthentication: String
-}
 
+collection Message {
+  
+  is_public: {
+      type: Boolean,
+      optional: true
+  },
+    
+  sender: {
+      type: String,
+      optional: true,
+      label: "user id"
+  },
+  sender_profile:{
+      type: String,
+      optional: true
+  },
+  receiver: {
+      type: String,
+      optional: true
+  },
+  message:{
+      type: String,
+      optional: true
+  }, 
+  time: {
+      type: Date,
+      optional: true
+  },
+  rate: {
+      type: Number,
+      optional: true
+  }
+};
 
-collection profile_img {
+collection Wifis = {
+  
+  ssid: {
+    type: String,
+    optional: true
+  },
+  bssid: {
+    type: String,
+    optional: true
+  },
+  active_tags: {
+    type: Array,
+    optional: true,
+    label: "array of ids of active_tags that are under this wifi"
+  },
+  "active_tags.$": {
+    type: String,
+    optional: true
+  }
+};
 
-	img_url: String
-	isUsed: Boolean
-	user_id: String
-}
-
-
-collection chat_history {
-
-	is_public: Boolean, // if in chatroom
-	sender: user_id (String),
-	sender_profile: String (copy from User collection)
-	receiver: user_id or tag_id,
-	message: String
-	time: Date
-	rate: Number
-}
-
-
-collection tag {
-
-	Wifis: Array of wifi_id (String)
-	connected_users: Array of user_id (String)
-	start_time: String
-	end: String
-	Repeat: Array of String // store Mon, Wed, etc
-}
-
-collection wifis{
-
-	ssid:
-	mac address:
-	active_tags: Array of tag_id (String)
-
-}
