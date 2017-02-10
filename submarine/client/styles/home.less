@@ -1,0 +1,98 @@
+@import "color.less";
+
+.avatar_circle{
+    margin: auto;
+    margin-top: 8vh;
+    margin-bottom: 0;
+    width: 30vw;
+	height: 30vw;
+	background: @sub_color1;
+	-moz-border-radius: 15vw;
+	-webkit-border-radius: 15vw;
+	border-radius: 15vw;
+
+}
+
+.greeting_name {
+    text-align: center;
+
+    p{
+        font-family: "Centaur", cursive, sans-serif;
+        color: black;
+        font-size: 160%;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px;
+        margin: 0em;
+
+    }
+}
+
+hr{
+    border-color: @sub_color2;
+    margin-top: 2vh;
+    margin-right: 5vw;
+    margin-left: 1vw;
+    margin-bottom: 0.5vh;
+
+}
+
+.recent_tags, .recent_friends{
+    margin: 0;
+    width: 100%;
+    height: 22vh;
+    overflow: hidden;
+
+    .recent_tag_name, .recent_friend_name{
+        //position: absolute;
+        //left: 0em;
+        margin-top: 2vh;
+        width: 100%;
+        overflow: auto;
+        white-space: nowrap;
+        //flex-direction: row;
+        padding-bottom: 25px;
+       // bottom: -10px;
+    }
+
+    .recent_tag_name .tag_circle_wrapper,
+    .recent_friend_name .name_circle_wrapper{
+        margin-top: 2vh;
+        display: inline-block;
+        text-align: center;
+        width: 24vw;
+        text-decoration: none;
+    }
+
+    .recent_tag_name .tag_circle,
+    .recent_friend_name .name_circle{
+        margin: auto;
+        //margin-top: 8vh;
+        margin-bottom: 0.5vh;
+        width: 16vw;
+	    height: 16vw;
+	    background: white;
+	    -moz-border-radius: 8vw;
+	    -webkit-border-radius: 8vw;
+	    border-radius: 8vw;
+    }
+
+
+    .recent_tag_name a,
+    .recent_friend_name a{
+        color: white;
+        text-decoration: none;
+        font-size: 110%
+    }
+
+
+
+}
+
+
+ h3{
+        margin: 0;
+        margin-left: 1vw;
+        margin-bottom: 0.5vh;
+        font-size: 140%;
+        font-family: "Centaur", cursive, sans-serif;
+}
