@@ -15,7 +15,6 @@ Template.TopAnchor.onCreated(function() {
     if(!$.contains(document.getElementsByClassName("submarine_bg")[0],event.target))
       return;
 
-    console.log("down");
     self.lastPointY = self.mouseDownY = event.touches.item(0).pageY;
     self.mousemoveTime = Date.now().value;
     self.velocity = 0;
