@@ -3,11 +3,18 @@
     <div class="content">
     </div>
     <div class="submarine_bg">
-      <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 450 300">
+      <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 450 325">
+        <defs>
+          <filter id="f1" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="0" dy="3" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+          </filter>
+        </defs>
         <g>
           <path stroke="#000" fill="#666666" stroke-width="0" stroke-opacity="null" d="m314.37973,178.10056c33.37986,-41.76086 112.14831,-71.39756 84.17531,-39.06661c-27.97301,32.33096 -4.28761,38.80807 -30.41097,73.15972c-26.12337,34.35166 -59.56954,-3.10926 -58.11823,-4.45639c1.45129,-1.34712 -29.02598,12.12413 4.35389,-29.63672z" id="svg_27"/>
-          <ellipse fill="#FABA6F" stroke-width="0" cx="224.999992" cy="232.499985" id="svg_1" rx="225.500008" ry="67.000008" stroke="#000"/>
-          <rect fill="#FABA6F" stroke-width="0" x="154.750035" y="61.750089" width="14.999988" height="56.499954" id="svg_19" stroke="#000"/>
+          <ellipse fill="#FFE955" stroke-width="0" cx="224.999992" cy="232.499985" id="svg_1" rx="225.500008" ry="67.000008" stroke="#000" filter = "url(#f1)" />
+          <rect fill="#FFE955" stroke-width="0" x="154.750035" y="61.750089" width="14.999988" height="56.499954" id="svg_19" stroke="#000"/>
           <path fill="#FFE7A2" stroke-width="0" d="m86.25014,147.75c16.57464,-42.99996 26.4295,-64.00022 97.43184,-58.25008c71.00234,5.75013 83.09734,49.25009 100.56791,79.25007" id="svg_17" stroke="#000"/>
           <path fill="#84D3DB" stroke-width="0" d="m110.35786,106.7744c11.44339,-2.0446 54.52441,-1.0223 65.96781,1.0223c11.44339,2.04459 20.19425,15.33443 12.11655,26.57969c-8.07769,11.24526 -92.8947,17.37839 -98.61579,17.12313c-5.72109,-0.25526 9.08803,-42.68054 20.53143,-44.72512z" id="svg_29" stroke="#000"/>
           <path stroke="#000" fill="#FFF093" stroke-width="0" d="m-0.888894,227.602382c-34.558154,-63.841316 66.971048,-84.812557 138.19768,-88.744559c71.226633,-3.932001 323.807699,52.644589 384.965693,91.392117" id="svg_15"/>
@@ -21,9 +28,9 @@
           <ellipse fill="#84D3DB" stroke-width="0" stroke-opacity="null" cx="240.999892" cy="190" id="svg_11" rx="16.5" ry="16.5" stroke="#000"/>
           <path fill="#FFE7A2" stroke-width="0" stroke-opacity="null" opacity="0.5" d="m1.25018,218.24995c0,-0.5 36.99997,-66.49994 37.99997,-65.99994" id="svg_12" stroke="#000"/>
           <path fill="#FFE7A2" stroke-width="0" opacity="0.5" d="m139.25007,93.75005" id="svg_18" stroke="#000"/>
-          <rect fill="#FABA6F" stroke-width="0" x="157.250033" y="36.75011" width="0" height="1.499999" id="svg_20" stroke="#000"/>
-          <path fill="#FABA6F" stroke-width="0" stroke-opacity="null" fill-opacity="null" d="m148.74997,43.75c20.25,0 21,11 21,17.49999c0,6.5 -1.24999,23 -3.24999,19.5c-2.00001,-3.5 -10.25001,-5.75 -11.25001,-16.25c-1,-10.5 -8.49999,-8.49999 -17.49999,-8.74999c-9,-0.25 -9.25,-12 10.99999,-12z" id="svg_23" stroke="#000"/>
-          <path fill="#FABA6F" stroke-width="0" d="m150.41272,56.25019l-31.91296,5.24969l0.575,-21.99996c11.30831,1.5 22.61662,2.99999 33.92493,4.49999" id="svg_31" stroke="#000"/>
+          <rect fill="#FFE955" stroke-width="0" x="157.250033" y="36.75011" width="0" height="1.499999" id="svg_20" stroke="#000"/>
+          <path fill="#FFE955" stroke-width="0" stroke-opacity="null" fill-opacity="null" d="m148.74997,43.75c20.25,0 21,11 21,17.49999c0,6.5 -1.24999,23 -3.24999,19.5c-2.00001,-3.5 -10.25001,-5.75 -11.25001,-16.25c-1,-10.5 -8.49999,-8.49999 -17.49999,-8.74999c-9,-0.25 -9.25,-12 10.99999,-12z" id="svg_23" stroke="#000"/>
+          <path fill="#FFE955" stroke-width="0" d="m150.41272,56.25019l-31.91296,5.24969l0.575,-21.99996c11.30831,1.5 22.61662,2.99999 33.92493,4.49999" id="svg_31" stroke="#000"/>
           <ellipse fill="#666666" stroke-width="0" cx="119.999978" cy="50.624994" id="svg_24" rx="4.499996" ry="10.87499" stroke="#000"/>
           <ellipse fill="#84D3DB" stroke-width="0" cx="120.24998" cy="50.499994" id="svg_25" rx="2.749997" ry="8.749991" stroke="#000"/>
           <path fill="#B1FFFF" stroke-width="0" d="m133.24911,108.06724c23.24866,1.24347 37.50169,0.77569 44.25053,3.77155c6.74884,2.99586 13.24929,11.04791 10.99953,15.05385c-2.24977,4.00593 -3.74664,-12.71635 -20.49825,-14.22283c-16.75161,-1.50648 -1.00453,-0.99347 -30.50223,-0.78213c-29.49771,0.21134 -27.49823,-5.06391 -4.24958,-3.82044z" id="svg_32" stroke="#000"/>

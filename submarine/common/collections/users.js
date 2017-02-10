@@ -218,6 +218,15 @@ App.Schemas.User = new SimpleSchema({
   "recentTags.$.time": {
     type: Date,
     optional: true
+  },
+
+  login_history : {
+    type: Array,
+    optional: true
+  },
+  "login_history.$": {
+    type: Date,
+    optional: true
   }
 });
 
