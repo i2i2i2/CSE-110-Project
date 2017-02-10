@@ -1,3 +1,61 @@
 <template name="Friends">
-  <p>Friends, where user can view added friends and get recommandation for potential friends</p>
+  <div class="friendsRecommend">
+    <div class="recommend_header bar">
+      <p>Recommend Friends</p>
+    </div>
+    <div class="recommend_content">
+      <div class="recommend_list">
+        {{#each recommendations}}
+          <div>{{name}}</div>
+        {{/each}}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="friendsRequests">
+    <div class="requests_header bar">
+      <p>New Friend Requests</p>
+    </div>
+    <div class="requests_content">
+      <ul class="requests_list">
+        <li class="request">
+          <div class="avatar">
+          </div>
+          <div class="rec_descript">
+          </div>
+          <div class="button">
+            Accept
+          </div>
+          <div class="button">
+            Dismiss
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="friendsContainer">
+    <ul class="friendsList">
+      <li class="oneFriend">
+        <div class="avatar">
+
+          </div>
+          <div class="nickname">
+        </div>
+        <div class="profileName">
+        </div>
+      </li>
+
+      <li class="oneFriend">
+        <div class="avatar">
+
+          </div>
+          <div class="nickname">
+        </div>
+        <div class="profileName">
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
