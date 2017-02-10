@@ -1,3 +1,37 @@
 <template name="Home">
-  <p>User home, where user may drop anchor and discover others</p>
+    <div class= "user_name_avatar">
+        <div class= "avatar_circle"></div>
+        <div class= "greeting_name">
+            <p>Hello, Captain {{greetingName}}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class= "recent_tags">
+        <h3>Recent tags</h3>
+        <div class= "recent_tag_name">
+            {{#each recentTags}}
+            <div class="tag_circle_wrapper">
+              <div class="tag_circle"></div>
+              <a href="#">{{this}}</a>
+            </div>
+            {{/each}}
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class= "recent_friends">
+        <h3>Recent friends</h3>
+        <div class= "recent_friend_name">
+            {{#each recentFriends}}
+            <div class="name_circle_wrapper">
+              <div class="name_circle"></div>
+              <a href="#">{{this}}</a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
 </template>
