@@ -4,9 +4,7 @@ Template.Home.onRendered(function() {
 
 Template.Home.helpers({
 
-    "greetingName": function() {
-        return "Sheep";
-    },
+    "greetingName": () => Meteor.userId()? Meteor.user().username : null,
 
     "recentTags": function() {
         return [
