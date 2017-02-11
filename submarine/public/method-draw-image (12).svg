@@ -1,11 +1,16 @@
-<template name="TopAnchor">
-  <div class="top_anchor top">
-    <div class="content">
-    </div>
-    <div class="submarine_bg">
-      <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="37.5 0 375 350">
-        <g>
-         <path d="m314.37973,178.100555c33.379852,-41.760864 112.148315,-71.397552 84.175323,-39.066605c-27.973022,32.330963 -4.287628,38.808075 -30.41098,73.159714c-26.123383,34.351669 -59.56955,-3.109253 -58.118225,-4.45639c1.451294,-1.347107 -29.026001,12.12413 4.353882,-29.636719z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_27"/>
+<svg width="449.99892498298055" height="349.9990249886377" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g stroke="null">
+  <title>background</title>
+  <rect height="45.7288" width="58.2228" y="-1" x="-1" stroke="null" fill="#fff" id="canvas_background"/>
+  <g stroke="null" display="none" id="canvasGrid">
+   <rect height="100%" width="100%" y="0" x="0" stroke-width="0" fill="url(#gridpattern)" id="svg_3"/>
+  </g>
+ </g>
+ <g stroke="null">
+  <title>Layer 1</title>
+  <path d="m314.37973,178.100555c33.379852,-41.760864 112.148315,-71.397552 84.175323,-39.066605c-27.973022,32.330963 -4.287628,38.808075 -30.41098,73.159714c-26.123383,34.351669 -59.56955,-3.109253 -58.118225,-4.45639c1.451294,-1.347107 -29.026001,12.12413 4.353882,-29.636719z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_27"/>
   <ellipse ry="67" rx="225.5" cy="232.075" cx="224.05" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_1"/>
   <rect height="56.5" width="15" y="61.7501" x="154.75" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_19"/>
   <path d="m86.250137,147.75c16.574646,-42.999962 26.429504,-64.000221 97.431839,-58.250076c71.00235,5.75013 83.097351,49.250092 100.567902,79.250061" stroke-width="0" stroke="#000" fill="#ffe7a2" id="svg_17"/>
@@ -56,8 +61,5 @@
   <path d="m211.375214,307.619171l32.009003,0.050079c0.151993,0.271851 0.378006,0.565125 -0.074997,1.111664l-32.110001,-0.11731c-0.134003,-0.569427 -0.220001,-0.858429 0.175995,-1.044434z" transform="rotate(88 227.332 308.2)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_55"/>
   <path d="m238.899994,310.138l11.57399,0.049011c0.233002,0.292999 0.524002,0.733978 0,1.127991l-11.636993,-0.125c-0.503006,-0.333008 -0.578003,-0.68399 0.063004,-1.052002z" transform="rotate(137 244.604 310.726)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_56"/>
   <path d="m200.645462,309.598724l11.572998,0.044159c0.233002,0.267548 0.524002,0.671509 0,1.031311l-11.637009,-0.113007c-0.501999,-0.305206 -0.578003,-0.626038 0.064011,-0.962463z" transform="rotate(45 206.348 310.136)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_57"/>
-         </g>
-      </svg>
-    </div>
-  </div>
-</template>
+ </g>
+</svg>
