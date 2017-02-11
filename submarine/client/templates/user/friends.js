@@ -39,5 +39,53 @@ Template.Friends.helpers({
         description: "World2"
       }
     ]
+  },
+
+  friendList: function() {
+    //return Meteor.user.friendList;
+    return [
+      {
+        //avatar:
+
+        nickname: "alice",
+        name: "user1"
+      },
+      {
+        //avatar:
+
+        nickname: "cherry",
+        name: "user2"
+      },
+      {
+        //avatar:
+
+        nickname: "jack",
+        name: "user3"
+      },
+      {
+        //avatar:
+
+        nickname: "john",
+        name: "user4"
+      },
+      {
+        //avatar:
+
+        nickname: "mary",
+        name: "user5"
+      },
+      {
+        //avatar:
+
+        nickname: "lili",
+        name: "user6"
+      },
+      {
+        //avatar:
+
+        nickname: "cathy",
+        name: "user7"
+      }
+    ]
   }
 })

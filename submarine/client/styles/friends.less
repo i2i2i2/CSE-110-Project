@@ -1,7 +1,5 @@
-
 .friend_content {
-  overflow: scroll;
-  overflow-y: scroll;
+  overflow-y: auto;
 
 }
 
@@ -9,12 +7,12 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 95vw;
+  width: 96vw;
   height: 5vw;
-  background-color:lightgray;
+  background-color:#A8A8A8;
   margin-top: 1vw;
   p {
-    text-align: center;
+    padding-left: 3vw;
     font-size: 120%;
     margin: auto;
   }
@@ -23,38 +21,113 @@
 .friendsRecommend {
 
   position: relative;
+  .recommend_content {
+    margin-bottom: 3vw;
+  }
   .recommend_wrap {
-    width: 100vw;
-    height: 21vw;
+    width: 96vw;
+    height: 19vw;
     vertical-align: middle;
-
+    background-color:rgba(168,168,168,0.3);
+    border-top: 0.05em solid #727272;
+    border-top-width: medium;
     .avatar {
+      padding-top: 0.5vw;
       float: left;
     }
     .description {
-      line-height: 20vw;
-      width: 50vw;
+      line-height: 18vw;
+      width: 48vw;
       font-size: 150%;
       display: inline-block;
     }
     .button {
       top: 0;
-      width: 18vw ;
+      width: 16vw ;
       height: 8vw;
       float: right;
       margin-top: 5vw;
-      margin-right: 5vw;
+      margin-right: 3vw;
       font-size: 200%;
       line-height: 7vw;
+      border-width: medium;
     }
   }
 }
 
 .friendsRequests {
-  .requests_content {
 
+  position: relative;
+  .requests_content {
+    margin-bottom: 3vw;
+  }
+  .request_wrap {
+    width: 96vw;
+    height: 19vw;
+    vertical-align: middle;
+    background-color:rgba(168,168,168,0.3);
+    border-top: 0.05em solid #727272;
+    border-top-width: medium;
+
+    .avatar {
+      padding-top: 0.5vw;
+      float: left;
+    }
+    .rec_descript {
+      line-height: 18vw;
+      width: 45vw;
+      font-size: 150%;
+      display: inline-block;
+    }
     .button {
-      display: inline;
+      top: 0;
+      width: 10vw ;
+      height: 8vw;
+      float: right;
+      font-size: 130%;
+      line-height: 7vw;
+      border-width: medium;
+    }
+    .dismiss {
+      margin-top: 5vw;
+      margin-right: 3vw;
+    }
+    .accept {
+      margin-top: 5vw;
+      margin-right: 2vw;
+    }
+  }
+
+}
+
+.friendList {
+  position: relative;
+  margin-bottom: 8vw;
+  .friendList_content {
+    background-color:rgba(168,168,168,0.3);
+    width: 96vw;
+  }
+  .friend_wrap {
+
+  //  border-bottom: 0.05em solid #727272;
+//    border-width:medium;
+    width: 31.4vw;
+    height: 31.4vw;
+    display: inline-block;
+
+    .avatar {
+      padding-top: 2vw;
+      margin-left: 6vw;
+    }
+
+    .nickname {
+      text-align: center;
+      font-size: 140%;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 100%;
     }
   }
 }
