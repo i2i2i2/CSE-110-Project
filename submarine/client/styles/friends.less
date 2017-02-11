@@ -1,18 +1,60 @@
+
+.friend_content {
+  overflow: scroll;
+  overflow-y: scroll;
+
+}
+
 .bar {
   position: relative;
   top: 0;
   left: 0;
   width: 95vw;
-  height: 3vh;
+  height: 5vw;
   background-color:lightgray;
-
+  margin-top: 1vw;
   p {
     text-align: center;
     font-size: 120%;
+    margin: auto;
   }
 }
 
 .friendsRecommend {
-  position: relative;
 
+  position: relative;
+  .recommend_wrap {
+    width: 100vw;
+    height: 21vw;
+    vertical-align: middle;
+
+    .avatar {
+      float: left;
+    }
+    .description {
+      line-height: 20vw;
+      width: 50vw;
+      font-size: 150%;
+      display: inline-block;
+    }
+    .button {
+      top: 0;
+      width: 18vw ;
+      height: 8vw;
+      float: right;
+      margin-top: 5vw;
+      margin-right: 5vw;
+      font-size: 200%;
+      line-height: 7vw;
+    }
+  }
+}
+
+.friendsRequests {
+  .requests_content {
+
+    .button {
+      display: inline;
+    }
+  }
 }

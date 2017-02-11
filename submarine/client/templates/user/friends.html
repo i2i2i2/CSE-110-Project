@@ -1,28 +1,41 @@
-<template name="Friends">
-  <div class="friendsRecommend">
-    <div class="recommend_header bar">
-      <p>Recommend Friends</p>
-    </div>
-    <div class="recommend_content">
-      <div class="recommend_list">
+  <template name="Friends">
+    <div class="friend_content">
+    <div class="friendsRecommend">
+      <div class="recommend_header bar">
+        <p>Recommend Friends</p>
+      </div>
+      <div class="recommend_content">
         {{#each recommendations}}
-          <div>{{name}}</div>
+          <div class="recommend_wrap">
+            <div class="avatar">
+              <svg height=20vw width=20vw>
+                <circle cx=10vw cy=10vw r=8vw stroke="black" stroke-width="0.3" fill="white" />
+              </svg>
+            </div>
+            <div class="description">{{description}}</div>
+            <div class="button">
+              +
+            </div>
+          </div>
         {{/each}}
       </div>
-    </div>
 
-  </div>
+    </div>
 
   <div class="friendsRequests">
     <div class="requests_header bar">
       <p>New Friend Requests</p>
     </div>
     <div class="requests_content">
-      <ul class="requests_list">
-        <li class="request">
+      {{#each requests}}
+        <div class="request_wrap">
           <div class="avatar">
+            <svg height=20vw width=20vw>
+                <circle cx=10vw cy=10vw r=8vw stroke="black" stroke-width="0.3" fill="white" />
+              </svg>
           </div>
           <div class="rec_descript">
+            {{description}}
           </div>
           <div class="button">
             Accept
@@ -30,8 +43,8 @@
           <div class="button">
             Dismiss
           </div>
-        </li>
-      </ul>
+        </div>
+      {{/each}}
     </div>
   </div>
 
@@ -58,4 +71,5 @@
       </li>
     </ul>
   </div>
+    </div>
 </template>

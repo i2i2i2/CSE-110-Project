@@ -21,5 +21,23 @@ Template.Friends.helpers({
         description: "World2"
       }
     ]
+  },
+
+  requests: function() {
+    // return Meteor.user.profile.requests;
+    return [
+      {
+        name: "user1",
+        description: "World"
+      },
+      {
+        name: "user2",
+        description: "World1"
+      },
+      {
+        name: "user3",
+        description: "World2"
+      }
+    ]
   }
 })
