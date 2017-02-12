@@ -4,27 +4,27 @@ Template.Home.onRendered(function() {
 
 Template.Home.helpers({
 
-    "greetingName": function() {
-        return "Sheep";
+    "greetingName": () => Meteor.userId()? Meteor.user().username : null,
+
+    "emptyTags": function() {
+        if(Meteor.user().profile.savedTags == null || Meteor.user().profile.savedTags.length === 0) {
+            return true;
+        }
     },
 
-    "recentTags": function() {
-        return [
-            "tag1",
-            "tag2",
-            "tag3",
-            "tag4",
-            "tag5",
-            ];
+    recentTags: () => Meteor.userId()? Meteor.user().profile.savedTags : null,
+
+    "emptyFriends": function() {
+        if(Meteor.user().profile.friends == null || Meteor.user().profile.friends.length === 0) {
+            return true;
+        }
     },
 
-    "recentFriends": function() {
-        return [
-            "friend1",
-            "friend2",
-            "friend3",
-            "friend4",
-            "friend5",
-            ];
-    }
+    recentFriends: () => Meteor.userId()? Meteor.user().profile.friends : null,
+
+    randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
+
+    randomPic: () => Meteor.userId()? Random.id() : null
+
 })
+
