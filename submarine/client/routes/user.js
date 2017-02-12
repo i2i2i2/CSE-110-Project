@@ -38,3 +38,10 @@ userRoutes.route('/profile', {
     BlazeLayout.render('mainLayout', {content: 'Profile'})
   }
 });
+
+userRoutes.route('/friend_profile', {
+  name: "friend_profile",
+  action() {
+    BlazeLayout.render('mainLayout', {content: 'FriendProfile'})
+  }
+});
