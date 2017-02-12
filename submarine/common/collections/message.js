@@ -1,12 +1,12 @@
 App.Collections.Message = new Mongo.Collection('message');
 
 var messageSchema = {
-  
+
   is_public: {
       type: Boolean,
       optional: true
   },
-    
+
   sender: {
       type: String,
       optional: true,
@@ -23,7 +23,7 @@ var messageSchema = {
   message:{
       type: String,
       optional: true
-  }, 
+  },
   time: {
       type: Date,
       optional: true
