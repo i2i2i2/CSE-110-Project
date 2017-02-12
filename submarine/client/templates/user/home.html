@@ -10,14 +10,18 @@
 
     <div class= "recent_tags">
         <h3>Recent tags</h3>
-        <div class= "recent_tag_name">
-            {{#each recentTags}}
-            <div class="tag_circle_wrapper">
-              <div class="tag_circle"></div>
-              <a href="#">{{this}}</a>
+        {{#if emptyTags}}
+            <p>Try drag the yellow bar on the top. Surprise!</p>
+        {{else}}
+            <div class= "recent_tag_name">
+                {{#each recentTags}}
+                <div class="tag_circle_wrapper">
+                  <div class="tag_circle">{{{avatar randomPic}}}</div>
+                  <a href="#">{{this}}</a>
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
+        {{/if}}
 
     </div>
 
@@ -25,6 +29,9 @@
 
     <div class= "recent_friends">
         <h3>Recent friends</h3>
+        {{#if emptyFriends}}
+            <p>Find some friends and enjoy!</p>
+        {{else}}
         <div class= "recent_friend_name">
             {{#each recentFriends}}
             <div class="name_circle_wrapper">
@@ -33,5 +40,6 @@
             </div>
             {{/each}}
         </div>
+        {{/if}}
     </div>
 </template>

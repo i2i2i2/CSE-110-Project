@@ -1,0 +1,299 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'E:\\nodejs\\node.exe',
+1 verbose cli   'E:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'mup@3.10.5' ]
+2 info using npm@4.1.1
+3 info using node@v6.9.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData mup@3.10.5
+8 silly fetchNamedPackageData mup
+9 silly mapToRegistry name mup
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'mup',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'mup',
+12 silly mapToRegistry   name: 'mup',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/mup
+14 verbose request uri https://registry.npmjs.org/mup
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 3:38:06 PM
+17 verbose request id 65c63274992242b4
+18 verbose etag W/"589f9419-1837a"
+19 verbose lastModified Sat, 11 Feb 2017 22:45:45 GMT
+20 http request GET https://registry.npmjs.org/mup
+21 http 304 https://registry.npmjs.org/mup
+22 verbose headers { date: 'Sat, 11 Feb 2017 23:38:06 GMT',
+22 verbose headers   via: '1.1 varnish',
+22 verbose headers   'cache-control': 'max-age=300',
+22 verbose headers   etag: 'W/"589f9419-1837a"',
+22 verbose headers   age: '0',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'x-served-by': 'cache-lax8649-LAX',
+22 verbose headers   'x-cache': 'HIT',
+22 verbose headers   'x-cache-hits': '1',
+22 verbose headers   'x-timer': 'S1486856286.322484,VS0,VE159',
+22 verbose headers   vary: 'Accept-Encoding' }
+23 silly get cb [ 304,
+23 silly get   { date: 'Sat, 11 Feb 2017 23:38:06 GMT',
+23 silly get     via: '1.1 varnish',
+23 silly get     'cache-control': 'max-age=300',
+23 silly get     etag: 'W/"589f9419-1837a"',
+23 silly get     age: '0',
+23 silly get     connection: 'keep-alive',
+23 silly get     'x-served-by': 'cache-lax8649-LAX',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '1',
+23 silly get     'x-timer': 'S1486856286.322484,VS0,VE159',
+23 silly get     vary: 'Accept-Encoding' } ]
+24 verbose etag https://registry.npmjs.org/mup from cache
+25 verbose get saving mup to C:\Users\sheep-game\AppData\Roaming\npm-cache\registry.npmjs.org\mup\.cache.json
+26 verbose correctMkdir C:\Users\sheep-game\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+27 silly pickManifestFromRegistryMetadata spec 3.10.5 tag latest versions [ '0.1.2',
+27 silly pickManifestFromRegistryMetadata   '0.1.3',
+27 silly pickManifestFromRegistryMetadata   '0.1.4',
+27 silly pickManifestFromRegistryMetadata   '0.1.5',
+27 silly pickManifestFromRegistryMetadata   '0.1.6',
+27 silly pickManifestFromRegistryMetadata   '0.1.7',
+27 silly pickManifestFromRegistryMetadata   '0.1.8',
+27 silly pickManifestFromRegistryMetadata   '0.1.9',
+27 silly pickManifestFromRegistryMetadata   '0.1.10',
+27 silly pickManifestFromRegistryMetadata   '0.1.11',
+27 silly pickManifestFromRegistryMetadata   '0.1.12',
+27 silly pickManifestFromRegistryMetadata   '0.1.13',
+27 silly pickManifestFromRegistryMetadata   '0.2.0',
+27 silly pickManifestFromRegistryMetadata   '0.3.0',
+27 silly pickManifestFromRegistryMetadata   '0.4.0',
+27 silly pickManifestFromRegistryMetadata   '0.4.1',
+27 silly pickManifestFromRegistryMetadata   '0.4.2',
+27 silly pickManifestFromRegistryMetadata   '0.4.3',
+27 silly pickManifestFromRegistryMetadata   '0.4.4',
+27 silly pickManifestFromRegistryMetadata   '0.4.5',
+27 silly pickManifestFromRegistryMetadata   '0.4.6',
+27 silly pickManifestFromRegistryMetadata   '0.4.7',
+27 silly pickManifestFromRegistryMetadata   '0.5.0',
+27 silly pickManifestFromRegistryMetadata   '0.5.1',
+27 silly pickManifestFromRegistryMetadata   '0.5.2',
+27 silly pickManifestFromRegistryMetadata   '0.5.3',
+27 silly pickManifestFromRegistryMetadata   '0.6.0',
+27 silly pickManifestFromRegistryMetadata   '0.6.1',
+27 silly pickManifestFromRegistryMetadata   '0.6.3',
+27 silly pickManifestFromRegistryMetadata   '0.6.4',
+27 silly pickManifestFromRegistryMetadata   '0.6.5',
+27 silly pickManifestFromRegistryMetadata   '0.6.7',
+27 silly pickManifestFromRegistryMetadata   '0.6.8',
+27 silly pickManifestFromRegistryMetadata   '0.6.9',
+27 silly pickManifestFromRegistryMetadata   '0.6.10',
+27 silly pickManifestFromRegistryMetadata   '0.6.11',
+27 silly pickManifestFromRegistryMetadata   '0.6.12',
+27 silly pickManifestFromRegistryMetadata   '0.7.0',
+27 silly pickManifestFromRegistryMetadata   '0.7.1',
+27 silly pickManifestFromRegistryMetadata   '0.7.2',
+27 silly pickManifestFromRegistryMetadata   '0.7.3',
+27 silly pickManifestFromRegistryMetadata   '0.7.4',
+27 silly pickManifestFromRegistryMetadata   '0.7.5',
+27 silly pickManifestFromRegistryMetadata   '0.7.6',
+27 silly pickManifestFromRegistryMetadata   '0.7.7',
+27 silly pickManifestFromRegistryMetadata   '0.8.0',
+27 silly pickManifestFromRegistryMetadata   '0.9.0',
+27 silly pickManifestFromRegistryMetadata   '0.9.1',
+27 silly pickManifestFromRegistryMetadata   '0.9.2',
+27 silly pickManifestFromRegistryMetadata   '0.9.3',
+27 silly pickManifestFromRegistryMetadata   '0.9.4',
+27 silly pickManifestFromRegistryMetadata   '0.9.5',
+27 silly pickManifestFromRegistryMetadata   '0.9.6',
+27 silly pickManifestFromRegistryMetadata   '0.9.7',
+27 silly pickManifestFromRegistryMetadata   '0.10.0',
+27 silly pickManifestFromRegistryMetadata   '0.10.1',
+27 silly pickManifestFromRegistryMetadata   '0.10.2',
+27 silly pickManifestFromRegistryMetadata   '0.10.3',
+27 silly pickManifestFromRegistryMetadata   '0.10.4',
+27 silly pickManifestFromRegistryMetadata   '0.10.5',
+27 silly pickManifestFromRegistryMetadata   '0.10.6',
+27 silly pickManifestFromRegistryMetadata   '0.10.7',
+27 silly pickManifestFromRegistryMetadata   '0.10.8',
+27 silly pickManifestFromRegistryMetadata   '0.11.0',
+27 silly pickManifestFromRegistryMetadata   '0.11.1',
+27 silly pickManifestFromRegistryMetadata   '0.11.2',
+27 silly pickManifestFromRegistryMetadata   '0.11.3',
+27 silly pickManifestFromRegistryMetadata   '1.0.0',
+27 silly pickManifestFromRegistryMetadata   '1.0.1',
+27 silly pickManifestFromRegistryMetadata   '1.0.2',
+27 silly pickManifestFromRegistryMetadata   '1.0.3',
+27 silly pickManifestFromRegistryMetadata   '1.0.4',
+27 silly pickManifestFromRegistryMetadata   '1.1.0',
+27 silly pickManifestFromRegistryMetadata   '1.1.1',
+27 silly pickManifestFromRegistryMetadata   '1.1.2',
+27 silly pickManifestFromRegistryMetadata   '1.2.0',
+27 silly pickManifestFromRegistryMetadata   '1.2.1',
+27 silly pickManifestFromRegistryMetadata   '1.2.2' ]
+28 silly fetchNamedPackageData No valid target from cache, forcing network
+29 verbose request uri https://registry.npmjs.org/mup
+30 verbose request no auth needed
+31 info attempt registry request try #1 at 3:38:07 PM
+32 http request GET https://registry.npmjs.org/mup
+33 http 200 https://registry.npmjs.org/mup
+34 verbose headers { server: 'nginx/1.10.1',
+34 verbose headers   'content-type': 'application/json',
+34 verbose headers   'last-modified': 'Sat, 11 Feb 2017 22:45:45 GMT',
+34 verbose headers   etag: 'W/"589f9419-1837a"',
+34 verbose headers   'content-encoding': 'gzip',
+34 verbose headers   'cache-control': 'max-age=300',
+34 verbose headers   'content-length': '14561',
+34 verbose headers   'accept-ranges': 'bytes',
+34 verbose headers   date: 'Sat, 11 Feb 2017 23:38:06 GMT',
+34 verbose headers   via: '1.1 varnish',
+34 verbose headers   age: '0',
+34 verbose headers   connection: 'keep-alive',
+34 verbose headers   'x-served-by': 'cache-lax8649-LAX',
+34 verbose headers   'x-cache': 'HIT',
+34 verbose headers   'x-cache-hits': '2',
+34 verbose headers   'x-timer': 'S1486856286.553990,VS0,VE0',
+34 verbose headers   vary: 'Accept-Encoding' }
+35 silly get cb [ 200,
+35 silly get   { server: 'nginx/1.10.1',
+35 silly get     'content-type': 'application/json',
+35 silly get     'last-modified': 'Sat, 11 Feb 2017 22:45:45 GMT',
+35 silly get     etag: 'W/"589f9419-1837a"',
+35 silly get     'content-encoding': 'gzip',
+35 silly get     'cache-control': 'max-age=300',
+35 silly get     'content-length': '14561',
+35 silly get     'accept-ranges': 'bytes',
+35 silly get     date: 'Sat, 11 Feb 2017 23:38:06 GMT',
+35 silly get     via: '1.1 varnish',
+35 silly get     age: '0',
+35 silly get     connection: 'keep-alive',
+35 silly get     'x-served-by': 'cache-lax8649-LAX',
+35 silly get     'x-cache': 'HIT',
+35 silly get     'x-cache-hits': '2',
+35 silly get     'x-timer': 'S1486856286.553990,VS0,VE0',
+35 silly get     vary: 'Accept-Encoding' } ]
+36 verbose get saving mup to C:\Users\sheep-game\AppData\Roaming\npm-cache\registry.npmjs.org\mup\.cache.json
+37 verbose correctMkdir C:\Users\sheep-game\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+38 silly pickManifestFromRegistryMetadata spec 3.10.5 tag latest versions [ '0.1.2',
+38 silly pickManifestFromRegistryMetadata   '0.1.3',
+38 silly pickManifestFromRegistryMetadata   '0.1.4',
+38 silly pickManifestFromRegistryMetadata   '0.1.5',
+38 silly pickManifestFromRegistryMetadata   '0.1.6',
+38 silly pickManifestFromRegistryMetadata   '0.1.7',
+38 silly pickManifestFromRegistryMetadata   '0.1.8',
+38 silly pickManifestFromRegistryMetadata   '0.1.9',
+38 silly pickManifestFromRegistryMetadata   '0.1.10',
+38 silly pickManifestFromRegistryMetadata   '0.1.11',
+38 silly pickManifestFromRegistryMetadata   '0.1.12',
+38 silly pickManifestFromRegistryMetadata   '0.1.13',
+38 silly pickManifestFromRegistryMetadata   '0.2.0',
+38 silly pickManifestFromRegistryMetadata   '0.3.0',
+38 silly pickManifestFromRegistryMetadata   '0.4.0',
+38 silly pickManifestFromRegistryMetadata   '0.4.1',
+38 silly pickManifestFromRegistryMetadata   '0.4.2',
+38 silly pickManifestFromRegistryMetadata   '0.4.3',
+38 silly pickManifestFromRegistryMetadata   '0.4.4',
+38 silly pickManifestFromRegistryMetadata   '0.4.5',
+38 silly pickManifestFromRegistryMetadata   '0.4.6',
+38 silly pickManifestFromRegistryMetadata   '0.4.7',
+38 silly pickManifestFromRegistryMetadata   '0.5.0',
+38 silly pickManifestFromRegistryMetadata   '0.5.1',
+38 silly pickManifestFromRegistryMetadata   '0.5.2',
+38 silly pickManifestFromRegistryMetadata   '0.5.3',
+38 silly pickManifestFromRegistryMetadata   '0.6.0',
+38 silly pickManifestFromRegistryMetadata   '0.6.1',
+38 silly pickManifestFromRegistryMetadata   '0.6.3',
+38 silly pickManifestFromRegistryMetadata   '0.6.4',
+38 silly pickManifestFromRegistryMetadata   '0.6.5',
+38 silly pickManifestFromRegistryMetadata   '0.6.7',
+38 silly pickManifestFromRegistryMetadata   '0.6.8',
+38 silly pickManifestFromRegistryMetadata   '0.6.9',
+38 silly pickManifestFromRegistryMetadata   '0.6.10',
+38 silly pickManifestFromRegistryMetadata   '0.6.11',
+38 silly pickManifestFromRegistryMetadata   '0.6.12',
+38 silly pickManifestFromRegistryMetadata   '0.7.0',
+38 silly pickManifestFromRegistryMetadata   '0.7.1',
+38 silly pickManifestFromRegistryMetadata   '0.7.2',
+38 silly pickManifestFromRegistryMetadata   '0.7.3',
+38 silly pickManifestFromRegistryMetadata   '0.7.4',
+38 silly pickManifestFromRegistryMetadata   '0.7.5',
+38 silly pickManifestFromRegistryMetadata   '0.7.6',
+38 silly pickManifestFromRegistryMetadata   '0.7.7',
+38 silly pickManifestFromRegistryMetadata   '0.8.0',
+38 silly pickManifestFromRegistryMetadata   '0.9.0',
+38 silly pickManifestFromRegistryMetadata   '0.9.1',
+38 silly pickManifestFromRegistryMetadata   '0.9.2',
+38 silly pickManifestFromRegistryMetadata   '0.9.3',
+38 silly pickManifestFromRegistryMetadata   '0.9.4',
+38 silly pickManifestFromRegistryMetadata   '0.9.5',
+38 silly pickManifestFromRegistryMetadata   '0.9.6',
+38 silly pickManifestFromRegistryMetadata   '0.9.7',
+38 silly pickManifestFromRegistryMetadata   '0.10.0',
+38 silly pickManifestFromRegistryMetadata   '0.10.1',
+38 silly pickManifestFromRegistryMetadata   '0.10.2',
+38 silly pickManifestFromRegistryMetadata   '0.10.3',
+38 silly pickManifestFromRegistryMetadata   '0.10.4',
+38 silly pickManifestFromRegistryMetadata   '0.10.5',
+38 silly pickManifestFromRegistryMetadata   '0.10.6',
+38 silly pickManifestFromRegistryMetadata   '0.10.7',
+38 silly pickManifestFromRegistryMetadata   '0.10.8',
+38 silly pickManifestFromRegistryMetadata   '0.11.0',
+38 silly pickManifestFromRegistryMetadata   '0.11.1',
+38 silly pickManifestFromRegistryMetadata   '0.11.2',
+38 silly pickManifestFromRegistryMetadata   '0.11.3',
+38 silly pickManifestFromRegistryMetadata   '1.0.0',
+38 silly pickManifestFromRegistryMetadata   '1.0.1',
+38 silly pickManifestFromRegistryMetadata   '1.0.2',
+38 silly pickManifestFromRegistryMetadata   '1.0.3',
+38 silly pickManifestFromRegistryMetadata   '1.0.4',
+38 silly pickManifestFromRegistryMetadata   '1.1.0',
+38 silly pickManifestFromRegistryMetadata   '1.1.1',
+38 silly pickManifestFromRegistryMetadata   '1.1.2',
+38 silly pickManifestFromRegistryMetadata   '1.2.0',
+38 silly pickManifestFromRegistryMetadata   '1.2.1',
+38 silly pickManifestFromRegistryMetadata   '1.2.2' ]
+39 silly fetchPackageMetaData Error: No compatible version found: mup@3.10.5
+39 silly fetchPackageMetaData Valid install targets:
+39 silly fetchPackageMetaData 0.1.2, 0.1.3, 0.1.4, 0.1.5, 0.1.6, 0.1.7, 0.1.8, 0.1.9, 0.1.10, 0.1.11, 0.1.12, 0.1.13, 0.2.0, 0.3.0, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5, 0.4.6, 0.4.7, 0.5.0, 0.5.1, 0.5.2, 0.5.3, 0.6.0, 0.6.1, 0.6.3, 0.6.4, 0.6.5, 0.6.7, 0.6.8, 0.6.9, 0.6.10, 0.6.11, 0.6.12, 0.7.0, 0.7.1, 0.7.2, 0.7.3, 0.7.4, 0.7.5, 0.7.6, 0.7.7, 0.8.0, 0.9.0, 0.9.1, 0.9.2, 0.9.3, 0.9.4, 0.9.5, 0.9.6, 0.9.7, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, 0.10.8, 0.11.0, 0.11.1, 0.11.2, 0.11.3, 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.2.1, 1.2.2
+39 silly fetchPackageMetaData
+39 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (E:\nodejs\node_modules\npm\lib\fetch-package-metadata.js:158:16)
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+39 silly fetchPackageMetaData     at saved (E:\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:261:18
+39 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15)
+39 silly fetchPackageMetaData  error for mup@3.10.5 { Error: No compatible version found: mup@3.10.5
+39 silly fetchPackageMetaData Valid install targets:
+39 silly fetchPackageMetaData 0.1.2, 0.1.3, 0.1.4, 0.1.5, 0.1.6, 0.1.7, 0.1.8, 0.1.9, 0.1.10, 0.1.11, 0.1.12, 0.1.13, 0.2.0, 0.3.0, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5, 0.4.6, 0.4.7, 0.5.0, 0.5.1, 0.5.2, 0.5.3, 0.6.0, 0.6.1, 0.6.3, 0.6.4, 0.6.5, 0.6.7, 0.6.8, 0.6.9, 0.6.10, 0.6.11, 0.6.12, 0.7.0, 0.7.1, 0.7.2, 0.7.3, 0.7.4, 0.7.5, 0.7.6, 0.7.7, 0.8.0, 0.9.0, 0.9.1, 0.9.2, 0.9.3, 0.9.4, 0.9.5, 0.9.6, 0.9.7, 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.10.4, 0.10.5, 0.10.6, 0.10.7, 0.10.8, 0.11.0, 0.11.1, 0.11.2, 0.11.3, 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.2.1, 1.2.2
+39 silly fetchPackageMetaData
+39 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (E:\nodejs\node_modules\npm\lib\fetch-package-metadata.js:158:16)
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+39 silly fetchPackageMetaData     at saved (E:\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+39 silly fetchPackageMetaData     at E:\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:261:18
+39 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15) code: 'ETARGET' }
+40 silly rollbackFailedOptional Starting
+41 verbose stack TypeError: Cannot read property 'path' of null
+41 verbose stack     at Object.Installer.rollbackFailedOptional (E:\nodejs\node_modules\npm\lib\install.js:511:29)
+41 verbose stack     at Array.<anonymous> (E:\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+41 verbose stack     at LOOP (E:\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+41 verbose stack     at E:\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:18:7
+41 verbose stack     at E:\nodejs\node_modules\npm\lib\install.js:337:5
+41 verbose stack     at Array.<anonymous> (E:\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+41 verbose stack     at LOOP (E:\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+41 verbose stack     at chain (E:\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:20:5)
+41 verbose stack     at E:\nodejs\node_modules\npm\lib\install.js:294:5
+41 verbose stack     at E:\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:16:22
+42 verbose cwd E:\meteor\CSE-110-Project\deploy
+43 error Windows_NT 10.0.14393
+44 error argv "E:\\nodejs\\node.exe" "E:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "mup@3.10.5"
+45 error node v6.9.4
+46 error npm  v4.1.1
+47 error Cannot read property 'path' of null
+48 error If you need help, you may report this error at:
+48 error     <https://github.com/npm/npm/issues>
+49 verbose exit [ 1, true ]
