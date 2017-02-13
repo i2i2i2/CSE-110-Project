@@ -1,7 +1,11 @@
 <template name="mainLayout">
   {{> TopAnchor}}
   <div class="content">
-    {{> Template.dynamic template=content}}
+    {{#if subReady}}
+      {{> Template.dynamic template=content}}
+    {{else}}
+      <i class="fa fa-cog fa-spin"></i>
+    {{/if}}
   </div>
   <div class="bottom nav">
     <div class="button flex-item" data-link="home">

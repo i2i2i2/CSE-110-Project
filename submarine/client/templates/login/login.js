@@ -140,7 +140,8 @@ Template.Login.events({
         email: email,
         password: password
       }, (err) => {
-        t.$("form.signup").append("<p class=\"error\">Unknown Error, Please Contact Us.</p>");
+        if (err)
+          t.$("form.signup").append("<p class=\"error\">Unknown Error, Please Contact Us.</p>");
       });
 
       $(e.currentTarget).html("<i class=\"fa fa-refresh fa-spin\"></i></span>");
@@ -162,6 +163,9 @@ Template.Login.events({
     }
 
     Meteor.loginWithPassword(username, password, (err) => {
+      if (!err)
+        return;
+
       $(e.currentTarget).html("Log In");
       if (err.reason == "User not found")
         t.displaySpan("error", t.$("#username_login").parent(), err.reason);
