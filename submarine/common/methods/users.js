@@ -58,8 +58,4 @@ Meteor.methods({
   }
   */
 
-  'user/sendNoti': function(options) {
-     if()
-  }
-
 })
