@@ -1,0 +1,57 @@
+<template name="ForgotPassword">
+  <div class="send_token_box">
+    <div class="upper send_token">
+      <div class="title">
+        <h1>Forgot Password</h1>
+      </div>
+      <div class="forms">
+        <div class="form_wrapper send_token">
+          <form class="send_token">
+            <div class="input_group">
+              <div class="input_wrap">
+                <input id="email_send_token" type="text" placeholder="Email">
+              </div>
+            </div>
+            <div id="email_send_button" class="button" data-action="send_token">Send</div>
+          </form>
+        </div>
+        <div class="form_wrapper verify_token">
+          <form class="verify_token">
+            <input class="fake" type="text" name="faketoken"/>
+            <div class="input_group">
+              <div class="input_wrap">
+                <input id="token_verify_token" type="text" placeholder="Token">
+              </div>
+              <div class="input_wrap">
+                <input id="pwd_verify_token" type="password" placeholder="New Password">
+              </div>
+            </div>
+            <p class="error"></p>
+            <div id="pwd_reset_button" class="button" data-action="verify_token">Verify</div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower send_token">
+      <div class="submarine_logo">
+        <svg viewBox="0 0 100 100">
+          <use xlink:href="submarine-icon.svg#Capa_1"></use>
+        </svg>
+      </div>
+      <div class="changeView">
+        <div class="send_token">
+          <p>Got token?</p>
+          <div id="verify_token_button" class="button" data-action="switch">Token</div>
+        </div>
+        <div class="verify_token">
+          <p>Need token?</p>
+          <div class="button" data-action="switch">Email</div>
+        </div>
+      </div>
+      <div class="footer">
+        <a href="#" class="contact_us">Have a Question? Contact Us</a>
+      </div>
+    </div>
+  </div>
+</template>
