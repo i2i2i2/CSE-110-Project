@@ -2,8 +2,9 @@ Template.mainLayout.onCreated(function() {
   this.autorun(() => {
     if (!Meteor.userId()) {
       FlowRouter.go("/");
+      return;
     }
-    this.subscribe("users/relatedUsersAndTags", function() {
+    this.subHandle = this.subscribe("users/relatedUsersAndTags", function() {
       console.log("Subscription Ready");
     });
   });
@@ -17,6 +18,10 @@ Template.mainLayout.onRendered(function() {
     self.$(".button[data-link=" + currentTemplate + "]").addClass("active");
   });
 });
+
+Template.mainLayout.onDestroyed(function() {
+  this.subHandle.stop();
+})
 
 Template.mainLayout.events({
   "click .button": function (e, t) {

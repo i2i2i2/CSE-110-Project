@@ -1,5 +1,8 @@
 // publish user's friends strangers pending request and friend recommendation data
 Meteor.publish("users/relatedUsersAndTags", function() {
+  if (!this.userId)
+    return this.ready();
+
   var user = Meteor.users.findOne({"_id": this.userId}, {"profile.friendRequest": 1,
                                                     "profile.recommendedFriends": 1,
                                                     "profile.friends": 1,
@@ -8,9 +11,9 @@ Meteor.publish("users/relatedUsersAndTags", function() {
                                                   });
   // publish user seed and also social media
   var userIds = [].concat(user.profile.friendRequest,
-                              user.profile.recommendedFriends.map(recommendation => recommendation.userId),
-                              user.profile.friends.map(friend => friend.userId),
-                              user.profile.strangers);
+                          user.profile.recommendedFriends.map(recommendation => recommendation.userId),
+                          user.profile.friends.map(friend => friend.userId),
+                          user.profile.strangers);
 
   // publish chat room description and status
   var tagIds = user.profile.savedTags.map(tag => tag.tagId);
