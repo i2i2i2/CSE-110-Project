@@ -1,14 +1,29 @@
 App.Collections.Tags = new Mongo.Collection('tags');
 
 var tagSchema = {
-   
+  name: {
+    type: String,
+    optional: true
+  },
+  description: {
+    type: String,
+    optional: true
+  },
   wifis: {
     type: Array,
     optional: true,
     label: "array of wifi id under this tag"
   },
   "wifis.$": {
+    type: Object,
+    optional: true
+  },
+  "wifis.$.wifiId": {
     type: String,
+    optional: true
+  },
+  "wifis.$.level": {
+    type: Number,
     optional: true
   },
   users: {
@@ -17,6 +32,15 @@ var tagSchema = {
     label: "array of user id under this tag"
   },
   "users.$": {
+    type: String,
+    optional: true
+  },
+  activeUser: {
+    type: Array,
+    optional: true,
+    label: "array of current in ranged user"
+  },
+  "activeUser.$": {
     type: String,
     optional: true
   },

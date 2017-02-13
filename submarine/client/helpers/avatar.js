@@ -1,5 +1,7 @@
 Template.registerHelper('avatar', function (profileSeed) {
   // map string to number array
+  if (!profileSeed) return;
+  
   var numArr = profileSeed.split("").map(char => {
     var num = char.charCodeAt(0);
     if (num < 65) {

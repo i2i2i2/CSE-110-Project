@@ -1,6 +1,8 @@
 var request = require("request");
 
 var options = {
+
+  //Unchanged
   method: "POST",
   uri: "https://fcm.googleapis.com/fcm/send",
   headers: {
@@ -12,9 +14,11 @@ var options = {
     priority: "high",
     notification: {
       title: "test",
-      body: "Hello, World"
+      body: "Hello sent from firebase"
     }
+
   })
+
 };
 
 request(options, function(err, res, body) {

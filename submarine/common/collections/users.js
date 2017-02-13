@@ -32,7 +32,7 @@ App.Schemas.UserProfile = new SimpleSchema({
     optional: true
   },
 
-  "recommendedFriends.$.recommandReason": {
+  "recommendedFriends.$.recommendReason": {
     type: String,
     optional: true,
     label: "String of common chatroom of 2 users"
@@ -95,8 +95,8 @@ App.Schemas.UserProfile = new SimpleSchema({
     optional: true
   },
 
-  "strangers.$.profileSeed": {
-    type: String,
+  "strangers.$.validThru": {
+    type: Date,
     optional: true
   },
 
@@ -111,7 +111,7 @@ App.Schemas.UserProfile = new SimpleSchema({
     optional: true
   },
 
-  "savedTags.$.tagid": {
+  "savedTags.$.tagId": {
     type: String,
     optional: true
   },
@@ -200,18 +200,8 @@ App.Schemas.User = new SimpleSchema({
     optional: true
   },
 
-  "recentTags.$.tagid": {
+  "recentTags.$.tagId": {
     type: String,
-    optional: true
-  },
-
-  "recentTags.$.longitude": {
-    type: Number,
-    optional: true
-  },
-
-  "recentTags.$.latitude": {
-    type: Number,
     optional: true
   },
 

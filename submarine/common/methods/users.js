@@ -49,4 +49,13 @@ Meteor.methods({
       return false;
     }
   }
+  //,
+    /*
+  'user/sendMsg': function (options) {
+    if (receiver offline) {
+      App.Services.sendOfflineMessaege(options);
+      }
+  }
+  */
+
 })

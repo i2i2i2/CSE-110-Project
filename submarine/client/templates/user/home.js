@@ -6,27 +6,25 @@ Template.Home.helpers({
 
     "greetingName": () => Meteor.userId()? Meteor.user().username : null,
 
-    "recentTags": function() {
-        return [
-            "tag1",
-            "tag2",
-            "tag3",
-            "tag4",
-            "tag5",
-            ];
+    "emptyTags": function() {
+        if(Meteor.user().profile.savedTags == null || Meteor.user().profile.savedTags.length === 0) {
+            return true;
+        }
     },
 
-    "recentFriends": function() {
-        return [
-            "friend1",
-            "friend2",
-            "friend3",
-            "friend4",
-            "friend5",
-            ];
+    recentTags: () => Meteor.userId()? Meteor.user().profile.savedTags : null,
+
+    "emptyFriends": function() {
+        if(Meteor.user().profile.friends == null || Meteor.user().profile.friends.length === 0) {
+            return true;
+        }
     },
+
+    recentFriends: () => Meteor.userId()? Meteor.user().profile.friends : null,
 
     randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
-    profilePic: () => Meteor.userId()? Spacebars.SafeString(GeoPattern.generate(Meteor.user().profile.profileSeed).toSvg()) : null
+
+    randomPic: () => Meteor.userId()? Random.id() : null
+
 })
 

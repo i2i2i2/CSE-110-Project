@@ -5,6 +5,9 @@ Meteor.startup(function () {
 
   // seeding database
   App.Seeder.Settings();
+  App.Seeder.Wifis();
+  App.Seeder.Tags();
+  App.Seeder.Users();
 
   // initialized essential Settings
   // App.Initializer.SMTP();
