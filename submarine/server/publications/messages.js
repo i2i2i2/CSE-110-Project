@@ -13,6 +13,6 @@ Meteor.publish("messages/friendHistory", function(tagId, fromDate) {
   return App.Collections.Message.find({
                                         "is_public": true,
                                         "time": {"$gte": fromDate},
-                                        "receiver": tagId}
+                                        "receiver": tagId
                                       }, {"limit": 100});
 });
