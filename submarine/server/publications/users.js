@@ -11,7 +11,7 @@ Meteor.publish("users/relatedUsersAndTags", function(userId) {
                               user.profile.recommendedFriends.map(recommendation => recommendation.userId),
                               user.profile.friends.map(friend => friend.userId));
   // publish only user seed for profile picture
-  var strangeUserId = user.profile.strangers;
+  var strangerUserId = user.profile.strangers;
   // publish chat room description and status
   var tagIds = profile.savedTags.map(tag => tag.tagId);
 
@@ -25,13 +25,10 @@ Meteor.publish("users/relatedUsersAndTags", function(userId) {
                           "profile.socialMedia": 1
                         }
                       }),
-    Meteor.users.find({"_id": {"$in": closeUserId}},
+    Meteor.users.find({"_id": {"$in": strangerUserId}},
                       {
                         "fields": {
-                          "username": 1,
-                          "emails": 1,
-                          "profile.profileSeed": 1,
-                          "profile.socialMedia": 1
+                          "profile.profileSeed": 1
                         }
                       }),
     App.Collections.Tags.find({"_id": {"$in": tagIds}},
