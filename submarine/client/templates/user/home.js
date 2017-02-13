@@ -24,7 +24,9 @@ Template.Home.helpers({
 
     randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
 
-    randomPic: () => Meteor.userId()? Random.id() : null
+    tagName: (id) => App.Collections.Tags.findOne(id).name,
 
+    profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
+
+    getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username
 })
-

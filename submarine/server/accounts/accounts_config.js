@@ -46,7 +46,7 @@ Accounts.onCreateUser((options, user) => {
   var earth = App.Collections.Tags.findOne({name: "Earth"})._id;
   var mars = App.Collections.Tags.findOne({name: "Mars"})._id;
   var moon = App.Collections.Tags.findOne({name: "Moon"})._id;
-  user.profile.savedTags = [{tagId: earth, validThru: new Date(2018, 1, 1)}, {tagId: mars, validThru: new Date(2018, 1, 1)}, {tagId: mars, validThru: new Date(2018, 1, 1)}];
+  user.profile.savedTags = [{tagId: earth, validThru: new Date(2018, 1, 1)}, {tagId: mars, validThru: new Date(2018, 1, 1)}, {tagId: moon, validThru: new Date(2018, 1, 1)}];
   user.allowBeRecommended = true;
 
   // subscribe tags

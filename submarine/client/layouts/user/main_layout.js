@@ -4,9 +4,8 @@ Template.mainLayout.onCreated(function() {
       FlowRouter.go("/");
       return;
     }
-    this.subHandle = this.subscribe("users/relatedUsersAndTags", function() {
-      console.log("Subscription Ready");
-    });
+    this.subHandle = this.subscribe("users/relatedUsersAndTags");
+    this.subHandle2 = this.subscribe("users/strangersUserId");
   });
 });
 

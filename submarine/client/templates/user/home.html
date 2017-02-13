@@ -16,8 +16,8 @@
             <div class= "recent_tag_name">
                 {{#each recentTags}}
                 <div class="tag_circle_wrapper">
-                  <div class="tag_circle">{{{avatar randomPic}}}</div>
-                  <a href="#">{{this}}</a>
+                  <div class="tag_circle">{{{avatar tagId}}}</div>
+                  <a href="#">{{tagName tagId}}</a>
                 </div>
                 {{/each}}
             </div>
@@ -35,8 +35,8 @@
         <div class= "recent_friend_name">
             {{#each recentFriends}}
             <div class="name_circle_wrapper">
-              <div class="name_circle"></div>
-              <a href="#">{{this}}</a>
+              <div class="name_circle">{{{avatar (profileSeed userId)}}}</div>
+              <a href="#">{{getName userId nickname}}</a>
             </div>
             {{/each}}
         </div>
