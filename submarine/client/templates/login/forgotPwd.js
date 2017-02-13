@@ -110,6 +110,7 @@ Template.ForgotPassword.events({
             t.$("form.send_token").append("<p class=\"error\">Unknown Error, Please Contact Us.</p>");
             $("#email_send_button").text("Error Occured");
           } else {
+            t.$("form.send_token").find("p").remove();
             $("#email_send_button").text("Email Sent");
           }
       });
@@ -145,7 +146,7 @@ Template.ForgotPassword.events({
             if(err){
                 console.log(err)
                 t.$("form.verify_token").append("<p class=\"error\">Invalid token.</p>");
-                $("#pwd_reset_button").text("Error Occured");
+                //$("#pwd_reset_button").text("Error Occured");
             } else {
                 $("#pwd_reset_button").text("Password reset!");
             }
