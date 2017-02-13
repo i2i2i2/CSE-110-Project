@@ -9,7 +9,7 @@ Meteor.publish("messages/friendHistory", function(userId, friendId, fromDate) {
 });
 
 // publish chat history in chatroom
-Meteor.publish("messages/friendHistory", function(tagId, fromDate) {
+Meteor.publish("messages/chatRoomHistory", function(tagId, fromDate) {
   return App.Collections.Message.find({
                                         "is_public": true,
                                         "time": {"$gte": fromDate},
