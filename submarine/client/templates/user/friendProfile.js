@@ -8,3 +8,9 @@ Template.FriendProfile.onRendered(function() {
 Template.FriendProfile.onDestroyed(function() {
   $(".bottom.nav").removeClass("hidden");
 });
+
+Template.mainLayout.events({
+  "click .button_back": function (e, t) {
+    FlowRouter.go('/user/friends');
+  }
+});

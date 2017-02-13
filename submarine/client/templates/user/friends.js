@@ -92,10 +92,8 @@ Template.Friends.helpers({
 
 Template.mainLayout.events({
   "click .connect_profile": function (e, t) {
- //   var link = t.$(e.currentTarget).data('link');
-
- //   if (!link) return;
-
+    var nickn = t.$(e.nickname);
+ //   console.log(nickn);
     FlowRouter.go('/user/friend_profile');
   }
 });
