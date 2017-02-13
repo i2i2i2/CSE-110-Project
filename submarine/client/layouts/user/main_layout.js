@@ -1,9 +1,11 @@
-Template.mainLayout.onCreated(() => {
-  var self = this;
-  Tracker.autorun(function() {
+Template.mainLayout.onCreated(function() {
+  this.autorun(() => {
     if (!Meteor.userId()) {
       FlowRouter.go("/");
     }
+    this.subscribe("users/relatedUsersAndTags", function() {
+      console.log("Subscription Ready");
+    });
   });
 });
 
@@ -29,5 +31,8 @@ Template.mainLayout.events({
 Template.mainLayout.helpers({
   "username": function() {
     return Meteor.user()? Meteor.user().username : null;
+  },
+  "subReady": function() {
+    return Template.instance().subscriptionsReady();
   }
 })

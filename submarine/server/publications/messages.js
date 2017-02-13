@@ -1,10 +1,10 @@
 // publish chat history between users
-Meteor.publish("messages/friendHistory", function(userId, friendId, fromDate) {
+Meteor.publish("messages/friendHistory", function(friendId, fromDate) {
   return App.Collections.Message.find({
                                         "is_public": false,
                                         "time": {"$gte": fromDate},
-                                        "sender": {"$in": [userId, friendId]},
-                                        "receiver": {"$in": [userId, friendId]}
+                                        "sender": {"$in": [this.userId, friendId]},
+                                        "receiver": {"$in": [this.userId, friendId]}
                                       }, {"limit": 100});
 });
 
