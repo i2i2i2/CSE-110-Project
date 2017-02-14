@@ -1,7 +1,7 @@
 Template.registerHelper('avatar', function (profileSeed) {
   // map string to number array
   if (!profileSeed) return;
-  
+
   var numArr = profileSeed.split("").map(char => {
     var num = char.charCodeAt(0);
     if (num < 65) {
@@ -29,9 +29,10 @@ Template.registerHelper('avatar', function (profileSeed) {
   var s1 = 0.3 * numArr[6];
   var v1 = 1 - 0.3 * numArr[7];
   var sub = HSVtoRGB(h1, s1, v1);
+  colorDist(main, sub)
 
   var svg =
-      '<svg style="' + "--main:" + main + ";--sub:" + sub + ';" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
+      '<svg style="' + "--main:" + toBase16Color(main) + ";--sub:" + toBase16Color(sub) + ';" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
     +   '<use href="/avatar' + num + '.svg#avatar"></use>'
     + '</svg>';
 
@@ -54,8 +55,60 @@ Template.registerHelper('avatar', function (profileSeed) {
       case 5: r = v, g = p, b = q; break;
     }
 
-    return "#" + Math.round(r * 255).toString(16)
-               + Math.round(g * 255).toString(16)
-               + Math.round(b * 255).toString(16);
+    return { r: Math.round(r * 255),
+             g: Math.round(g * 255),
+             b: Math.round(b * 255)};
+  }
+
+  function toBase16Color(color) {
+    function padding(str) {
+      if (str.length == 1) return "0" + str;
+      else return str;
+    }
+    return "#" + color.r.toString(16)
+               + color.g.toString(16)
+               + color.b.toString(16);
+  }
+
+  function colorDist(color1, color2) {
+    var bright1 = Math.sqrt(.241 * color1.r * color1.r
+                          + .691 * color1.g * color1.g
+                          + .068 * color1.b * color1.b);
+    var bright2 = Math.sqrt(.241 * color2.r * color2.r
+                          + .691 * color2.g * color2.g
+                          + .068 * color2.b * color2.b);
+    if (bright1 - bright2 > 100) {
+      return;
+    } else if (bright1 - bright2 < -100) {
+      return;
+    } else if (bright1 - bright2 > 0) {
+      color2.r -= 6;
+      if (color2.r < 0) color2.r = 0;
+      color2.g -= 14;
+      if (color2.g < 0) color2.g = 0;
+      color2.b -= 2;
+      if (color2.b < 0) color2.b = 0;
+      color1.r += 6;
+      if (color1.r > 255) color1.r = 255;
+      color1.g += 14;
+      if (color1.g > 255) color1.g = 255;
+      color1.b += 2;
+      if (color1.b > 255) color1.b = 255;
+      return;
+    } else {
+      color1.r -= 6;
+      if (color1.r < 0) color1.r = 0;
+      color1.g -= 14;
+      if (color1.g < 0) color1.g = 0;
+      color1.b -= 2;
+      if (color1.b < 0) color1.b = 0;
+      color2.r += 6;
+      if (color2.r > 255) color2.r = 255;
+      color2.g += 14;
+      if (color2.g > 255) color2.g = 255;
+      color2.b += 2;
+      if (color2.b > 255) color2.b = 255;
+      return;
+    }
   }
 });
