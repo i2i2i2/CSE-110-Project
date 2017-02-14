@@ -18,10 +18,6 @@ Template.mainLayout.onRendered(function() {
   });
 });
 
-Template.mainLayout.onDestroyed(function() {
-  this.subHandle.stop();
-})
-
 Template.mainLayout.events({
   "click .button": function (e, t) {
     var link = t.$(e.currentTarget).data('link');

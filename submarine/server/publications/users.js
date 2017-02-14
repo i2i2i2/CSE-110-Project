@@ -3,6 +3,8 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   if (!this.userId)
     return this.ready();
 
+  console.log(this.userId + " start sub");
+
   var user = Meteor.users.findOne({"_id": this.userId}, {"profile.friendRequest": 1,
                                                     "profile.recommendedFriends": 1,
                                                     "profile.friends": 1,
@@ -16,6 +18,11 @@ Meteor.publish("users/relatedUsersAndTags", function() {
 
   // publish chat room description and status
   var tagIds = user.profile.savedTags.map(tag => tag.tagId);
+
+  var self = this;
+  this.onStop(function() {
+    console.log((self.userId? self.userId: "Nobody") + " stop sub");
+  });
 
   return [
     Meteor.users.find({"_id": {"$in": userIds}},
