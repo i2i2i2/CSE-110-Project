@@ -1,27 +1,33 @@
   <template name="Friends">
     <div class=friend_content_wrapper></div>
     <div class="friend_content">
-    <div class="friendsRecommend">
-      <div class="recommend_header bar">
-        <p>Recommend Friends</p>
-      </div>
-      <div class="recommend_content">
-        {{#each recommendations}}
-          <div class="recommend_wrap">
-            <div class="avatar">
-              <svg height=18vw width=18vw>
-                <circle cx=9vw cy=9vw r=7vw stroke="black" stroke-width="0" fill="white" />
-              </svg>
+    {{#if hasRecommendation}}
+      <div class="friendsRecommend">
+        <div class="recommend_header bar">
+          <p>Recommend Friends</p>
+        </div>
+        <div class="recommend_content">
+          {{#each recommendations}}
+            <div class="recommend_wrap">
+              <div class="avatar">
+                {{{avatar (profileSeed userId)}}}
+              </div>
+              <div class="text">
+              <div class="usename">
+                {{getName userId}}
+              </div>
+              <div class="description">
+                {{recommendReason}}
+              </div>
+              </div>
+              <div class="button">
+                <i class="fa fa-plus"></i>
+              </div>
             </div>
-            <div class="description">{{description}}</div>
-            <div class="button">
-              +
-            </div>
-          </div>
-        {{/each}}
+          {{/each}}
+        </div>
       </div>
-
-    </div>
+    {{/if}}
 
   <div class="friendsRequests">
     <div class="requests_header bar">
@@ -31,12 +37,10 @@
       {{#each requests}}
         <div class="request_wrap">
           <div class="avatar">
-            <svg height=18vw width=18vw>
-                <circle cx=9vw cy=9vw r=7vw stroke="black" stroke-width="0" fill="white" />
-              </svg>
+  <!--         {{{avatar (profileSeed userId)}}} -->
           </div>
           <div class="rec_descript">
-            {{description}}
+  <!--          {{description}} -->
           </div>
 
           <div class="button dismiss">
@@ -56,12 +60,13 @@
       <p>My Friends</p>
     </div>
     <div class="friendList_content">
+      {{#if emptyFriends}}
+            <p>Find some friends and enjoy!</p>
+      {{else}}
       {{#each friendList}}
       <div class="friend_wrap">
         <div class="avatar connect_profile">
-            <svg height=18vw width=18vw>
-                <circle cx=9vw cy=9vw r=8vw stroke="black" stroke-width="0" fill="white" />
-              </svg>
+            {{{avatar (profileSeed userId)}}}
           </div>
 
           <div class="nickname">
@@ -69,11 +74,12 @@
           </div>
 
           <div class="name">
-            {{name}}
+            {{getName userId nickname}}
           </div>
 
       </div>
       {{/each}}
+      {{/if}}
     </div>
   </div>
     </div>

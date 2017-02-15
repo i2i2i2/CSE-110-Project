@@ -5,89 +5,32 @@ Template.Friends.onRendered(function() {
 });
 
 Template.Friends.helpers({
-  recommendations: function() {
-    // return Meteor.user.profile.recommedations;
-    return [
-      {
-        name: "Hello",
-        description: "World"
-      },
-      {
-        name: "Hello1",
-        description: "World1"
-      },
-      {
-        name: "Hello2",
-        description: "World2"
-      }
-    ]
+  recommendations: () => Meteor.userId()?
+  Meteor.user().profile.recommendedFriends : null,
+
+  requests: () => Meteor.userId()?
+  Meteor.user().profile.friendRequest : null,
+
+  "emptyFriends": function() {
+        if(Meteor.user().profile.friends == null || Meteor.user().profile.friends.length === 0) {
+            return true;
+        }
+    },
+
+  hasRecommendation: function() {
+    if(Meteor.user().profile.recommendedFriends.length != 0){
+      return true;
+    }
+    return false;
   },
 
-  requests: function() {
-    // return Meteor.user.profile.requests;
-    return [
-      {
-        name: "user1",
-        description: "World"
-      },
-      {
-        name: "user2",
-        description: "World1"
-      },
-      {
-        name: "user3",
-        description: "World2"
-      }
-    ]
-  },
+  profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
-  friendList: function() {
-    //return Meteor.user.friendList;
-    return [
-      {
-        //avatar:
+  getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
 
-        nickname: "alice",
-        name: "user1"
-      },
-      {
-        //avatar:
+  friendList: () => Meteor.userId()?
+  Meteor.user().profile.friends : null,
 
-        nickname: "cherry",
-        name: "user2"
-      },
-      {
-        //avatar:
-
-        nickname: "jack",
-        name: "user3"
-      },
-      {
-        //avatar:
-
-        nickname: "john",
-        name: "user4"
-      },
-      {
-        //avatar:
-
-        nickname: "mary",
-        name: "user5"
-      },
-      {
-        //avatar:
-
-        nickname: "lili",
-        name: "user6"
-      },
-      {
-        //avatar:
-
-        nickname: "cathy",
-        name: "user7"
-      }
-    ]
-  }
 })
 
 Template.mainLayout.events({
