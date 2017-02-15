@@ -1,7 +1,9 @@
 // Server-side init scripts
 Meteor.startup(function () {
 
-  moment().utc();
+  process.env.ROOT_URL = 'http://104.236.147.136:3000';
+  process.env.MOBILE_ROOT_URL = 'http://104.236.147.136:3000';
+  process.env.MOBILE_DDP_URL = 'http://104.236.147.136:3000';
 
   // seeding database
   App.Seeder.Settings();
