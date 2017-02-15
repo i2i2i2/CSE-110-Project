@@ -14,7 +14,7 @@
               </div>
               <div class="text">
               <div class="usename">
-                {{getName userId}}
+                {{getName userId nickname}}
               </div>
               <div class="description">
                 {{recommendReason}}
@@ -30,29 +30,35 @@
     {{/if}}
 
   <div class="friendsRequests">
-    <div class="requests_header bar">
-      <p>New Friend Requests</p>
-    </div>
-    <div class="requests_content">
-      {{#each requests}}
-        <div class="request_wrap">
-          <div class="avatar">
-  <!--         {{{avatar (profileSeed userId)}}} -->
-          </div>
-          <div class="rec_descript">
-  <!--          {{description}} -->
-          </div>
+    {{#if hasRequest}}
+      <div class="requests_header bar">
+        <p>New Friend Requests</p>
+      </div>
+      <div class="requests_content">
+        {{#each requests}}
+          <div class="request_wrap">
+            <div class="avatar">
+              {{{avatar (profileSeed this)}}}
+            </div>
+            <div class="text">
+              <div class="usename">
+                {{getName this false}}
+              </div>
+              <div class="message">
 
-          <div class="button dismiss">
-            X
-          </div>
-          <div class="button accept">
-            √
-          </div>
+              </div>
+            </div>
+            <div class="button dismiss">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div class="button accept">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </div>
 
-        </div>
-      {{/each}}
-    </div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
   </div>
 
   <div class="friendList">
@@ -65,12 +71,8 @@
       {{else}}
       {{#each friendList}}
       <div class="friend_wrap">
-        <div class="avatar connect_profile">
+        <div class="avatar connect_profile" data-userid="{{userId}}">
             {{{avatar (profileSeed userId)}}}
-          </div>
-
-          <div class="nickname">
-            {{nickname}}
           </div>
 
           <div class="name">

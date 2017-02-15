@@ -24,6 +24,13 @@ Template.Friends.helpers({
     return false;
   },
 
+  hasRequest: function() {
+    if(Meteor.user().profile.friendRequest.length !=0){
+      return true;
+    }
+    return false;
+  },
+
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
   getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
@@ -31,12 +38,13 @@ Template.Friends.helpers({
   friendList: () => Meteor.userId()?
   Meteor.user().profile.friends : null,
 
-})
+});
 
 Template.mainLayout.events({
   "click .connect_profile": function (e, t) {
-    var nickn = t.$(e.nickname);
+    var idNumber = t.$(e.currentTarget).data('userid');
  //   console.log(nickn);
-    FlowRouter.go('/user/friend_profile');
+ //   console.log(idNumber);
+    FlowRouter.go('/user/friend_profile/'+idNumber);
   }
 });
