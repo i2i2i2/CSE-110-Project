@@ -17,9 +17,7 @@ Meteor.startup(function() {
 
   if (Meteor.isCordova) {
 
-    document.addEventListener("deviceready", deviceReady, false);
-
-    function deviceReady() {
+    document.addEventListener("deviceready", function () {
       // override navigation back button
       document.addEventListener("backbutton", function(e) {
         e.preventDefault();
@@ -38,7 +36,7 @@ Meteor.startup(function() {
       App.Utils.WifiWizard.getNearbyWifi();
 
       // Test pushing notification "World, Hello!"
-      App.Utils.Notification.scheduleSingleNotification("World, Hello!");
+      // App.Utils.Notification.scheduleSingleNotification("World, Hello!");
 
       window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
@@ -59,6 +57,6 @@ Meteor.startup(function() {
       }, function(error) {
         console.error(error);
       });
-    }
+    }, false);
   }
 });

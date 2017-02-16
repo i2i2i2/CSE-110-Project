@@ -10,12 +10,13 @@
   left: 0;
   width: 100vw;
   height: 5vw;
-  background-color:#A8A8A8;
+  background-color:#6D6D6D;
   margin-top: 1vw;
   p {
     padding-left: 3vw;
     font-size: 120%;
     margin: auto;
+    color: #2E2E2E;
   }
 }
 
@@ -32,28 +33,41 @@
     width: 96vw;
     height: 19vw;
     vertical-align: middle;
-    background-color:rgba(168,168,168,0.3);
-    border-top: 0.05em solid #727272;
+//    background-color:rgba(168,168,168,0.3);
+//    border-top: 0.05em solid #727272;
     border-top-width: medium;
     .avatar {
-      padding-top: 0.5vw;
+      height: 15vw;
+      width: 15vw;
+      padding-top: 2vw;
+      padding-left: 1vw;
       float: left;
     }
-    .description {
-      line-height: 18vw;
+
+    .text{
       width: 48vw;
-      font-size: 150%;
+      display: inline-block;
+      margin-left: 2vw;
+      color: lightgrey;
+    }
+    .usename{
+      margin-top: 3vw;
+      font-size: 120%;
+    }
+    .description {
+    //  line-height: vw;
+      width: 48vw;
+      font-size: 105%;
       display: inline-block;
     }
     .button {
-      top: 0;
       width: 16vw ;
       height: 8vw;
       float: right;
       margin-top: 5vw;
-      margin-right: 3vw;
+      margin-bottom: 7vw;
       font-size: 200%;
-      line-height: 7vw;
+      line-height: 9vw;
       border-width: medium;
     }
   }
@@ -71,18 +85,30 @@
     width: 96vw;
     height: 19vw;
     vertical-align: middle;
-    background-color:rgba(168,168,168,0.3);
-    border-top: 0.05em solid #727272;
+ //   background-color:rgba(168,168,168,0.3);
+ //   border-top: 0.05em solid #727272;
     border-top-width: medium;
 
     .avatar {
-      padding-top: 0.5vw;
+      width: 15vw;
+      height: 15vw;
+      padding-top: 2vw;
+      padding-left: 1vw;
       float: left;
     }
-    .rec_descript {
-      line-height: 18vw;
-      width: 45vw;
-      font-size: 150%;
+    .text{
+      width: 48vw;
+      display: inline-block;
+      margin-left: 2vw;
+      color: lightgrey;
+    }
+    .usename{
+      margin-top: 3vw;
+      font-size: 120%;
+    }
+    .message {
+      width: 48vw;
+      font-size: 105%;
       display: inline-block;
     }
     .button {
@@ -90,7 +116,7 @@
       width: 10vw ;
       height: 8vw;
       float: right;
-      font-size: 130%;
+      font-size: 155%;
       line-height: 7vw;
       border-width: medium;
     }
@@ -112,7 +138,7 @@
   .friendList_content {
     margin-left: 2vw;
     margin-top: 0.7vw;
-    background-color:rgba(168,168,168,0.3);
+ //   background-color:rgba(168,168,168,0.3);
     width: 96vw;
   }
   .friend_wrap {
@@ -122,20 +148,19 @@
     width: 31.4vw;
     height: 31.4vw;
     display: inline-block;
-
+    padding-top: 3vw;
     .avatar {
+      width: 17vw;
+      height: 17vw;
       padding-top: 2vw;
-      margin-left: 6vw;
-    }
-
-    .nickname {
-      text-align: center;
-      font-size: 140%;
+      margin-left: 7vw;
     }
 
     .name {
       text-align: center;
-      font-size: 100%;
+      font-size: 140%;
+      padding-top: 2vw;
+      color: #888888;
     }
   }
 }
