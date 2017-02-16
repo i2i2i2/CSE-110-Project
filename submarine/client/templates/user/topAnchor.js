@@ -55,6 +55,7 @@ Template.TopAnchor.onCreated(function() {
       self.$(".top_anchor").css("bottom", -diff + "px");
     }
   }
+
 });
 
 Template.TopAnchor.onRendered(function() {
@@ -69,7 +70,25 @@ Template.TopAnchor.onDestroyed(function() {
 
 Template.TopAnchor.events({
   "click .submarine_bg": function(e, t) {
-    if (!t.moved)
+    if (!t.moved) {
       t.$('.top_anchor').removeClass("drag").toggleClass('top').toggleClass('bottom');
+       if ($(".top_anchor").hasClass("bottom")) {
+            if($(".button[data-link=home]").hasClass("active"))
+             $(".whole_page").css({"opacity": "0.7", "filter": "blur(30px)"});
+       }
+       else {
+          $(".whole_page").css({"opacity": "","filter": ""});
+       }
+    }
+
+  },
+  "click .create.button": function() {
+
+      //$(".popUpWindow").fadeIn();
+
+      $(".popUpWindow").animate({
+            height: 'toggle'
+        });
   }
 });
+

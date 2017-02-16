@@ -1,4 +1,5 @@
 <template name="Home">
+  <div class="whole_page">
     <div class= "user_name_avatar">
         <div class= "avatar_circle"> {{{avatar randomSeed}}}</div>
         <div class= "greeting_name">
@@ -10,7 +11,7 @@
 
     <div class= "recent_tags">
         <h3>Recent tags</h3>
-        {{#if emptyTags}}
+        {{#if emptyTagas}}
             <p>Try drag the yellow bar on the top. Surprise!</p>
         {{else}}
             <div class= "recent_tag_name">
@@ -42,4 +43,5 @@
         </div>
         {{/if}}
     </div>
+  </div>
 </template>
