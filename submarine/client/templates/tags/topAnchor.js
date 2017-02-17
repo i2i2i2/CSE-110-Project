@@ -34,6 +34,12 @@ Template.TopAnchor.onCreated(function() {
 
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
       $('.top_anchor').toggleClass('top').toggleClass('bottom');
+      if ($(".top_anchor").hasClass("bottom")) {
+        $(".whole_page").css({ "transition": "0.5s ease filter","filter": "blur(30px)"});
+      }
+      else{
+        $(".whole_page").css({"transition": "0.5s ease filter","filter": ""});
+      }
     }
   }
 
@@ -49,10 +55,14 @@ Template.TopAnchor.onCreated(function() {
       if (diff < 0) diff = 0;
       if (diff > self.windowHeight) diff = self.windowHeight;
       self.$(".top_anchor").css("bottom", "calc(100vh - " + diff + "px)");
+      var blur_px = 0.04*diff;
+      $(".whole_page").css({"filter": "blur(" + blur_px + "px)"});
     } else {
       if (diff > 0) diff = 0;
       if (diff < -self.windowHeight) diff = -self.windowHeight;
       self.$(".top_anchor").css("bottom", -diff + "px");
+      var blur_px = 0.04*(736+diff);
+      $(".whole_page").css({"filter": "blur(" + blur_px + "px)"});
     }
   }
 
@@ -74,10 +84,10 @@ Template.TopAnchor.events({
       t.$('.top_anchor').removeClass("drag").toggleClass('top').toggleClass('bottom');
        if ($(".top_anchor").hasClass("bottom")) {
             if($(".button[data-link=home]").hasClass("active"))
-             $(".whole_page").css({"opacity": "0.7", "filter": "blur(30px)"});
+             $(".whole_page").css({ "transition": "0.5s ease filter", "filter": "blur(30px)",});
        }
        else {
-          $(".whole_page").css({"opacity": "","filter": ""});
+          $(".whole_page").css({ "transition": "0.5s ease filter","filter": ""});
        }
     }
 
