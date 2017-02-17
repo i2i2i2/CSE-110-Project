@@ -45,6 +45,7 @@ Template.TopAnchor.onCreated(function() {
 
   self.handleTouchMove = function(event) {
     self.moved = true;
+    var h = $(window).height();
     var now = Date.now();
     var pageY = event.touches.item(0).pageY;
     self.velocity = Math.abs((pageY - self.lastPointY)/(now - self.mousemoveTime));
@@ -61,7 +62,7 @@ Template.TopAnchor.onCreated(function() {
       if (diff > 0) diff = 0;
       if (diff < -self.windowHeight) diff = -self.windowHeight;
       self.$(".top_anchor").css("bottom", -diff + "px");
-      var blur_px = 0.04*(736+diff);
+      var blur_px = 0.04*(h+diff);
       $(".whole_page").css({"filter": "blur(" + blur_px + "px)"});
     }
   }
