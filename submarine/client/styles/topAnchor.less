@@ -60,8 +60,8 @@
         .create.button{
             width: 94vw;
             margin-top: 2vh;
-            margin-left: 2vw;
-            margin-right: 2vw;
+            margin-left: 3vw;
+            margin-right: 3vw;
             margin-bottom: 0;
             border: 0;
             background-color: @comp_color;
@@ -74,8 +74,8 @@
         .popUpWindow{
             display: none;
             margin-top: 0;
-            margin-left: 2vw;
-            margin-right: 2vw;
+            margin-left: 3vw;
+            margin-right: 3vw;
             margin-bottom: 0;
             border: 0;
             border-radius: 8px;
@@ -101,10 +101,10 @@
 
                 input[type=text] {
                     background-color: @comp_color3;
-                    width: 84vw;
-                    padding: 12px 20px;
+                    width: 87vw;
+                    padding: 0.7vh;
                     margin: 0;
-                    margin-top: 2px;
+                    margin-top: 0.4vh;
                     margin-bottom: 8px;
                     display: inline-block;
                     border:none;
@@ -116,8 +116,8 @@
 
                 select{
                     width: 30%;
-                    padding: 8px 20px;
-                    margin: 8px 0;
+                    padding: 0.7vh;
+                    margin: 0.5vh 0;
                     display: inline-block;
                     border: 1px solid #ccc;
                     border-radius: 4px;
@@ -131,20 +131,20 @@
 
                 .repeat_wrapper{
                     margin-top: 1vh;
-                    margin-bottom: 1.5vh;
+                    margin-bottom: 1vh;
                 }
 
 
                 .check{
                       display: inline-block;
-                      padding-left: 20px;
-                      text-indent: -10px;
-                     font-size: 110%;
+                      padding-left: 3vw;
+                      text-indent: -2.3vw;
+                      font-size: 110%;
                 }
 
                 input[type="checkbox"]{
-                    width: 15px;
-                    height: 15px;
+                    width: 4vw;
+                    height: 2vh;
                     padding: 0;
                     margin:0;
                     vertical-align: bottom;
@@ -157,10 +157,11 @@
 
                 input[type=submit] {
                     width: 100%;
+                    font-size: 15px;
                     background-color: #4CAF50;
                     color: white;
-                    padding: 14px 20px;
-                    margin: 8px 0;
+                    padding: 1.3vh;
+                    margin: 0;
                     border: none;
                     border-radius: 4px;
                     cursor: pointer;
@@ -173,16 +174,31 @@
         }
 
         .refresh_tag{
-            margin-top: 9vh;
-            margin-left: 2vw;
-            margin-right: 2vw;
+            margin-top: 12vh;
             margin-bottom: 0;
-            color: @comp_color3;
+            color: white;
             text-align: center;
 
             .refresh_icon{
                 margin-left: auto;
                 margin-right: auto;
+            }
+
+            i{
+                color:white;
+            }
+
+            .p_wrapper{
+                text-align: center;
+            }
+
+            p{
+                font-family: "Centaur", cursive, sans-serif;
+                font-size: 140%;
+                font-weight: bold;
+                text-shadow: 0.5px 0.5px 1px;
+                color:black;
+
             }
         }
     }
