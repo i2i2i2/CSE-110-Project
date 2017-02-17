@@ -21,6 +21,7 @@ Template.TopAnchor.onCreated(function() {
     self.moved = false;
 
     $(".top_anchor").addClass("drag");
+    $("body > .content").addClass("drag");
     document.addEventListener('touchmove', self.handleTouchMove);
   }
 
@@ -29,23 +30,29 @@ Template.TopAnchor.onCreated(function() {
 
     self.moved = false;
     document.removeEventListener('touchmove', self.handleTouchMove);
-    $(".top_anchor").removeClass("drag");
+    $(".drag").removeClass("drag");
     $('.top_anchor').removeAttr('style');
 
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
-      $('.top_anchor').toggleClass('top').toggleClass('bottom');
-      if ($(".top_anchor").hasClass("bottom")) {
-        $(".whole_page").css({ "transition": "0.5s ease filter","filter": "blur(30px)"});
+      if ($(".top_anchor").hasClass("top")) {
+        $("body > .content").css({"filter": "blur(30px)"});
       }
       else{
-        $(".whole_page").css({"transition": "0.5s ease filter","filter": ""});
+        $("body > .content").removeAttr('style');
+      }
+      $('.top_anchor').toggleClass('top').toggleClass('bottom');
+    } else {
+      if ($(".top_anchor").hasClass("bottom")) {
+        $("body > .content").css({"filter": "blur(30px)"});
+      }
+      else{
+        $("body > .content").removeAttr('style');
       }
     }
   }
 
   self.handleTouchMove = function(event) {
     self.moved = true;
-    var h = $(window).height();
     var now = Date.now();
     var pageY = event.touches.item(0).pageY;
     self.velocity = Math.abs((pageY - self.lastPointY)/(now - self.mousemoveTime));
@@ -57,13 +64,13 @@ Template.TopAnchor.onCreated(function() {
       if (diff > self.windowHeight) diff = self.windowHeight;
       self.$(".top_anchor").css("bottom", "calc(100vh - " + diff + "px)");
       var blur_px = 0.04*diff;
-      $(".whole_page").css({"filter": "blur(" + blur_px + "px)"});
+      $("body > .content").css({"filter": "blur(" + blur_px + "px)"});
     } else {
       if (diff > 0) diff = 0;
       if (diff < -self.windowHeight) diff = -self.windowHeight;
       self.$(".top_anchor").css("bottom", -diff + "px");
-      var blur_px = 0.04*(h+diff);
-      $(".whole_page").css({"filter": "blur(" + blur_px + "px)"});
+      var blur_px = 0.04*(self.windowHeight + diff);
+      $("body > .content").css({"filter": "blur(" + blur_px + "px)"});
     }
   }
 
@@ -82,16 +89,15 @@ Template.TopAnchor.onDestroyed(function() {
 Template.TopAnchor.events({
   "click .submarine_bg": function(e, t) {
     if (!t.moved) {
-      t.$('.top_anchor').removeClass("drag").toggleClass('top').toggleClass('bottom');
-       if ($(".top_anchor").hasClass("bottom")) {
-            if($(".button[data-link=home]").hasClass("active"))
-             $(".whole_page").css({ "transition": "0.5s ease filter", "filter": "blur(30px)",});
-       }
-       else {
-          $(".whole_page").css({ "transition": "0.5s ease filter","filter": ""});
-       }
+      t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
+      $('.drag').removeClass("drag");
+      if ($(".top_anchor").hasClass("bottom")) {
+        $("body > .content").css({"filter": "blur(30px)",});
+      }
+      else {
+        $("body > .content").removeAttr("style");
+      }
     }
-
   },
   "click .create.button": function() {
 
@@ -102,4 +108,3 @@ Template.TopAnchor.events({
         });
   }
 });
-
