@@ -3,18 +3,14 @@ Template.ForgotPassword.onCreated(function() {
   var self = this;  // self is template instance
 
   // vars attach to the template instance
-  self.usernameKeyPress = -1;     // unix timestamp last keypress
   self.emailKeyPress = -1;        // unix timestamp last keypress
   self.passwordKeyPress = -1;
 
-  self.usernameRegex = /^[_]?[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$/;
   self.emailRegex = /.+@(.+){2,}\.(.+){2,}/;
 
-  self.usernameTimeout = -1;
   self.emailTimeout = -1;
   self.passwordTimeout = -1;
 
-  self.usernameErr = true;
   self.emailErr = true;
   self.passwordErr = true;
 
@@ -51,9 +47,9 @@ Template.ForgotPassword.onCreated(function() {
     if (self.emailRegex.test(email)) {
       Meteor.call("user/checkEmail", email, (err) => {
         if (err) {
-          self.displaySpan("error", self.$("#email_send_token").parent(), "Email Exists");
-        } else {
           self.displaySpan("pass", self.$("#email_send_token").parent());
+        } else {
+          self.displaySpan("error", self.$("#email_send_token").parent(), "Email Unregistered");
         }
       })
     } else {
@@ -67,13 +63,20 @@ Template.ForgotPassword.onCreated(function() {
       self.$("#token_verify_token").siblings().remove();
       return;
     }
-/*
-    if (password.length < 8) {
-      self.displaySpan("error", self.$("#password_signup").parent(), "Too Short")
-    } else {
-      self.displaySpan("pass", self.$("#password_signup").parent());
+  }
+
+  self.checkPassword = function() {
+    var password = self.$("#pwd_verify_token").val();
+    if (!password.length) {
+      self.$("pwd_verify_token").siblings().remove();
+      return;
     }
-*/
+
+    if (password.length < 8) {
+      self.displaySpan("error", self.$("#pwd_verify_token").parent(), "Too Short")
+    } else {
+      self.displaySpan("pass", self.$("#pwd_verify_token").parent());
+    }
   }
 });
 
@@ -100,7 +103,7 @@ Template.ForgotPassword.events({
     if (errors.length) {
       errors.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     } else {
-        
+
       var email = t.$("#email_send_token").val();
 
       Accounts.forgotPassword({
@@ -119,7 +122,7 @@ Template.ForgotPassword.events({
     }
   }
     ,
-    
+
   // verify token
   "click .button[data-action=verify_token]": function(e, t) {
     var token = t.$("#token_verify_token").val();
@@ -128,30 +131,30 @@ Template.ForgotPassword.events({
     } else{
         t.$("#token_verify_token").parent().find("span").remove();
     }
-      
+
     var password = t.$("#pwd_verify_token").val();
     if (!password.length) {
       t.displaySpan("error", t.$("#pwd_verify_token").parent(), "Password Missing");
     } else{
         t.$("#pwd_verify_token").parent().find("span").remove();
     }
-      
+
     var errors = t.$("span.error, span.load");
-      
+
     if (errors.length) {
       errors.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-    } else {      
+    } else {
         Accounts.resetPassword(token,password,
         (err) =>{
             if(err){
                 console.log(err)
-                t.$("form.verify_token").append("<p class=\"error\">Invalid token.</p>");
-                //$("#pwd_reset_button").text("Error Occured");
+                t.displaySpan("error", t.$("#token_verify_token").parent(), "Invalid Token");
+                $(".error").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
             } else {
                 $("#pwd_reset_button").text("Password reset!");
             }
         });
-      
+
         //$(e.currentTarget).html("<i class=\"fa fa-refresh fa-spin\"></i></span>");
     }
   },
@@ -164,25 +167,7 @@ Template.ForgotPassword.events({
   },
 
   // on keypress set a timeout to check user input
-  "keydown #username_signup": function(e, t) {
-    t.usernameErr = true;
-    t.displaySpan("load", $(e.currentTarget).parent());
-
-    var now = Date.now().value;
-
-    if (!t.usernameKeyPress) {
-      t.usernameKeyPress = now;
-    }
-    else if (now - t.usernameKeyPress < 1000) {
-      t.usernameKeyPress = now;
-      clearTimeout(t.usernameTimeout);
-    }
-
-    t.usernameTimeout = setTimeout(t.checkUsername, 1000);
-  },
-
-  // on keypress set a timeout to check user input
-  "keydown #email_signup": function(e, t) {
+  "keydown #email_send_token": function(e, t) {
     t.emailErr = true;
     t.displaySpan("load", $(e.currentTarget).parent());
 
@@ -200,7 +185,7 @@ Template.ForgotPassword.events({
   },
 
   // on keypress set a timeout to check user input
-  "keydown #password_signup": function(e, t) {
+  "keydown #pwd_verify_token": function(e, t) {
     t.passwordErr = true;
     t.displaySpan("load", $(e.currentTarget).parent());
 
@@ -216,5 +201,5 @@ Template.ForgotPassword.events({
 
     t.passwordTimeout = setTimeout(t.checkPassword, 1000);
   }
-  
+
 });
