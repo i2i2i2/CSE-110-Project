@@ -69,14 +69,16 @@ App.Utils.WifiWizard.getNearbyWifi = function() {
  */
 function onSuccess2(network) {
 
-  var networkList = network.map((wifi) => {
-    if (wifi.level > -60)
-      return {
-        bssid: wifi.BSSID,
-        ssid: wifi.SSID,
-        level: wifi.level
-      };
+  var networkList = network.filter(function(wifi){
+    return (wifi.level > -60);
+  }).map(function(wifi){
+    return{
+      bssid: wifi.BSSID,
+      ssid: wifi.SSID,
+      level: wifi.level
+    };
   });
+
 
   networkList.push({ssid: "test1", bssid: "11:22:33:44:55:66:77:88", level: -35});
   networkList.push({ssid: "test2", bssid: "22:33:44:55:66:77:88:99", level: -55});
