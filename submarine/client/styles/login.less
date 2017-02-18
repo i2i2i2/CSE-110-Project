@@ -1,4 +1,9 @@
 @import "color.less";
+@darker: #222222;
+@dark: #484848;
+@bgBtn: #777777;
+@ftBtn: #bbbbbb;
+@title: #dddddd;
 
 .login_box {
   position: absolute;
@@ -33,7 +38,7 @@
       text-align: center;
       margin: 0;
       transform: color 0.5 ease;
-      text-shadow: 2px 2px 5px;
+      font-weight: bold;
     }
 
     h5 {
@@ -153,17 +158,17 @@
         border-radius: 0;
         clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 12.6vw, 100% 0);
         -webkit-clip-path: polygon(0 0, 0 100%, 41vw 100%, 100% 12.6vw, 100% 0);
-        text-shadow: 1px 1px 2px;
+        font-weight: bold;
       }
     }
   }
 }
 
 .upper.signup {
-  background-color: @sub_color1;
+  background-color: @darker;
 
   h1 {
-    color: @sub_color4;
+    color: @title;
   }
 
   h5 {
@@ -175,13 +180,17 @@
     opacity: 1;
   }
 
+  div.button {
+    background-color: @bgBtn;
+    color: @ftBtn;
+  }
 }
 
 .upper.login {
-  background-color: @main_color2;
+  background-color: @dark;
 
   h1 {
-    color: @main_color4;
+    color: @title;
   }
 
   h5 {
@@ -194,17 +203,17 @@
   }
 
   div.button {
-    background-color: @main_color3;
-    color: @comp_color4;
+    background-color: @bgBtn;
+    color: @ftBtn;
   }
 
 }
 
 .upper.send_token {
-  background-color: @sub_color1;
+  background-color: @dark;
 
   h1 {
-    color: @sub_color4;
+    color: @title;
   }
 
   h5 {
@@ -216,13 +225,17 @@
     opacity: 1;
   }
 
+  div.button {
+    background-color: @bgBtn;
+    color: @ftBtn;
+  }
 }
 
 .upper.verify_token {
-  background-color: @main_color2;
+  background-color: @darker;
 
   h1 {
-    color: @main_color4;
+    color: @title;
   }
 
   h5 {
@@ -235,8 +248,8 @@
   }
 
   div.button {
-    background-color: @main_color3;
-    color: @comp_color4;
+    background-color: @bgBtn;
+    color: @ftBtn;
   }
 
 }
@@ -276,7 +289,7 @@
       border-radius: 0;
       clip-path: polygon(0 1.9vw, 0 100%, 100% 100%, 100% 0, 4vw 0);
       -webkit-clip-path: polygon(0 1.9vw, 0 100%, 100% 100%, 100% 0, 4vw 0);
-      text-shadow: 1px 1px 2px;
+      font-weight: bold;
     }
   }
 
@@ -310,7 +323,7 @@
 }
 
 .lower.signup {
-  background-color: @main_color2;
+  background-color: @dark;
 
   div.signup {
     visibility: visible;
@@ -321,8 +334,8 @@
     }
 
     div.button {
-      background-color: @main_color3;
-      color: @comp_color4;
+      background-color: @bgBtn;
+      color: @ftBtn;
     }
   }
   div.svg{
@@ -331,7 +344,7 @@
 }
 
 .lower.login {
-  background-color: @sub_color1;
+  background-color: @darker;
 
   div.login {
     visibility: visible;
@@ -341,11 +354,15 @@
       color: @comp_color4;
     }
 
+    div.button {
+      background-color: @bgBtn;
+      color: @ftBtn;
+    }
   }
 }
 
 .lower.send_token {
-  background-color: @main_color2;
+  background-color: @darker;
 
   div.send_token {
     visibility: visible;
@@ -356,8 +373,8 @@
     }
 
     div.button {
-      background-color: @main_color3;
-      color: @comp_color4;
+      background-color: @bgBtn;
+      color: @ftBtn;
     }
   }
   div.svg{
@@ -366,7 +383,7 @@
 }
 
 .lower.verify_token {
-  background-color: @sub_color1;
+  background-color: @dark;
 
   div.verify_token {
     visibility: visible;
@@ -374,6 +391,11 @@
 
     p {
       color: @comp_color4;
+    }
+
+    div.button {
+      background-color: @bgBtn;
+      color: @ftBtn;
     }
   }
 }

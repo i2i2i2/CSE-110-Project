@@ -7,13 +7,14 @@
   width: 100vw;
   z-index: 2;
   transition: bottom ease 0.5s, transform ease 0.5s;
-  background-color: @main_color3;
+  background-color: rgba(255,255,255,0.1);
+    //-webkit-filter: blur(5px);
 
   .submarine_bg {
     position: absolute;
-    height: 80vw;
+    height: 75vw;
     width: 100vw;
-    bottom: -26vw;
+    bottom: -22.5vw;
     left: 0;
 
     .submarine {
@@ -25,4 +26,180 @@
 
 .top_anchor.drag {
   transition: initial;
+}
+
+.content{
+    .lower_content{
+        .welcome_join, .welcome_create{
+            margin-top: 2vh;
+            margin-left: 2vw;
+            margin-right: 2vw;
+            margin-bottom: 0;
+            font-family: "Centaur", cursive, sans-serif;
+            color: white;
+            font-size: 160%;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px;
+        }
+
+        .wifi_tags{
+            margin-top: 2vh;
+            margin-left: 2vw;
+            margin-right: 2vw;
+            margin-bottom: 0;
+            height: 15vh;
+            font-family: "Centaur", cursive, sans-serif;
+            color: black;
+            font-size: 200%;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px;
+            text-align: center;
+
+        }
+
+        .create.button{
+            width: 94vw;
+            margin-top: 2vh;
+            margin-left: 3vw;
+            margin-right: 3vw;
+            margin-bottom: 0;
+            border: 0;
+            background-color: @comp_color;
+            font-family: "Centaur", cursive, sans-serif;
+            color: black;
+            font-size: 120%;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px;
+        }
+        .popUpWindow{
+            display: none;
+            margin-top: 0;
+            margin-left: 3vw;
+            margin-right: 3vw;
+            margin-bottom: 0;
+            border: 0;
+            border-radius: 8px;
+            background:@comp_color3;
+            width: 94vw;
+            height:35vh;
+            position: fixed;
+            z-index: 3;
+
+            .form_wrapper.createRoom {
+                width:90vw;
+                height:22vh;
+                margin:auto;
+                margin-top: 1vh;
+
+                label{
+                    font-family: "Centaur", cursive, sans-serif;
+                    color: black;
+                    font-size: 120%;
+                    font-weight: bold;
+                    //text-shadow: 1px 1px 1px;
+                }
+
+                input[type=text] {
+                    background-color: @comp_color3;
+                    width: 87vw;
+                    padding: 0.7vh;
+                    margin: 0;
+                    margin-top: 0.4vh;
+                    margin-bottom: 8px;
+                    display: inline-block;
+                    border:none;
+                    border-bottom: 1.5px solid black;
+
+
+                    font-size: 15px;
+                }
+
+                select{
+                    width: 30%;
+                    padding: 0.7vh;
+                    margin: 0.5vh 0;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                    font-size: 15px;
+                }
+
+                .repeat{
+                    padding-right: 60vw;
+                }
+
+                .repeat_wrapper{
+                    margin-top: 1vh;
+                    margin-bottom: 1vh;
+                }
+
+
+                .check{
+                      display: inline-block;
+                      padding-left: 3vw;
+                      text-indent: -2.3vw;
+                      font-size: 110%;
+                }
+
+                input[type="checkbox"]{
+                    width: 4vw;
+                    height: 2vh;
+                    padding: 0;
+                    margin:0;
+                    vertical-align: bottom;
+                    position: relative;
+                    top: -1px;
+                    overflow: hidden;
+
+
+                }
+
+                input[type=submit] {
+                    width: 100%;
+                    font-size: 15px;
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 1.3vh;
+                    margin: 0;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                input[type=submit]:hover {
+                    background-color: #45a049;
+                }
+            }
+        }
+
+        .refresh_tag{
+            margin-top: 12vh;
+            margin-bottom: 0;
+            color: white;
+            text-align: center;
+
+            .refresh_icon{
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            i{
+                color:white;
+            }
+
+            .p_wrapper{
+                text-align: center;
+            }
+
+            p{
+                font-family: "Centaur", cursive, sans-serif;
+                font-size: 140%;
+                font-weight: bold;
+                text-shadow: 0.5px 0.5px 1px;
+                color:black;
+
+            }
+        }
+    }
 }

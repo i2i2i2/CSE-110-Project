@@ -99,6 +99,13 @@ Template.Login.onCreated(function() {
   }
 });
 
+Template.Login.onRendered(function() {
+  if (FlowRouter.getRouteName() != 'login') {
+    this.$(".upper, .lower").addClass("signup");
+  } else {
+    this.$(".upper, .lower").addClass("login");
+  }
+})
 
 
 Template.Login.events({
@@ -141,7 +148,10 @@ Template.Login.events({
         password: password
       }, (err) => {
         if (err)
-          t.$("form.signup").append("<p class=\"error\">Unknown Error, Please Contact Us.</p>");
+          t.displaySpan("error", t.$("#username_signup").parent(), "Unknown Error");
+          t.displaySpan("error", t.$("#email_signup").parent(), "Try Again");
+          t.displaySpan("error", t.$("#password_signup").parent(), "Or Contact Us");
+          $(".error").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
       });
 
       $(e.currentTarget).html("<i class=\"fa fa-refresh fa-spin\"></i></span>");

@@ -1,62 +1,107 @@
 <template name="TopAnchor">
   <div class="top_anchor top">
     <div class="content">
+        <div class="lower_content">
+            <p class="welcome_join">
+                <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                Captain, wanna join a chatroom?
+            </p>
+            <div class="wifi_tags">No tags found:(</div>
+            <p class="welcome_create">
+                <i class="fa fa-circle-o" aria-hidden="true"></i>
+                Not interest? Create a new one!
+            </p>
+            <div class="create button">Create Chatroom</div>
+            <div class="popUpWindow">
+                <div class="form_wrapper createRoom">
+                  <form class="create_new_chat">
+                    <label for="Cname">Chatroom name</label>
+                    <input type="text" name="chatroom_name" placeholder="New Chatroom Name"/>
+                    <label for="Discription">Description</label>
+                    <input type="text" name="room_discription" placeholder = "Brief description for your chatroom"/>
+                    <label for="interval">Start Time</label>
+                    <select class="time" name="time">
+                        <option value="8am">8 a.m.</option>
+                        <option value="9am">9 a.m.</option>
+                        <option value="10am">10 a.m.</option>
+                        <option value="11am">11 a.m.</option>
+                        <option value="12pm">12 p.m.</option>
+                        <option value="1pm">1 p.m.</option>
+                        <option value="2pm">2 p.m.</option>
+                        <option value="3pm">3 p.m.</option>
+                        <option value="4pm">4 p.m.</option>
+                        <option value="5pm">5 p.m.</option>
+                        <option value="6pm">6 p.m.</option>
+                        <option value="7pm">7 p.m.</option>
+                        <option value="8pm">8 p.m.</option>
+                        <option value="9pm">9 p.m.</option>
+                        <option value="10pm">10 p.m.</option>
+                        <option value="11pm">11 p.m.</option>
+                        <option value="12am">12 a.m.</option>
+                        <option value="1am">1 a.m.</option>
+                        <option value="2am">2 a.m.</option>
+                        <option value="3am">3 a.m.</option>
+                        <option value="4am">4 a.m.</option>
+                        <option value="5am">5 a.m.</option>
+                        <option value="6am">6 a.m.</option>
+                        <option value="7am">7 a.m.</option>
+                     </select>
+                     <label for="interval">End Time</label>
+                     <select id="time" name="time">
+                        <option value="8am">8 a.m.</option>
+                        <option value="9am">9 a.m.</option>
+                        <option value="10am">10 a.m.</option>
+                        <option value="11am">11 a.m.</option>
+                        <option value="12pm">12 p.m.</option>
+                        <option value="1pm">1 p.m.</option>
+                        <option value="2pm">2 p.m.</option>
+                        <option value="3pm">3 p.m.</option>
+                        <option value="4pm">4 p.m.</option>
+                        <option value="5pm">5 p.m.</option>
+                        <option value="6pm">6 p.m.</option>
+                        <option value="7pm">7 p.m.</option>
+                        <option value="8pm">8 p.m.</option>
+                        <option value="9pm">9 p.m.</option>
+                        <option value="10pm">10 p.m.</option>
+                        <option value="11pm">11 p.m.</option>
+                        <option value="12am">12 a.m.</option>
+                        <option value="1am">1 a.m.</option>
+                        <option value="2am">2 a.m.</option>
+                        <option value="3am">3 a.m.</option>
+                        <option value="4am">4 a.m.</option>
+                        <option value="5am">5 a.m.</option>
+                        <option value="6am">6 a.m.</option>
+                        <option value="7am">7 a.m.</option>
+                     </select>
+                     <label for="repeat" class="repeat">Repeat Pattern</label>
+                     <div class="repeat_wrapper">
+                         <label class="check"><input type="checkbox" value="Sun">Sun</label>
+                         <label class="check"><input type="checkbox" value="Mon">Mon</label>
+                         <label class="check"><input type="checkbox" value="Tue">Tue</label>
+                         <label class="check"><input type="checkbox" value="Wed">Wed</label>
+                         <label class="check"><input type="checkbox" value="Thur">Thur</label>
+                         <label class="check"><input type="checkbox" value="Fri">Fri</label>
+                         <label class="check"><input type="checkbox" value="Sat">Sat</label>
+                         <label class="check"><input type="checkbox" value="Allday">All</label>
+                     </div>
+                     <input type="submit" value="Submit">
+
+
+                  </form>
+                </div>
+            </div>
+            <div class="refresh_tag">
+                <a class="refresh_icon">
+                    <i class="fa fa-refresh fa-5x" aria-hidden="true"></i>
+                </a>
+                <p>Refresh to discover more chatrooms!</p>
+            </div>
+        </div>
     </div>
+
     <div class="submarine_bg">
-      <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="37.5 0 375 350">
-        <g>
-          <path d="m314.37973,178.100555c33.379852,-41.760864 112.148315,-71.397552 84.175323,-39.066605c-27.973022,32.330963 -4.287628,38.808075 -30.41098,73.159714c-26.123383,34.351669 -59.56955,-3.109253 -58.118225,-4.45639c1.451294,-1.347107 -29.026001,12.12413 4.353882,-29.636719z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_27"/>
-          <ellipse ry="67" rx="225.5" cy="232.075" cx="224.05" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_1"/>
-          <rect height="56.5" width="15" y="61.7501" x="154.75" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_19"/>
-          <path d="m86.250137,147.75c16.574646,-42.999962 26.429504,-64.000221 97.431839,-58.250076c71.00235,5.75013 83.097351,49.250092 100.567902,79.250061" stroke-width="0" stroke="#000" fill="#ffe7a2" id="svg_17"/>
-          <path d="m110.357857,106.774399c11.44339,-2.044601 54.524406,-1.022301 65.967812,1.022301c11.44339,2.044594 20.194244,15.334427 12.116547,26.579689c-8.077682,11.245255 -92.894691,17.378387 -98.615784,17.123138c-5.721092,-0.255264 9.088028,-42.68055 20.531425,-44.725128z" stroke-width="0" stroke="#000" fill="#84d3db" id="svg_29"/>
-          <path d="m-0.88889,227.602386c-34.558158,-63.841324 66.971051,-84.812561 138.197667,-88.744553c71.226639,-3.932007 323.807709,52.644577 384.965698,91.39212" stroke-width="0" stroke="#000" fill="#fff093" id="svg_15"/>
-          <ellipse ry="22.5" rx="22.5" cy="190" cx="112" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_2"/>
-          <ellipse ry="16.5" rx="16.5" cy="190" cx="112" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#84d3db" id="svg_4"/>
-          <ellipse ry="22.5" rx="22.5" cy="190" cx="112" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_6"/>
-          <ellipse ry="16.5" rx="16.5" cy="190" cx="112" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#84d3db" id="svg_7"/>
-          <ellipse ry="22.5" rx="22.5" cy="190" cx="178" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_8"/>
-          <ellipse ry="16.5" rx="16.5" cy="190" cx="178" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#84d3db" id="svg_9"/>
-          <ellipse ry="22.5" rx="22.5" cy="190" cx="241" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#666666" id="svg_10"/>
-          <ellipse ry="16.5" rx="16.5" cy="190" cx="241" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#84d3db" id="svg_11"/>
-          <path d="m1.25018,218.249954c0,-0.5 36.999969,-66.499939 37.999969,-65.999939" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#ffe7a2" opacity="0.5" id="svg_12"/>
-          <path d="m139.250076,93.750053" stroke-width="0" stroke="#000" fill="#ffe7a2" opacity="0.5" id="svg_18"/>
-          <rect height="1.5" width="0" y="36.7501" x="157.25" stroke-width="0" stroke="#000" fill="#faba6f" id="svg_20"/>
-          <path d="m148.749969,43.75c20.25,0 21,11 21,17.499989c0,6.500004 -1.249985,23.000004 -3.249985,19.500004c-2.000015,-3.5 -10.250015,-5.75 -11.250015,-16.25c-1,-10.500004 -8.499985,-8.499992 -17.499985,-8.749992c-9,-0.25 -9.25,-12 10.999985,-12z" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_23"/>
-          <path d="m150.41272,56.250191l-31.912956,5.249691l0.574997,-21.999962c11.308311,1.5 22.616615,2.999989 33.924934,4.499989" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_31"/>
-          <ellipse ry="10.875" rx="4.5" cy="50.625" cx="120" stroke-width="0" stroke="#000" fill="#666666" id="svg_24"/>
-          <ellipse ry="8.74999" rx="2.75" cy="50.5" cx="120.25" stroke-width="0" stroke="#000" fill="#84d3db" id="svg_25"/>
-          <path d="m133.249115,108.067238c23.248657,1.243469 37.501678,0.775696 44.250534,3.771553c6.74884,2.995857 13.249298,11.047913 10.999527,15.053848c-2.249771,4.005936 -3.746643,-12.716347 -20.498245,-14.222832c-16.751617,-1.506477 -1.004532,-0.993469 -30.502228,-0.782127c-29.497711,0.211342 -27.49823,-5.063911 -4.249588,-3.820442z" stroke-width="0" stroke="#000" fill="#b1ffff" id="svg_32"/>
-          <path d="m118.738167,176.966644c6.99929,1.837097 8.499153,10.24968 7.749229,16.651672c-0.749924,6.402008 -5.249489,6.825836 -2.999702,-1.641342c2.249786,-8.467178 -4.749527,-12.412537 -11.498856,-13.499359c-6.749329,-1.086823 -0.249977,-3.348068 6.749321,-1.510971l0.000008,0z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#b1ffff" id="svg_33"/>
-          <path d="m184.481613,176.716675c6.999283,1.837097 8.499146,10.24968 7.749222,16.651672c-0.749924,6.401993 -5.249481,6.825836 -2.99971,-1.641342c2.249802,-8.467178 -4.749512,-12.412552 -11.49884,-13.499359c-6.749329,-1.086823 -0.249985,-3.348083 6.749313,-1.510971l0.000015,0z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#b1ffff" id="svg_34"/>
-          <path d="m247.225372,177.466599c6.999283,1.837097 8.499146,10.24968 7.749222,16.651688c-0.749924,6.401978 -5.249481,6.825836 -2.99971,-1.641357c2.249802,-8.467178 -4.749512,-12.412537 -11.49884,-13.499344c-6.749329,-1.086823 -0.249985,-3.348083 6.749313,-1.510986l0.000015,0z" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#b1ffff" id="svg_35"/>
-          <ellipse rx="0.299996" cy="277.293" cx="231.55" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_5"/>
-          <path d="m234.250046,295.292297" stroke-width="1.5" stroke="#000" fill="none" opacity="0.5" id="svg_16"/>
-          <ellipse ry="10" rx="10" cy="270" cx="225" stroke-width="0" stroke="#000" fill="#000000" id="svg_21"/>
-          <ellipse ry="5.29988" rx="5.1999" cy="270.4" cx="225" stroke-width="0" stroke="#000" fill="#ffe955" id="svg_13"/>
-          <path d="m224.850327,258.913544c1.975998,1.03598 2.882996,4.368988 2.718994,7.248993c-0.162994,2.878998 -1.196991,2.557007 -0.727997,-0.578003c0.470001,-3.135986 -1.559006,-5.338989 -2.848999,-6.427002c-1.289001,-1.087006 0.378372,-0.678528 0.858002,-0.243988c0,0 0.539001,-0.274994 0,0z" transform="rotate(-70 225.551 263.302)" stroke-width="0" stroke-opacity="null" stroke="#000" fill="#ffffff" id="svg_22"/>
-          <path d="m217.80014,287.63327" stroke-opacity="null" stroke="#000" fill="none" opacity="0.5" id="svg_36"/>
-          <ellipse ry="5.44697" rx="3.87265" cy="288.558" cx="205.562" stroke-width="0" stroke="#000" fill="#000000" id="svg_45"/>
-          <ellipse ry="5.34694" rx="3.72228" cy="288.533" cx="244.737" stroke-width="0" stroke="#000" fill="#000000" id="svg_46"/>
-          <path d="m220.628525,321.361542" stroke-opacity="null" stroke="#000" fill="none" opacity="0.5" id="svg_52"/>
-          <path d="m251.74411,321.186676" stroke-opacity="null" stroke="#000" fill="none" opacity="0.5" id="svg_58"/>
-          <path d="m201.473999,323.391998l15.136993,0.157013l-0.571991,4.102997l-1.598999,2.141998c4.774994,2.088989 8.190002,3.009003 10.959991,2.218994c2.771011,-0.789001 4.333008,-1.872009 4.409012,-2.802002c0.153992,-1.856995 -5.264999,-7.800995 -7.018005,-9.824005c-1.753998,-2.024994 2.875,-2.234985 3.362,-2.694c0.973007,-0.92099 0.764999,-5.416992 2.615005,-3.278992c1.849991,2.138 7.953995,7.523987 9.564987,7.118988c0.805008,-0.201996 2.389008,-2.365997 2.897003,-4.78598c0.508011,-2.419006 -0.662003,-7.248016 -1.720993,-10.412018l-2.511002,1.901001l-3.858994,0.440002l1.569992,-19.910004l18.136993,13.945007l-2.37999,0.972992l-6.480011,0.917999c1.042007,3.348999 6.636002,8.876007 6.975006,15.011017c0.339005,6.134979 -0.138962,9.960022 -6.286957,16.327026c-6.14801,6.369995 -12.820038,8.36496 -18.349045,6.872955c-5.528,-1.492981 -5.007004,-1.881989 -8.429993,-3.998993c-3.424011,-2.115997 -6.197998,-4.897003 -6.057007,-4.075989l-0.654999,6.940002l-1.132996,2.703979l-11.899002,-19.848999l3.322998,-0.140991z" transform="rotate(45 225.499 315.574)" stroke-width="0" stroke="#000" fill="#000000" id="svg_64"/>
-          <rect rx="2" height="8.89051" width="13.9906" y="283.399" x="218.282" stroke-width="0" stroke="#000" fill="#000000" id="svg_14"/>
-          <rect height="4.44793" width="32.981" y="285.744" x="208.538" stroke-width="0" stroke="#000" fill="#000000" id="svg_30"/>
-          <path d="m222.528,279.446991l-1.850006,44.725006l8.746002,0.75l-1,-45.975006l-5.895996,0.5z" stroke-width="0" stroke="#000" fill="#000000" id="svg_37"/>
-          <line y2="289.453" x2="176.789" y1="287.41" x1="161.798" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_42"/>
-          <path d="m205.700104,285.320007c0.199753,1.133423 0.666565,1.999695 1.133148,1.799713c0.46637,-0.199677 0.933411,-0.000244 0.466599,-1.133148c-0.466812,-1.132904 -1.799927,-1.799438 -1.599747,-0.666565z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_38"/>
-          <path d="m244.743927,285.470062c0.199997,1.132996 0.667007,2 1.132996,1.799988c0.46701,-0.199982 0.934006,-0.001007 0.46701,-1.132996c-0.46701,-1.132996 -1.800003,-1.799988 -1.600006,-0.666992z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_39"/>
-          <path d="m209.098007,286.447998l9.013,0.019257l0,0.442749l-9.063004,-0.048859c0.016663,-0.137726 -0.041656,-0.275421 0.050003,-0.413147z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_47"/>
-          <path d="m232.521988,286.447998l9.013,0.019257c0,0.147583 0.175003,0.295166 0,0.442749l-9.062988,-0.048889c0.016998,-0.137695 -0.042007,-0.275421 0.049988,-0.413116z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_49"/>
-          <path d="m220.057007,284.298004l10.653,0.021332l0,0.490631l-10.712006,-0.054138c0.020004,-0.152588 -0.149994,-0.305237 0.059006,-0.457825z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_50"/>
-          <path d="m227.446121,287.434967l6.600891,0.019226l0,0.44278l-6.638046,-0.048889c0.012711,-0.137695 -0.030319,-0.275391 0.037155,-0.413116z" transform="rotate(90 230.727 287.666)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_51"/>
-          <path d="m218.392761,285.592194l2.899002,0.021332c0.100006,0.162476 0.25,0.326569 0,0.490692l-2.914993,-0.054138c0.00499,-0.152649 -0.014008,-0.305237 0.015991,-0.457886z" transform="rotate(90 219.902 285.848)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_53"/>
-          <path d="m228.637512,290.897827l2.297485,0.019257l0,0.442719l-2.310211,-0.048859c0.004318,-0.137695 -0.197464,-0.164398 0.012726,-0.413116z" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_54"/>
-          <path d="m211.375214,307.619171l32.009003,0.050079c0.151993,0.271851 0.378006,0.565125 -0.074997,1.111664l-32.110001,-0.11731c-0.134003,-0.569427 -0.220001,-0.858429 0.175995,-1.044434z" transform="rotate(88 227.332 308.2)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_55"/>
-          <path d="m238.899994,310.138l11.57399,0.049011c0.233002,0.292999 0.524002,0.733978 0,1.127991l-11.636993,-0.125c-0.503006,-0.333008 -0.578003,-0.68399 0.063004,-1.052002z" transform="rotate(137 244.604 310.726)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_56"/>
-          <path d="m200.645462,309.598724l11.572998,0.044159c0.233002,0.267548 0.524002,0.671509 0,1.031311l-11.637009,-0.113007c-0.501999,-0.305206 -0.578003,-0.626038 0.064011,-0.962463z" transform="rotate(45 206.348 310.136)" stroke-width="0" stroke="#000" fill="#ffffff" id="svg_57"/>
-         </g>
+      <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="37.5 0 375 280">
+        <use href="/submarine-bg_ver2.svg#submarine"></use>
       </svg>
     </div>
   </div>

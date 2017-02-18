@@ -21,6 +21,7 @@ Template.TopAnchor.onCreated(function() {
     self.moved = false;
 
     $(".top_anchor").addClass("drag");
+    $("body > .content").addClass("drag");
     document.addEventListener('touchmove', self.handleTouchMove);
   }
 
@@ -29,11 +30,24 @@ Template.TopAnchor.onCreated(function() {
 
     self.moved = false;
     document.removeEventListener('touchmove', self.handleTouchMove);
-    $(".top_anchor").removeClass("drag");
+    $(".drag").removeClass("drag");
     $('.top_anchor').removeAttr('style');
 
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
+      if ($(".top_anchor").hasClass("top")) {
+        $("body > .content").css({"filter": "blur(30px)"});
+      }
+      else{
+        $("body > .content").removeAttr('style');
+      }
       $('.top_anchor').toggleClass('top').toggleClass('bottom');
+    } else {
+      if ($(".top_anchor").hasClass("bottom")) {
+        $("body > .content").css({"filter": "blur(30px)"});
+      }
+      else{
+        $("body > .content").removeAttr('style');
+      }
     }
   }
 
@@ -49,12 +63,17 @@ Template.TopAnchor.onCreated(function() {
       if (diff < 0) diff = 0;
       if (diff > self.windowHeight) diff = self.windowHeight;
       self.$(".top_anchor").css("bottom", "calc(100vh - " + diff + "px)");
+      var blur_px = 0.04*diff;
+      $("body > .content").css({"filter": "blur(" + blur_px + "px)"});
     } else {
       if (diff > 0) diff = 0;
       if (diff < -self.windowHeight) diff = -self.windowHeight;
       self.$(".top_anchor").css("bottom", -diff + "px");
+      var blur_px = 0.04*(self.windowHeight + diff);
+      $("body > .content").css({"filter": "blur(" + blur_px + "px)"});
     }
   }
+
 });
 
 Template.TopAnchor.onRendered(function() {
@@ -69,7 +88,23 @@ Template.TopAnchor.onDestroyed(function() {
 
 Template.TopAnchor.events({
   "click .submarine_bg": function(e, t) {
-    if (!t.moved)
-      t.$('.top_anchor').removeClass("drag").toggleClass('top').toggleClass('bottom');
+    if (!t.moved) {
+      t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
+      $('.drag').removeClass("drag");
+      if ($(".top_anchor").hasClass("bottom")) {
+        $("body > .content").css({"filter": "blur(30px)",});
+      }
+      else {
+        $("body > .content").removeAttr("style");
+      }
+    }
+  },
+  "click .create.button": function() {
+
+      //$(".popUpWindow").fadeIn();
+
+      $(".popUpWindow").animate({
+            height: 'toggle'
+        });
   }
 });

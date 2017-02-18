@@ -17,4 +17,11 @@ body > .content {
   height: 93vh;
   width: 100vw;
   margin: 0;
+  transition: 0.5s filter ease;
+  -webkit-transition: 0.5s -webkit-filter ease;
+}
+
+.content.drag {
+  transition: none;
+  -webkit-transition: none;
 }
