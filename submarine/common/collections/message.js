@@ -12,10 +12,6 @@ var messageSchema = {
       optional: true,
       label: "user id"
   },
-  sender_profile:{
-      type: String,
-      optional: true
-  },
   receiver: {
       type: String,
       optional: true
