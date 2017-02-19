@@ -1,4 +1,4 @@
-Template.registerHelper('avatar', function (profileSeed) {
+Template.registerHelper('chatroom_pic', function (profileSeed) {
   // map string to number array
   if (!profileSeed) return;
 
@@ -14,7 +14,8 @@ Template.registerHelper('avatar', function (profileSeed) {
   });
 
   // generate rgb color
-  var num = Math.ceil((numArr[0] + numArr[1]/10) / 1.1 * 12);
+  var num = Math.ceil((numArr[0] + numArr[1]/10) / 1.1 * 4);
+  num += 12;
   var h = numArr[2];
   var s = 0.7 * numArr[3];
   var v = 1 - 0.7 * numArr[4];
@@ -33,7 +34,7 @@ Template.registerHelper('avatar', function (profileSeed) {
 
   var svg =
       '<svg style="' + "--main:" + toBase16Color(main) + ";--sub:" + toBase16Color(sub) + ';" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
-    +   '<use href="/avatar' + num + '.svg#avatar"></use>'
+    +   '<use href="/avatar' + 17 + '.svg#avatar"></use>'
     + '</svg>';
 
   return Spacebars.SafeString(svg);

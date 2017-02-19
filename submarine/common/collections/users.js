@@ -214,10 +214,18 @@ App.Schemas.User = new SimpleSchema({
     type: Array,
     optional: true
   },
+
   "login_history.$": {
     type: Date,
     optional: true
+  },
+
+  online : {
+    type: Boolean,
+    optional: true,
+    label: "If the user is currently running the application"
   }
+
 });
 
 // Meteor has its own user data base, only need to attach the Schemas
