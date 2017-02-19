@@ -1,4 +1,8 @@
 <template name="Chats">
+  <div class="info_avatar" data-friendid="{{friendId}}">
+  {{{avatar (profileSeed friendId)}}}
+
+  </div>
   <div class="messages">
     {{#each messages}}
       <p>{{sender}} to {{reciever}}: {{message}}</p>
