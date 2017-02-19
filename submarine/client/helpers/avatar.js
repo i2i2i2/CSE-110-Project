@@ -14,7 +14,7 @@ Template.registerHelper('avatar', function (profileSeed) {
   });
 
   // generate rgb color
-  var num = Math.ceil((numArr[0] + numArr[1]/10) / 1.1 * 16);
+  var num = Math.ceil((numArr[0] + numArr[1]/10) / 1.1 * 12);
   var h = numArr[2];
   var s = 0.7 * numArr[3];
   var v = 1 - 0.7 * numArr[4];
