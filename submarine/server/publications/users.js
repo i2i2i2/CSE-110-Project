@@ -6,7 +6,7 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   //Detect that the user start running the applicaition
   console.log(this.userId + " Enter the app");
   //Update this in the collection
-  //Meteor.users.upsert(this.userId, { $set: {"online": true} });
+  Meteor.users.update(this.userId, { $set: {"online": true} });
 
   var user = Meteor.users.findOne({"_id": this.userId}, {"profile.friendRequest": 1,
                                                     "profile.recommendedFriends": 1,
