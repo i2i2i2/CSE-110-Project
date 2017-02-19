@@ -46,5 +46,13 @@ Template.mainLayout.events({
  //   console.log(nickn);
  //   console.log(idNumber);
     FlowRouter.go('/user/friend_profile/'+idNumber);
+  },
+
+  "click .cancel": function () {
+    $(".popAdd").css({"display": "none"});
+  },
+
+  "click .addFriend": function () {
+    $(".popAdd").css({"display": "block"});
   }
 });

@@ -9,6 +9,17 @@ Meteor.methods({
     return Meteor.users.update({"_id": this.userId},
                                {$set: {"profile.profileSeed": profileSeed}});
   },
+    
+    'user/rollChatroomPicture': function() {
+    // research isSimulation
+    if (this.isSimulation) return;
+
+    // only server runs the code
+    var chatroomSeed = Random.id(7);
+    console.log("New Seed " + chatroomSeed);
+    return Meteor.users.update({"_id": this.userId},
+                               {$set: {"chat.chatroomSeed": chatroomSeed}});
+  },
 
   'user/changeEmail': function(newEmail) {
   	if (this.isSimulation) return;
