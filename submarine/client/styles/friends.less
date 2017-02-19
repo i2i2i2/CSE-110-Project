@@ -61,7 +61,7 @@
       font-size: 105%;
       display: inline-block;
     }
-    .button {
+    .button.addFriend {
       width: 16vw ;
       height: 8vw;
       float: right;
@@ -113,21 +113,21 @@
       display: inline-block;
     }
     .button {
-      top: 0;
-      width: 10vw ;
+      width: 11vw ;
       height: 8vw;
       float: right;
       font-size: 155%;
-      line-height: 7vw;
-      border-width: medium;
+      line-height: 8vw;
+      border-width: 0;
+      margin-right: 2vw;
+      margin-top: 5vw;
     }
     .dismiss {
-      margin-top: 5vw;
-      margin-right: 3vw;
+      top: 40vw;
+
     }
     .accept {
-      margin-top: 5vw;
-      margin-right: 2vw;
+
     }
   }
 
@@ -164,4 +164,41 @@
       color: #888888;
     }
   }
+}
+
+.popAdd{
+  border-radius: 1.3em;
+  width: 90vw;
+  height: 44vw;
+  background-color: rgba(168,168,168,0.9);
+  z-index: 1;
+  position: absolute;
+  top:23vh;
+  left: 5vw;
+  display: none;
+  p{
+    margin-left: 3vw;
+    margin-top: 1vw;
+    font-size: 130%;
+  }
+
+  .input{
+    textarea{
+      width: 75vw;
+      height: 15vw;
+      margin-left: 5vw;
+      font-size: 100%;
+    }
+  }
+
+  .cancel{
+    left: 10vw;
+    top: 31vw;
+  }
+
+  .confirm{
+    left: 50vw;
+    top: 31vw;
+  }
+
 }

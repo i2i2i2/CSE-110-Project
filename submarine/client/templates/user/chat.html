@@ -1,3 +1,11 @@
 <template name="Chats">
-  <p>Chats, where user chats with friends, or chats under wifi</p>
+  <div class="messages">
+    {{#each messages}}
+      <p>{{sender}} to {{reciever}}: {{message}}</p>
+    {{/each}}
+  </div>
+  <div class="inputmsg">
+    <input id="msg" type="text" placeholder="Message"/>
+    <div class="button" data-action="send">Send</div>
+  </div>
 </template>
