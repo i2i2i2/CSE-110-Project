@@ -45,7 +45,7 @@ Template.mainLayout.events({
     var idNumber = t.$(e.currentTarget).data('userid');
  //   console.log(nickn);
  //   console.log(idNumber);
-    FlowRouter.go('/user/friend_profile/'+idNumber);
+    FlowRouter.go('/chats/friend/'+idNumber);
   },
 
   "click .cancel": function () {
