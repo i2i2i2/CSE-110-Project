@@ -1,3 +1,13 @@
+Template.Chats.onRendered(function() {
+  var self = this;
+  $(".bottom.nav").addClass("hidden");
+  Session.set("currentTemplate", "friend_profile");
+});
+
+Template.Chats.onDestroyed(function() {
+  $(".bottom.nav").removeClass("hidden");
+});
+
 Template.Chats.onCreated(function() {
   var self = this;
   self.friendId = FlowRouter.current().params.friendId;
@@ -29,5 +39,8 @@ Template.mainLayout.events({
   "click .info_avatar": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('friendid');
     FlowRouter.go('/user/friend_profile/'+idNumber);
+  },
+  "click .button.back": function () {
+    FlowRouter.go('/user/friends');
   }
 });

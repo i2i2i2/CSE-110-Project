@@ -1,15 +1,21 @@
 <template name="Chats">
-  <div class="info_avatar" data-friendid="{{friendId}}">
-  {{{avatar (profileSeed friendId)}}}
+  <div class="chat_content">
+    <div class="button back">
+      &lt; back
+    </div>
+    <div class="info_avatar" data-friendid="{{friendId}}">
+      {{{avatar (profileSeed friendId)}}}
 
-  </div>
-  <div class="messages">
-    {{#each messages}}
-      <p>{{sender}} to {{reciever}}: {{message}}</p>
-    {{/each}}
-  </div>
-  <div class="inputmsg">
-    <input id="msg" type="text" placeholder="Message"/>
-    <div class="button" data-action="send">Send</div>
+    </div>
+
+    <div class="messages">
+      {{#each messages}}
+        <p>{{sender}} to {{reciever}}: {{message}}</p>
+      {{/each}}
+    </div>
+    <div class="inputmsg">
+      <input id="msg" type="text" placeholder="Message"/>
+      <div class="button" data-action="send">Send</div>
+    </div>
   </div>
 </template>
