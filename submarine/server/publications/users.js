@@ -3,7 +3,10 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   if (!this.userId)
     return this.ready();
 
-  console.log(this.userId + " start sub");
+  //Detect that the user start running the applicaition
+  console.log(this.userId + " Enter the app");
+  //Update this in the collection
+  Meteor.users.update(this.userId, { $set: {"online": true} });
 
   var user = Meteor.users.findOne({"_id": this.userId}, {"profile.friendRequest": 1,
                                                     "profile.recommendedFriends": 1,
@@ -19,9 +22,12 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   // publish chat room description and status
   var tagIds = user.profile.savedTags.map(tag => tag.tagId);
 
+  //Detect that the user exit the application
   var self = this;
   this.onStop(function() {
-    console.log((self.userId? self.userId: "Nobody") + " stop sub");
+    console.log((self.userId? self.userId: "Nobody") + " Exit the app");
+    Meteor.users.update(self.userId,
+      { "$set": {"online": false} });
   });
 
   return [
