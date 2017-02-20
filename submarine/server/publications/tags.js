@@ -13,10 +13,10 @@ Meteor.publish("tags/tagsUnderWifis", function(wifiList) {
 // publish users under the tag to user, for user profile picture in chat
 Meteor.publish("tags/usersUnderTag", function(tagId) {
 
-  var tag = App.Collections.Tags.find({"_id": tagId},
-                                      {"fields": {"users": 1, "activeUser": 1}}).fetch();
+  var tag = App.Collections.Tags.findOne({"_id": tagId},
+                                      {"fields": {"users": 1, "activeUser": 1}});
   var users = tag.users.concat(tag.activeUser);
 
-  return Meteor.users.find({"_id": {"$in": strangerUserId}},
+  return Meteor.users.find({"_id": {"$in": users}},
                            { "fields": { "profile.profileSeed": 1 }});
 });
