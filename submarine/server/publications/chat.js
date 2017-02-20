@@ -1,11 +1,11 @@
-Meteor.publish("chat/friendChats", function(limit, query) {
+Meteor.publish("chat/friendChats", function(limit, friendId) {
   var selector = {
     is_public: false,
     sender: {
-      "$in": [this.userId, query.friendId]
+      "$in": [this.userId, friendId]
     },
     receiver: {
-      "$in": [this.userId, query.friendId]
+      "$in": [this.userId, friendId]
     }
   };
 

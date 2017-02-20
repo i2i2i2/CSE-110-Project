@@ -13,9 +13,31 @@ Template.Chats.onCreated(function() {
   self.friendId = FlowRouter.current().params.friendId;
   self.userId = Meteor.userId();
 
- // console.log(self.friendId);
- //console.log(self.userId);
+  //subsribe message
+  self.limit = new ReactiveVar(25);
+  this.autorun(() => {
+      this.subscribe('chat/friendChats', null, self.friendId);
+    });
+
 });
+
+
+Template.Chats.events({
+  "click .button[data-action=send]": function(){
+    var currMessage = $('#msg').val();
+    var self = Template.instance();
+    console.log("send");
+    App.Collections.Message.insert({
+      is_public: false,
+      sender: self.userId,
+      receiver: self.friendId,
+      message: currMessage,
+      time: new Date(),
+      rate: 0
+    })
+  }
+});
+
 
 Template.Chats.helpers({
   "messages": function() {
@@ -34,6 +56,8 @@ Template.Chats.helpers({
 
   friendId: () => FlowRouter.current().params.friendId
 });
+
+
 
 Template.mainLayout.events({
   "click .info_avatar": function (e, t) {
