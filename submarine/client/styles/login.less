@@ -254,6 +254,28 @@
 
 }
 
+.common {
+    position: absolute;
+    top: 130vw;
+    right: 0;
+    width: 100vw;
+    height: ~"calc(100vh - 75vw)";
+    
+    .submarine_logo {
+    position: absolute;
+    bottom: 70vw;
+    left: 27vw;
+    width: 50vw;
+    height: 35vw;
+
+    use {
+      transform: scale(1.2, 1.1);
+      fill: yellow;
+      stroke: red;
+    }
+  }
+}
+
 .lower {
   position: absolute;
   top: 75vw;
@@ -293,20 +315,6 @@
     }
   }
 
-  .submarine_logo {
-    position: absolute;
-    bottom: 6vh;
-    left: 27vw;
-    width: 50vw;
-    height: 35vw;
-
-    use {
-      transform: scale(1.2, 1.1);
-      fill: yellow;
-      stroke: red;
-    }
-  }
-
   .footer {
     position: absolute;
     bottom: 2.4vw;
@@ -324,6 +332,7 @@
 
 .lower.signup {
   background-color: @dark;
+
 
   div.signup {
     visibility: visible;
