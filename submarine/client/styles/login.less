@@ -256,17 +256,20 @@
 
 .common {
     position: absolute;
-    top: 130vw;
+    bottom: 0;
     right: 0;
     width: 100vw;
     height: ~"calc(100vh - 75vw)";
     
     .submarine_logo {
     position: absolute;
-    bottom: 70vw;
-    left: 27vw;
-    width: 50vw;
-    height: 35vw;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25vh;
+    //height: 35vw;
 
     use {
       transform: scale(1.2, 1.1);
@@ -421,6 +424,11 @@
 @media screen and (max-height: 133vw) {
 
   .lower {
+    * {
+      visibility: hidden!important;
+    }
+  }
+  .common {
     * {
       visibility: hidden!important;
     }
