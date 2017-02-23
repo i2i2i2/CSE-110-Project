@@ -1,31 +1,130 @@
-.content {
+.chat_content {
   .info_avatar {
     margin-top: 20vw;
-    margin-left: 5vw;
+    margin-right: 5vw;
     width: 18vw;
     height: 18vw;
+    display: inline-block;
+    float: right;
   }
   .messages {
-    margin: 20vw 0 0 0;
+    padding: 20vw 0 5vw 0;
     width: 100vw;
-    height: 53vh;
-  }
+    height: ~"calc(100vh - 37vw)";
+    overflow: scroll;
 
+    .msg_wrapper {
+      clear: both;
+
+      .avatar {
+        prosition: relative;
+        height: 10vw;
+        width: 10vw;
+        margin: 2vw;
+      }
+
+      .avatar.own {
+        float: right;
+      }
+
+      .avatar.other {
+        float: left;
+      }
+
+      .msg {
+        position: relative;
+        font-size: 120%;
+        color: white;
+        max-width: 60vw;
+        min-height: 10vw;
+        text-align: left;
+        border-radius: 2vw;
+        margin: 2vw 0 2vw 0;
+      }
+
+      .msg.other {
+        float: left;
+        background-color: white;
+
+        p {
+          color: black;
+          margin: 0 3vw 0 3vw;
+          line-height: 10vw;
+        }
+      }
+
+      .msg.own {
+        float: right;
+        background-color: #050F18;
+
+        p {
+          color: white;
+          margin: 0 3vw 0 3vw;
+          line-height: 10vw;
+        }
+      }
+    }
+
+    .seperate {
+      font-size: 100%;
+      color: lightgrey;
+      text-align: center;
+      width: 18vw;
+      margin: 2vw 0 0 41vw;
+      border-radius: 1vw;
+      line-height: 1.4;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+  .button.back{
+    margin-top: 20vw;
+    margin-left: 5vw;
+    display: inline-block;
+    margin-top: 20vw;
+    background-color: transparent;
+    font-size: 130%;
+  }
   .inputmsg {
-    height: 10vh;
+    position: fixed;
+    bottom: 0;
+    height: 12vw;
     width: 100vw;
+    background-color: #050F18;
 
     input {
       float: left;
-      width: 69vw;
-      height: 10vw;
+      margin-left: 5vw;
+      padding-left: 5vw;
+      font-size: 120%;
+      color: white;
+      width: 71vw;
+      height: 9vw;
       line-height: 10vw;
-      margin-left: 1vw;
+      background: transparent;
+      border: 0;
+      border-bottom: 0.8vw solid white;
+    }
+
+    input:focus {
+      outline: none;
+      border-bottom: 0.8vw solid palegreen;
     }
 
     .button {
-      width: 25vw;
+      width: 8vw;
+      height: 8vw;
+      margin-right: 5vw;
       float: right;
+      background: transparent;
+      border-radius: 8vw;
+      border: 0.7vw solid grey;
+      color: white;
+      font-size: 150%;
+      line-height: 8vw;
+
+      .fa {
+        margin-left: -1vw;
+      }
     }
   }
 }

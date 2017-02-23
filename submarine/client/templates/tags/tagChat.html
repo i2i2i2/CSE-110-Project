@@ -1,0 +1,62 @@
+<template name="tagChats">
+  <div class="messages">
+    {{#if subNotReady}}
+      <p>Connecting</p>
+    {{/if}}
+    {{#if hasPastMessages}}
+
+      {{#each pastMessages}}
+        {{{timeSeperate time}}}
+        {{#if ownMsg sender}}
+          <div class="msg_wrapper">
+            <div class="own avatar">{{{avatar (profileSeed sender)}}}</div>
+            <div class="own msg">
+              <p>{{message}}</p>
+            </div>
+          </div>
+        {{else}}
+          <div class="msg_wrapper">
+            <div class="other avatar">{{{avatar (profileSeed sender)}}}</div>
+            <div class="other msg">
+              <p>{{message}}</p>
+            </div>
+          </div>
+        {{/if}}
+      {{/each}}
+
+      {{#if hasNewMessage}}
+        <div class="msg_wrapper">
+          <p class="seperator">Below are new messages</p>
+        </div>
+      {{/if}}
+    {{/if}}
+
+    {{#each newMessages}}
+      {{{timeSeperate time}}}
+
+      {{#if ownMsg sender}}
+        <div class="msg_wrapper">
+          <div class="own avatar">{{{avatar (profileSeed sender)}}}</div>
+          <div class="own msg">
+            <p>{{message}}</p>
+          </div>
+        </div>
+      {{else}}
+        <div class="msg_wrapper">
+          <div class="other avatar">{{{avatar (profileSeed sender)}}}</div>
+          <div class="other msg">
+            <p>{{message}}</p>
+          </div>
+        </div>
+      {{/if}}
+
+      {{scrollDown}}
+    {{/each}}
+  </div>
+  <div class="inputmsg">
+    <input id="msg" type="text" placeholder="Message"/>
+    <div class="button" data-action="send">
+      <i class="fa fa-paper-plane"></i>
+    </div>
+  </div>
+</template>
