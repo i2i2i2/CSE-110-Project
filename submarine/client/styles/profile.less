@@ -1,5 +1,139 @@
 @import "color.less";
 
+.top_wrapper{
+
+   .top_pic{
+    height: 33vh;
+    background-color: rgba(168,168,168,0.3);
+  }
+
+  .profile_picture{
+    width: 35vw;
+    height: 35vw;
+    position: absolute;
+    border: none;
+    z-index: 1;
+    top: 23vh;
+    left: 32vw;
+  }
+}
+
+.changeUserName_wrapper{
+    //height: 67vh;
+    background-color: transparent;
+    margin-top: 20vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    padding-bottom: 0;
+
+    input[type="text"]{
+      background-color: transparent;
+      width: 70vw;
+      color: white;
+      padding:0;
+      border: 0;
+      font-size: 300%;
+
+      text-align: center;
+    }
+    input::-webkit-input-placeholder{
+        color:white;
+    }
+    [placeholder]:focus::-webkit-input-placeholder {
+        transition: opacity 0.2s 0.2s ease;
+        opacity: 0;
+  }
+    /*i{
+        font-size: 150%;
+        color: white;
+    }*/
+
+    .Invalid{
+        margin: 0;
+        height: 4vw;
+        font-size: 120%;
+        font-weight: 400;
+        color: darkorange;
+        opacity: 0.6;
+        text-align: center;
+    }
+
+    .invalid_transition{
+        transition: opacity 2s 2s ease;
+        opacity: 0;
+    }
+
+    /*.hide_icon{
+        display: none;
+    }*/
+}
+
+#inProfile{
+    border-color: @sub_color2;
+    margin-top: 0;
+    margin-left: 11vw;
+    margin-right: 0;
+    margin-bottom: 0;
+
+}
+
+.changeEmail_wrapper {
+    .fa-envelope-o{
+        margin-top: 3vw;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        color: white;
+        font-size: 150%;
+        display: inline-block;
+    }
+
+    form{
+        display: inline;
+    }
+    input[type="text"] {
+        border: 0;
+        position: absolute;
+        left: 11vw;
+        margin-top: 3vw;
+        background-color: transparent;
+        width: 70vw;
+        color: white;
+        padding:0;
+        border: 0;
+        font-size: 150%;
+
+        text-align: left;
+
+    }
+}
+
+.fa-facebook{
+        margin-top: 3vw;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        color: white;
+        font-size: 150%;
+        display: inline-block;
+}
+
+.fa-google{
+        margin-top: 3vw;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        color: white;
+        font-size: 150%;
+        display: inline-block;
+}
+
+.fa-github{
+        margin-top: 3vw;
+        margin-left: 3vw;
+        margin-right: 3vw;
+        color: white;
+        font-size: 150%;
+        display: inline-block;
+}
+
 .profile_picture {
   border: 0.3em solid @sub_color;
   border-radius: 0.3em;
@@ -7,15 +141,24 @@
   width: 7em;
 }
 
-.right {
-  float: right;
+.button.right {
+  color:white;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  margin: 0;
+  border: 0;
+  left: 75vw;
+  top: 43vw;
+  border-radius: 25px;
+  z-index : 2;
 }
 
-.left {
-  float: left;
+.button[data-action="logout"] {
+  top: 58vw;
+  background-color: rgba(168,168,168,0.2);
 }
 
-.changeEmail {
+/*.changeEmail {
   height: 10vh;
   background-color: @main_color2;
 }
@@ -27,4 +170,4 @@
 
 .email {
   margin: 2em;
-}
+}*/
