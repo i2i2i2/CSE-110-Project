@@ -220,6 +220,12 @@ App.Schemas.User = new SimpleSchema({
     optional: true
   },
 
+  token: {
+    type: String,
+    optional: true,
+    label: "user's android device token"
+  },
+
   online : {
     type: Boolean,
     optional: true,
