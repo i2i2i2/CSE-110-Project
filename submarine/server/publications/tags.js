@@ -5,9 +5,24 @@ Meteor.publish("tags/tagsUnderWifis", function(wifiList) {
   var wifiInDB = App.Collections.Wifis.find({"bssid": {"$in": bssids}},
                                             {"fields": {"tags": 1}}).fetch();
 
-  var tagList = wifiInDB.reduce((wifi1, wifi2) => wifi1.tags.concat(wifi2.tags), []);
+  //console.log(JSON.stringify(wifiInDB, undefined, 2));
+  
+  var tagList = [];
+  wifiInDB.forEach( function(wifi) {
+    if (wifi.tags && wifi.tags.length)
+      tagList = tagList.concat(wifi.tags);
+  });
+  
+  //console.log(JSON.stringify(tagList, undefined, 2));
+  /*
+  var tagList = wifiInDB.reduce( function(wifi1, wifi2) {
+    return (wifi1.tags).concat(wifi2.tags)  
+  }, {tags:[]} );
+  */
+  
   return App.Collections.Tags.find({"_id": {"$in": tagList}},
                                    {"fields": {"users": 0, "activeUser": 0}});
+                                 
 });
 
 // publish users under the tag to user, for user profile picture in chat
