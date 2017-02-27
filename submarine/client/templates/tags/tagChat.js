@@ -2,6 +2,7 @@ Template.tagChats.onCreated(function() {
   var self = this;
 
   self.autorun(() => {
+    console.log("autorunned");
     FlowRouter.watchPathChange(); // reactive source
 
     self.tagId = FlowRouter.current().params.tagId;
@@ -16,6 +17,7 @@ Template.tagChats.onCreated(function() {
     self.newLeft = new ReactiveVar(0);
     self.scrollPos = 0;
     self.timeStamp = 0;
+    self.addToBottom = true;
     self.history = new ReactiveVar([]);
     if (self.watchCursor)
       self.watchCursor.stop();
@@ -35,7 +37,17 @@ Template.tagChats.onCreated(function() {
           console.log(fields);
           var history = self.history.get();
           history.push(fields);
+          self.historyChange.set(self.historyChange.get() + 1);
           self.history.set(history);
+          self.addToBottom = true;
+
+          var container = document.getElementsByClassName("messages")[0];
+          if (container.scrollTop < container.scrollHeight - container.clientHeight - 30) {
+            $(".floater[data-action=\"down\"]").removeClass("hidden");
+            self.newMsg.set(self.newMsg.get() + 1);
+          } else {
+            self.newMsg.set(0);
+          }
         }
       });
 
@@ -85,6 +97,8 @@ Template.tagChats.onCreated(function() {
         } else {
           self.history.set(pastHistory);
         }
+
+        self.addToBottom = false;
       });
     }
   });
@@ -94,8 +108,6 @@ Template.tagChats.onCreated(function() {
 
 Template.tagChats.onRendered(function() {
 
-
-
   var self = this;
   self.mouseDownY = -1;
   self.lastPointY = -1;
@@ -104,8 +116,18 @@ Template.tagChats.onRendered(function() {
   self.container = document.getElementsByClassName("messages")[0];
 
   // add touch move event listeners here
+  $(".messages").scroll(function(event) {
+    console.log("scrolled");
+    $(".floater").addClass("hidden");
+  });
+
 
   // event listeners
+  self.handleScroll = function(event) {
+    console.log("scrolled");
+    $(".floater").addClass("hidden");
+  }
+
   self.handleTouchDown = function(event) {
 
     if (self.historyChange.get() == 0 || self.refreshing) return;
@@ -144,6 +166,8 @@ Template.tagChats.onRendered(function() {
           var history = self.history.get();
           self.historyChange.set(self.historyChange.get() + 1);
           self.history.set(res.history.concat(history));
+
+          self.addToBottom = false;
         });
       }
     }
@@ -181,10 +205,14 @@ Template.tagChats.events({
   "click .button[data-action=\"back\"]": function(e, t) {
     FlowRouter.go("/user/home");
   },
-  "click .button[data-action=\"down\"]":function(e, t) {
-    self.container.scollTop = self.container.scrollHeight - self.container.clientHeight;
+  "click .floater[data-action=\"down\"]":function(e, t) {
+    console.log("click down");
+    var container = document.getElementsByClassName("messages")[0];
+    container.scrollTop = container.scrollHeight - container.clientHeight;
+    $("floater[data-action=\"down\"]").addClass("hidden");
+    setTimeout(function() { t.newMsg.set(0); }, 500);
   },
-  "click .button[data-action=\"up\"]": function(e, t) {
+  "click .floater[data-action=\"up\"]": function(e, t) {
     self.container.scrollTop = 0;
     $(".messages").addClass("refreshing");
     Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.joinTime, true, false, function(res) {
@@ -193,6 +221,7 @@ Template.tagChats.events({
       var history = self.history.get();
       self.historyChange.set(self.historyChange.get() + 1);
       self.history.set(res.history.reverse().concat(history));
+      self.addToBottom  = false;
     });
   }
 })
@@ -200,7 +229,6 @@ Template.tagChats.events({
 Template.tagChats.helpers({
   "initSubNotReady": function() {
     var self = Template.instance();
-    console.log(self.historyChange.get());
     return self.historyChange.get() == 0;
   },
   "hasLeftNew": function() {
@@ -252,23 +280,39 @@ Template.tagChats.helpers({
     }
   },
   "watchScroll": function() {
-    console.log("watch");
+    // get reactive source
+    var self = Template.instance();
+    self.historyChange.get() != 0;
     var container = document.getElementsByClassName("messages")[0];
-    if (container.scrollTop + container.clientHeight == container.scrollHeight) {
+    if (container.scrollTop + container.clientHeight > container.scrollHeight - 50) {
       self.scrollPos = "bottom";
+      console.log("at bottom");
     } else {
-      self.scrollPos = container.scrollHeight - container.scrollTop;
+      if (self.addToBottom) {
+        self.scrollPos = container.scrollTop;
+
+      } else {
+        self.scrollPos = container.scrollHeight - container.scrollTop;
+      }
     }
   },
   "scrollToPlace": function() {
-    console.log("scroll");
     var self = Template.instance();
     var container = document.getElementsByClassName("messages")[0];
-    if (self.scrollPos == "bottom") {
-      container.scrollTop = container.scrollHeight - container.clientHeight;
-    } else {
-      container.scrollTop = container.scrollHeight - self.scrollPos;
-    }
+
+    setTimeout(function() {
+      if (self.scrollPos == "bottom") {
+        container.scrollTop = container.scrollHeight - container.clientHeight;
+        console.log("bottom");
+      } else {
+        if (self.addToBottom) {
+          container.scrollTop = self.scrollPos;
+        } else {
+          container.scrollTop = container.scrollHeight - self.scrollPos;
+        }
+      }
+    }, 50);
+
   },
   "ownMsg": function(id) {
     return id == Meteor.userId();

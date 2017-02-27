@@ -28,8 +28,14 @@
     height: ~"calc(100vh - 37vw)";
     overflow: scroll;
 
+    .floater.hidden {
+      visibility: hidden;
+      opacity: 0;
+      display: block !important;
+    }
+
     .floater {
-      position: fixed;
+      position: fixed !important;
       top: 20vh;
       right: 0;
       border-radius: 5vw 0 0 5vw;
@@ -41,6 +47,9 @@
       color: white;
       margin-bottom: 2vw;
       z-index: 10;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
 
       .number {
         margin: 0.7vw;
@@ -49,7 +58,8 @@
         border-radius: 4.8vw;
         border: 0.8vw solid white;
         position: absolute;
-        line-height: 7vw;
+        line-height: 7.5vw;
+        font-size: 125%;
         left: 0;
         top: 0;
       }
