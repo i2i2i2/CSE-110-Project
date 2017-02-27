@@ -8,12 +8,23 @@ App.Schemas.UserProfile = new SimpleSchema({
   friendRequest: {
     type: Array,
     optional: true,
-    label: "array of user's userid who send friend request to this user"
+    label: "Array of users who send friend request to this user, include userId, requestReason"
   },
 
   "friendRequest.$": {
+    type: Object,
+    optional: true
+  },
+    
+  "friendRequest.$.userId": {
     type: String,
     optional: true
+  },
+
+  "friendRequest.$.requestReason": {
+    type: String,
+    optional: true,
+    label: "Why want to add friends"
   },
 
   recommendedFriends: {
