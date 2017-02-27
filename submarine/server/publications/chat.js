@@ -15,24 +15,15 @@ Meteor.publish("chat/friendChats", function(limit, friendId) {
   });
 });
 
-Meteor.publish("chat/tagChats", function(tagId, date, isNew, limit) {
+Meteor.publish("chat/tagChats", function(tagId) {
+
   var selector = {
     is_public: true,
-    receiver: tagId
+    receiver: tagId,
+    time: {
+      $gte: new Date()
+    }
   };
 
-  if (isNew) {
-    if (date) {
-      selector.time = {
-        $gt: new Date(date)
-      };
-    }
-    return App.Collections.Message.find(selector, { sort: {time: -1} });
-
-  } else {
-    selector.time = {
-      $lte: new Date(date)
-    };
-    return App.Collections.Message.find(selector, { sort: {time: -1}, limit: limit});
-  }
+  return App.Collections.Message.find(selector, {sort: {time: -1}});
 });
