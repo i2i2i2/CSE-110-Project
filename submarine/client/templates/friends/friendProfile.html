@@ -1,7 +1,9 @@
 <template name="FriendProfile">
   <div class="profile_content">
     <div class="top_pic">
-
+       <div class="button_back" data-userid="{{userId}}">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="mid_avatar">
       {{{avatar (profileSeed userId)}}}
@@ -10,9 +12,31 @@
       <div class="name">
         {{getName userId false}}
       </div>
-      <div class="button_back" data-userid="{{userId}}">
-        &lt; back
+      <form>
+        <input type="text" class="nickname" placeholder="Click To Add A Nickname">
+      </form>
+      <div class="profi_facebook profi_wrap">
+        <i class="fa fa-facebook" aria-hidden="true"></i>
+        <p class="account_facebook">
+          fb!
+       <!--   {{getFacebook}} -->
+        </p>
       </div>
+      <div class="profi_google profi_wrap">
+        <i class="fa fa-google" aria-hidden="true"></i>
+        <p class="account_google">
+          google!
+          <!--   {{getGoogle}} -->
+        </p>
+      </div>
+      <div class="profi_github profi_wrap">
+        <i class="fa fa-github" aria-hidden="true"></i>
+        <p class="account_github">
+          github!
+          <!--   {{getGithub}} -->
+        </p>
+      </div>
+
     </div>
   </div>
 </template>

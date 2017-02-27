@@ -7,7 +7,14 @@
   .top_pic{
     height: 33vh;
     background-color: rgba(168,168,168,0.3);
-
+    .button_back{
+      position: absolute;
+      width: 6vw;
+      left: 5vw;
+      margin-top: 22vw;
+      font-size: 400%;
+      color: black;
+    }
   }
 
   .mid_avatar{
@@ -28,13 +35,51 @@
       padding-top: 26vw;
       text-align: center;
     }
-    .button_back{
-      position: absolute;
-      top: 164vw;
-      left: 2vw;
-      font-size: 200%;
-      color: lightgrey;
+
+    form{
+      margin-top: 3vw;
+      margin-left: 10vw;
+      margin-bottom: 12vw;
+      input{
+        height: 6vw;
+        width: 80vw;
+        text-align: center;
+        background-color: transparent;
+        font-size: 170%;
+        border-width: 0;
+        color: rgb(168,168,168);
+      }
+      input::-webkit-input-placeholder {
+        color: rgba(168,168,168,0.4) !important;
+        font-style: italic;
+      }
     }
+
+    .profi_wrap{
+        .account_facebook{
+          padding-left: 4vw;
+          display: inline;
+          font-size: 200%;
+          color: rgba(256,256,256,0.7);
+        }
+        .account_google{
+          padding-left: 3vw;
+          display: inline;
+          font-size: 200%;
+          color: rgba(256,256,256,0.7);
+        }
+        .account_github{
+          padding-left: 3vw;
+          display: inline;
+          font-size: 200%;
+          color: rgba(256,256,256,0.7);
+        }
+
+      margin-left: 5vw;
+      margin-right: 5vw;
+      margin-top: 4vw;
+    }
+
   }
 
 }

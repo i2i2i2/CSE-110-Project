@@ -14,10 +14,16 @@ Template.FriendProfile.helpers({
 
   getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
 
-  userId: () => FlowRouter.current().params._id
+  userId: () => FlowRouter.current().params._id,
+
+  getFacebook: () => Meteor.userId()? Meteor.user().socialMedia.facebook: null,
+
+  getGoogle: () => Meteor.userId()? Meteor.user().socialMedia.google: null,
+
+  getGithub: () => Meteor.userId()? Meteor.user().socialMedia.github: null
 });
 
-Template.mainLayout.events({
+Template.FriendProfile.events({
   "click .button_back": function (e, t) {
     var id = t.$(e.currentTarget).data('userid');
     FlowRouter.go('/chats/friend/'+id);
