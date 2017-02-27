@@ -29,20 +29,20 @@ Meteor.startup(function () {
             else {
                 
                 // Add user2 to user1's collection
-                //if(Meteor.users.findOne({_id: userId}, {"profile.friends":{"userId":friendId}}) == null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends':{'userId':friendId}}]}) == null){
                     console.log("Adding user2 to user1");    
                     Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
                     // remove user 2 from friend Request
-                   // if(Meteor.users.findOne({"profile.friendRequest":friendId}) != null){
+                   if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest':{'userId':friendId}}]}) != null){
                         Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":friendId}});
-                    //}
-                //}
+                    }
+                }
                 // Add user1 to user2's collection
-                //if(Meteor.users.findOne({_id: friendId},{"profile.friends":{"userId":userId}}) == null){
+                if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friends':{'userId':userId}}]}) == null){
                     console.log("Adding user1 to user2");
                     Meteor.users.update({_id:friendId}, {$push:{"profile.friends":{"userId":userId}}});
                 
-                //}
+                }
                 
             }
             return true;    
@@ -60,17 +60,17 @@ Meteor.startup(function () {
             else {
                 console.log("Dismissing user2 as friends");
                 // Add user2 to user1's turndownFriends collection
-                //if(Meteor.users.findOne({"profile.turndownFriends":{"userId":friendId}}) == null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.turndownFriends':{'userId':friendId}}]}) == null){
                     var today = new Date();
                     var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
                     
                     Meteor.users.update({_id: userId}, {$push:{"profile.turndownFriends":{"userId":friendId,"validThru":nextweek}}});
                     
-                //}
+                }
                 // remove user 2 from friend Request
-                //if(Meteor.users.findOne({"profile.friendRequest":friendId}) != null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest':{'userId':friendId}}]}) != null){
                         Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
-                //}
+                }
                 
             }
             return true;    
