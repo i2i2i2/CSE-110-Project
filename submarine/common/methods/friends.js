@@ -5,12 +5,12 @@ Meteor.startup(function () {
 	Meteor.methods({
         //Save one more message entry to db
         // Called in client chat.js and  tagChat.js
-        "friends/sendMessage": function (userId, friendId, currMessage) {
+        "friends/sendMessage": function (userId, friendId, message) {
 		  console.log('on server, welcome called sendMessage: '); App.Collections.Message.insert({
             is_public: false,
             sender: userId,
             receiver: friendId,
-            message: currMessage,
+            message: message,
             time: new Date(),
             rate: 0
         });
@@ -29,11 +29,11 @@ Meteor.startup(function () {
             else {
                 
                 // Add user2 to user1's collection
-                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends':{'userId':friendId}}]}) == null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) == null){
                     console.log("Adding user2 to user1");    
                     Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
                     // remove user 2 from friend Request
-                   if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest':{'userId':friendId}}]}) != null){
+                   if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest.userId':friendId}]}) != null){
                         Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":friendId}});
                     }
                 }
@@ -60,7 +60,7 @@ Meteor.startup(function () {
             else {
                 console.log("Dismissing user2 as friends");
                 // Add user2 to user1's turndownFriends collection
-                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.turndownFriends':{'userId':friendId}}]}) == null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.turndownFriends.userId':friendId}]}) == null){
                     var today = new Date();
                     var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
                     
@@ -68,9 +68,33 @@ Meteor.startup(function () {
                     
                 }
                 // remove user 2 from friend Request
-                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest':{'userId':friendId}}]}) != null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest.userId':friendId}]}) != null){
                         Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
                 }
+                
+            }
+            return true;    
+        },
+        
+        "friends/sendRequest" : function(userId, friendId, message) {
+            console.log("on serve, welcome called sendRequest: ");
+            var user1 = Meteor.users.findOne(userId);
+            var user2 = Meteor.users.findOne(friendId);
+            
+            if (user1==null || user2==null) {
+                // invalid userid
+                console.log("Invalid user or friend id");
+                return false;
+            }
+            else {
+                console.log("Sending user 2 request");
+                // if user 2 is not blocking user 1, add user 1 to user 2's db
+                if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.turndownFriends.userId':userId}]}) == null){
+                    
+                    Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
+                    
+                }
+                
                 
             }
             return true;    
