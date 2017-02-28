@@ -152,6 +152,7 @@ Template.ForgotPassword.events({
                 $(".error").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
             } else {
                 $("#pwd_reset_button").text("Password reset!");
+                FlowRouter.go("/user/home");
             }
         });
 

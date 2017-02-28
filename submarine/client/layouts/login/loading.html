@@ -1,15 +1,7 @@
 <template name="Loading">
-  {{#if logined}}
 
-    {{> Template.dynamic template=loader}}
+  {{> Template.dynamic template=login}}
 
-  {{else}}
-
-    {{> Template.dynamic template=login}}
-
-  {{/if}}
-  <div class="debug button">Debug</div>
-    
   <div class="common">
     <div class="submarine_logo">
       <svg viewBox="0 0 100 100">
@@ -17,5 +9,5 @@
       </svg>
     </div>
   </div>
-    
+
 </template>

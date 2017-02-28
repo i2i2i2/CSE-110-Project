@@ -173,8 +173,10 @@ Template.Login.events({
     }
 
     Meteor.loginWithPassword(username, password, (err) => {
-      if (!err)
+      if (!err) {
+        FlowRouter.go("/user/home");
         return;
+      }
 
       $(e.currentTarget).html("Log In");
       if (err.reason == "User not found")
