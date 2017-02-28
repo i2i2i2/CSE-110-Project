@@ -1,21 +1,56 @@
 <template name="Chats">
-  <div class="chat_content">
-    <div class="button back">
-      <i class="fa fa-angle-left" aria-hidden="true"></i>
-    </div>
-    <div class="info_avatar" data-friendid="{{friendId}}">
-      {{{avatar (profileSeed friendId)}}}
+  <p class="loading hidden">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+  </p>
+  <div class="messages">
+    {{#if initSubNotReady}}
+      <p class="loading">
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      </p>
+    {{else}}
 
-    </div>
+      <div class="floater {{hasLeftNew}}" data-action="up">
+        <span class="number">{{leftNew}}</span><i class="fa fa-chevron-up"></i>
+      </div>
 
-    <div class="messages">
-      {{#each messages}}
-        <p>{{sender}} to {{receiver}}: {{message}}</p>
-      {{/each}}
-    </div>
-    <div class="inputmsg">
-      <input id="msg" type="text" placeholder="Message"/>
-      <div class="button" data-action="send">Send</div>
+
+      <div class="floater {{hasNewMsg}}" data-action="down">
+        <span class="number">{{newMsg}}</span> <i class="fa fa-chevron-down"></i>
+      </div>
+
+      {{#if messageChanged}}
+
+        {{watchScroll}}
+
+        {{#each messages}}
+          {{{seperate time startNew}}}
+
+          {{#if ownMsg sender}}
+            <div class="msg_wrapper">
+              <div class="own avatar">{{{avatar (profileSeed sender)}}}</div>
+              <div class="own msg" data-id={{_id}}>
+                <p>{{message}}</p>
+              </div>
+            </div>
+          {{else}}
+            <div class="msg_wrapper">
+              <div class="other avatar">{{{avatar (profileSeed sender)}}}</div>
+              <div class="other msg" data-id={{_id}}>
+                <p>{{message}}</p>
+              </div>
+            </div>
+          {{/if}}
+
+          {{scrollToPlace}}
+        {{/each}}
+      {{/if}}
+    {{/if}}
+  </div>
+  <div class="inputmsg">
+    <div class="button" data-action="back">back</div>
+    <input id="msg" type="text" placeholder="Message"/>
+    <div class="button" data-action="send">
+      <i class="fa fa-paper-plane"></i>
     </div>
   </div>
 </template>
