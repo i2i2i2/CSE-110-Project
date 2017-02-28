@@ -1,16 +1,13 @@
 @import "color.less";
 
-.whole_page{
-    position: absolute;
-}
 
 .user_name_avatar {
-  padding-top: 15vw;
+  padding-top: 20vw;
 }
 .avatar_circle{
     margin: auto;
     margin-top: 8vh;
-    margin-bottom: 0;
+    margin-bottom: 3vh;
     width: 30vw;
 	  height: 30vw;
 }
@@ -21,7 +18,7 @@
     p{
         font-family: "Robot-Bold", sans-serif;
         color: white;
-        font-size: 160%;
+        font-size: 180%;
         font-weight: bold;
         //text-shadow: 1px 1px 1px;
         margin: 0em;
@@ -38,13 +35,24 @@ hr{
 
 }
 
+.recent_tags {
+  position: absolute;
+  bottom: 32vh;
+}
+
+.recent_friends {
+  position: absolute;
+  bottom: 10vh;
+}
+
+
 .recent_tags, .recent_friends{
     margin: 0;
     width: 100%;
     height: 22vh;
     overflow: hidden;
 
-    p{
+    p {
         font-family: "Robot-Bold", sans-serif;
         font-weight: bold;
         text-align: center;
@@ -56,7 +64,7 @@ hr{
     .recent_tag_name, .recent_friend_name{
         //position: absolute;
         //left: 0em;
-        margin-top: 2vh;
+        margin-top: 1vh;
         width: 100%;
         overflow: auto;
         white-space: nowrap;
@@ -93,19 +101,10 @@ hr{
 }
 
 
- h3{
+ h3 {
         margin: 0;
-        margin-left: 1vw;
-        margin-bottom: 0.5vh;
+        margin-left: 2vw;
         font-size: 140%;
         font-family: "Robot-Bold", sans-serif;
         color: white;
-}
-
-.whole_page {
-    margin: 0em;
-    width: 100%;
-    height: 100%;
-    /*opacity: 1;
-    filter: blur(50px);*/
 }
