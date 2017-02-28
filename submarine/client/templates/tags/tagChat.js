@@ -24,6 +24,8 @@ Template.tagChats.onCreated(function() {
     if (self.oldestMsg < self.preOldestMsg)
       self.preOldestMsg = -1;
 
+    self.subscribe("tags/usersUnderTag", self.tagId);
+
     self.subscribe('chat/tagChats', self.tagId, () => {
       // get cursor and watch cursor
       var newHistoryCursor = App.Collections.Message.find({
