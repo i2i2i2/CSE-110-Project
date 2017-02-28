@@ -122,7 +122,7 @@ Template.TopAnchor.onRendered(function() {
       tagList.sort(function(tag1, tag2){
         return tag1.std - tag2.std; 
       });
-      
+      this.tagList = tagList;
       //console.log(JSON.stringify(tagList, undefined, 2));
 
     }
@@ -147,10 +147,14 @@ Template.TopAnchor.events({
       }
     }
   },
-  "click .create.button": function() {
+  /*"click .create.button": function() {
       //$(".popUpWindow").fadeIn();
-      $(".popUpWindow").animate({
-            height: 'toggle'
-        });
-  }
+      $(".popUpWindow").addClass(popUp_transition);
+  }*/
+});
+
+Template.TopAnchor.helpers({
+
+    //"getTagList": () => this.tagList
+     "getTagList": () => ['tag1', 'tag2', 'tag3', 'tag4']
 });

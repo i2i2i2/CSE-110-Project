@@ -2,7 +2,13 @@
   <div class="top_anchor top">
     <div class="content">
         <div class="lower_content">
-            <p class="welcome_join">
+            <div class="button_wrapper">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <a class="button"  href="#popUp1">Create Chatroom</a>
+            </div>
+
+            <hr>
+            <!--<p class="welcome_join">
                 <i class="fa fa-bullhorn" aria-hidden="true"></i>
                 Captain, wanna join a chatroom?
             </p>
@@ -10,85 +16,98 @@
             <p class="welcome_create">
                 <i class="fa fa-circle-o" aria-hidden="true"></i>
                 Not interest? Create a new one!
-            </p>
-            <div class="create button">Create Chatroom</div>
-            <div class="popUpWindow">
-                <div class="form_wrapper createRoom">
-                  <form class="create_new_chat">
-                    <label for="Cname">Chatroom name</label>
-                    <input type="text" name="chatroom_name" placeholder="New Chatroom Name"/>
-                    <label for="Discription">Description</label>
-                    <input type="text" name="room_discription" placeholder = "Brief description for your chatroom"/>
-                    <label for="interval">Start Time</label>
-                    <select class="time" name="time">
-                        <option value="8am">8 a.m.</option>
-                        <option value="9am">9 a.m.</option>
-                        <option value="10am">10 a.m.</option>
-                        <option value="11am">11 a.m.</option>
-                        <option value="12pm">12 p.m.</option>
-                        <option value="1pm">1 p.m.</option>
-                        <option value="2pm">2 p.m.</option>
-                        <option value="3pm">3 p.m.</option>
-                        <option value="4pm">4 p.m.</option>
-                        <option value="5pm">5 p.m.</option>
-                        <option value="6pm">6 p.m.</option>
-                        <option value="7pm">7 p.m.</option>
-                        <option value="8pm">8 p.m.</option>
-                        <option value="9pm">9 p.m.</option>
-                        <option value="10pm">10 p.m.</option>
-                        <option value="11pm">11 p.m.</option>
-                        <option value="12am">12 a.m.</option>
-                        <option value="1am">1 a.m.</option>
-                        <option value="2am">2 a.m.</option>
-                        <option value="3am">3 a.m.</option>
-                        <option value="4am">4 a.m.</option>
-                        <option value="5am">5 a.m.</option>
-                        <option value="6am">6 a.m.</option>
-                        <option value="7am">7 a.m.</option>
-                     </select>
-                     <label for="interval">End Time</label>
-                     <select id="time" name="time">
-                        <option value="8am">8 a.m.</option>
-                        <option value="9am">9 a.m.</option>
-                        <option value="10am">10 a.m.</option>
-                        <option value="11am">11 a.m.</option>
-                        <option value="12pm">12 p.m.</option>
-                        <option value="1pm">1 p.m.</option>
-                        <option value="2pm">2 p.m.</option>
-                        <option value="3pm">3 p.m.</option>
-                        <option value="4pm">4 p.m.</option>
-                        <option value="5pm">5 p.m.</option>
-                        <option value="6pm">6 p.m.</option>
-                        <option value="7pm">7 p.m.</option>
-                        <option value="8pm">8 p.m.</option>
-                        <option value="9pm">9 p.m.</option>
-                        <option value="10pm">10 p.m.</option>
-                        <option value="11pm">11 p.m.</option>
-                        <option value="12am">12 a.m.</option>
-                        <option value="1am">1 a.m.</option>
-                        <option value="2am">2 a.m.</option>
-                        <option value="3am">3 a.m.</option>
-                        <option value="4am">4 a.m.</option>
-                        <option value="5am">5 a.m.</option>
-                        <option value="6am">6 a.m.</option>
-                        <option value="7am">7 a.m.</option>
-                     </select>
-                     <label for="repeat" class="repeat">Repeat Pattern</label>
-                     <div class="repeat_wrapper">
-                         <label class="check"><input type="checkbox" value="Sun">Sun</label>
-                         <label class="check"><input type="checkbox" value="Mon">Mon</label>
-                         <label class="check"><input type="checkbox" value="Tue">Tue</label>
-                         <label class="check"><input type="checkbox" value="Wed">Wed</label>
-                         <label class="check"><input type="checkbox" value="Thur">Thur</label>
-                         <label class="check"><input type="checkbox" value="Fri">Fri</label>
-                         <label class="check"><input type="checkbox" value="Sat">Sat</label>
-                         <label class="check"><input type="checkbox" value="Allday">All</label>
-                     </div>
-                     <div class="create submit_button">Submit</div>
+            </p>-->
+            <div id="popUp1" class="overlay">
+                <div class="popUpWindow">
+                    <a class="close" href="#">&times;</a>
+                    <div class="form_wrapper createRoom">
+                      <form class="create_new_chat">
+                        <label for="Cname">Chatroom name</label>
+                        <input type="text" name="chatroom_name" placeholder="New Chatroom Name"/>
+                        <label for="Discription">Description</label>
+                        <input type="text" name="room_discription" placeholder = "Brief description for your chatroom"/>
+                        <label for="interval">Start Time</label>
+                        <select class="time" name="time">
+                            <option value="8am">8 a.m.</option>
+                            <option value="9am">9 a.m.</option>
+                            <option value="10am">10 a.m.</option>
+                            <option value="11am">11 a.m.</option>
+                            <option value="12pm">12 p.m.</option>
+                            <option value="1pm">1 p.m.</option>
+                            <option value="2pm">2 p.m.</option>
+                            <option value="3pm">3 p.m.</option>
+                            <option value="4pm">4 p.m.</option>
+                            <option value="5pm">5 p.m.</option>
+                            <option value="6pm">6 p.m.</option>
+                            <option value="7pm">7 p.m.</option>
+                            <option value="8pm">8 p.m.</option>
+                            <option value="9pm">9 p.m.</option>
+                            <option value="10pm">10 p.m.</option>
+                            <option value="11pm">11 p.m.</option>
+                            <option value="12am">12 a.m.</option>
+                            <option value="1am">1 a.m.</option>
+                            <option value="2am">2 a.m.</option>
+                            <option value="3am">3 a.m.</option>
+                            <option value="4am">4 a.m.</option>
+                            <option value="5am">5 a.m.</option>
+                            <option value="6am">6 a.m.</option>
+                            <option value="7am">7 a.m.</option>
+                         </select>
+                         <label for="interval">End Time</label>
+                         <select id="time" name="time">
+                            <option value="8am">8 a.m.</option>
+                            <option value="9am">9 a.m.</option>
+                            <option value="10am">10 a.m.</option>
+                            <option value="11am">11 a.m.</option>
+                            <option value="12pm">12 p.m.</option>
+                            <option value="1pm">1 p.m.</option>
+                            <option value="2pm">2 p.m.</option>
+                            <option value="3pm">3 p.m.</option>
+                            <option value="4pm">4 p.m.</option>
+                            <option value="5pm">5 p.m.</option>
+                            <option value="6pm">6 p.m.</option>
+                            <option value="7pm">7 p.m.</option>
+                            <option value="8pm">8 p.m.</option>
+                            <option value="9pm">9 p.m.</option>
+                            <option value="10pm">10 p.m.</option>
+                            <option value="11pm">11 p.m.</option>
+                            <option value="12am">12 a.m.</option>
+                            <option value="1am">1 a.m.</option>
+                            <option value="2am">2 a.m.</option>
+                            <option value="3am">3 a.m.</option>
+                            <option value="4am">4 a.m.</option>
+                            <option value="5am">5 a.m.</option>
+                            <option value="6am">6 a.m.</option>
+                            <option value="7am">7 a.m.</option>
+                         </select>
+                         <label for="repeat" class="repeat">Repeat Pattern</label>
+                         <div class="repeat_wrapper">
+                             <label class="check"><input type="checkbox" value="Sun">Sun</label>
+                             <label class="check"><input type="checkbox" value="Mon">Mon</label>
+                             <label class="check"><input type="checkbox" value="Tue">Tue</label>
+                             <label class="check"><input type="checkbox" value="Wed">Wed</label>
+                             <label class="check"><input type="checkbox" value="Thur">Thur</label>
+                             <label class="check"><input type="checkbox" value="Fri">Fri</label>
+                             <label class="check"><input type="checkbox" value="Sat">Sat</label>
+                             <label class="check"><input type="checkbox" value="Allday">All</label>
+                         </div>
+                         <div class="create submit_button">Submit</div>
 
 
-                  </form>
+                      </form>
+                    </div>
                 </div>
+            </div>
+            <div class="tagContent">
+                {{#each getTagList}}
+                <div class="tag_wrapper">
+                    <div class="tagName">
+                        <i class="fa fa-anchor" aria-hidden="true"></i>
+                        {{this}}
+                    </div>
+                    <div class="tagDescription"></div>
+                </div>
+                {{/each}}
             </div>
             <!--<div class="refresh_tag">
                 <a class="refresh_icon">

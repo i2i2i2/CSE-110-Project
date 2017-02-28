@@ -60,10 +60,11 @@
     }
 
     .invalid_transition{
+        -webkit-transition-delay: 2s; /* Safari */
+    transition-delay: 2s;
         transition: opacity 2s 2s ease;
         opacity: 0;
     }
-
     /*.hide_icon{
         display: none;
     }*/
@@ -71,14 +72,14 @@
 
 #inProfile{
     border-color: @sub_color2;
-    margin-top: 0;
+    margin-top: 4vw;
     margin-left: 11vw;
     margin-right: 0;
     margin-bottom: 0;
 
 }
 
-.changeEmail_wrapper {
+.change_wrapper {
     .fa-envelope-o{
         margin-top: 3vw;
         margin-left: 3vw;
@@ -106,34 +107,73 @@
         text-align: left;
 
     }
-}
+    .fa-check-circle-o{
+        display: inline;
+        position: absolute;
+        color: white;
+        right: 5vw;
+        margin-top: 4vw;
+        font-size: 150%;
+    }
 
-.fa-facebook{
+    .fa-check-circle-o{
+    display: inline;
+    position: absolute;
+    color: white;
+    right: 5vw;
+    margin-top: 4vw;
+    font-size: 150%;
+    }
+
+    .fa-facebook{
         margin-top: 3vw;
         margin-left: 3vw;
         margin-right: 3vw;
         color: white;
         font-size: 150%;
         display: inline-block;
-}
+    }
 
-.fa-google{
+    .fa-google{
         margin-top: 3vw;
         margin-left: 3vw;
         margin-right: 3vw;
         color: white;
         font-size: 150%;
         display: inline-block;
-}
+    }
 
-.fa-github{
+    .fa-github{
         margin-top: 3vw;
         margin-left: 3vw;
         margin-right: 3vw;
         color: white;
         font-size: 150%;
         display: inline-block;
+    }
+
+    .checkEmail, .checkFacebook, .checkGoogle, .checkGithub{
+        margin: 0;
+        position: absolute;
+        margin-top: 0.5vw;
+        left: 11vw;
+        font-size: 120%;
+        font-weight: 400;
+        color: darkorange;
+        opacity: 0.6;
+        text-align: left;
+
+    }
+
+    .check_transition{
+        //-webkit-transition-delay: 2s; /* Safari */
+       // transition-delay: 5s;
+        transition: opacity 2s 2s ease;
+        opacity: 0;
+    }
 }
+
+
 
 .profile_picture {
   border: 0.3em solid @sub_color;
@@ -159,12 +199,82 @@
   background-color: rgba(168,168,168,0.2);
 }
 
-/*.changeEmail {
-  height: 10vh;
-  background-color: @main_color2;
+.private_concern {
+    text-align: center;
+    .recommendOrNot{
+        width: 60vw;
+        height: 6vw;
+        background: #333;
+        margin: 0;;
+        margin-top: 8vw;
+        padding-top: 0.4vw;
+        display: inline-block;
+        border-radius: 50px;
+        position: relative;
+        font-size: 130%;
+        color: #ddd;
+    }
+    input[type=checkbox] {
+	   visibility: hidden;
+    }
+
+    .checkboxThree {
+        width: 18vw;
+        height: 6vw;
+        background: #333;
+        margin: 3vw;
+        margin-top: 8vw;
+        margin-right: 0;
+        display: inline-block;
+        border-radius: 50px;
+        position: relative;
+    }
+
+    .checkboxThree:before {
+        content: 'On';
+        position: absolute;
+        top: 1.5vw;
+        left: 2vw;
+        height: 0.5vw;
+        color: darkorange;
+        font-size: 12px;
+    }
+
+    .checkboxThree:after {
+        content: 'Off';
+        position: absolute;
+        top: 1.5vw;
+        left: 12vw;
+        height: 0.5vw;
+        color: #ddd;
+        font-size: 12px;
+    }
+
+    .checkboxThree label {
+        display: block;
+        width: 9vw;
+        height: 4vw;
+        border-radius: 50px;
+
+        transition: all .5s ease;
+        cursor: pointer;
+        position: absolute;
+        top: 1vw;
+        z-index: 1;
+        left: 1.5vw;
+        background: #ddd;
+    }
+
+    /**
+     * Create the checkbox event for the label
+     */
+    .checkboxThree input[type=checkbox]:checked + label {
+        left: 7.5vw;
+        background-color: darkorange;
+    }
 }
 
-.changeSeed {
+/*.changeSeed {
   height: 20vh;
   background-color: @main_color1;
 }

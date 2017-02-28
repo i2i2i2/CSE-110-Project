@@ -23,10 +23,11 @@
 
 
 
-  <div class="changeEmail_wrapper">
+  <div class="change_wrapper">
     <i class="fa fa-envelope-o" aria-hidden="true"></i>
     <form>
       <input type="text" class="email" placeholder="{{getEmail}}">
+      <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeEmail"></i>
       <!--<div class="button right" data-action="changeEmail">Email</div>-->
       <p class="checkEmail"></p>
 
@@ -34,36 +35,59 @@
   </div>
 
   <hr id="inProfile">
-  <div class="changeEmail_wrapper">
+  <div class="change_wrapper">
    <i class="fa fa-facebook" aria-hidden="true"></i>
     <form>
-      <input type="text" class="email" placeholder="{{getFacebook}}">
+       {{#if hasFacebook}}
+       <input type="text" class="facebook" placeholder="{{getFacebook}}" >
+       {{else}}
+       <input type="text" class="facebook" placeholder="AddYourFacebookAccount" > {{/if}}
+       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeFacebook"></i>
       <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkEmail"></p>
+      <p class="checkFacebook"></p>
 
     </form>
   </div>
 
   <hr id="inProfile">
-  <div class="changeEmail_wrapper">
+  <div class="change_wrapper">
     <i class="fa fa-google" aria-hidden="true"></i>
     <form>
-      <input type="text" class="email" placeholder="{{getGoogle}}">
+       {{#if hasGoogle}}
+       <input type="text" class="google" placeholder="{{getGoogle}}">
+       {{else}}
+       <input type="text" class="google" placeholder="AddYourGoogleAccount" > {{/if}}
+       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeGoogle"></i>
+
       <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkEmail"></p>
+      <p class="checkGoogle"></p>
 
     </form>
   </div>
 
+
 <hr id="inProfile">
-  <div class="changeEmail_wrapper">
+  <div class="change_wrapper">
     <i class="fa fa-github" aria-hidden="true"></i>
     <form>
-      <input type="text" class="email" placeholder="{{getGithub}}">
+       {{#if hasGithub}}
+       <input type="text" class="github" placeholder="{{getGithub}}">
+       {{else}}
+       <input type="text" class="github" placeholder="AddYourGithubAccount" > {{/if}}
+       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeGithub"></i>
       <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkEmail"></p>
+      <p class="checkGithub"></p>
 
     </form>
+  </div>
+
+  <div class="private_concern">
+    <div class="recommendOrNot">Recommend to others?</div>
+    <div class="checkboxThree">
+  		<input type="checkbox" value="1" id="checkboxThreeInput" name="" />
+	  	<label for="checkboxThreeInput"></label>
+  	</div>
+
   </div>
   <!--<div class="changeUserName">
     <form>
