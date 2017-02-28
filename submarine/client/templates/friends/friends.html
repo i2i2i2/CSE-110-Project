@@ -1,38 +1,38 @@
-  <template name="Friends">
-    <div class="friend_content">
-    {{#if hasRecommendation}}
-      <div class="friendsRecommend">
-        <div class="recommend_header bar">
-          <p>Recommend Friends</p>
-        </div>
-        <div class="recommend_content">
-          {{#each recommendations}}
-            <div class="recommend_wrap">
-              <div class="avatar">
-                {{{avatar (profileSeed userId)}}}
-              </div>
-              <div class="text">
-              <div class="usename">
-                {{getName userId nickname}}
-              </div>
-              <div class="description">
-                {{recommendReason}}
-              </div>
-              </div>
-              <div class="button add">
-                <i class="fa fa-plus"></i>
-              </div>
-              <div class="button ignore">
-                <i class="fa fa-close"></i>
-              </div>
-            </div>
-          {{/each}}
-        </div>
+<template name="Friends">
+  <div class="friend_content">
+  {{#if hasRecommendation}}
+    <div class="friendsRecommend">
+      <div class="recommend_header bar">
+        <p>Recommend Friends</p>
       </div>
-    {{/if}}
+      <div class="recommend_content">
+        {{#each recommendations}}
+          <div class="recommend_wrap">
+            <div class="avatar">
+              {{{avatar (profileSeed userId)}}}
+            </div>
+            <div class="text">
+            <div class="usename">
+              {{getName userId nickname}}
+            </div>
+            <div class="description">
+              {{recommendReason}}
+            </div>
+            </div>
+            <div class="button add">
+              <i class="fa fa-plus"></i>
+            </div>
+            <div class="button ignore">
+              <i class="fa fa-close"></i>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
 
-  <div class="friendsRequests">
-    {{#if hasRequest}}
+  {{#if hasRequest}}
+    <div class="friendsRequests">
       <div class="requests_header bar">
         <p>New Friend Requests</p>
       </div>
@@ -50,18 +50,17 @@
                 {{requestReason}}
               </div>
             </div>
-            <div class="button dismiss" data-userid="{{userId}}">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </div>
             <div class="button accept" data-userid="{{userId}}">
               <i class="fa fa-check" aria-hidden="true"></i>
             </div>
-
+            <div class="button dismiss" data-userid="{{userId}}">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
           </div>
         {{/each}}
       </div>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 
   <div class="friendList">
     <div class="friend_list bar">
@@ -71,18 +70,17 @@
       {{#if emptyFriends}}
             <p>Find some friends and enjoy!</p>
       {{else}}
-      {{#each friendList}}
-      <div class="friend_wrap">
-        <div class="avatar connect_profile" data-userid="{{userId}}">
-            {{{avatar (profileSeed userId)}}}
-          </div>
+        {{#each friendList}}
+          <div class="friend_wrap">
+            <div class="avatar connect_profile" data-userid="{{userId}}">
+                {{{avatar (profileSeed userId)}}}
+              </div>
 
-          <div class="name">
-            {{getName userId nickname}}
+              <div class="name">
+                {{getName userId nickname}}
+              </div>
           </div>
-
-      </div>
-      {{/each}}
+        {{/each}}
       {{/if}}
     </div>
   </div>

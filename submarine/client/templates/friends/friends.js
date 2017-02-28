@@ -6,10 +6,10 @@ Template.Friends.onRendered(function() {
 
 Template.Friends.helpers({
   recommendations: () => Meteor.userId()?
-  Meteor.user().profile.recommendedFriends : null,
+    Meteor.user().profile.recommendedFriends : null,
 
   requests: () => Meteor.userId()?
-  Meteor.user().profile.friendRequest : null,
+    Meteor.user().profile.friendRequest : null,
 
   "emptyFriends": function() {
         if(Meteor.user().profile.friends == null || Meteor.user().profile.friends.length === 0) {
@@ -59,10 +59,9 @@ Template.mainLayout.events({
       var selfId = Meteor.userId();
       var friendId = t.$(e.currentTarget).data('userid'); Meteor.call('friends/dismissFriend',selfId,friendId);
   },
-    
+
   "click .accept": function (e, t) {
       var selfId = Meteor.userId();
       var friendId = t.$(e.currentTarget).data('userid'); Meteor.call('friends/addFriend',selfId,friendId);
   }
-  
 });

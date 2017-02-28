@@ -37,12 +37,18 @@
     margin-bottom: 4vw;
     width: 96vw;
   }
+
+  .recommend_wrap:last-child {
+    border-bottom: none;
+  }
+
   .recommend_wrap {
-    padding-top: 1.5vw;
-    width: 96vw;
+    border-bottom: 1.5px solid #383838;
+    margin-left: 2vw;
+    width: 94vw;
     height: 19vw;
     vertical-align: middle;
-    border-top-width: medium;
+
     .avatar {
       height: 15vw;
       width: 15vw;
@@ -52,7 +58,7 @@
     }
 
     .text{
-      width: 48vw;
+      width: 45vw;
       display: inline-block;
       margin-left: 2vw;
       color: lightgrey;
@@ -106,8 +112,8 @@
     border-bottom-right-radius: 10px;
   }
   .request_wrap {
-    padding-top: 2vw;
-    width: 96vw;
+    margin-left: 2vw;
+    width: 94vw;
     height: 19vw;
     vertical-align: middle;
  //   background-color:rgba(168,168,168,0.3);
@@ -122,7 +128,7 @@
       float: left;
     }
     .text{
-      width: 48vw;
+      width: 45vw;
       display: inline-block;
       margin-left: 2vw;
       color: lightgrey;
@@ -145,13 +151,13 @@
       border-width: 0;
       margin-right: 2vw;
       margin-top: 5vw;
+      color: white;
     }
-    .dismiss {
-      top: 40vw;
-
+    .button.dismiss {
+      background-color: rgba(255, 100, 100, 0.9);
     }
-    .accept {
-
+    .button.accept {
+      background-color: rgba(100, 255, 100, 0.9);
     }
   }
 
@@ -169,8 +175,6 @@
   }
   .friend_wrap {
 
-  //  border-bottom: 0.05em solid #727272;
-//    border-width:medium;
     width: 31vw;
     height: 31vw;
     display: inline-block;
