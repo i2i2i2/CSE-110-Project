@@ -8,14 +8,15 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   //Update this in the collection
   Meteor.users.update(this.userId, { $set: {"online": true} });
 
-  var user = Meteor.users.findOne({"_id": this.userId}, {"profile.friendRequest": 1,
+  var user = Meteor.users.findOne({"_id": this.userId}, {"profile.profileSeed": 1,
+                                                    "profile.friendRequest": 1,
                                                     "profile.recommendedFriends": 1,
                                                     "profile.friends": 1,
                                                     "profile.strangers": 1,
                                                     "profile.savedTags": 1
                                                   });
   // publish user seed and also social media
-  var userIds = [].concat(user.profile.friendRequest,
+  var userIds = [].concat(user.profile.friendRequest.map(requests => requests.userId),
                           user.profile.recommendedFriends.map(recommendation => recommendation.userId),
                           user.profile.friends.map(friend => friend.userId));
 
