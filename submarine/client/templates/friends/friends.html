@@ -1,5 +1,4 @@
   <template name="Friends">
-    <div class=friend_content_wrapper></div>
     <div class="friend_content">
     {{#if hasRecommendation}}
       <div class="friendsRecommend">
@@ -20,8 +19,11 @@
                 {{recommendReason}}
               </div>
               </div>
-              <div class="button addFriend">
+              <div class="button add">
                 <i class="fa fa-plus"></i>
+              </div>
+              <div class="button ignore">
+                <i class="fa fa-close"></i>
               </div>
             </div>
           {{/each}}

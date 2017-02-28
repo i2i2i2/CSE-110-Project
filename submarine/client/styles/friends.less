@@ -8,15 +8,19 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 5vw;
-  background-color:#6D6D6D;
+  width: 96vw;
+  margin-left: 2vw;
+  line-height: 6vw;
+  background-color: #353535;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   margin-top: 1vw;
   p {
     padding-left: 3vw;
     font-size: 120%;
     margin: auto;
-    color: #2E2E2E;
+    color: white;
+    font-weight: bold;
   }
 }
 
@@ -24,17 +28,20 @@
 
   position: relative;
   margin-top: 3vw;
+
   .recommend_content {
+    background-color: #444;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     margin-left: 2vw;
     margin-bottom: 4vw;
+    width: 96vw;
   }
   .recommend_wrap {
     padding-top: 1.5vw;
     width: 96vw;
     height: 19vw;
     vertical-align: middle;
-//    background-color:rgba(168,168,168,0.3);
-//    border-top: 0.05em solid #727272;
     border-top-width: medium;
     .avatar {
       height: 15vw;
@@ -51,7 +58,7 @@
       color: lightgrey;
     }
     .usename{
-      margin-top: 3vw;
+      margin-top: 2vw;
       font-size: 120%;
     }
     .description {
@@ -61,15 +68,28 @@
       font-size: 105%;
       display: inline-block;
     }
-    .button.addFriend {
-      width: 16vw ;
+
+    .button.add {
+      background-color: rgba(100, 255, 100, 0.9);
+      .fa {
+          vertical-align: text-bottom;;
+      }
+    }
+
+    .button.ignore {
+      background-color: rgba(255, 100, 100, 0.9);
+    }
+
+    .button.add, .button.ignore {
+      width: 11vw ;
       height: 8vw;
+      line-height: 8vw;
       float: right;
+      font-size: 155%;
+      border-width: 0;
+      margin-right: 2vw;
       margin-top: 5vw;
-      margin-bottom: 7vw;
-      font-size: 200%;
-      line-height: 9vw;
-      border-width: medium;
+      color: white;
     }
   }
 }
@@ -80,6 +100,10 @@
   .requests_content {
     margin-left: 2vw;
     margin-bottom: 4vw;
+    width: 96vw;
+    background-color: #444;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   .request_wrap {
     padding-top: 2vw;
@@ -138,8 +162,9 @@
   margin-bottom: 8vw;
   .friendList_content {
     margin-left: 2vw;
-    margin-top: 0.7vw;
- //   background-color:rgba(168,168,168,0.3);
+    background-color: #444;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     width: 96vw;
   }
   .friend_wrap {
