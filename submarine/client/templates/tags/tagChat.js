@@ -13,8 +13,9 @@ Template.tagChats.onCreated(function() {
     self.oldestMsg = 0;
     self.preOldestMsg = -1;
     self.historyChange = new ReactiveVar(0);
-    self.newMsg = new ReactiveVar(0);
-    self.newLeft = new ReactiveVar(0);
+    self.lastRead = new Date(localStorage.getItem(self.tagId));
+    self.newMsg = new ReactiveVar(0, function(a, b) {return false;});
+    self.newLeft = new ReactiveVar(0, function(a, b) {return false;});
     self.scrollPos = 0;
     self.timeStamp = 0;
     self.addToBottom = true;
@@ -71,7 +72,7 @@ Template.tagChats.onCreated(function() {
     if (self.preOldestMsg < self.oldestMsg && localStorage.getItem(self.tagId)) {
       console.log("called");
       self.preOldestMsg = self.oldestMsg;
-      Meteor.call("chats/getHistory", self.tagId, new Date(localStorage.getItem(self.tagId)), self.joinTime, true, true, function(err, res) {
+      Meteor.call("chats/getHistory", self.tagId, new Date(), self.lastRead, self.joinTime, true, true, function(err, res) {
         if (err) return;
 
         var pastHistory = res.history.reverse();
@@ -87,6 +88,7 @@ Template.tagChats.onCreated(function() {
 
         self.oldestMsg = pastHistory[0].time;
         self.newLeft.set(res.leftNew);
+
 
         // if all done
         if (self.subscriptionsReady()) {
@@ -111,38 +113,20 @@ Template.tagChats.onRendered(function() {
   var self = this;
   self.mouseDownY = -1;
   self.lastPointY = -1;
-  self.threshHold = $(window).width() * 1.5 / 5;
-  self.refreshing = true;
+  self.threshHold = $(window).width() * 1.5 / 6.67;
+  self.refreshing = false;
+  self.moved = false;
   self.container = document.getElementsByClassName("messages")[0];
 
-  // add touch move event listeners here
-  $(".messages").scroll(function(event) {
-    console.log("scrolled");
-    $(".floater").addClass("hidden");
-  });
-
-
-  // event listeners
-  self.handleScroll = function(event) {
-    console.log("scrolled");
-    $(".floater").addClass("hidden");
-  }
-
-  self.handleTouchDown = function(event) {
-
-    if (self.historyChange.get() == 0 || self.refreshing) return;
-
-    var touch = event.touches.item(0);
-    if(!$.contains(document.getElementsByClassName("submarine_bg")[0],event.target))
-      return;
-
-    self.lastPointY = self.mouseDownY = event.touches.item(0).pageY;
-    $(".loading.hidden").removeClass("hidden");
-    self.container.addEventListener('touchmove', self.handleTouchMove);
-  };
-
   self.handleTouchMove = function(event) {
-    if (self.refreshing) return;
+    $(".floater").addClass("hidden");
+    console.log("moved");
+    if (self.refreshing || self.container.scrollTop != 0) return;
+
+    if (!self.moved) {
+      self.lastPointY = self.mouseDownY = event.touches.item(0).pageY;
+      self.moved = true;
+    }
 
     var pageY = event.touches.item(0).pageY;
     self.lastPointY = pageY;
@@ -153,32 +137,51 @@ Template.tagChats.onRendered(function() {
       diff = self.windowHeight;
       if (!self.refreshing) {
         self.refreshing = true;
+        $(".loading.hidden").removeClass("hidden");
 
         $(".messages").removeAttr("style");
         $(".messages").addClass("refreshing");
-
-        // call pastHistory
-        self.preOldestMsg = self.oldestMsg;
-        Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.joinTime, true, false, function(err, res) {
-          if (err) return;
-
-          $(".messages").removeClass("refreshing");
-          var history = self.history.get();
-          self.historyChange.set(self.historyChange.get() + 1);
-          self.history.set(res.history.concat(history));
-
-          self.addToBottom = false;
-        });
       }
     }
 
     self.$(".messages").css("top", "calc(" + diff / 1.5 + "px)");
   };
 
+  self.handleTouchDown = function(event) {
+    console.log("down");
+    if (self.historyChange.get() == 0 || self.refreshing) return;;
+
+    self.container.addEventListener('touchmove', self.handleTouchMove);
+    console.log("added");
+  };
+
   self.handleTouchUp = function(event) {
+    console.log("up");
     $(".messages").removeAttr("style");
+    if (self.refreshing) {
+      // call pastHistory
+      self.preOldestMsg = self.oldestMsg;
+
+      Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.lastRead, self.joinTime, true, false, function(err, res) {
+        if (err) return;
+
+        $(".messages").removeClass("refreshing");
+        var history = self.history.get();
+        self.refreshing = false;
+        self.historyChange.set(self.historyChange.get() + 1);
+        self.history.set(res.history.reverse().concat(history));
+        self.oldestMsg = res.history[0].time;
+        $(".loading").addClass("hidden");
+        self.addToBottom = false;
+      });
+    }
+    self.moved = false;
     self.container.removeEventListener("touchmove", self.handleTouchMove);
   };
+
+  // add touch move event listeners here
+  self.container.addEventListener("touchstart", self.handleTouchDown);
+  self.container.addEventListener("touchend", self.handleTouchUp);
 });
 
 Template.tagChats.onDestroyed(function() {
@@ -213,35 +216,53 @@ Template.tagChats.events({
     setTimeout(function() { t.newMsg.set(0); }, 500);
   },
   "click .floater[data-action=\"up\"]": function(e, t) {
-    self.container.scrollTop = 0;
-    $(".messages").addClass("refreshing");
-    Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.joinTime, true, false, function(res) {
+    if ($(".new_msg").length) {
+      t.container.scrollTop = $(".new_msg")[0].offsetTop - 0.4 * t.container.clientHeight;
+      $(".floater[data-action=\"up\"]").addClass("hidden");
+      setTimeout(function() { t.newMsg.set(0); }, 500);
 
-      $(".messages").removeClass("refreshing");
-      var history = self.history.get();
-      self.historyChange.set(self.historyChange.get() + 1);
-      self.history.set(res.history.reverse().concat(history));
-      self.addToBottom  = false;
-    });
+    } else {
+
+      t.container.scrollTop = 0;
+      $(".messages").addClass("refreshing");
+
+      Meteor.call("chats/getHistory", t.tagId, t.oldestMsg, t.lastRead, t.joinTime, true, false, function(err, res) {
+        if (err) return;
+
+        console.log(res);
+
+        $(".messages").removeClass("refreshing");
+        var history = t.history.get();
+        t.historyChange.set(t.historyChange.get() + 1);
+        t.history.set(res.history.reverse().concat(history));
+        t.oldestMsg = res.history[0].time;
+        t.newLeft.set(0);
+        t.newLeft.set(res.leftNew);
+        t.addToBottom  = false;
+      });
+    }
   }
 })
 
 Template.tagChats.helpers({
   "initSubNotReady": function() {
     var self = Template.instance();
+    return false;
     return self.historyChange.get() == 0;
   },
   "hasLeftNew": function() {
     var newleft = Template.instance().newLeft.get();
-    return newleft != 0 ? "" : "hidden";
+    console.log(newleft);
+    return newleft? "" : "hidden";
   },
   "leftNew": function() {
     var newleft = Template.instance().newLeft.get();
+    console.log(newleft);
     return newleft ==  100? "99+" : newleft;
   },
   "hasNewMsg": function() {
-    var newleft = Template.instance().newMsg.get();
-    return newleft != 0 ? "" : "hidden";
+    var newMsg = Template.instance().newMsg.get();
+    return newMsg != 0 ? "" : "hidden";
   },
   "newMsg": function() {
     return Template.instance().newMsg.get();
@@ -298,9 +319,20 @@ Template.tagChats.helpers({
   },
   "scrollToPlace": function() {
     var self = Template.instance();
-    var container = document.getElementsByClassName("messages")[0];
+    var container = $(".messages")[0];
 
     setTimeout(function() {
+      if ($(".new_msg").length) {
+        // if new msg in screen
+        if ($(".new_msg")[0].offsetTop > container.scrollHeight - container.clientHeight) {
+
+          if ($(".new_msg")[0].offsetTop < container.scrollHeight - 0.4 * container.clientHeight) {
+            container.scrollTop = $(".new_msg")[0].offsetTop - 0.4 * container.clientHeight
+          }
+          return;
+        }
+      }
+
       if (self.scrollPos == "bottom") {
         container.scrollTop = container.scrollHeight - container.clientHeight;
         console.log("bottom");

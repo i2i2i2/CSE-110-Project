@@ -19,14 +19,24 @@
     text-align: center;
     line-height: 20vw;
   }
+
+  .messages.refreshing {
+    top: 15vw;
+  }
+
   .messages {
     position: absolute;
     top: 0;
     left: 0;
     padding: 20vw 0 5vw 0;
     width: 100vw;
+    transition: top 0.5s ease;
     height: ~"calc(100vh - 37vw)";
     overflow: scroll;
+
+    .loading {
+      top: 5vw;
+    }
 
     .floater.hidden {
       visibility: hidden;
