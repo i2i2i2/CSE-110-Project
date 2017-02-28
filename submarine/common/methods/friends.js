@@ -33,8 +33,8 @@ Meteor.startup(function () {
                     console.log("Adding user2 to user1");    
                     Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
                     // remove user 2 from friend Request
-                   if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest.userId':friendId}]}) != null){
-                        Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":friendId}});
+                   if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendRequest.userId':friendId}]}) != null){
+                     Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});  
                     }
                 }
                 // Add user1 to user2's collection
@@ -68,14 +68,16 @@ Meteor.startup(function () {
                     
                 }
                 // remove user 2 from friend Request
-                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendsRequest.userId':friendId}]}) != null){
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendRequest.userId':friendId}]}) != null){
+                        console.log("removing user 2 from friend request array");
                         Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
                 }
                 
             }
             return true;    
         },
-        
+        // user 1 send friend request to user 2
+        // Todo: turndownFriends update
         "friends/sendRequest" : function(userId, friendId, message) {
             console.log("on serve, welcome called sendRequest: ");
             var user1 = Meteor.users.findOne(userId);
@@ -94,7 +96,33 @@ Meteor.startup(function () {
                     Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
                     
                 }
+                // remove user 2 from user 1's recommended list
+                Meteor.users.update({_id: userId},{$pull:{"profile.recommendedFriends":{"userId":friendId}}});
                 
+            }
+            return true;    
+        },
+        // call this function if and only if user 1 and user 2 are already friends
+        // Not implement this prerequisite yet
+        "friends/editNickname" : function(userId,friendId,name){
+            console.log("on serve, welcome called editNickname: ");
+            var user1 = Meteor.users.findOne(userId);
+            var user2 = Meteor.users.findOne(friendId);
+            
+            if (user1==null || user2==null) {
+                // invalid userid
+                console.log("Invalid user or friend id");
+                return false;
+            }
+            else {
+                console.log("Editting nickname of user 2");
+                // check whether there are friends
+                if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) != null){
+                    // add nickname entry     
+                    Meteor.users.update({_id: userId,"profile.friends.userId":friendId}, {$set:{"profile.friends.$.nickname":name}});
+                    
+                }
+               
                 
             }
             return true;    

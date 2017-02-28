@@ -45,13 +45,13 @@
                 {{getName userId false}}
               </div>
               <div class="message">
-
+                {{requestReason}}
               </div>
             </div>
-            <div class="button dismiss">
+            <div class="button dismiss" data-userid="{{userId}}">
               <i class="fa fa-times" aria-hidden="true"></i>
             </div>
-            <div class="button accept">
+            <div class="button accept" data-userid="{{userId}}">
               <i class="fa fa-check" aria-hidden="true"></i>
             </div>
 

@@ -54,5 +54,15 @@ Template.mainLayout.events({
 
   "click .addFriend": function () {
     $(".popAdd").css({"display": "block"});
+  },
+  "click .dismiss": function (e, t) {
+      var selfId = Meteor.userId();
+      var friendId = t.$(e.currentTarget).data('userid'); Meteor.call('friends/dismissFriend',selfId,friendId);
+  },
+    
+  "click .accept": function (e, t) {
+      var selfId = Meteor.userId();
+      var friendId = t.$(e.currentTarget).data('userid'); Meteor.call('friends/addFriend',selfId,friendId);
   }
+  
 });
