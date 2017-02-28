@@ -1,7 +1,6 @@
 // add friends, delete friends and update friends info
 
 
-Meteor.startup(function () {
 	Meteor.methods({
         //Save one more message entry to db
         // Called in client chat.js and  tagChat.js
@@ -76,6 +75,25 @@ Meteor.startup(function () {
             }
             return true;    
         },
+        "friends/ignoreRecommendation" : function(userId, friendId) {
+            console.log("on serve, welcome called ignoreRecommendation: ");
+            var user1 = Meteor.users.findOne(userId);
+            var user2 = Meteor.users.findOne(friendId);
+            
+            if (user1==null || user2==null) {
+                // invalid userid
+                console.log("Invalid user or friend id");
+                return false;
+            }
+            else {
+                console.log("removing user 2 from recommend");
+                // if user 2 is not blocking user 1, add user 1 to user 2's db
+
+                Meteor.users.update({_id: userId},{$pull:{"profile.recommendedFriends":{"userId":friendId}}});
+                
+            }
+            return true;    
+        },
         // user 1 send friend request to user 2
         // Todo: turndownFriends update
         "friends/sendRequest" : function(userId, friendId, message) {
@@ -92,11 +110,12 @@ Meteor.startup(function () {
                 console.log("Sending user 2 request");
                 // if user 2 is not blocking user 1, add user 1 to user 2's db
                 if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.turndownFriends.userId':userId}]}) == null){
-                    
+                    console.log("letting the friend know your request");
                     Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
                     
                 }
                 // remove user 2 from user 1's recommended list
+                console.log("removing recommended friend from db");
                 Meteor.users.update({_id: userId},{$pull:{"profile.recommendedFriends":{"userId":friendId}}});
                 
             }
@@ -104,7 +123,7 @@ Meteor.startup(function () {
         },
         // call this function if and only if user 1 and user 2 are already friends
         // Not implement this prerequisite yet
-        "friends/editNickname" : function(userId,friendId,name){
+        "friends/editNickname" : function(userId, friendId, name){
             console.log("on serve, welcome called editNickname: ");
             var user1 = Meteor.users.findOne(userId);
             var user2 = Meteor.users.findOne(friendId);
@@ -130,5 +149,4 @@ Meteor.startup(function () {
 	    
     
 	});
-  });
 

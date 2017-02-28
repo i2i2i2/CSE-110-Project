@@ -43,18 +43,33 @@ Template.Friends.helpers({
 Template.mainLayout.events({
   "click .connect_profile": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('userid');
- //   console.log(nickn);
- //   console.log(idNumber);
     FlowRouter.go('/chats/friend/'+idNumber);
   },
 
   "click .cancel": function () {
     $(".popAdd").css({"display": "none"});
   },
+    
+  "click .confirm": function () {
+    var selfId = Meteor.userId();
+    var message = $('#paragraph_text').val();
+    Meteor.call('friends/sendRequest', selfId, self.friendId, message);
+    $(".popAdd").css({"display": "none"});
+  },
 
-  "click .addFriend": function () {
+
+  "click .add": function (e, t) {
+    self.friendId = t.$(e.currentTarget).data('userid');
     $(".popAdd").css({"display": "block"});
   },
+    
+  "click .ignore": function (e, t) {
+    var selfId = Meteor.userId();
+    var friendId = t.$(e.currentTarget).data('userid');
+    console.log(friendId);
+    Meteor.call('friends/ignoreRecommendation',selfId,friendId);
+  },
+
   "click .dismiss": function (e, t) {
       var selfId = Meteor.userId();
       var friendId = t.$(e.currentTarget).data('userid'); Meteor.call('friends/dismissFriend',selfId,friendId);

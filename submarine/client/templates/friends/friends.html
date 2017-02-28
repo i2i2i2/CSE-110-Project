@@ -19,10 +19,10 @@
                 {{recommendReason}}
               </div>
               </div>
-              <div class="button add">
+              <div class="button add" data-userid="{{userId}}">
                 <i class="fa fa-plus"></i>
               </div>
-              <div class="button ignore">
+              <div class="button ignore" data-userid="{{userId}}">
                 <i class="fa fa-close"></i>
               </div>
             </div>
@@ -90,7 +90,7 @@
   <div class="popAdd">
     <p>Add a new friend</p>
     <div class="input">
-      <textarea name="paragraph_text" cols="50" rows="10"></textarea>
+      <textarea id="paragraph_text" cols="50" rows="10"></textarea>
     </div>
     <div class="popAdd button cancel">
       Cancel
