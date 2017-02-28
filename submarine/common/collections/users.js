@@ -132,6 +132,11 @@ App.Schemas.UserProfile = new SimpleSchema({
     optional: true
   },
 
+  "savedTags.$.joinSince": {
+    type: Date,
+    optional: true
+  },
+
   socialMedia: {
     type: Object,
     optional: true,
