@@ -1,6 +1,8 @@
 <template name="Home">
     <div class= "user_name_avatar">
-        <div class= "avatar_circle"> {{{avatar randomSeed}}}</div>
+        <div class= "avatar_circle">
+            {{{avatar randomSeed}}}
+        </div>
         <div class= "greeting_name">
             <p>Hello, Captain {{greetingName}}</p>
         </div>
@@ -16,8 +18,10 @@
             <div class= "recent_tag_name">
                 {{#each recentTags}}
                 <div class="tag_circle_wrapper">
-                  <div class="tag_circle">{{{avatar tagId}}}</div>
-                  <a href="#">{{tagName tagId}}</a>
+                  <div class="tag_circle" data-tagid="{{tagId}}">
+                      {{{avatar tagId}}}
+                  </div>
+                  <a href="/chats/tag/{{tagId}}">{{tagName tagId}}</a>
                 </div>
                 {{/each}}
             </div>
@@ -35,8 +39,12 @@
         <div class= "recent_friend_name">
             {{#each recentFriends}}
             <div class="name_circle_wrapper">
-              <div class="name_circle">{{{avatar (profileSeed userId)}}}</div>
-              <a href="#">{{getName userId nickname}}</a>
+              <div class="name_circle" data-userid="{{userId}}">
+                  {{{avatar (profileSeed userId)}}}
+              </div>
+              <a href="/chats/friend/{{userId}}">
+                  {{getName userId nickname}}
+              </a>
             </div>
             {{/each}}
         </div>

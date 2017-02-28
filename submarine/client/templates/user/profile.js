@@ -34,25 +34,49 @@ Template.Profile.events({
       }
     },
 
-    "click .button[data-action=changeUserName]": function(e, t) {
+    "blur .userName[data-action=changeUserName]": function(e, t) {
       console.log("changeUsername");
-      var newUsername = $('.userName').val();
-      Meteor.call('user/changeUserName', newUsername, (error, res) => {
-      if(error){
-        console.log("Invalid");
-        $('.Invalid').text("Invalid username");
-      }
-      else{
-        $('.button[data-action=changeUserName]').addClass('active');
-        $('.Invalid').text("Username Changed Successfully");
-        $('.button[data-action=changeUserName]').removeClass('active');
-      }
-      });
+      var newUsername = $(".userName").val();
+          if($(".userName").val().length != 0) {
+            Meteor.call('user/changeUserName', newUsername, (error, res) => {
+              if(error){
+                console.log("Invalid");
+                $('.Invalid').text("Invalid username");
+                $(".Invalid").addClass("invalid_transition");
+                $(".userName").focus();
+              }
+            else{
+                $(".userName").val("");
+                $('.Invalid').text("Username Changed Successfully");
+                $(".Invalid").addClass("invalid_transition");
+            }
+          });
+               $(".Invalid").removeClass("invalid_transition");
+               $(".fa").removeClass(hide_icon);
+        }
 
-      }
+    },
+
+   /* "click .fa": function(e,t){
+        $(".userName[data-action=changeUserName]").focus();
+        $(".icon_wrapper").addClass(hide_icon);
+        //$(".fa-pencil-square-o").remove();
+    }*/
 });
 
 Template.Profile.helpers({
+
+
+  getUserName: () => Meteor.userId()? Meteor.user().username : null,
+
+  getEmail: () => Meteor.userId()? Meteor.user().emails[0].address: null,
+
+  getFacebook: () => Meteor.userId()? Meteor.user().socialMedia.facebook: null,
+
+  getGoogle: () => Meteor.userId()? Meteor.user().socialMedia.google: null,
+
+  getGithub: () => Meteor.userId()? Meteor.user().socialMedia.github: null,
+
   randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
   profilePic: () => Meteor.userId()? Spacebars.SafeString(GeoPattern.generate(Meteor.user().profile.profileSeed).toSvg()) : null
 });

@@ -22,11 +22,11 @@ Accounts.onCreateUser((options, user) => {
     var john = Accounts.findUserByUsername("JohnD")._id;
     var jane = Accounts.findUserByUsername("JaneD")._id;
 
-    Meteor.users.update({name: {$in: ["Ensign", "Lieutenant", "Commander", "Captain", "Admiral"]}}, {$push: {"profile.friends": {userId: user._id}}});
+    Meteor.users.update({username: {$in: ["Ensign", "Lieutenant", "Commander", "Captain", "Admiral"]}}, {$push: {"profile.friends": {userId: user._id}}});
 
     user.profile = {
       profileSeed: Random.id(8),
-      friendRequest: [john],
+      friendRequest: [{userId: john, requestReason:"You have this request by default"}],
       recommendedFriends: [{userId: jane, recommendReason: "You have this recommendation by default"}],
       turndownFriends: [],
       friends: [{userId: ensign}, {userId: lieutenant}, {userId: commander}, {userId: captain}, {userId: admiral}],

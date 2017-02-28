@@ -1,29 +1,84 @@
 <template name="Profile">
-  <p>Profile, where user edits there personal info</p>
+  <div class="top_wrapper">
+    <div class="top_pic"></div>
+    <div class="profile_picture">{{{avatar randomSeed}}}</div>
+    <div class="button right" data-action="random">Random</div>
+    <div class="button right" data-action="logout">Logout</div>
 
-  <div class="changeEmail">
-    <form>
-      <input type="text" class="email" placeholder="New Email">
-      <div class="button right" data-action="changeEmail">Email</div>
-      <p class="checkEmail"></p>
-
-    </form>
   </div>
-
-  <div class="changeUserName">
+  <!--<div class="old_user_name">
+      <p>{{getUserName}}
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      </p>
+  </div>-->
+  <div class="changeUserName_wrapper">
     <form>
-      <input type="text" class="userName" placeholder="New User Name">
-      <div class="button right" data-action="changeUserName">UserName</div>
+      <input type="text" class="userName" data-action="changeUserName" placeholder="{{getUserName}}">
+      <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
+   <!--  <div class="button right" data-action="changeUserName">UserName</div> -->
       <p class="Invalid"></p>
 
     </form>
   </div>
 
-  <div class="changeSeed">
+
+
+  <div class="changeEmail_wrapper">
+    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+    <form>
+      <input type="text" class="email" placeholder="{{getEmail}}">
+      <!--<div class="button right" data-action="changeEmail">Email</div>-->
+      <p class="checkEmail"></p>
+
+    </form>
+  </div>
+
+  <hr id="inProfile">
+  <div class="changeEmail_wrapper">
+   <i class="fa fa-facebook" aria-hidden="true"></i>
+    <form>
+      <input type="text" class="email" placeholder="{{getFacebook}}">
+      <!--<div class="button right" data-action="changeEmail">Email</div>-->
+      <p class="checkEmail"></p>
+
+    </form>
+  </div>
+
+  <hr id="inProfile">
+  <div class="changeEmail_wrapper">
+    <i class="fa fa-google" aria-hidden="true"></i>
+    <form>
+      <input type="text" class="email" placeholder="{{getGoogle}}">
+      <!--<div class="button right" data-action="changeEmail">Email</div>-->
+      <p class="checkEmail"></p>
+
+    </form>
+  </div>
+
+<hr id="inProfile">
+  <div class="changeEmail_wrapper">
+    <i class="fa fa-github" aria-hidden="true"></i>
+    <form>
+      <input type="text" class="email" placeholder="{{getGithub}}">
+      <!--<div class="button right" data-action="changeEmail">Email</div>-->
+      <p class="checkEmail"></p>
+
+    </form>
+  </div>
+  <!--<div class="changeUserName">
+    <form>
+      <input type="text" class="userName" placeholder="New User Name">
+   <div class="button right" data-action="changeUserName">UserName</div>
+      <p class="Invalid"></p>
+
+    </form>
+  </div>-->
+
+ <!-- <div class="changeSeed">
     <div class="profile_picture left">{{{avatar randomSeed}}}</div>
     <div class="button right" data-action="random">Random</div>
     <p>Your Profile random seed is {{randomSeed}}</p>
-  </div>
+  </div>-->
 
-  <div class="button left" data-action="logout">Logout</div>
+
 </template>

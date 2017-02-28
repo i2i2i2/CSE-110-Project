@@ -1,4 +1,5 @@
 Template.Home.onRendered(function() {
+  var self = this;
   Session.set("currentTemplate", "home");
 });
 
@@ -29,4 +30,23 @@ Template.Home.helpers({
     profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
     getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username
-})
+});
+
+Template.mainLayout.events({
+  "click .avatar_circle": function () {
+    FlowRouter.go('/user/profile');
+  },
+
+  "click .tag_circle": function (e, t) {
+    var idNumber = t.$(e.currentTarget).data('tagid');
+
+    FlowRouter.go('/chats/tag/'+idNumber);
+  },
+
+  "click .name_circle": function (e, t) {
+    var idNumber = t.$(e.currentTarget).data('userid');
+
+    FlowRouter.go('/chats/friend/'+idNumber);
+  }
+
+});
