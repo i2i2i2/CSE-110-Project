@@ -6,6 +6,16 @@ Template.mainLayout.onCreated(function() {
     }
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
     this.subHandle2 = this.subscribe("users/strangersUserId");
+
+    if (Meteor.user()) {
+      var tags = Meteor.user().profile.savedTags.map((tag) => tag.tagId);
+      var friends = Meteor.user().profile.friends.map((user) => user.userId);
+
+      Meteor.call("chats/getLastestMsg", tags, friends, (err, res) => {
+        console.log(JSON.stringify(res, undefined, 2));
+        Session.set("latestMsg", res);
+      });
+    }
   });
 });
 
