@@ -123,17 +123,18 @@ Meteor.methods({
 			var user2 = Meteor.users.findOne(friendId);
 			
 			if (user1==null || user2==null) {
-			// invalid userid
-			console.log("Invalid user or friend id");
-			return false;
+			 // invalid userid
+			 console.log("Invalid user or friend id");
+			 return false;
 			}
 			else {
 			console.log("Sending user 2 request");
 			// if user 2 is not blocking user 1, add user 1 to user 2's db
 			if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.turndownFriends.userId':userId}]}) == null){
 				console.log("letting the friend know your request");
-				Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
-				
+				if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friendRequest.userId':userId}]}) == null){
+                    Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
+                }
 			}
 			// remove user 2 from user 1's recommended list
 			console.log("removing recommended friend from db");
@@ -167,6 +168,36 @@ Meteor.methods({
 			
 			}
 			return true;    
+		},	
+        "friends/getNickname" : function(userId, friendId){
+			console.log("on serve, welcome called getNickname: ");
+			var user1 = Meteor.users.findOne(userId);
+			var user2 = Meteor.users.findOne(friendId);
+            var result = Meteor.users.findOne({_id:userId},{'profile.friends.userId':friendId});
+			
+			if (user1==null || user2==null) {
+			  // invalid userid
+			  console.log("Invalid user or friend id");
+			  return null;
+			}
+            else if (result == null){
+                console.log("user 1 and user 2 are not friends");
+                return null;
+            }
+			
+            var friendsList = user1.profile.friends;
+            for(var i=0; i<friendsList.length;i++){
+                
+                if (friendsList[i].userId == friendId) {
+                    return friendsList[i].nickname;
+                }
+            }
+            
+            return null;
+            /*
+            console.log("check return value of nickname");
+			console.log(nickname.length);
+			return nickname;*/    
 		}	
 
 });
