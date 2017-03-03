@@ -180,16 +180,19 @@ Template.Chats.onDestroyed(function() {
 
 Template.Chats.events({
   "click .button[data-action=\"send\"]": function(e, t) {
+    var newMessage = $('#msg').val();
+    console.log(newMessage);
+
     var now = new Date();
     var msg = {
       is_public: false,
       sender: Meteor.userId(),
       receiver: t.friendId,
-      message: Fake.sentence(3) + " " + now.toTimeString().split(" ")[0],
+      message: newMessage,
       time: now,
       rate: 80
     };
-
+  $('#msg').val("");
     Meteor.call("chats/sendMsg", msg);
   },
   "click .button[data-action=\"back\"]": function(e, t) {
