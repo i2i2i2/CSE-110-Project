@@ -5,15 +5,27 @@ Template.FriendProfile.onRendered(function() {
 });
 
 Template.FriendProfile.onDestroyed(function() {
-  $(".bottom.nav").removeClass("hidden");
+  $(".bottom.nav").removeClass("hidden");  
 });
-
 
 Template.FriendProfile.helpers({
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
-
-  getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
-
+  
+  getName: function(id, nickname){ 
+      var name = Meteor.users.findOne(id).username;
+      if (nickname){
+        var friendsList = Meteor.user().profile.friends;
+        var friendId = FlowRouter.current().params._id; 
+        for(var i=0; i<friendsList.length;i++){
+                
+          if (friendsList[i].userId == friendId) {
+            return friendsList[i].nickname;
+          }
+        }
+      }
+      return name;
+  },
+    
   userId: () => FlowRouter.current().params._id,
 
   getFacebook: () => Meteor.userId()? Meteor.user().socialMedia.facebook: null,
@@ -27,5 +39,14 @@ Template.FriendProfile.events({
   "click .button_back": function (e, t) {
     var id = t.$(e.currentTarget).data('userid');
     FlowRouter.go('/chats/friend/'+id);
+  },
+    
+  "click .profile_content": function(){
+    var message = $('#edit_name').val();
+    if( message != self.message){  
+      self.message = message;
+      Meteor.call('friends/editNickname', Meteor.userId(), FlowRouter.current().params._id, message);
+    }
   }
+    
 });

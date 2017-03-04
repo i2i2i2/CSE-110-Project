@@ -186,16 +186,19 @@ Template.tagChats.onDestroyed(function() {
 
 Template.tagChats.events({
   "click .button[data-action=\"send\"]": function(e, t) {
+    var newMessage = $('#msg').val();
+    console.log(newMessage);
+
     var now = new Date();
     var msg = {
       is_public: true,
       sender: Meteor.userId(),
       receiver: t.tagId,
-      message: Fake.sentence(3) + " " + now.toTimeString().split(" ")[0],
+      message: newMessage,
       time: now,
       rate: 80
     };
-
+    $('#msg').val("");
     Meteor.call("chats/sendMsg", msg);
   },
   "click .button[data-action=\"back\"]": function(e, t) {
