@@ -41,7 +41,7 @@ Template.FriendProfile.events({
     FlowRouter.go('/chats/friend/'+id);
   },
     
-  "click .profile_content": function(){
+  "blur .editName": function(){
     var message = $('#edit_name').val();
     if( message != self.message){  
       self.message = message;
