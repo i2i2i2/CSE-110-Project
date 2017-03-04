@@ -109,7 +109,7 @@ Template.ForgotPassword.events({
       Accounts.forgotPassword({
         email: email,
       }, (err) => {
-          if(err){
+          if (err) {
             t.$("form.send_token").append("<p class=\"error\">Unknown Error, Please Contact Us.</p>");
             $("#email_send_button").text("Error Occured");
           } else {
@@ -146,7 +146,7 @@ Template.ForgotPassword.events({
     } else {
         Accounts.resetPassword(token,password,
         (err) =>{
-            if(err){
+            if (err) {
                 console.log(err)
                 t.displaySpan("error", t.$("#token_verify_token").parent(), "Invalid Token");
                 $(".error").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
