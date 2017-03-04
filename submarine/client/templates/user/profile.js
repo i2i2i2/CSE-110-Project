@@ -7,14 +7,14 @@ Template.Profile.events({
     Meteor.logout();
   },
 
-/*  "click .button[data-action=random]": function(e, t) {
+  "click .button[data-action=random]": function(e, t) {
     console.log("randomed");
     Meteor.call('user/rollProfilePicture', (err, res) => {
       $('.button[data-action=random]').removeClass('active');
     });
 
     $('.button[data-action=random]').addClass('active');
-  },*/
+  },
 
   "click .fa[data-action=changeEmail]": function(e, t) {
 
