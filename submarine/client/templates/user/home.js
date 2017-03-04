@@ -13,7 +13,37 @@ Template.Home.helpers({
         }
     },
 
-    recentTags: () => Meteor.userId()? Meteor.user().profile.savedTags : null,
+    "recentTags": () => {
+      if (!Meteor.userId()) return;
+
+      var latestMsg = Session.get("latestMsg");
+      var tags = Meteor.user().profile.savedTags.slice();
+
+      if (!latestMsg) return tags;
+
+      tags = tags.map((tag) => {
+        tag.latestMsg = latestMsg[tag.tagId];
+        tag.lastRead = localStorage.getItem(tag.tagId);
+        return tag;
+
+      }).sort(function(tag1, tag2) {
+        if (tag1.latestMsg) {
+          if (tag2.latestMsg) {
+            return -tag1.latestMsg.time.getTime() + tag2.latestMsg.time.getTime();
+          } else {
+            return -tag1.latestMsg.time.getTime();
+          }
+        } else {
+          if (tag2.latestMsg) {
+            return tag2.latestMsg.time.getTime();
+          } else {
+            return 0;
+          }
+        }
+      });
+
+      return tags;
+    },
 
     "emptyFriends": function() {
         if(Meteor.user().profile.friends == null || Meteor.user().profile.friends.length === 0) {
@@ -21,7 +51,36 @@ Template.Home.helpers({
         }
     },
 
-    recentFriends: () => Meteor.userId()? Meteor.user().profile.friends : null,
+    recentFriends: () => {
+      if (!Meteor.userId()) return;
+
+      var latestMsg = Session.get("latestMsg");
+      var friends = Meteor.user().profile.friends;
+
+      if (!latestMsg) return friends;
+
+      friends = friends.map((friend) => {
+        friend.latestMsg = latestMsg[friend.userId];
+        return friend;
+
+      }).sort(function(friend1, friend2) {
+        if (friend1.latestMsg) {
+          if (friend2.latestMsg) {
+            return -friend1.latestMsg.time.getTime() + friend2.latestMsg.time.getTime();
+          } else {
+            return -friend1.latestMsg.time.getTime();
+          }
+        } else {
+          if (friend2.latestMsg) {
+            return friend2.latestMsg.time.getTime();
+          } else {
+            return 0;
+          }
+        }
+      });
+
+      return friends;
+    },
 
     randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
 

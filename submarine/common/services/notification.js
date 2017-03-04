@@ -15,7 +15,7 @@ if (Meteor.isServer) {
         gcmNotification.to = msg.receiver;
         var title = App.Collections.Tags.findOne(msg.receiver).name;
       } else {
-        var user = Meteor.user.findOne(msg.receiver);
+        var user = Meteor.users.findOne(msg.receiver);
         if (!user.token) return false;
 
         gcmNotification.to = user._id;

@@ -4,6 +4,9 @@ Template.mainLayout.onCreated(function() {
       FlowRouter.go("/");
       return;
     }
+
+    FlowRouter.watchPathChange();
+
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
     this.subHandle2 = this.subscribe("users/strangersUserId");
 
@@ -12,7 +15,6 @@ Template.mainLayout.onCreated(function() {
       var friends = Meteor.user().profile.friends.map((user) => user.userId);
 
       Meteor.call("chats/getLastestMsg", tags, friends, (err, res) => {
-        console.log(JSON.stringify(res, undefined, 2));
         Session.set("latestMsg", res);
       });
     }
