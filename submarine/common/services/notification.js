@@ -22,8 +22,6 @@ if (Meteor.isServer) {
         gcmNotification.notification.title = user.username;
       }
 
-      this.unblock();
-
       HTTP.call("POST", "https://fcm.googleapis.com/fcm/send", {
         data: gcmNotification,
         headers: {

@@ -1,7 +1,9 @@
 Meteor.methods({
   "chats/sendMsg": function(msg) {
-
     App.Collections.Message.insert(msg);
+
+    if (this.isSimulation) return;
+    
     App.Services.Notification.sendGCMNotification(msg);
   },
 
