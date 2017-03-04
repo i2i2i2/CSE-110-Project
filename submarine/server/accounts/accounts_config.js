@@ -50,7 +50,9 @@ Accounts.onCreateUser((options, user) => {
   user.allowBeRecommended = true;
 
   // subscribe tags
-  App.Collections.Tags.update({name: {$in: ["Earth", "Mars", "Moon"]}}, {$push: {"users": user._id}});
+  App.Collections.Tags.update({name: "Earth"}, {$push: {"users": user._id}});
+  App.Collections.Tags.update({name: "Moon"}, {$push: {"users": user._id}});
+  App.Collections.Tags.update({name: "Mars"}, {$push: {"users": user._id}});
 
   return user;
 });
