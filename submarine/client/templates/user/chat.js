@@ -154,11 +154,15 @@ Template.Chats.onRendered(function() {
         if (err) return;
 
         $(".messages").removeClass("refreshing");
-        var history = self.history.get();
         self.refreshing = false;
-        self.historyChange.set(self.historyChange.get() + 1);
-        self.history.set(res.history.reverse().concat(history));
-        self.oldestMsg = res.history[0].time;
+
+        if (res.history.length) {
+          var history = self.history.get();
+          self.historyChange.set(self.historyChange.get() + 1);
+          self.history.set(res.history.reverse().concat(history));
+          self.oldestMsg = res.history[0].time;
+        }
+
         $(".loading").addClass("hidden");
       });
     }
@@ -180,16 +184,19 @@ Template.Chats.onDestroyed(function() {
 
 Template.Chats.events({
   "click .button[data-action=\"send\"]": function(e, t) {
+    var newMessage = $('#msg').val();
+    console.log(newMessage);
+
     var now = new Date();
     var msg = {
       is_public: false,
       sender: Meteor.userId(),
       receiver: t.friendId,
-      message: Fake.sentence(3) + " " + now.toTimeString().split(" ")[0],
+      message: newMessage,
       time: now,
       rate: 80
     };
-
+  $('#msg').val("");
     Meteor.call("chats/sendMsg", msg);
   },
   "click .button[data-action=\"back\"]": function(e, t) {

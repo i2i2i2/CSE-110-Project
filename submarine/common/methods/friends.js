@@ -123,17 +123,18 @@ Meteor.methods({
 			var user2 = Meteor.users.findOne(friendId);
 			
 			if (user1==null || user2==null) {
-			// invalid userid
-			console.log("Invalid user or friend id");
-			return false;
+			 // invalid userid
+			 console.log("Invalid user or friend id");
+			 return false;
 			}
 			else {
 			console.log("Sending user 2 request");
 			// if user 2 is not blocking user 1, add user 1 to user 2's db
 			if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.turndownFriends.userId':userId}]}) == null){
 				console.log("letting the friend know your request");
-				Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
-				
+				if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friendRequest.userId':userId}]}) == null){
+                    Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
+                }
 			}
 			// remove user 2 from user 1's recommended list
 			console.log("removing recommended friend from db");

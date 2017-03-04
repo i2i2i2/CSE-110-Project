@@ -118,6 +118,7 @@ Template.Login.events({
 
   // sign up
   "click .button[data-action=signup]": function(e, t) {
+    console.log("clicked");
     var username = t.$("#username_signup").val();
     if (!username.length) {
       t.displaySpan("error", t.$("#username_signup").parent(), "Username Missing");
@@ -142,16 +143,20 @@ Template.Login.events({
       var email = t.$("#email_signup").val();
       var password = t.$("#password_signup").val();
 
+      console.log("creating");
       Accounts.createUser({
         username: username,
         email: email,
         password: password
       }, (err) => {
-        if (err)
+        if (err) {
           t.displaySpan("error", t.$("#username_signup").parent(), "Unknown Error");
           t.displaySpan("error", t.$("#email_signup").parent(), "Try Again");
           t.displaySpan("error", t.$("#password_signup").parent(), "Or Contact Us");
           $(".error").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+        } else {
+          FlowRouter.go("/user/home");
+        }
       });
 
       $(e.currentTarget).html("<i class=\"fa fa-refresh fa-spin\"></i></span>");

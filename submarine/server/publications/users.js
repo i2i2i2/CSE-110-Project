@@ -3,8 +3,6 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   if (!this.userId)
     return this.ready();
 
-  //Detect that the user start running the applicaition
-  console.log(this.userId + " Enter the app");
   //Update this in the collection
   Meteor.users.update(this.userId, { $set: {"online": true} });
 
@@ -26,7 +24,6 @@ Meteor.publish("users/relatedUsersAndTags", function() {
   //Detect that the user exit the application
   var self = this;
   this.onStop(function() {
-    console.log((self.userId? self.userId: "Nobody") + " Exit the app");
     Meteor.users.update(self.userId,
       { "$set": {"online": false} });
   });

@@ -1,13 +1,14 @@
 Meteor.methods({
   "chats/sendMsg": function(msg) {
-
     App.Collections.Message.insert(msg);
+
+    if (this.isSimulation) return;
+    
+    App.Services.Notification.sendGCMNotification(msg);
   },
 
   "chats/getHistory": function(targetId, oldestMsg, lastRead, joinTime, isPublic, isNew) {
     if (this.isSimulation) return;
-
-    console.log(JSON.stringify(arguments, undefined, 2));
 
     // build selector
     var now = new Date();
@@ -46,8 +47,6 @@ Meteor.methods({
         cursor = App.Collections.Message.find(selector, { sort: {time: -1}, limit: 100 });
         returnObj.history = cursor.fetch();
 
-        console.log("leftNew")
-
       } else {
         returnObj.leftNew = cursor.count();
         returnObj.history = cursor.fetch();
@@ -59,16 +58,37 @@ Meteor.methods({
         selector.time.$gt = joinTime;
         var olderMsg = App.Collections.Message.find(selector, { sort: {time: -1}, limit: 25 }).fetch();
         returnObj.history = returnObj.history.concat(olderMsg);
-
-        console.log("no left new")
       }
 
     } else {
       returnObj.history = App.Collections.Message.find(selector, { sort: {time: -1}, limit: 25 }).fetch();
     }
 
-    console.log(returnObj.history.length);
-
     return returnObj;
+  },
+
+  "chats/getLastestMsg": function(tags, friends) {
+    if (this.isSimulation) return;
+
+    var lastestMsg = {};
+    tags.forEach((tagId) => {
+      var msg = App.Collections.Message.findOne({
+        is_public: true,
+        receiver: tagId
+      }, {sort: {time: -1}});
+
+      if (msg) lastestMsg[tagId] = msg;
+    });
+    friends.forEach((userId) => {
+      var msg = App.Collections.Message.findOne({
+        is_public: false,
+        sender: {$in: [this.userId, userId]},
+        receiver: {$in: [this.userId, userId]}
+      }, {sort: {time: -1}});
+
+      if (msg) lastestMsg[userId] = msg;
+    });
+
+    return lastestMsg;
   }
 })

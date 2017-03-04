@@ -4,8 +4,20 @@ Template.mainLayout.onCreated(function() {
       FlowRouter.go("/");
       return;
     }
+
+    FlowRouter.watchPathChange();
+
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
     this.subHandle2 = this.subscribe("users/strangersUserId");
+
+    if (Meteor.user()) {
+      var tags = Meteor.user().profile.savedTags.map((tag) => tag.tagId);
+      var friends = Meteor.user().profile.friends.map((user) => user.userId);
+
+      Meteor.call("chats/getLastestMsg", tags, friends, (err, res) => {
+        Session.set("latestMsg", res);
+      });
+    }
   });
 });
 

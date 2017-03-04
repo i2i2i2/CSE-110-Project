@@ -16,7 +16,7 @@ Template.Friends.helpers({
             return true;
         }
     },
-
+  
   hasRecommendation: function() {
     if(Meteor.user().profile.recommendedFriends.length != 0){
       return true;
@@ -47,6 +47,7 @@ Template.mainLayout.events({
   },
 
   "click .cancel": function () {
+    $('#paragraph_text').val('');
     $(".popAdd").css({"display": "none"});
   },
     
