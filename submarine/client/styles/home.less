@@ -76,11 +76,22 @@
 
     .recent_tag_name .tag_circle,
     .recent_friend_name .name_circle{
+        position: relative;
         margin: auto;
         //margin-top: 8vh;
         margin-bottom: 0.5vh;
         width: 16vw;
 	      height: 16vw;
+
+        .red.dot {
+          position: absolute;
+          top: 1vw;
+          right: 0;
+          height: 4vw;
+          width: 4vw;
+          border-radius: 4vw;
+          background-color: rgb(255, 80, 80);
+        }
     }
 
 

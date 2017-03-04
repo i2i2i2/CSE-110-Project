@@ -156,11 +156,15 @@ Template.tagChats.onRendered(function() {
         if (err) return;
 
         $(".messages").removeClass("refreshing");
-        var history = self.history.get();
         self.refreshing = false;
-        self.historyChange.set(self.historyChange.get() + 1);
-        self.history.set(res.history.reverse().concat(history));
-        self.oldestMsg = res.history[0].time;
+        
+        if (res.history.length) {
+          var history = self.history.get();
+          self.historyChange.set(self.historyChange.get() + 1);
+          self.history.set(res.history.reverse().concat(history));
+          self.oldestMsg = res.history[0].time;
+        }
+
         $(".loading").addClass("hidden");
       });
     }

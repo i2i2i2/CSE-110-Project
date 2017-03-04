@@ -19,6 +19,9 @@
                 <div class="tag_circle_wrapper">
                   <div class="tag_circle" data-tagid="{{tagId}}">
                       {{{avatar tagId}}}
+                      {{#if unreadMessage this}}
+                          <div class="red dot"></div>
+                      {{/if}}
                   </div>
                   <a href="/chats/tag/{{tagId}}">{{tagName tagId}}</a>
                 </div>
@@ -38,6 +41,9 @@
             <div class="name_circle_wrapper">
               <div class="name_circle" data-userid="{{userId}}">
                   {{{avatar (profileSeed userId)}}}
+                  {{#if unreadMessage this}}
+                      <div class="red dot"></div>
+                  {{/if}}
               </div>
               <a href="/chats/friend/{{userId}}">
                   {{getName userId nickname}}

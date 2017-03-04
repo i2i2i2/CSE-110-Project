@@ -88,7 +88,22 @@ Template.Home.helpers({
 
     profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
-    getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username
+    getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
+
+    unreadMessage: (target) => {
+      var lastRead;
+      if (target.userId) {
+        lastRead = localStorage.getItem(target.userId);
+      } else if (target.tagId) {
+        lastRead = localStorage.getItem(target.tagId);
+      }
+
+      if (lastRead && target.latestMsg) {
+        return (new Date(lastRead)).getTime() < target.latestMsg.time.getTime();
+      } else {
+        return false;
+      }
+    }
 });
 
 Template.mainLayout.events({
