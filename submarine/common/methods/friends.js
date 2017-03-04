@@ -168,36 +168,6 @@ Meteor.methods({
 			
 			}
 			return true;    
-		},	
-        "friends/getNickname" : function(userId, friendId){
-			console.log("on serve, welcome called getNickname: ");
-			var user1 = Meteor.users.findOne(userId);
-			var user2 = Meteor.users.findOne(friendId);
-            var result = Meteor.users.findOne({_id:userId},{'profile.friends.userId':friendId});
-			
-			if (user1==null || user2==null) {
-			  // invalid userid
-			  console.log("Invalid user or friend id");
-			  return null;
-			}
-            else if (result == null){
-                console.log("user 1 and user 2 are not friends");
-                return null;
-            }
-			
-            var friendsList = user1.profile.friends;
-            for(var i=0; i<friendsList.length;i++){
-                
-                if (friendsList[i].userId == friendId) {
-                    return friendsList[i].nickname;
-                }
-            }
-            
-            return null;
-            /*
-            console.log("check return value of nickname");
-			console.log(nickname.length);
-			return nickname;*/    
 		}	
 
 });
