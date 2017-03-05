@@ -27,7 +27,7 @@
                         <label for="Discription">Description</label>
                         <input type="text" name="room_discription" placeholder = "Brief description for your chatroom"/>
                         <label for="interval">Start Time</label>
-                        <select class="time" name="time">
+                        <select class="time" id="start_time" name="time">
                             <option value="8am">8 a.m.</option>
                             <option value="9am">9 a.m.</option>
                             <option value="10am">10 a.m.</option>
@@ -54,7 +54,7 @@
                             <option value="7am">7 a.m.</option>
                          </select>
                          <label for="interval">End Time</label>
-                         <select id="time" name="time">
+                         <select id="end_time" name="time">
                             <option value="8am">8 a.m.</option>
                             <option value="9am">9 a.m.</option>
                             <option value="10am">10 a.m.</option>
@@ -82,14 +82,14 @@
                          </select>
                          <label for="repeat" class="repeat">Repeat Pattern</label>
                          <div class="repeat_wrapper">
-                             <label class="check"><input type="checkbox" value="Sun">Sun</label>
-                             <label class="check"><input type="checkbox" value="Mon">Mon</label>
-                             <label class="check"><input type="checkbox" value="Tue">Tue</label>
-                             <label class="check"><input type="checkbox" value="Wed">Wed</label>
-                             <label class="check"><input type="checkbox" value="Thur">Thur</label>
-                             <label class="check"><input type="checkbox" value="Fri">Fri</label>
-                             <label class="check"><input type="checkbox" value="Sat">Sat</label>
-                             <label class="check"><input type="checkbox" value="Allday">All</label>
+                             <label class="check"><input type="checkbox" value="Sun" data-val="64">Sun</label>
+                             <label class="check"><input type="checkbox" value="Mon" data-val="32">Mon</label>
+                             <label class="check"><input type="checkbox" value="Tue" data-val="16">Tue</label>
+                             <label class="check"><input type="checkbox" value="Wed" data-val="8">Wed</label>
+                             <label class="check"><input type="checkbox" value="Thur" data-val="4">Thur</label>
+                             <label class="check"><input type="checkbox" value="Fri" data-val="2">Fri</label>
+                             <label class="check"><input type="checkbox" value="Sat" data-val="1">Sat</label>
+                             <label class="check"><input type="checkbox" value="Allday" data-val="127">All</label>
                          </div>
                          <div class="create submit_button">Submit</div>
 
