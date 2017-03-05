@@ -147,12 +147,6 @@ Template.TopAnchor.events({
           return;
         }
 
-        var doc = App.Collections.Tags.findOne({name: tagName});
-        if (doc && doc.name) {
-          console.log("Tag Name already exists")
-          return;
-        }
-
         var tagDescription = $('input[name="room_discription"]').val();
         var tagStartTime = $("#start_time").val();
         var tagEndTime = $("#end_time").val();
