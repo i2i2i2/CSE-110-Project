@@ -1,0 +1,37 @@
+<template name="StrangerProfile">
+  <div class="profile_content">
+    <div class="top_pic">
+       <div class="button_back" data-userid="{{userId}}">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="mid_avatar">
+      {{{avatar (profileSeed userId)}}}
+    </div>
+    <div class="bottom_information">
+      <div class="name">
+        {{getName userId false}}
+      </div>
+      <div class="button_wrapper">
+        <div class="chat button" data-id={{userId}}>
+          Chat
+        </div>
+        <div class="add button" data-userid={{userId}}>
+          Add Friend
+        </div>
+      </div>
+    </div>
+    <div class="popAdd">
+      <p>Add a new friend</p>
+      <div class="input">
+        <textarea id="paragraph_text" placeholder="Leave some comment" cols="50" rows="10"></textarea>
+      </div>
+      <div class="popAdd button cancel">
+        Cancel
+      </div>
+      <div class="popAdd button confirm">
+        Submit
+      </div>
+    </div>
+  </div>
+</template>

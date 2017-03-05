@@ -27,14 +27,14 @@
 
           {{#if ownMsg sender}}
             <div class="msg_wrapper">
-              <div class="own avatar">{{{avatar (profileSeed sender)}}}</div>
+              <div class="own avatar" data-id={{sender}}>{{{avatar (profileSeed sender)}}}</div>
               <div class="own msg" data-id={{_id}}>
                 <p>{{message}}</p>
               </div>
             </div>
           {{else}}
             <div class="msg_wrapper">
-              <div class="other avatar">{{{avatar (profileSeed sender)}}}</div>
+              <div class="other avatar" data-id={{sender}}>{{{avatar (profileSeed sender)}}}</div>
               <div class="other msg" data-id={{_id}}>
                 <p>{{message}}</p>
               </div>

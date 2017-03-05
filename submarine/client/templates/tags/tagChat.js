@@ -238,6 +238,10 @@ Template.tagChats.events({
         t.newLeft.set(res.leftNew);
       });
     }
+  },
+  "click .other.avatar": function(e,t) {
+    var otherId = t.$(e.currentTarget).data('id');
+    FlowRouter.go('/user/stranger_profile/'+otherId);
   }
 })
 
