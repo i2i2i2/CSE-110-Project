@@ -32,7 +32,7 @@ if (Meteor.isServer) {
         if (err)
           console.log("GCM error");
         else
-          console.log(JSON.stringify(res, undefined, 2));
+          console.log("GCM success");
       });
     }
   };

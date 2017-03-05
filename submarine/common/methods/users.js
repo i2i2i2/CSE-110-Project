@@ -64,7 +64,6 @@ Meteor.methods({
   'user/updateToken': function(newToken) {
       if (this.isSimulation) return;
 
-      console.log("Successfully update token!");
       return Meteor.users.update({"_id": this.userId},
           {$set: {"token": newToken}});
   }
