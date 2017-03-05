@@ -57,7 +57,6 @@ Template.Home.helpers({
       console.log("runned");
 
       var latestMsg = Session.get("latestMsg");
-      console.log(JSON.stringify(latestMsg, undefined, 2))
       var friends = Meteor.user().profile.friends;
 
       if (!latestMsg) return friends;
@@ -81,8 +80,6 @@ Template.Home.helpers({
           }
         }
       });
-
-      console.log(JSON.stringify(friends, undefined, 2));
 
       return friends;
     },

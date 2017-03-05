@@ -32,7 +32,6 @@ Meteor.startup(function() {
         if (!latestMsg) latestMsg={};
 
         latestMsg[notification.sender] = notification;
-        console.log(JSON.stringify(latestMsg, undefined, 2));
         Session.set("latestMsg", latestMsg);
         //
       }, function(error) {

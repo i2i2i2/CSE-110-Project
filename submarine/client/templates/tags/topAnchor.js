@@ -80,55 +80,53 @@ Template.TopAnchor.onRendered(function() {
   document.addEventListener('touchstart', this.handleTouchDown);
   document.addEventListener('touchend', this.handleTouchUp);
 
-  if (Meteor.isCordova) {
-    /* There are 4 wifi seeds manually added for testing */
-    App.Utils.WifiWizard.getNearbyWifi(); //get nearyby wifiList
+  /* There are 4 wifi seeds manually added for testing */
+  App.Utils.WifiWizard.getNearbyWifi(); //get nearyby wifiList
 
-    this.autorun(() => {
-      //the network list under current wifi
+  this.autorun(() => {
+    //the network list under current wifi
+    var wifiList = Session.get("wifiList");
+
+    //check if the current wifilist is valid
+    if(wifiList && wifiList.length){
+      this.handle = this.subscribe("tags/tagsUnderWifis", wifiList);
+    }
+  });
+
+  Tracker.autorun(() =>{
+    //check if the subscribe function is ready
+    if (this.handle.ready()) {
+
       var wifiList = Session.get("wifiList");
+      //console.log("Finish getting the tagList, ready to process the list");
 
-      //check if the current wifilist is valid
-      if(wifiList && wifiList.length){
-        this.handle = this.subscribe("tags/tagsUnderWifis", wifiList);
-      }
-    });
+      //Create a hash table using bssid value as key and stores level of wifi
+      bssidList = {};
+      wifiList.forEach(wifi => {
+        bssidList[wifi.bssid] = wifi.level;
+      });
 
-    Tracker.autorun(() =>{
-      //check if the subscribe function is ready
-      if (this.handle.ready()) {
+      //get the tags from server
+      var tagList = App.Collections.Tags.find().fetch();
 
-        var wifiList = Session.get("wifiList");
-        //console.log("Finish getting the tagList, ready to process the list");
+      //compute the standard diviation of each wifi level with the tag's wifi level
+      tagList.forEach(tag => {
+        var std = 0;
+        tag.wifis.forEach(wifiElement => {
+          std += Math.sqrt( (wifiElement.level - (bssidList[wifiElement.tagId]? bssidList[wifiElement.tagId]: -100)));
+        })
+        tag.std = Math.sqrt(std);
+      });
 
-        //Create a hash table using bssid value as key and stores level of wifi
-        bssidList = {};
-        wifiList.forEach(wifi => {
-          bssidList[wifi.bssid] = wifi.level;
-        });
+      //rearrange the order of the tags based on the value of std
+      tagList.sort(function(tag1, tag2){
+        return tag1.std - tag2.std;
+      });
+      this.tagList = tagList;
+      //console.log(JSON.stringify(tagList, undefined, 2));
 
-        //get the tags from server
-        var tagList = App.Collections.Tags.find().fetch();
-
-        //compute the standard diviation of each wifi level with the tag's wifi level
-        tagList.forEach(tag => {
-          var std = 0;
-          tag.wifis.forEach(wifiElement => {
-            std += Math.sqrt( (wifiElement.level - (bssidList[wifiElement.tagId]? bssidList[wifiElement.tagId]: -100)));
-          })
-          tag.std = Math.sqrt(std);
-        });
-
-        //rearrange the order of the tags based on the value of std
-        tagList.sort(function(tag1, tag2){
-          return tag1.std - tag2.std;
-        });
-        this.tagList = tagList;
-        //console.log(JSON.stringify(tagList, undefined, 2));
-
-      }
-    });
-  }
+    }
+  });
 });
 
 Template.TopAnchor.onDestroyed(function() {
@@ -137,6 +135,64 @@ Template.TopAnchor.onDestroyed(function() {
 });
 
 Template.TopAnchor.events({
+  "click .create.submit_button": function(event) {
+    // Prevent default browser form submit
+        event.preventDefault();
+
+        // Get values from the form
+        var tagName = $('input[name="chatroom_name"]').val();
+
+        if(tagName == "" ){
+          console.log("Empty Roomname Not Allowed");
+          return;
+        }
+
+        var tagDescription = $('input[name="room_discription"]').val();
+        var tagStartTime = $("#start_time").val();
+        var tagEndTime = $("#end_time").val();
+
+        var tagRepeat = 0;
+
+        $(".check input:checked").toArray().forEach((check) => {
+          //console.log($(check).data("val"));
+          tagRepeat += +$(check).data("val");
+        });
+
+        if(tagRepeat > 127){
+          tagRepeat = 127;
+        }
+
+        //App.Collections.Tags.remove({name:""});
+        //console.log(App.Collections.Tags.find({}));
+
+        var wifiArray = Session.get("wifiList");
+
+        console.log("Here we are!!!");
+
+        let tagData = {
+            name: tagName,
+            description: tagDescription,
+            wifis: wifiArray,
+            start_time: tagStartTime,
+            end_time: tagEndTime,
+            user: [],
+            repeat: tagRepeat
+        };
+
+        // Insert into the collection
+        Meteor.call('tags/createTag', tagData, wifiArray, function(error){
+            if(error){
+                // Output error if subscription fails
+                console.log(error.reason);
+            } else {
+                // Success
+                console.log("Tag Added Successfully");
+                console.log(tagData);
+                console.log( App.Collections.Tags.find({}) );
+            }
+        });
+  },
+
   "click .submarine_bg": function(e, t) {
     if (!t.moved) {
       t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
