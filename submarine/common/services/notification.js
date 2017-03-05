@@ -18,7 +18,7 @@ if (Meteor.isServer) {
         var user = Meteor.users.findOne(msg.receiver);
         if (!user.token) return false;
 
-        gcmNotification.to = user._id;
+        gcmNotification.to = user.token;
         gcmNotification.notification.title = user.username;
       }
 
@@ -32,7 +32,7 @@ if (Meteor.isServer) {
         if (err)
           console.log("GCM error");
         else
-          console.log("GCM responsed");
+          console.log(JSON.stringify(res, undefined, 2));
       });
     }
   };
