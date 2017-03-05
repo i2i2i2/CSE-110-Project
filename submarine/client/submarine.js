@@ -28,9 +28,10 @@ Meteor.startup(function() {
       window.FirebasePlugin.onNotificationOpen(function(notification) {
         // update new msg
         var latestMsg = Session.get("latestMsg");
+        notification.time = new Date(notification.time);
         if (!latestMsg) latestMsg={};
 
-        latestMsg[notification.receiver] = notification;
+        latestMsg[notification.sender] = notification;
         console.log(JSON.stringify(latestMsg, undefined, 2));
         Session.set("latestMsg", latestMsg);
         //
