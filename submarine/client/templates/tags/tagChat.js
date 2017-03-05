@@ -186,21 +186,25 @@ Template.tagChats.onDestroyed(function() {
 
 Template.tagChats.events({
   "click .button[data-action=\"send\"]": function(e, t) {
-    var newMessage = $('#msg').val();
-    console.log(newMessage);
 
-    var now = new Date();
-    var msg = {
-      is_public: true,
-      sender: Meteor.userId(),
-      receiver: t.tagId,
-      message: newMessage,
-      time: now,
-      rate: 80
-    };
-    $('#msg').val("");
-    Meteor.call("chats/sendMsg", msg);
+    var newMessage = $('#msg').val();
+    if (newMessage.length != 0){
+      console.log(newMessage);
+
+      var now = new Date();
+      var msg = {
+        is_public: true,
+        sender: Meteor.userId(),
+        receiver: t.tagId,
+        message: newMessage,
+        time: now,
+        rate: 80
+      };
+      $('#msg').val("");
+      Meteor.call("chats/sendMsg", msg);
+    }
   },
+
   "click .button[data-action=\"back\"]": function(e, t) {
     FlowRouter.go("/user/home");
   },

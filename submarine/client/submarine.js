@@ -18,6 +18,7 @@ Meteor.startup(function() {
       window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
         if (Meteor.userId())
+            console.log(JSON.stringify(token));
           Meteor.call("user/updateToken", token);
 
       }, function(error) {
@@ -26,10 +27,13 @@ Meteor.startup(function() {
 
       window.FirebasePlugin.onNotificationOpen(function(notification) {
         // update new msg
-        var lastRead = Session.get("lastRead");
-        lastRead[notification.data.receiver] = notification.data;
-        Session.set(lastRead);
-        
+        var latestMsg = Session.get("latestMsg");
+        notification.time = new Date(notification.time);
+        if (!latestMsg) latestMsg={};
+
+        latestMsg[notification.sender] = notification;
+        Session.set("latestMsg", latestMsg);
+        //
       }, function(error) {
         console.error(error);
       });

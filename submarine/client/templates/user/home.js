@@ -54,6 +54,8 @@ Template.Home.helpers({
     recentFriends: () => {
       if (!Meteor.userId()) return;
 
+      console.log("runned");
+
       var latestMsg = Session.get("latestMsg");
       var friends = Meteor.user().profile.friends;
 
