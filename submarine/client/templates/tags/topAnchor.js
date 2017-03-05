@@ -79,54 +79,6 @@ Template.TopAnchor.onCreated(function() {
 Template.TopAnchor.onRendered(function() {
   document.addEventListener('touchstart', this.handleTouchDown);
   document.addEventListener('touchend', this.handleTouchUp);
-
-  /* There are 4 wifi seeds manually added for testing */
-  App.Utils.WifiWizard.getNearbyWifi(); //get nearyby wifiList
-
-  this.autorun(() => {
-    //the network list under current wifi
-    var wifiList = Session.get("wifiList");
-
-    //check if the current wifilist is valid
-    if(wifiList && wifiList.length){
-      this.handle = this.subscribe("tags/tagsUnderWifis", wifiList);
-    }
-  });
-
-  Tracker.autorun(() =>{
-    //check if the subscribe function is ready
-    if (this.handle.ready()) {
-
-      var wifiList = Session.get("wifiList");
-      //console.log("Finish getting the tagList, ready to process the list");
-
-      //Create a hash table using bssid value as key and stores level of wifi
-      bssidList = {};
-      wifiList.forEach(wifi => {
-        bssidList[wifi.bssid] = wifi.level;
-      });
-
-      //get the tags from server
-      var tagList = App.Collections.Tags.find().fetch();
-
-      //compute the standard diviation of each wifi level with the tag's wifi level
-      tagList.forEach(tag => {
-        var std = 0;
-        tag.wifis.forEach(wifiElement => {
-          std += Math.sqrt( (wifiElement.level - (bssidList[wifiElement.tagId]? bssidList[wifiElement.tagId]: -100)));
-        })
-        tag.std = Math.sqrt(std);
-      });
-
-      //rearrange the order of the tags based on the value of std
-      tagList.sort(function(tag1, tag2){
-        return tag1.std - tag2.std;
-      });
-      this.tagList = tagList;
-      //console.log(JSON.stringify(tagList, undefined, 2));
-
-    }
-  });
 });
 
 Template.TopAnchor.onDestroyed(function() {
@@ -212,7 +164,6 @@ Template.TopAnchor.events({
 });
 
 Template.TopAnchor.helpers({
-
     //"getTagList": () => this.tagList
-     "getTagList": () => ['tag1', 'tag2', 'tag3', 'tag4']
+     "getTagList": () => ['tag1', 'tag2']
 });

@@ -136,6 +136,7 @@ Template.Login.events({
 
 
     var errors = t.$("span.error, span.load");
+    console.log(errors.length);
     if (errors.length) {
       errors.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     } else {
