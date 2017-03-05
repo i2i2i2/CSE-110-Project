@@ -157,7 +157,7 @@ Template.tagChats.onRendered(function() {
 
         $(".messages").removeClass("refreshing");
         self.refreshing = false;
-        
+
         if (res.history.length) {
           var history = self.history.get();
           self.historyChange.set(self.historyChange.get() + 1);
@@ -185,12 +185,21 @@ Template.tagChats.onDestroyed(function() {
 });
 
 Template.tagChats.events({
+  "focus #msg": function(e, t) {
+    var self = Template.instance();
+    setTimeout(function() {
+      self.container.scrollTop = self.container.scrollHeight - self.container.clientHeight;
+    }, 300);
+  },
+
   "click .button[data-action=\"send\"]": function(e, t) {
 
     var newMessage = $('#msg').val();
-    if (newMessage.length != 0){
-      console.log(newMessage);
+    e.preventDefault();
+    $("#msg").val("");
+    $("#msg")[0].focus();
 
+    if (newMessage.length != 0) {
       var now = new Date();
       var msg = {
         is_public: true,
@@ -200,7 +209,7 @@ Template.tagChats.events({
         time: now,
         rate: 80
       };
-      $('#msg').val("");
+
       Meteor.call("chats/sendMsg", msg);
     }
   },

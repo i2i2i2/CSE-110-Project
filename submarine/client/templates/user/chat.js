@@ -183,11 +183,16 @@ Template.Chats.onDestroyed(function() {
 });
 
 Template.Chats.events({
+  "focus #msg": function(e, t) {
+    self.container.scrollTop = self.container.scrollHeight - self.container.clientHeight;
+  },
+
   "click .button[data-action=\"send\"]": function(e, t) {
     var newMessage = $('#msg').val();
-    if (newMessage.length != 0) {
-      console.log(newMessage);
+    $("#msg").val("");
+    $("#msg")[0].focus();
 
+    if (newMessage.length != 0) {
       var now = new Date();
       var msg = {
         is_public: false,
@@ -197,7 +202,7 @@ Template.Chats.events({
         time: now,
         rate: 80
       };
-      $('#msg').val("");
+
       Meteor.call("chats/sendMsg", msg);
    }
   },
