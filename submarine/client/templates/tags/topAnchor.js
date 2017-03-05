@@ -28,6 +28,11 @@ Template.TopAnchor.onCreated(function() {
   self.handleTouchUp = function(event) {
     if (!self.moved) return;
 
+    $(".top_anchor").addClass("transition");
+    setTimeout(function() {
+      $(".top_anchor").removeClass("transition");
+    }, 500);
+
     self.moved = false;
     document.removeEventListener('touchmove', self.handleTouchMove);
     $(".drag").removeClass("drag");

@@ -6,9 +6,9 @@
   height: 100vh;
   width: 100vw;
   z-index: 2;
-  transition: bottom ease 0.5s, transform ease 0.5s;
+  //transition: bottom ease 0.5s;
   background-color: rgba(255,255,255,0.1);
-  //overflow: visible;
+  overflow: visible;;
     //-webkit-filter: blur(5px);
 
   .submarine_bg {
@@ -26,7 +26,12 @@
 }
 
 .top_anchor.drag {
-  transition: initial;
+  overflow: visible !important;
+}
+
+.top_anchor.transition {
+  transition: bottom ease 0.5s;
+  overflow: visible !important;
 }
 
 .content{
