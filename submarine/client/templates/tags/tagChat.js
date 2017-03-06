@@ -8,7 +8,6 @@ Template.tagChats.onCreated(function() {
     self.userId = Meteor.userId();
 
     var tag = Meteor.user().profile.savedTags.find((element) => element.tagId == self.tagId);
-    self.joinTime = tag? (tag.joinSince? tag.joinSince: new Date(0)) : new Date(0);
     self.oldestMsg = 0;
     self.preOldestMsg = -1;
     self.historyChange = new ReactiveVar(0);
@@ -69,7 +68,7 @@ Template.tagChats.onCreated(function() {
     // avoid repeating
     if (self.preOldestMsg < self.oldestMsg && localStorage.getItem(self.tagId)) {
       self.preOldestMsg = self.oldestMsg;
-      Meteor.call("chats/getHistory", self.tagId, new Date(), self.lastRead, self.joinTime, true, true, function(err, res) {
+      Meteor.call("chats/getHistory", self.tagId, new Date(), self.lastRead, true, true, function(err, res) {
         self.addToBottom = false;
         if (err) return;
 
@@ -77,7 +76,7 @@ Template.tagChats.onCreated(function() {
 
         if (!res.history.length) {
           //TODO: display no more histories
-
+          self.oldestMsg = new Date();
           return;
         }
 
@@ -149,9 +148,13 @@ Template.tagChats.onRendered(function() {
     $(".messages").removeAttr("style");
     if (self.refreshing) {
       // call pastHistory
+      if (self.oldestMsg == 0) {
+        self.oldestMsg = new Date();
+      }
       self.preOldestMsg = self.oldestMsg;
 
-      Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.lastRead, self.joinTime, true, false, function(err, res) {
+      Meteor.call("chats/getHistory", self.tagId, self.oldestMsg, self.lastRead, true, false, function(err, res) {
+        console.log(JSON.stringify(res, undefined, 2));
         self.addToBottom = false;
         if (err) return;
 
@@ -234,7 +237,7 @@ Template.tagChats.events({
       t.container.scrollTop = 0;
       $(".messages").addClass("refreshing");
 
-      Meteor.call("chats/getHistory", t.tagId, t.oldestMsg, t.lastRead, t.joinTime, true, false, function(err, res) {
+      Meteor.call("chats/getHistory", t.tagId, t.oldestMsg, t.lastRead, true, false, function(err, res) {
         t.addToBottom  = false;
         if (err) return;
 

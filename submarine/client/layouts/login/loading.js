@@ -1,3 +1,7 @@
+Template.Loading.onCreated(function() {
+  if (Meteor.userId()) FlowRouter.go("/user/home");
+})
+
 Template.Loading.helpers({
   logined: () => (Meteor.userId() != null)
 })

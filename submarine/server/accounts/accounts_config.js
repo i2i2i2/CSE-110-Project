@@ -4,6 +4,7 @@
  */
 
 Accounts.config({
+  loginExpirationInDays: 90,
   sendVerificationEmail: false,
   forbidClientAccountCreation: false
 })
