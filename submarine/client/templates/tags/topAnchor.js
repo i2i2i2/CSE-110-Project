@@ -170,5 +170,5 @@ Template.TopAnchor.events({
 
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
-     "getTagList": () => ['tag1', 'tag2']
+     "getTagList": () => ['tag1', 'tag2', 'tag3', 'tag4']
 });
