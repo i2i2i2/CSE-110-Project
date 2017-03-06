@@ -46,9 +46,9 @@ Template.Profile.events({
     console.log("changeFacebook");
     var newFacebook = $('.facebook').val();
 
-     /* Meteor.call('user/changeFacebook', newFacebook, (err, res) => {
+     Meteor.call('user/changeFacebook', newFacebook, (err, res) => {
               $('.fa[data-action=changeEmail]').removeClass('active');
-      });*/
+      });
       $('.checkFacebook').addClass("check_transition");
       $('.checkFacebook').text("Changed Successfully");
       $('.facebook').val("");
@@ -59,11 +59,11 @@ Template.Profile.events({
     "click .fa[data-action=changeGoogle]": function(e, t) {
 
     console.log("changeGoogle");
-    var newFacebook = $('.google').val();
+    var newGoogle = $('.google').val();
 
-     /* Meteor.call('user/changeGoogle', newGoogle, (err, res) => {
+     Meteor.call('user/changeGoogle', newGoogle, (err, res) => {
               $('.fa[data-action=changeGoogle]').removeClass('active');
-      });*/
+      });
       $('.checkGoogle').addClass("check_transition");
       $('.checkGoogle').text("Changed Successfully");
       $('.google').val("");
@@ -74,11 +74,11 @@ Template.Profile.events({
     "click .fa[data-action=changeGithub]": function(e, t) {
 
     console.log("changeGithub");
-    var newFacebook = $('.github').val();
+    var newGithub = $('.github').val();
 
-    /*  Meteor.call('user/changeGithub', newGithub, (err, res) => {
+      Meteor.call('user/changeGithub', newGithub, (err, res) => {
               $('.fa[data-action=changeGithub]').removeClass('active');
-      });*/
+      });
       $('.checkGithub').addClass("check_transition");
       $('.checkGithub').text("Changed Successfully");
       $('.github').val("");
