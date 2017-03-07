@@ -42,7 +42,7 @@ Meteor.methods({
   },
 
   'user/changeGoogle': function(newGoogle) {
-    //if (this.isSimulation) return;
+    if (this.isSimulation) return;
   	console.log("new google account to be edited: "+newGoogle);
     if(!Meteor.user().profile.socialMedia) {
       console.log("No socialMedia created before");
@@ -50,16 +50,12 @@ Meteor.methods({
     }
     else {
         console.log("socialMedia already exist");
-        //Meteor.users.update({_id: this.userId},{$pull:{"profile.friendRequest":{"facebook":newFacebook}}});
         return Meteor.users.update({_id:this.userId},{$set: {"profile.socialMedia.google": newGoogle}});
     }
-      /*
-  	return Meteor.users.update({"_id": this.userId},
-  								{$push: {"profile.socialMedia.facebook": newFacebook}});*/
   },
     
   'user/changeGithub': function(newGithub) {
-    //if (this.isSimulation) return;
+    if (this.isSimulation) return;
   	console.log("new github account to be edited: "+newGithub);
     if(!Meteor.user().profile.socialMedia) {
       console.log("No socialMedia created before");
@@ -67,12 +63,8 @@ Meteor.methods({
     }
     else {
         console.log("socialMedia already exist");
-        //Meteor.users.update({_id: this.userId},{$pull:{"profile.friendRequest":{"facebook":newFacebook}}});
         return Meteor.users.update({_id:this.userId},{$set: {"profile.socialMedia.github": newGithub}});
     }
-      /*
-  	return Meteor.users.update({"_id": this.userId},
-  								{$push: {"profile.socialMedia.facebook": newFacebook}});*/
   },
 
   'user/changeUserName': function(newUserName) {
