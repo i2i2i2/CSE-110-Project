@@ -10,6 +10,7 @@
   overflow: visible;;
 
   .submarine_bg {
+    display: block;
     position: absolute;
     height: 75vw;
     width: 100vw;
@@ -62,6 +63,7 @@
             transition: height 0.5 ease;
 
             .button {
+              position: relative;
               border: 0;
               border-radius: 8px 8px 0 0;
               background-color: rgba(255, 255, 255, 0.3);
@@ -70,6 +72,12 @@
               color: white;
               line-height: 8vw;
               margin: 0;
+
+              .fa-check-circle, .fa-refresh {
+                position: absolute;
+                right: 18vw;
+                top: 1.2vw;
+              }
             }
 
             .pop-up {
@@ -87,6 +95,18 @@
                 font-size: 100%;
                 margin-top: 2vw;
 
+                .error {
+                  position: absolute;
+                  color: rgb(255, 80, 80);
+                  width: 32vw;
+                  right: 1vw;
+                  text-align: left;
+
+                  .fa {
+                    margin-right: 2vw;
+                  }
+                }
+
                 .label {
                   position: absolute;;
                   margin-left: 2vw;
@@ -100,6 +120,7 @@
                 .time {
                   position: absolute;
                   color: white;
+                   font-size: 120%;
                   left: 37vw;
                   width: 16vw;
                 }
@@ -234,4 +255,17 @@
             }
         }
     }
+}
+
+@media screen and (max-height: 130vw) {
+  .top_anchor {
+    .submarine_bg {
+      display: none;
+    }
+  }
+
+  .bottom.nav {
+    display: none !important;
+  }
+
 }

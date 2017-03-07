@@ -12,8 +12,8 @@ App.Seeder.Tags = function() {
       name: "Earth",
       description: "Channel Earthlings all subscribe to",
       wifis: [{"wifiId": test1._id, "level": -40}, {"wifiId": test2._id, "level": -50}, {"wifiId": test3._id, "level": -55}],
-      start_time: "00:00",
-      end_time: "00:00",
+      startTime: 0,
+      duration: 1440,
       users: [],
       repeat: 255
     }, (err, res) => {
@@ -37,8 +37,8 @@ App.Seeder.Tags = function() {
       name: "Mars",
       description: "Channel Martians all subscribe to",
       wifis: [{"wifiId": test4._id, "level": -50}, {"wifiId": test5._id, "level": -50}, {"wifiId": test6._id, "level": -55}],
-      start_time: "00:00",
-      end_time: "00:00",
+      startTime: 0,
+      duration: 1440,
       users: [],
       repeat: 255
     }, (err, res) => {
@@ -62,8 +62,8 @@ App.Seeder.Tags = function() {
       name: "Moon",
       description: "Channel Lunarians all subscribe to",
       wifis: [{"wifiId": test7._id, "level": -40}, {"wifiId": test8._id, "level": -50}, {"wifiId": test9._id, "level": -45}],
-      start_time: "00:00",
-      end_time: "00:00",
+      start_time: 0,
+      end_time: 1440,
       users: [],
       repeat: 255
     }, (err, res) => {

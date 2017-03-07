@@ -39,10 +39,7 @@ function onSuccess(wifiConfig) {
 
   if (!pastConfig || pastConfig.bssid != wifiConfig.bssid) {
     Session.set('wifiConfig', wifiConfig);
-    console.log("Wifi state change.");
   }
-
-  console.log("Wifi state checked");
 }
 
 /**
@@ -51,7 +48,6 @@ function onSuccess(wifiConfig) {
 function onErr(err) {
   var error = {err: true, msg: err};
   Session.set('wifiConfig', error);
-  console.log('Error getting WiFi config');
 }
 
 /**
@@ -59,24 +55,47 @@ function onErr(err) {
  * and return the array including BSSID and level
  * @returns {wifilist}
  */
-App.Utils.WifiWizard.getNearbyWifi = function() {
+App.Utils.WifiWizard.getNearbyWifi = function(callback) {
+  if (callback) {
+    function curriedSuccess(res) {
+      onSuccess2(res);
+      callback();
+    }
+    WifiWizard.getScanResults(curriedSuccess, onErr2);
+  } else {
     WifiWizard.getScanResults(onSuccess2, onErr2);
-}
+  }
 
+}
 
 /*
  * Handler for getNearbyWifi when successful
  */
 function onSuccess2(network) {
 
-  var networkList = network.filter(function(wifi){
-    return (wifi.level > -85);
+  var repeatIndex = 0;
+  var networkList = network.sort(function(wifi1, wifi2) {
+    return wifi1.bssid > wifi2.bssid? 1 : -1;
+
+  }).filter(function(wifi, index, wifiList){
+    var repeat = false;
+    if (index > repeatIndex) {
+      if (wifi.BSSID.substr(0, 14) == wifiList[repeatIndex].BSSID.substr(0, 14)) {
+        repeat = true;
+      }
+      repeatIndex = index;
+    }
+
+    return !repeat && (wifi.level > -85);
+
   }).map(function(wifi){
     return{
       bssid: wifi.BSSID,
       ssid: wifi.SSID,
       level: wifi.level
     };
+  }).sort(function(wifi1, wifi2) {
+    return wifi2.level - wifi2.level;
   });
 
 

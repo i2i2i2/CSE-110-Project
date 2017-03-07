@@ -8,6 +8,7 @@ Template.TopAnchor.onCreated(function() {
   self.velocity = -1;
   self.moved = false;
   self.windowHeight = $(window).height();
+  self.nearbyTags = new ReactiveVar([]);
 
   self.handleTouchDown = function(event) {
 
@@ -79,6 +80,45 @@ Template.TopAnchor.onCreated(function() {
     }
   }
 
+  self.displayError = function(DOM_element, errMsg) {
+    if (errMsg == "No Days Selected") {
+      $(".check").fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
+      return;
+    }
+
+    DOM_element = DOM_element.parent();
+    DOM_element.append('<div class="error"><i class="fa fa-minus-circle"></i>' + errMsg + '</div>');
+    DOM_element.find(".error").fadeOut(400).fadeIn(400).fadeOut(400);
+    setTimeout(function() {
+      DOM_element.find(".error").remove();
+    }, 2000);
+  };
+
+  if (Meteor.isCordova)
+    App.Utils.WifiWizard.getNearbyWifi();
+
+  self.autorun(function() {
+    var wifiList = Session.get("wifiList");
+    if (wifiList && wifiList.length) {
+      self.wifiSubHandle = self.subscribe("wifis/nearbyWifis", wifiList);
+    }
+  })
+
+  self.autorun(function() {
+
+    var wifis = App.Collections.Wifis.find().fetch();
+    if (!wifis.length) return;
+
+    var tagIds = [];
+    wifis.forEach((wifi) => {
+      tagIds = tagIds.concat(wifi.tags);
+    });
+
+    Meteor.call("tags/getTagsById", tagIds, function(err, res) {
+      if (err) return;
+      self.nearbyTags.set(res);
+    })
+  })
 });
 
 Template.TopAnchor.onRendered(function() {
@@ -108,7 +148,7 @@ Template.TopAnchor.onRendered(function() {
     if (read <= 48) {
       var time = moment("1970-01-01").add(5 * read, "minutes").format("HH:mm");
     } else {
-      var time = moment("1970-01-01").add(4 + (read - 48) * 0.5 , "hours").format("HH:mm");
+      var time = moment("1970-01-01").add(read * 0.5 - 20, "hours").format("HH:mm");
       if (time == "00:00") time = "24:00";
     }
     $("#duration_time").text(time);
@@ -149,6 +189,8 @@ Template.TopAnchor.events({
   },
 
   "click .create.button": function(e, t) {
+    if (Template.instance().creating) return;
+
     $(".button_wrapper").toggleClass("hide");
     $(".create.button > .fa").fadeOut(100);
     setTimeout(function() {
@@ -166,10 +208,88 @@ Template.TopAnchor.events({
       return;
     }
     $(e.currentTarget).toggleClass("selected");
+  },
+
+  "click .submit.button": function(e, t) {
+    var self = Template.instance();
+    if (self.creating) return;
+
+    console.log("clicked");
+
+    var newTag = {};
+    // get name
+    newTag.name = $("input[name=chatroom_name]").val();
+    if (!newTag.name) {
+      self.displayError($("input[name=chatroom_name]"), "Needed");
+      return;
+    }
+    // get description
+    newTag.description = $("input[name=room_discription]").val();
+    if (!newTag.description) {
+      self.displayError($("input[name=room_discription]"), "Needed");
+      return;
+    }
+    // get time
+    newTag.startTime = $("#start_slide").val() * 5;
+    var durationRead = $("#duration_slide").val();
+    newTag.duration = durationRead <= 48 ? durationRead * 5 : durationRead * 30 - 1200;
+    // get repeat
+    var repeat = 0;
+    $(".check.selected").toArray().forEach(function(element) {
+      repeat += $(element).data("val");
+    });
+    if (repeat == 0) {
+      self.displayError($(".repeat_wrapper"), "No Days Selected");
+      return;
+    }
+    newTag.repeat = repeat;
+    newTag.activeUser = [];
+    newTag.users = [];
+
+    var createNewTag = (function(newTag, self) {
+
+      //get wifiList
+      var wifiList= Session.get("wifiList");
+      wifiList = wifiList.slice(0, wifiList.length >= 5? 5: wifiList.length);
+
+      Meteor.call("tags/createTag", newTag, wifiList, (err, res) => {
+        if (err) {
+          console.log(JSON.stringify(err, undefined, 2));
+          self.$(".button.submit > .fa, .button.create > .fa-refresh").remove();
+          self.displayError($("input[name=chatroom_name]"), "Name Existed");
+          return;
+        }
+
+        self.creating = false;
+        $("input").prop('disabled', false);
+        self.$(".button.submit > .fa, .button.create > .fa-refresh").remove();
+        self.$(".button.submit, .button.create").append('<i class="fa fa-check-circle"></i>');
+        self.$(".button.submit > .fa, .button.create > .fa-check-circle").fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+        setTimeout(function() {
+          self.$(".button_wrapper").addClass("hide");
+          self.$(".button.create > .fa").removeClass("fa-minus").addClass("fa-plus");
+          self.$(".fa-refresh, .fa-minus, .fa-check-circle").remove();
+          self.$("input[type=text]").val("");
+          self.$("#start_slide").val(48);
+          self.$("#start_time").text("12:00").addClass("right");
+          self.$("#duration_slide").val(12);
+          self.$("#duration_time").text("01:00").addClass("right");
+        }, 1200)
+      });
+    }).bind(null, newTag, self);
+
+    if (Meteor.isCordova)
+      App.Utils.WifiWizard.getNearbyWifi(createNewTag);
+
+    $("input").prop('disabled', true);
+    self.$(".button.submit, .button.create").append('<i class="fa fa-refresh fa-spin"></i>');
+    self.creating = true;
   }
 });
 
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
-     "getTagList": () => ['tag1', 'tag2', 'tag3', 'tag4']
+     "getTagList": () => {
+       console.log(JSON.stringify(Template.instance().nearbyTags.get(), undefined, 2));
+     }
 });
