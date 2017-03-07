@@ -84,6 +84,48 @@ Template.TopAnchor.onCreated(function() {
 Template.TopAnchor.onRendered(function() {
   document.addEventListener('touchstart', this.handleTouchDown);
   document.addEventListener('touchend', this.handleTouchUp);
+
+  $("#start_slide")[0].addEventListener("input", function (event) {
+    var read = 15 * $(event.currentTarget).val();
+    var time = moment("1970-01-01").add(read, "minutes").format("HH:mm");
+    $("#start_time").text(time);
+    if (read < 720 && !$("#start_time").hasClass("right")) {
+      $("#start_time").fadeOut(50);
+
+      setTimeout(function() {
+        $("#start_time").addClass("right").fadeIn();
+      }, 50);
+    } else if (read >= 720 && $("#start_time").hasClass("right")) {
+      $("#start_time").fadeOut(50);
+
+      setTimeout(function() {
+        $("#start_time").removeClass("right").fadeIn();
+      }, 50);
+    }
+  });
+  $("#duration_slide")[0].addEventListener("input", function (event) {
+    var read = $(event.currentTarget).val();
+    if (read <= 48) {
+      var time = moment("1970-01-01").add(5 * read, "minutes").format("HH:mm");
+    } else {
+      var time = moment("1970-01-01").add(4 + (read - 48) * 0.5 , "hours").format("HH:mm");
+      if (time == "00:00") time = "24:00";
+    }
+    $("#duration_time").text(time);
+    if (read < 44 && !$("#duration_time").hasClass("right")) {
+      $("#duration_time").fadeOut(50);
+
+      setTimeout(function() {
+        $("#duration_time").addClass("right").fadeIn();
+      }, 50);
+    } else if (read >= 44 && $("#duration_time").hasClass("right")) {
+      $("#duration_time").fadeOut(50);
+
+      setTimeout(function() {
+        $("#duration_time").removeClass("right").fadeIn();
+      }, 50);
+    }
+  });
 });
 
 Template.TopAnchor.onDestroyed(function() {
@@ -92,63 +134,6 @@ Template.TopAnchor.onDestroyed(function() {
 });
 
 Template.TopAnchor.events({
-  "click .create.submit_button": function(event) {
-    // Prevent default browser form submit
-        event.preventDefault();
-
-        // Get values from the form
-        var tagName = $('input[name="chatroom_name"]').val();
-
-        if(tagName == "" ){
-          console.log("Empty Roomname Not Allowed");
-          return;
-        }
-
-        var tagDescription = $('input[name="room_discription"]').val();
-        var tagStartTime = $("#start_time").val();
-        var tagEndTime = $("#end_time").val();
-
-        var tagRepeat = 0;
-
-        $(".check input:checked").toArray().forEach((check) => {
-          //console.log($(check).data("val"));
-          tagRepeat += +$(check).data("val");
-        });
-
-        if(tagRepeat > 127){
-          tagRepeat = 127;
-        }
-
-        //App.Collections.Tags.remove({name:""});
-        //console.log(App.Collections.Tags.find({}));
-
-        var wifiArray = Session.get("wifiList");
-
-        console.log("Here we are!!!");
-
-        let tagData = {
-            name: tagName,
-            description: tagDescription,
-            wifis: wifiArray,
-            start_time: tagStartTime,
-            end_time: tagEndTime,
-            user: [],
-            repeat: tagRepeat
-        };
-
-        // Insert into the collection
-        Meteor.call('tags/createTag', tagData, wifiArray, function(error){
-            if(error){
-                // Output error if subscription fails
-                console.log(error.reason);
-            } else {
-                // Success
-                console.log("Tag Added Successfully");
-                console.log(tagData);
-                console.log( App.Collections.Tags.find({}) );
-            }
-        });
-  },
 
   "click .submarine_bg": function(e, t) {
     if (!t.moved) {
@@ -162,10 +147,26 @@ Template.TopAnchor.events({
       }
     }
   },
-  /*"click .create.button": function() {
-      //$(".popUpWindow").fadeIn();
-      $(".popUpWindow").addClass(popUp_transition);
-  }*/
+
+  "click .create.button": function(e, t) {
+    $(".button_wrapper").toggleClass("hide");
+    $(".create.button > .fa").fadeOut(100);
+    setTimeout(function() {
+      $(".create.button > .fa").toggleClass("fa-plus").toggleClass("fa-minus").fadeIn(100);
+    }, 100);
+  },
+
+  "click .check": function(e, t) {
+    if ($(e.currentTarget).hasClass("all")) {
+      if ($(e.currentTarget).hasClass("selected"))
+        $(".check").removeClass("selected");
+      else {
+        $(".check").addClass("selected");
+      }
+      return;
+    }
+    $(e.currentTarget).toggleClass("selected");
+  }
 });
 
 Template.TopAnchor.helpers({

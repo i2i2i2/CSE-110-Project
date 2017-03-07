@@ -35,11 +35,23 @@
 .content{
     .lower_content{
 
+        .button_wrapper.hide {
+          height: 8vw;
+
+          .button {
+            border-radius: 8px;
+          }
+
+          .pop-up {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+
         .button_wrapper{
             width: 94vw;
             margin: 3vw;
             border: 0;
-            padding-bottom: 1vw;
             border-radius: 8px;
             background-color: rgba(0, 0, 0, 0.5);
             font-family: "Robot-Bold", sans-serif;
@@ -61,8 +73,9 @@
             }
 
             .pop-up {
-              height: 50vw;
-              margin-top: 1vw;
+              opacity: 1;
+              visibility: visible;
+              transition: opacity 0.5s ease, visibility 0.5s ease;
 
               .item_wrapper:last-child {
                 margin-bottom: 2vw;
@@ -92,7 +105,7 @@
                 }
 
                 .time.right {
-                  right: 10vw;
+                  left: 66vw;
                 }
 
                 input[type="text"] {
@@ -152,6 +165,7 @@
                     font-size: 90%;
                     margin-right: 0.5vw;
                     width: 6vw;
+                    transition: background 0.5s ease;
                   }
                   label.all {
                     float: right;
