@@ -82,16 +82,34 @@ Template.TopAnchor.onCreated(function() {
   }
 
   self.displayError = function(DOM_element, errMsg) {
+    console.log(errMsg);
     if (errMsg == "No Days Selected") {
       $(".check").fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
       return;
     }
 
-    DOM_element = DOM_element.parent();
-    DOM_element.append('<div class="error"><i class="fa fa-minus-circle"></i>' + errMsg + '</div>');
-    DOM_element.find(".error").fadeOut(400).fadeIn(400).fadeOut(400);
+    if (errMsg == "time not included") {
+      var isLeft = DOM_element.parent().find(".time").hasClass("right");
+      DOM_element.parent().append('<div class="ontime error' + (isLeft? " left": "") +'"><i class="fa fa-minus-circle"></i>Current Time Must</div>');
+      DOM_element = $("#duration_slide");
+      var isLeft = DOM_element.parent().find(".time").hasClass("right");
+      DOM_element.parent().append('<div class="ontime error' + (isLeft? " left": "") +'">Be included in Range</div>');
+
+    } else if (errMsg == "repeat not included") {
+      var isLeft = DOM_element.parent().find(".time").hasClass("right");
+      DOM_element.parent().append('<div class="ontime error' + (isLeft? " left": "") +'"><i class="fa fa-minus-circle"></i>Today Must Be</div>');
+      DOM_element = $("#duration_slide");
+      var isLeft = DOM_element.parent().find(".time").hasClass("right");
+      DOM_element.parent().append('<div class="ontime error' + (isLeft? " left": "") +'">Included in Repeat</div>');
+
+    } else {
+      DOM_element = DOM_element.parent();
+      DOM_element.append('<div class="error"><i class="fa fa-minus-circle"></i>' + errMsg + '</div>');
+    }
+
+    $(".item_wrapper .error").fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400).fadeOut(400);
     setTimeout(function() {
-      DOM_element.find(".error").remove();
+      $(".item_wrapper .error").remove();
     }, 2000);
   };
 
@@ -249,6 +267,36 @@ Template.TopAnchor.events({
     newTag.repeat = repeat;
     newTag.activeUser = [];
     newTag.users = [];
+
+
+    // check if current time is included
+    var mmt = moment();
+    // Your moment at midnight
+    var mmtMidnight = mmt.clone().startOf('day');
+    // Difference in minutes
+    var diff = mmt.diff(mmtMidnight, 'minutes');
+    // filter by weekday
+    var day = 7 - (new Date()).getDay();
+    repeat = newTag.repeat.toString(2);
+    if (repeat.length < day || repeat.charAt(repeat.length - day) == "0") {
+      self.displayError($("#start_slide"), "repeat not included");
+      return;
+    }
+
+    // filter by time
+    var start = newTag.startTime;
+    var end = (newTag.startTime + newTag.duration) % 1440;
+    if (end <= start) {
+      if (diff < start && diff > end) {
+        self.displayError($("#start_slide"), "time not included");
+        return;
+      }
+    } else {
+      if (diff < start || diff > end) {
+        self.displayError($("#start_slide"), "time not included");
+        return;
+      }
+    }
 
     var createNewTag = (function(newTag, self) {
 
