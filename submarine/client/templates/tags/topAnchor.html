@@ -34,7 +34,7 @@
                         <label class="check" data-val="32">M</label>
                         <label class="check" data-val="16">T</label>
                         <label class="check" data-val="8">W</label>
-                        <label class="check" data-val="4">T</label>
+                        <label class="check" data-val="4">Th</label>
                         <label class="check" data-val="2">F</label>
                         <label class="check" data-val="1">S</label>
                         <label class="check all" data-val="0">All</label>
@@ -49,13 +49,29 @@
 
             <div class="tagContent">
                 {{#each getTagList}}
-                <div class="tag_wrapper">
-                    <div class="tagName">
+                    <!-- <div class="tag_wrapper">
+                      <div class="tag_name">
                         <i class="fa fa-anchor" aria-hidden="true"></i>
-                        {{this}}
+                        {{this.name}}
+                      </div>
+                      <div class="tag_content">
+                      <div class="tag_avatar">{{avatar this._id}}</div>
+                      <div class="tag_duration">{{getDuration this}}</div>
+                      <div class="tag_repeat">{{getRepeatition this}}</div>
+                      <div class="tag_description">{{this.description}}</div>
+                    </div> -->
+                    <div class="tag_wrapper">
+                      <div class="tag_name">
+                        <i class="fa fa-anchor" aria-hidden="true"></i>
+                        tag Blablabla...
+                      </div>
+                      <div class="tag_content">
+                        <div class="tag_avatar">{{avatar "ashbbIjasfb2"}}</div>
+                        <div class="tag_duration">00:00 - 24:00</div>
+                        <div class="tag_repeat">M W F</div>
+                        <div class="tag_description">{{randomSentence}}</div>
+                      </div>
                     </div>
-                    <div class="tagDescription"></div>
-                </div>
                 {{/each}}
             </div>
         </div>

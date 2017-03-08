@@ -192,6 +192,7 @@ Template.TopAnchor.events({
     if (Template.instance().creating) return;
 
     $(".button_wrapper").toggleClass("hide");
+    $(".tagContent").toggleClass("small");
     $(".create.button > .fa").fadeOut(100);
     setTimeout(function() {
       $(".create.button > .fa").toggleClass("fa-plus").toggleClass("fa-minus").fadeIn(100);
@@ -267,6 +268,7 @@ Template.TopAnchor.events({
         self.$(".button.submit > .fa, .button.create > .fa-check-circle").fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
         setTimeout(function() {
           self.$(".button_wrapper").addClass("hide");
+          self.$(".tagContent").removeClass("small");
           self.$(".button.create > .fa").removeClass("fa-minus").addClass("fa-plus");
           self.$(".fa-refresh, .fa-minus, .fa-check-circle").remove();
           self.$("input[type=text]").val("");
@@ -289,7 +291,9 @@ Template.TopAnchor.events({
 
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
-     "getTagList": () => {
-       console.log(JSON.stringify(Template.instance().nearbyTags.get(), undefined, 2));
+     "getTagList": () => ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7"],
+     "randomSentence": () => {
+       var words = Math.floor(Math.random() * (30 - 2)) + 2;
+       return Fake.sentence(words);
      }
 });
