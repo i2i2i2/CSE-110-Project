@@ -9,6 +9,7 @@ Template.TopAnchor.onCreated(function() {
   self.moved = false;
   self.windowHeight = $(window).height();
   self.nearbyTags = new ReactiveVar([]);
+  self.isRefreshing = new ReactiveVar(false);
 
   self.handleTouchDown = function(event) {
 
@@ -113,6 +114,8 @@ Template.TopAnchor.onCreated(function() {
     wifis.forEach((wifi) => {
       tagIds = tagIds.concat(wifi.tags);
     });
+
+    self.isRefreshing.set(true);
 
     Meteor.call("tags/getTagsById", tagIds, function(err, res) {
       if (err) return;
@@ -231,7 +234,7 @@ Template.TopAnchor.events({
       return;
     }
     // get time
-    newTag.startTime = $("#start_slide").val() * 5;
+    newTag.startTime = $("#start_slide").val() * 15;
     var durationRead = $("#duration_slide").val();
     newTag.duration = durationRead <= 48 ? durationRead * 5 : durationRead * 30 - 1200;
     // get repeat
@@ -291,9 +294,121 @@ Template.TopAnchor.events({
 
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
-     "getTagList": () => ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7"],
-     "randomSentence": () => {
-       var words = Math.floor(Math.random() * (30 - 2)) + 2;
-       return Fake.sentence(words);
+     "getTagList": () => {
+       var wifiList = Session.get("wifiList");
+       if (!wifiList || !wifiList.length) return false;
+
+       var self = Template.instance();
+       var tagList = self.nearbyTags.get();
+
+
+       console.log(tagList.length);
+
+       // turn wifi into dictionary
+       wifiDict = {};
+       wifiList.forEach(wifi => {
+         wifiDict[wifi.bssid] = wifi.level;
+       });
+
+       // filter out tag not in time range
+       var mmt = moment();
+       // Your moment at midnight
+       var mmtMidnight = mmt.clone().startOf('day');
+       // Difference in minutes
+       var diff = mmt.diff(mmtMidnight, 'minutes');
+       tagList = tagList.filter((tag) => {
+         // filter by wifi
+         if (!tag.wifis || !tag.wifis.length) return false;
+
+         // filter by weekday
+         var day = 7 - (new Date()).getDay();
+         var repeat = tag.repeat.toString(2);
+         if (repeat.length < day || repeat.charAt(repeat.length - day) == "0")
+           return false;
+
+         // filter by time
+         var start = tag.startTime;
+         var end = (tag.startTime + tag.duration) % 1440;
+         if (end <= start) {
+           return diff > start || diff < end;
+         } else {
+           return diff > start && diff < end;
+         }
+       })
+
+       // calc std of dist of each tag in wifi network + add index
+       tagList.forEach((tag, index) => {
+         tag.index = index;
+         tag.std = 0;
+         tag.wifis.forEach((wifi) => {
+           var level1 = wifi.level;
+           var level2 = wifiDict[wifi.bssid] ? wifiDict: -100;
+           var dist1 = Math.pow(10, (-30 - level1)/20);
+           var dist2 = Math.pow(10, (-30 - level2)/20);
+           tag.std += (dist1 - dist2) * (dist1 - dist2);
+         });
+         tag.std /= tag.wifis.length;
+       });
+
+       // sort by std in distance
+       tagList.sort(function(tag1, tag2) {
+         return tag1.std - tag2.std;
+       })
+
+       // record length for checkRenderDone
+       self.tagCount = tagList.length;
+
+       console.log(tagList.length);
+
+       return tagList;
+     },
+
+     "getDuration": function(tag) {
+       var start, end;
+       if (tag.duration == 1440) {
+         var start = "00:00";
+         var end = "24:00";
+       } else {
+         var start = moment("1970-01-01").add(tag.startTime, "minutes").format("HH:mm");
+         var end = moment("1970-01-01").add(tag.startTime + tag.duration, "minutes").format("HH:mm");
+       }
+       return start + " - " + end;
+     },
+
+     "getRepetition": function(tag) {
+       if (tag.repeat == 127) return "All Days";
+       if (tag.repeat == 65) return "Weekends";
+       if (tag.repeat == 62) return "Weekdays";
+
+       var weekday = ["S ", "M ", "T ", "W ", "Th ", "F ", "S"];
+       var repeat = tag.repeat.toString(2);
+       var paddingL = 7 - repeat.length;
+       for (var index = 0; index < paddingL; index++) {
+         repeat = "0" + repeat;
+       }
+
+       var repeatStr = "";
+       for (var index = 0; index < 7; index++) {
+         if (repeat.charAt(index) == "1") {
+           repeatStr += weekday[index];
+         }
+       }
+       return repeatStr;
+     },
+
+     "checkRefreshDone": function(index) {
+       var self = Template.instance();
+       if (index == self.tagCount - 1) {
+         console.log("done");
+         self.isRefreshing.set(false);
+       }
+     },
+
+     "isRefreshing": function() {
+       return Template.instance().isRefreshing.get()? "": "hidden";
+     },
+
+     "isNotRefreshing": function() {
+       return Template.instance().isRefreshing.get()? "hidden": "";
      }
 });

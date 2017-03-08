@@ -47,32 +47,27 @@
 
             <hr>
 
-            <div class="tagContent">
-                {{#each getTagList}}
-                    <!-- <div class="tag_wrapper">
-                      <div class="tag_name">
-                        <i class="fa fa-anchor" aria-hidden="true"></i>
-                        {{this.name}}
-                      </div>
-                      <div class="tag_content">
-                      <div class="tag_avatar">{{avatar this._id}}</div>
-                      <div class="tag_duration">{{getDuration this}}</div>
-                      <div class="tag_repeat">{{getRepeatition this}}</div>
-                      <div class="tag_description">{{this.description}}</div>
-                    </div> -->
-                    <div class="tag_wrapper">
-                      <div class="tag_name">
-                        <i class="fa fa-anchor" aria-hidden="true"></i>
-                        tag Blablabla...
-                      </div>
-                      <div class="tag_content">
-                        <div class="tag_avatar">{{avatar "ashbbIjasfb2"}}</div>
-                        <div class="tag_duration">00:00 - 24:00</div>
-                        <div class="tag_repeat">M W F</div>
-                        <div class="tag_description">{{randomSentence}}</div>
-                      </div>
-                    </div>
-                {{/each}}
+            <div class="refreshing {{isRefreshing}}">
+              <i class="fa fa-circle-o-notch fa-spin"></i>
+            </div>
+
+            <div class="tagContent {{isNotRefreshing}}">
+
+              {{#each getTagList}}
+                <div class="tag_wrapper">
+                  <div class="tag_name">
+                    <i class="fa fa-anchor" aria-hidden="true"></i>
+                    {{this.name}}
+                  </div>
+                  <div class="tag_content">
+                    <div class="tag_avatar">{{avatar this._id}}</div>
+                    <div class="tag_duration">{{getDuration this}}</div>
+                    <div class="tag_repeat">{{getRepetition this}}</div>
+                    <div class="tag_description">{{this.description}}</div>
+                  </div>
+                </div>
+                {{checkRefreshDone this.index}}
+              {{/each}}
             </div>
         </div>
 
