@@ -54,12 +54,13 @@ Meteor.publish("users/strangersInfo", function() {
     return this.ready();
 
   var strangers = Meteor.users.findOne(this.userId).profile.strangers;
-  if (!strangers.length)
+  if (!strangers || !strangers.length)
     return this.ready();
 
   return Meteor.users.find({"_id": {"$in": strangers}},
                            {
                              "fields": {
+                               "username": 1,
                                "profile.profileSeed": 1,
                              }
                            });

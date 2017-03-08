@@ -2,6 +2,40 @@
 
 
 Meteor.methods({
+    
+  "friends/addStranger": function(userId, friendId) {
+    if (this.isSimulation) return;
+    
+    console.log("on serve, welcome called addStranger: ");
+    var user1 = Meteor.users.findOne(userId);
+    var user2 = Meteor.users.findOne(friendId);
+  
+    if (user1==null || user2==null) {
+      // invalid userid
+      console.log("Invalid user or friend id");
+      return;
+    }
+    var today = new Date();
+	var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);  
+    console.log("Add each other to stranger");
+    if(!user1.profile.strangers){
+      console.log("for current user, no stranger field in db, add one");
+      Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}, false, true);
+    }
+    else{
+       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}); 
+    }
+      
+    if(!user2.profile.strangers){
+      console.log("for target user, no stranger field in db, add one");
+      Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}, false, true);
+    }
+    else{
+       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}); 
+    }
+    
+  },
+    
   // Remove friend from firend list
   "friends/deleteFriend" : function(userId, friendId) {
     if (this.isSimulation) return;
@@ -135,7 +169,7 @@ Meteor.methods({
       if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.turndownFriends.userId':userId}]}) == null){
         console.log("letting the friend know your request");
         if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friendRequest.userId':userId}]}) == null){
-          Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":friendId,"requestReason":message}}});
+          Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":userId,"requestReason":message}}});
 	}
       }
       // remove user 2 from user 1's recommended list

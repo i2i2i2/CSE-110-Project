@@ -7,6 +7,7 @@ Template.mainLayout.onCreated(function() {
 
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
     this.subHandle2 = this.subscribe("users/strangersUserId");
+    this.subHandle3 = this.subscribe("users/strangersInfo");
   });
 
   this.autorun(() => {
