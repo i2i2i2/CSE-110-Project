@@ -28,11 +28,29 @@ Template.FriendProfile.helpers({
     
   userId: () => FlowRouter.current().params._id,
 
-  getFacebook: () => Meteor.userId()? Meteor.user().socialMedia.facebook: null,
-
-  getGoogle: () => Meteor.userId()? Meteor.user().socialMedia.google: null,
-
-  getGithub: () => Meteor.userId()? Meteor.user().socialMedia.github: null
+  getFacebook: function(id) {
+     if(!Meteor.users.findOne(id))  return null;
+     if(!Meteor.users.findOne(id).profile.socialMedia ||      !Meteor.users.findOne(id).profile.socialMedia.facebook) {
+       return "facebook!";
+     }
+     return Meteor.users.findOne(id).profile.socialMedia.facebook;
+  },
+   
+  getGoogle: function(id) {
+     if(!Meteor.users.findOne(id))  return null;
+     if(!Meteor.users.findOne(id).profile.socialMedia ||      !Meteor.users.findOne(id).profile.socialMedia.google) {
+       return "google!";
+     }
+     return Meteor.users.findOne(id).profile.socialMedia.google;
+  },
+    
+  getGithub: function(id) {
+     if(!Meteor.users.findOne(id))  return null;
+     if(!Meteor.users.findOne(id).profile.socialMedia ||      !Meteor.users.findOne(id).profile.socialMedia.github) {
+       return "github!";
+     }
+     return Meteor.users.findOne(id).profile.socialMedia.github;
+  }
 });
 
 Template.FriendProfile.events({
