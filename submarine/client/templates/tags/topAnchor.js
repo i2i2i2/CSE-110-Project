@@ -265,6 +265,7 @@ Template.TopAnchor.events({
         }
 
         self.creating = false;
+        self.newCreate = res;
         $("input").prop('disabled', false);
         self.$(".button.submit > .fa, .button.create > .fa-refresh").remove();
         self.$(".button.submit, .button.create").append('<i class="fa fa-check-circle"></i>');
@@ -352,6 +353,8 @@ Template.TopAnchor.helpers({
 
        // sort by std in distance
        tagList.sort(function(tag1, tag2) {
+         if (tag1._id == self.newCreate) return -1;
+         if (tag2._id == self.newCreate) return 1;
          return tag1.std - tag2.std;
        })
 
@@ -410,5 +413,13 @@ Template.TopAnchor.helpers({
 
      "isNotRefreshing": function() {
        return Template.instance().isRefreshing.get()? "hidden": "";
+     },
+
+     "trimName": function(str) {
+       if (str.length > 10) {
+         return str.substr(0, 10) + "...";
+       } else {
+         return str;
+       }
      }
 });

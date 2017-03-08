@@ -35,6 +35,17 @@
 }
 
 .content{
+
+    .refreshing {
+      position: absolute;
+      top: 80vw;
+      font-size: 500%;
+      width: 100vw;
+      text-align: center;
+      color: #cdcdcd;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
     .lower_content{
 
         .button_wrapper.hide {
@@ -222,7 +233,7 @@
     }
 
     .tagContent {
-
+        transition: opacity 0.5s ease, visibility 0.5s ease;
         overflow: auto;
         height: ~"calc(100vh - 64vw)";
         padding-bottom: 50vw;
