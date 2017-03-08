@@ -113,7 +113,8 @@ Template.Login.events({
   // switch to sign in
   "click .button[data-action=switch]": function(e, t) {
     t.$('.lower, .upper').toggleClass('signup')
-                         .toggleClass('login')
+                         .toggleClass('login');
+    $(".error").remove();
   },
 
   // sign up
