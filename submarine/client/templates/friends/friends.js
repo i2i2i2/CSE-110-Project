@@ -43,7 +43,7 @@ Template.Friends.helpers({
 Template.mainLayout.events({
   "click .connect_profile": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('userid');
-    FlowRouter.go('/chats/friend/'+idNumber);
+    FlowRouter.go('/user/friend_profile/'+idNumber);
   },
 
   "click .cancel": function () {
