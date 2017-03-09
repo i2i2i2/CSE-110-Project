@@ -1,84 +1,56 @@
 <template name="Profile">
   <div class="top_wrapper">
     <div class="top_pic"></div>
+
     <div class="profile_picture">{{{avatar randomSeed}}}</div>
-    <div class="button right" data-action="random">Random</div>
-    <div class="button right" data-action="logout">Logout</div>
 
-  </div>
-  <!--<div class="old_user_name">
-      <p>{{getUserName}}
-      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-      </p>
-  </div>-->
-  <div class="changeUserName_wrapper">
-    <form>
-      <input type="text" class="userName" data-action="changeUserName" placeholder="{{getUserName}}">
-      <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
-   <!--  <div class="button right" data-action="changeUserName">UserName</div> -->
-      <p class="Invalid"></p>
+    <div class="button random" data-action="random">Random</div>
+    <div class="button logout" data-action="logout">Logout</div>
 
-    </form>
+    <div class="changeUserName_wrapper">
+      <input type="text" class="userName" data-action="changeUserName" placeholder="{{getUserName}}" disabled>
+      <i class="fa fa-pencil"></i>
+      <i class="fa fa-check-circle-o"></i>
+      <i class="fa fa-spin fa-circle-o-notch"></i>
+    </div>
   </div>
 
-
+<div class="socialMedia_wrapper">
 
   <div class="change_wrapper">
     <i class="fa fa-envelope-o" aria-hidden="true"></i>
-    <form>
-      <input type="text" class="email" placeholder="{{getEmail}}">
-      <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeEmail"></i>
-      <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkEmail"></p>
-
-    </form>
+    <input type="text" class="email" placeholder="{{getEmail}}" disabled>
+    <i class="fa fa-pencil"></i>
+    <i class="fa fa-check-circle-o"></i>
+    <i class="fa fa-spin fa-circle-o-notch"></i>
   </div>
 
   <hr id="inProfile">
-  <div class="change_wrapper">
-   <i class="fa fa-facebook" aria-hidden="true"></i>
-    <form>
-       {{#if hasFacebook}}
-       <input type="text" class="facebook" placeholder="{{getFacebook}}" >
-       {{else}}
-       <input type="text" class="facebook" placeholder="AddYourFacebookAccount" > {{/if}}
-       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeFacebook"></i>
-      <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkFacebook"></p>
 
-    </form>
+  <div class="change_wrapper">
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+      {{#if hasFacebook}}
+        <input type="text" class="facebook" placeholder="{{getFacebook}}" disabled>
+      {{else}}
+        <input type="text" class="facebook" placeholder="Connect on Facebook" disabled>
+      {{/if}}
+      <i class="fa fa-pencil"></i>
+      <i class="fa fa-check-circle-o"></i>
+      <i class="fa fa-spin fa-circle-o-notch"></i>
   </div>
 
   <hr id="inProfile">
-  <div class="change_wrapper">
-    <i class="fa fa-google" aria-hidden="true"></i>
-    <form>
-       {{#if hasGoogle}}
-       <input type="text" class="google" placeholder="{{getGoogle}}">
-       {{else}}
-       <input type="text" class="google" placeholder="AddYourGoogleAccount" > {{/if}}
-       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeGoogle"></i>
 
-      <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkGoogle"></p>
-
-    </form>
-  </div>
-
-
-<hr id="inProfile">
   <div class="change_wrapper">
     <i class="fa fa-github" aria-hidden="true"></i>
-    <form>
-       {{#if hasGithub}}
-       <input type="text" class="github" placeholder="{{getGithub}}">
-       {{else}}
-       <input type="text" class="github" placeholder="AddYourGithubAccount" > {{/if}}
-       <i class="fa fa-check-circle-o" aria-hidden="true" data-action="changeGithub"></i>
-      <!--<div class="button right" data-action="changeEmail">Email</div>-->
-      <p class="checkGithub"></p>
-
-    </form>
+      {{#if hasGithub}}
+        <input type="text" class="github" placeholder="{{getGithub}}" disabled>
+      {{else}}
+        <input type="text" class="github" placeholder="Connect on Github" disabled>
+      {{/if}}
+      <i class="fa fa-pencil"></i>
+      <i class="fa fa-spin fa-circle-o-notch"></i>
+      <i class="fa fa-check-circle-o"></i>
   </div>
 
   <div class="private_concern">
@@ -87,22 +59,6 @@
   		<input type="checkbox" value="1" id="checkboxThreeInput" name="" />
 	  	<label for="checkboxThreeInput"></label>
   	</div>
-
   </div>
-  <!--<div class="changeUserName">
-    <form>
-      <input type="text" class="userName" placeholder="New User Name">
-   <div class="button right" data-action="changeUserName">UserName</div>
-      <p class="Invalid"></p>
-
-    </form>
-  </div>-->
-
- <!-- <div class="changeSeed">
-    <div class="profile_picture left">{{{avatar randomSeed}}}</div>
-    <div class="button right" data-action="random">Random</div>
-    <p>Your Profile random seed is {{randomSeed}}</p>
-  </div>-->
-
-
+</div>
 </template>

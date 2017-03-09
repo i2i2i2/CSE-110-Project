@@ -9,7 +9,7 @@ Meteor.methods({
     return Meteor.users.update({"_id": this.userId},
                                {$set: {"profile.profileSeed": profileSeed}});
   },
-    
+
     'user/rollChatroomPicture': function() {
     // research isSimulation
     if (this.isSimulation) return;
@@ -23,11 +23,15 @@ Meteor.methods({
 
   'user/changeEmail': function(newEmail) {
   	if (this.isSimulation) return;
-  	console.log(newEmail);
+
+    if (Accounts.findUserByEmail(newEmail)) {
+      throw new Meteor.Error("Email Exists");
+      return;
+    }
   	return Meteor.users.update({"_id": this.userId},
   								{$set: {"emails.0.address": newEmail}});
   },
-      
+
   'user/changeFacebook': function(newFacebook) {
     if (this.isSimulation) return;
   	console.log("new facebook account to be edited: "+newFacebook);
@@ -41,19 +45,6 @@ Meteor.methods({
     }
   },
 
-  'user/changeGoogle': function(newGoogle) {
-    if (this.isSimulation) return;
-  	console.log("new google account to be edited: "+newGoogle);
-    if(!Meteor.user().profile.socialMedia) {
-      console.log("No socialMedia created before");
-      return Meteor.users.update({_id:this.userId},{$set: {"profile.socialMedia": {'google': newGoogle} }}, false, true);
-    }
-    else {
-        console.log("socialMedia already exist");
-        return Meteor.users.update({_id:this.userId},{$set: {"profile.socialMedia.google": newGoogle}});
-    }
-  },
-    
   'user/changeGithub': function(newGithub) {
     if (this.isSimulation) return;
   	console.log("new github account to be edited: "+newGithub);
@@ -106,14 +97,5 @@ Meteor.methods({
       return Meteor.users.update({"_id": this.userId},
           {$set: {"token": newToken}});
   }
-
-  //,
-    /*
-  'user/sendMsg': function (options) {
-    if (receiver offline) {
-      App.Services.sendOfflineMessaege(options);
-      }
-  }
-  */
 
 })

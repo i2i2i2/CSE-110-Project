@@ -1,155 +1,274 @@
 @import "color.less";
 
-.top_wrapper{
+.top_wrapper.hidden {
+  display: block !important;
+  visibility: hidden;
+  opacity: 0;
+  margin-bottom: -42vw;
+}
 
-   .top_pic{
-    height: 33vh;
+.top_wrapper{
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, top 0.5s ease, visibility 0.5s ease;
+
+  .top_pic{
+    height: 50vw;
     background-color: rgba(168,168,168,0.3);
   }
 
   .profile_picture{
-    width: 35vw;
-    height: 35vw;
+    width: 32vw;
+    height: 32vw;
     position: absolute;
     border: none;
     z-index: 1;
-    top: 23vh;
-    left: 32vw;
+    top: 29vw;
+    left: 7vw;
   }
-}
 
-.changeUserName_wrapper{
-    //height: 67vh;
-    background-color: transparent;
-    margin-top: 20vw;
-    padding-left: 15vw;
-    padding-right: 15vw;
-    padding-bottom: 0;
+  .button {
+    color:white;
+    position: absolute;
+    margin: 0;
+    border: 0;
+    border-radius: 25px;
+    z-index : 2;
+  }
 
-    input[type="text"]{
+  .button.random {
+    top: 53vw;
+    left: 40vw;
+    background-color: rgb(0,0,0);
+  }
+
+  .button.logout {
+    top: 53vw;
+    right: 3vw;
+    background-color: rgba(168,168,168,0.2);
+  }
+
+  .changeUserName_wrapper.loading {
+    .fa-pencil, .fa-check-circle-o {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fa-circle-o-notch {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .changeUserName_wrapper.editting {
+    .fa-pencil, .fa-circle-o-notch {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fa-check-circle-o {
+      opacity: 0.5;
+      visibility: visible;
+    }
+  }
+
+  .changeUserName_wrapper{
+      //height: 67vh;
+      position: absolute;
       background-color: transparent;
-      width: 70vw;
-      color: white;
-      padding:0;
-      border: 0;
-      font-size: 300%;
+      top: 38vw;
+      left: 40vw;
+      width: 60vw;
 
-      text-align: center;
-    }
-    input::-webkit-input-placeholder{
-        color:white;
-        font-family: "Roboto-Bold", sans-serif;
-    }
-    [placeholder]:focus::-webkit-input-placeholder {
-        transition: opacity 0.2s 0.2s ease;
-        opacity: 0;
-  }
-    /*i{
-        font-size: 150%;
+      input {
+        background-color: transparent;
+        width: 45vw;
         color: white;
-    }*/
+        padding:0;
+        border: 0;
+        font-size: 250%;
+        line-height: 6vw;
 
-    .Invalid{
-        margin: 0;
-        height: 4vw;
-        font-size: 120%;
-        font-weight: 400;
-        color: darkorange;
-        opacity: 0.6;
         text-align: center;
-    }
+      }
 
-    .invalid_transition{
-        -webkit-transition-delay: 2s; /* Safari */
-    transition-delay: 2s;
-        transition: opacity 2s 2s ease;
+      input:focus {
+        outline: none;
+      }
+
+      input::-webkit-input-placeholder{
+          color:white;
+          font-family: "Roboto-Bold", sans-serif;
+      }
+
+      [placeholder]:focus::-webkit-input-placeholder {
+          transition: opacity 0.2s 0.2s ease;
+          opacity: 0;
+      }
+
+      .error, .pass {
+        position: absolute;
+        top: -5.5vw;
+        left: 10vw;
+        font-size: 150%;
+        width: 50vw;
+
+        .fa.fa-check-circle, .fa.fa-minus-circle {
+          position: relative;
+          margin-right: 2vw;
+          right: 0;
+          top: 0;
+          font-size: 100%;
+          color: inherit;
+        }
+      }
+
+      .error {
+        color: rgb(255, 100, 100);
+      }
+
+      .pass {
+        color: rgb(100, 255, 100);
+      }
+
+      .fa {
+        position: absolute;
+        right: 4vw;
+        top: 2vw;
+        line-height: 6vw;
+        font-size: 200%;
+        color: white;
+        opacity: 0.5;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+      .fa-pencil {
+        opacity: 0.5;
+        visibility: visible;
+      }
+
+      .fa-check-circle-o, .fa-circle-o-notch {
         opacity: 0;
-    }
-    /*.hide_icon{
-        display: none;
-    }*/
+        visibility: hidden;
+      }
+  }
 }
 
 #inProfile{
+    position: relative;
     border-color: @sub_color2;
     margin-top: 4vw;
     margin-left: 11vw;
     margin-right: 0;
-    margin-bottom: 0;
+    margin-bottom: 2vw;
 
 }
 
+.socialMedia_wrapper {
+  margin-top: 16vw;
+}
+
+.change_wrapper.load {
+  .fa-pencil, .fa-check-circle-o {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .fa-circle-o-notch {
+    opacity: 0.5;
+    visibility: visible;
+  }
+}
+
+.change_wrapper.editting {
+  .fa-pencil, .fa-circle-o-notch {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .fa-check-circle-o {
+    opacity: 0.5;
+    visibility: visible;
+  }
+}
+
+
 .change_wrapper {
-    .fa-envelope-o{
-        margin-top: 3vw;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        color: white;
-        font-size: 150%;
-        display: inline-block;
+
+    position: relative;
+    height: 10vw;
+    width: 100vw;
+
+    .error, .pass {
+      position: absolute;
+      top: 8.5vw;
+      right: 15vw;
+      font-size: 130%;
+
+      .fa {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-top: 0;
+        margin-right: 1vw;
+        color: inherit;
+        font-size: 100%;
+      }
     }
 
-    form{
-        display: inline;
+    .error {
+      color: rgb(255, 100, 100);
     }
-    input[type="text"] {
+
+    .pass {
+      color: rgb(100, 255, 100);
+    }
+
+    .fa {
+      color: white;
+      display: inline-block;
+      font-size: 200%;
+      margin-top: 2vw;
+    }
+
+    .fa-envelope-o, .fa-facebook, .fa-github {
+      opacity: 1;
+      position: absolute;
+      left: 6vw;
+    }
+
+    .fa-check-circle-o, .fa-pencil, .fa-circle-o-notch {
+      position: absolute;
+      right: 6vw;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .fa-check-circle-o, .fa-circle-o-notch {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .fa-pencil {
+      opacity: 0.5;
+      visibility: visible;
+    }
+
+
+    input {
         border: 0;
         position: absolute;
-        left: 11vw;
+        left: 18vw;
         margin-top: 3vw;
         background-color: transparent;
-        width: 70vw;
+        width: 65vw;
         color: white;
         padding:0;
         border: 0;
         font-size: 150%;
-
         text-align: left;
-
-    }
-    .fa-check-circle-o{
-        display: inline;
-        position: absolute;
-        color: white;
-        right: 5vw;
-        margin-top: 4vw;
-        font-size: 150%;
     }
 
-    .fa-check-circle-o{
-    display: inline;
-    position: absolute;
-    color: white;
-    right: 5vw;
-    margin-top: 4vw;
-    font-size: 150%;
-    }
-
-    .fa-facebook{
-        margin-top: 3vw;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        color: white;
-        font-size: 150%;
-        display: inline-block;
-    }
-
-    .fa-google{
-        margin-top: 3vw;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        color: white;
-        font-size: 150%;
-        display: inline-block;
-    }
-
-    .fa-github{
-        margin-top: 3vw;
-        margin-left: 3vw;
-        margin-right: 3vw;
-        color: white;
-        font-size: 150%;
-        display: inline-block;
+    input::-webkit-input-placeholder{
+      color: #d0d0d0;
     }
 
     .checkEmail, .checkFacebook, .checkGoogle, .checkGithub{
@@ -173,89 +292,74 @@
     }
 }
 
-
-
-.profile_picture {
-  border: 0.3em solid @sub_color;
-  border-radius: 0.3em;
-  height: 7em;
-  width: 7em;
+.private_concern.fix {
+  position: fixed;
+  height: 10vw;
+  width: 100vw;
+  bottom: 0;
 }
 
-.button.right {
-  color:white;
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  margin: 0;
-  border: 0;
-  left: 75vw;
-  top: 27vh;
-  border-radius: 25px;
-  z-index : 2;
-}
-
-.button[data-action="logout"] {
-  top: 34.7vh;
-  background-color: rgba(168,168,168,0.2);
-}
 
 .private_concern {
+    position: relative;
+    margin-top: 25vw;
+    width: 100vw;
     text-align: center;
     .recommendOrNot{
-        width: 60vw;
-        height: 6vw;
-        background: #333;
-        margin: 0;;
-        margin-top: 8vw;
-        padding-top: 0.4vw;
-        display: inline-block;
-        border-radius: 50px;
-        position: relative;
-        font-size: 130%;
-        color: #ddd;
+      position: absolute;
+      top: 0;
+      left: 7vw;
+      width: 60vw;
+      height: 8vw;
+      line-height: 8vw;
+      background: #333;
+      padding-top: 0.4vw;
+      display: inline-block;
+      border-radius: 50px;
+      font-size: 130%;
+      color: #ddd;
     }
     input[type=checkbox] {
 	   visibility: hidden;
     }
 
     .checkboxThree {
-        width: 18vw;
-        height: 6vw;
-        background: #333;
-        margin: 3vw;
-        margin-top: 8vw;
-        margin-right: 0;
-        display: inline-block;
-        border-radius: 50px;
-        position: relative;
+      position: absolute;
+      top: 0;
+      right: 7vw;
+      width: 18vw;
+      height: 8vw;
+      margin-bottom: 3vw;
+      background: #333;
+      display: inline-block;
+      border-radius: 50px;
     }
 
     .checkboxThree:before {
         content: 'On';
         position: absolute;
-        top: 1.5vw;
+        top: 2vw;
         left: 2vw;
-        height: 0.5vw;
+        height: 1vw;
         color: darkorange;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .checkboxThree:after {
         content: 'Off';
         position: absolute;
-        top: 1.5vw;
-        left: 12vw;
-        height: 0.5vw;
+        top: 2vw;
+        left: 11vw;
+        height: 1vw;
         color: #ddd;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .checkboxThree label {
         display: block;
         width: 9vw;
-        height: 4vw;
+        height: 6vw;
         border-radius: 50px;
-
         transition: all .5s ease;
         cursor: pointer;
         position: absolute;
@@ -265,20 +369,8 @@
         background: #ddd;
     }
 
-    /**
-     * Create the checkbox event for the label
-     */
     .checkboxThree input[type=checkbox]:checked + label {
         left: 7.5vw;
         background-color: darkorange;
     }
 }
-
-/*.changeSeed {
-  height: 20vh;
-  background-color: @main_color1;
-}
-
-.email {
-  margin: 2em;
-}*/

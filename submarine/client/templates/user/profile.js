@@ -1,13 +1,32 @@
+Template.Profile.onCreated(function() {
+
+  this.displaySpan = function(parent, msg, isErr) {
+    parent.append('<div class="' + (isErr ? "error" : "pass") + '">'
+                  + (isErr ? '<i class="fa fa-minus-circle"></i>' : '<i class="fa fa-check-circle"></i>')
+                  + msg + '</div>');
+    var span;
+    if (isErr)
+      span = parent.find(".error");
+    else
+      span = parent.find(".pass");
+
+    span.fadeOut(400).fadeIn(400).fadeOut(400);
+    setTimeout(function() {
+      span.remove();
+    }, 1200);
+  }
+});
+
 Template.Profile.onRendered(function() {
   Session.set("currentTemplate", "profile");
 });
 
 Template.Profile.events({
-  "click .button[data-action=logout]": function(e, t) {
+  "click .button.logout": function(e, t) {
     Meteor.logout();
   },
 
-  "click .button[data-action=random]": function(e, t) {
+  "click .button.random": function(e, t) {
     console.log("randomed");
     Meteor.call('user/rollProfilePicture', (err, res) => {
       $('.button[data-action=random]').removeClass('active');
@@ -16,121 +35,156 @@ Template.Profile.events({
     $('.button[data-action=random]').addClass('active');
   },
 
-  "click .fa[data-action=changeEmail]": function(e, t) {
+  "click .fa-pencil": function(e, t) {
+    // change wrapper to editing
+    console.log("click pencil");
+    var wrapper = $(e.currentTarget).parent();
+    wrapper.addClass("editting");
 
-    console.log("changeEmail");
-    var newEmail = $('.email').val();
-    var regexpEmail = /.+@(.+){2,}\.(.+){2,}/;
-    if (regexpEmail.test(newEmail)){
-      $('.checkEmail').removeClass("check_transition");
-      $('.checkEmail').text("Changed Successfully");
-
-     // $('.checkEmail').addClass("check_transition");
-      Meteor.call('user/changeEmail', newEmail, (err, res) => {
-              $('.fa[data-action=changeEmail]').removeClass('active');
-      });
-      $('.email').val("");
-      $('.fa[data-action=changeEmail]').addClass('active');
+    if (wrapper.hasClass("change_wrapper")) {
+      $(".top_wrapper").addClass("hidden");
+      $(".private_concern").addClass("fix");
     }
-    else{
-        console.log("Invalid");
-        $('.checkEmail').removeClass("check_transition");
-        $('.checkEmail').text("Invalid Email");
-        $('.email').focus();
-    }
-    $('.checkEmail').addClass("check_transition");
-    },
 
-    "click .fa[data-action=changeFacebook]": function(e, t) {
+    // focus to input
+    var input = wrapper.find("input");
+    input.prop("disabled", false);
+    input.focus();
+  },
 
-    console.log("changeFacebook");
-    var newFacebook = $('.facebook').val();
+  "click .fa-check-circle-o": function(e, t) {
+    console.log("clicked");
 
-     Meteor.call('user/changeFacebook', newFacebook, (err, res) => {
-              $('.fa[data-action=changeEmail]').removeClass('active');
-      });
-      $('.checkFacebook').addClass("check_transition");
-      $('.checkFacebook').text("Changed Successfully");
-      $('.facebook').val("");
-      //$('.checkFacebook').removeClass("check_transition");
-      $('.fa[data-action=changeEmail]').addClass('active');
-    },
+    var self = Template.instance();
+    var wrapper = $(e.currentTarget).parent();
+    var input = wrapper.find("input");
 
-    "click .fa[data-action=changeGoogle]": function(e, t) {
+    if (input.hasClass("email")) {
 
-    console.log("changeGoogle");
-    var newGoogle = $('.google').val();
+      console.log("changeEmail");
+      var newEmail = $('.email').val();
+      var regexpEmail = /.+@(.+){2,}\.(.+){2,}/;
 
-     Meteor.call('user/changeGoogle', newGoogle, (err, res) => {
-              $('.fa[data-action=changeGoogle]').removeClass('active');
-      });
-      $('.checkGoogle').addClass("check_transition");
-      $('.checkGoogle').text("Changed Successfully");
-      $('.google').val("");
-      //$('.checkFacebook').removeClass("check_transition");
-      $('.fa[data-action=changeGoogle]').addClass('active');
-    },
+      if (!regexpEmail.test(newEmail)) {
+        self.displaySpan(wrapper, "Invalid Email", true);
 
-    "click .fa[data-action=changeGithub]": function(e, t) {
+      } else {
+        wrapper.addClass("load");
+        Meteor.call('user/changeEmail', newEmail, (err, res) => {
+          if (err) {
+            self.displaySpan(wrapper, "Email Existed", true);
+            $('.email').val("");
+          } else {
+            self.displaySpan(wrapper, "Updated", false);
+          }
+          wrapper.removeClass("load");
+        });
 
-    console.log("changeGithub");
-    var newGithub = $('.github').val();
-
-      Meteor.call('user/changeGithub', newGithub, (err, res) => {
-              $('.fa[data-action=changeGithub]').removeClass('active');
-      });
-      $('.checkGithub').addClass("check_transition");
-      $('.checkGithub').text("Changed Successfully");
-      $('.github').val("");
-      //$('.checkFacebook').removeClass("check_transition");
-      $('.fa[data-action=changeGithub]').addClass('active');
-    },
-/*    "click .fa[data-action=changeEmail]": function(e, t) {
-    console.log("changeEmail");
-    var newEmail = $('.email').val();
-    var regexpEmail = /.+@(.+){2,}\.(.+){2,}/;
-    if (regexpEmail.test(newEmail)){
-      $('.checkEmail').text("Changed Successfully");
-      Meteor.call('user/changeEmail', newEmail, (err, res) => {
-              $('.button[data-action=changeEmail]').removeClass('active');
-      });
-
-      $('.button[data-action=changeEmail]').addClass('active');
       }
-      else{
-        console.log("Invalid");
-        $('.checkEmail').text("Invalid Email");
-      }
-    },*/
 
-    "blur .userName[data-action=changeUserName]": function(e, t) {
+    } else if (input.hasClass("facebook")) {
+      console.log("facebook");
+      var newFacebook = $('.facebook').val();
+      console.log(newFacebook.length);
+      if (!newFacebook.length) {
+        self.displaySpan(wrapper, "Empty Entry", true);
+        return;
+      }
+
+      wrapper.addClass("load");
+
+      $.ajax({
+        url: "https://graph.facebook.com/" + newFacebook
+      }).always(function(data) {
+        if (data.responseJSON.error.message.substr(0, 11) == "(#803) Some") {
+          self.displaySpan(wrapper, "User Not Found", true);
+          $('.facebook').val(self.facebook);
+          wrapper.removeClass("load");
+
+        } else {
+          Meteor.call('user/changeFacebook', newFacebook, (err, res) => {
+            if (err) {
+              self.displaySpan(wrapper, "Internal Error", true);
+              $('.facebook').val("");
+            } else {
+              self.displaySpan(wrapper, "Updated", false);
+            }
+
+            wrapper.removeClass("load");
+          });
+        }
+      });
+
+    } else if (input.hasClass("github")) {
+
+      console.log("changeGithub");
+      var newGithub = $('.github').val();
+      if (!newGithub.length) {
+        self.displaySpan(wrapper, "Empty Entry", true);
+        return;
+      }
+
+      wrapper.addClass("load");
+      $.ajax({
+        url: "https://api.github.com/search/users?q=" + newGithub
+      }).always(function(data) {
+        if (data.total_count != 1) {
+          self.displaySpan(wrapper, "User Not Found", true);
+          $('.github').val(self.github);
+          wrapper.removeClass("load");
+
+        } else {
+          Meteor.call('user/changeGithub', newGithub, (err, res) => {
+            if (err) {
+              self.displaySpan(wrapper, "Internal Error", true);
+              ('.github').val("");
+            } else {
+              self.displaySpan(wrapper, "Updated", false);
+            }
+
+            wrapper.removeClass("load");
+          });
+        }
+      });
+
+    } else if (input.hasClass("userName")) {
+
       console.log("changeUsername");
       var newUsername = $(".userName").val();
-          if($(".userName").val().length != 0) {
-            Meteor.call('user/changeUserName', newUsername, (error, res) => {
-              if(error){
-                console.log("Invalid");
-                $('.Invalid').text("Invalid username");
-                $(".Invalid").addClass("invalid_transition");
-                $(".userName").focus();
-              }
-            else{
-                $(".userName").val("");
-                $('.Invalid').text("Username Changed Successfully");
-                $(".Invalid").addClass("invalid_transition");
-            }
-          });
-               $(".Invalid").removeClass("invalid_transition");
-              // $(".fa").removeClass(hide_icon);
-        }
+      if(newUsername.length < 6 || !/^[_]?[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$/.test(newUsername)) {
+        self.displaySpan(wrapper, "Invalid Username", true);
 
-    },
+      } else {
+        wrapper.addClass("load");
+        Meteor.call('user/changeUserName', newUsername, (error, res) => {
+          if(error){
+            self.displaySpan(wrapper, "Username Exists", true);
+            $(".userName").val("");
+          } else{
+            self.displaySpan(wrapper, "Updated", false);
+          }
 
-   /* "click .fa": function(e,t){
-        $(".userName[data-action=changeUserName]").focus();
-        $(".icon_wrapper").addClass(hide_icon);
-        //$(".fa-pencil-square-o").remove();
-    }*/
+          wrapper.removeClass("load");
+        });
+      }
+    }
+  },
+
+  "blur input": function(e, t) {
+    var input = $(e.currentTarget);
+    var wrapper = input.parent();
+    var self = Template.instance();
+
+    input.prop("disabled", true);
+    setTimeout(function() {
+      $(".top_wrapper").removeClass("hidden");
+      $(".private_concern").removeClass("fix");
+      wrapper.removeClass("editting");
+      if (!wrapper.hasClass("load")) {
+        input.val("");
+      }
+    }, 100);
+  }
 });
 
 Template.Profile.helpers({
@@ -156,17 +210,31 @@ Template.Profile.helpers({
       }
   },
 
+  getUserName: () => {
+    var self = Template.instance();
+    var username = Meteor.userId()? Meteor.user().username : null;
+    $(".userName").val("");
+    return username;
+  },
 
-  getUserName: () => Meteor.userId()? Meteor.user().username : null,
+  getEmail: () => {
+    var self = Template.instance();
+    var email = Meteor.userId()? Meteor.user().emails[0].address: null;
+    $(".email").val("");
+    return email;
+  },
 
-  getEmail: () => Meteor.userId()? Meteor.user().emails[0].address: null,
+  getFacebook: () => {
+    var self = Template.instance();
+    var facebook = Meteor.userId()? Meteor.user().profile.socialMedia.facebook: null;
+    return facebook;
+  },
 
-  getFacebook: () => Meteor.userId()? Meteor.user().profile.socialMedia.facebook: null,
+  getGithub: () => {
+    var self = Template.instance();
+    var github = Meteor.userId()? Meteor.user().profile.socialMedia.github: null;
+    return github;
+  },
 
-  getGoogle: () => Meteor.userId()? Meteor.user().profile.socialMedia.google: null,
-
-  getGithub: () => Meteor.userId()? Meteor.user().profile.socialMedia.github: null,
-
-  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
-  profilePic: () => Meteor.userId()? Spacebars.SafeString(GeoPattern.generate(Meteor.user().profile.profileSeed).toSvg()) : null
+  randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null
 });
