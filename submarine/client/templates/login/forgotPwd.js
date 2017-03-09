@@ -87,7 +87,8 @@ Template.ForgotPassword.events({
   // switch to send token
   "click .button[data-action=switch]": function(e, t) {
     t.$('.lower, .upper').toggleClass('send_token')
-                         .toggleClass('verify_token')
+                         .toggleClass('verify_token');
+    $(".error").remove();
   },
 
   // send token

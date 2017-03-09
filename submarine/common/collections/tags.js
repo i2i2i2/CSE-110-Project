@@ -44,12 +44,12 @@ var tagSchema = {
     type: String,
     optional: true
   },
-  start_time: {
-    type: String,
+  startTime: {
+    type: Number,
     optional: true
   },
-  end_time: {
-    type: String,
+  duration: {
+    type: Number,
     optional: true
   },
   repeat: {

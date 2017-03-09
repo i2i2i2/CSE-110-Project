@@ -3,11 +3,11 @@ Meteor.methods({
     App.Collections.Message.insert(msg);
 
     if (this.isSimulation) return;
-    
+
     App.Services.Notification.sendGCMNotification(msg);
   },
 
-  "chats/getHistory": function(targetId, oldestMsg, lastRead, joinTime, isPublic, isNew) {
+  "chats/getHistory": function(targetId, oldestMsg, lastRead, isPublic, isNew) {
     if (this.isSimulation) return;
 
     // build selector
@@ -16,8 +16,7 @@ Meteor.methods({
     var selector = {
       is_public: isPublic,
       time: {
-        $lte: isNew? now: oldestMsg,
-        $gt: oldestMsg > lastRead? lastRead: (joinTime? joinTime: new Date(0))
+        $gt: oldestMsg > lastRead? lastRead: new Date(0)
       }
     };
 
@@ -39,7 +38,7 @@ Meteor.methods({
     var returnObj = {};
 
     // if sub for first time
-    if (isNew || oldestMsg > lastRead) {
+    if (isNew || oldestMsg >= lastRead) {
       var cursor = App.Collections.Message.find(selector, { sort: {time: -1} });
       // maximun return 100
       if (cursor.count() > 100) {
@@ -54,8 +53,8 @@ Meteor.methods({
           returnObj.history[returnObj.leftNew - 1].startNew = true;
 
         delete selector.time.$lt;
+        delete selector.time.$gt;
         selector.time.$lte = lastRead;
-        selector.time.$gt = joinTime;
         var olderMsg = App.Collections.Message.find(selector, { sort: {time: -1}, limit: 25 }).fetch();
         returnObj.history = returnObj.history.concat(olderMsg);
       }

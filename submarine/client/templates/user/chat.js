@@ -7,7 +7,6 @@ Template.Chats.onCreated(function() {
     self.friendId = FlowRouter.current().params.friendId;
     self.userId = Meteor.userId();
 
-    self.joinTime = new Date(0);
     self.oldestMsg = 0;
     self.preOldestMsg = -1;
     self.historyChange = new ReactiveVar(0);
@@ -67,7 +66,7 @@ Template.Chats.onCreated(function() {
     // avoid repeating
     if (self.preOldestMsg < self.oldestMsg && localStorage.getItem(self.friendId)) {
       self.preOldestMsg = self.oldestMsg;
-      Meteor.call("chats/getHistory", self.friendId, new Date(), self.lastRead, self.joinTime, false, true, function(err, res) {
+      Meteor.call("chats/getHistory", self.friendId, new Date(), self.lastRead, false, true, function(err, res) {
         self.addToBottom = false;
         if (err) return;
 
@@ -75,7 +74,7 @@ Template.Chats.onCreated(function() {
 
         if (!res.history.length) {
           //TODO: display no more histories
-
+          self.oldestMsg = new Date();
           return;
         }
 
@@ -147,9 +146,12 @@ Template.Chats.onRendered(function() {
     $(".messages").removeAttr("style");
     if (self.refreshing) {
       // call pastHistory
+      if (self.oldestMsg == 0) {
+        self.oldestMsg = new Date();
+      }
       self.preOldestMsg = self.oldestMsg;
 
-      Meteor.call("chats/getHistory", self.friendId, self.oldestMsg, self.lastRead, self.joinTime, false, false, function(err, res) {
+      Meteor.call("chats/getHistory", self.friendId, self.oldestMsg, self.lastRead, false, false, function(err, res) {
         self.addToBottom = false;
         if (err) return;
 
@@ -183,11 +185,19 @@ Template.Chats.onDestroyed(function() {
 });
 
 Template.Chats.events({
+  "focus #msg": function(e, t) {
+    var self = Template.instance();
+    setTimeout(function() {
+      self.container.scrollTop = self.container.scrollHeight - self.container.clientHeight;
+    }, 300);
+  },
+
   "click .button[data-action=\"send\"]": function(e, t) {
     var newMessage = $('#msg').val();
-    if (newMessage.length != 0) {
-      console.log(newMessage);
+    $("#msg").val("");
+    $("#msg")[0].focus();
 
+    if (newMessage.length != 0) {
       var now = new Date();
       var msg = {
         is_public: false,
@@ -197,7 +207,7 @@ Template.Chats.events({
         time: now,
         rate: 80
       };
-      $('#msg').val("");
+
       Meteor.call("chats/sendMsg", msg);
    }
   },
@@ -221,7 +231,7 @@ Template.Chats.events({
       t.container.scrollTop = 0;
       $(".messages").addClass("refreshing");
 
-      Meteor.call("chats/getHistory", t.friendId, t.oldestMsg, t.lastRead, t.joinTime, false, false, function(err, res) {
+      Meteor.call("chats/getHistory", t.friendId, t.oldestMsg, t.lastRead, false, false, function(err, res) {
         t.addToBottom  = false;
         if (err) return;
 

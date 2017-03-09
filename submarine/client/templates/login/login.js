@@ -113,7 +113,8 @@ Template.Login.events({
   // switch to sign in
   "click .button[data-action=switch]": function(e, t) {
     t.$('.lower, .upper').toggleClass('signup')
-                         .toggleClass('login')
+                         .toggleClass('login');
+    $(".error").remove();
   },
 
   // sign up
@@ -136,6 +137,7 @@ Template.Login.events({
 
 
     var errors = t.$("span.error, span.load");
+    console.log(errors.length);
     if (errors.length) {
       errors.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
     } else {

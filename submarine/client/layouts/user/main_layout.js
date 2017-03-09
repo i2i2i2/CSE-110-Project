@@ -5,11 +5,14 @@ Template.mainLayout.onCreated(function() {
       return;
     }
 
-    FlowRouter.watchPathChange();
-
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
     this.subHandle2 = this.subscribe("users/strangersUserId");
+    this.subHandle3 = this.subscribe("users/strangersInfo");
+  });
 
+  this.autorun(() => {
+    FlowRouter.watchPathChange();
+    
     if (Meteor.user()) {
       var tags = Meteor.user().profile.savedTags.map((tag) => tag.tagId);
       var friends = Meteor.user().profile.friends.map((user) => user.userId);
@@ -18,7 +21,7 @@ Template.mainLayout.onCreated(function() {
         Session.set("latestMsg", res);
       });
     }
-  });
+  })
 });
 
 Template.mainLayout.onRendered(function() {

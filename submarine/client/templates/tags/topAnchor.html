@@ -2,121 +2,74 @@
   <div class="top_anchor top">
     <div class="content">
         <div class="lower_content">
-            <div class="button_wrapper">
+            <div class="button_wrapper hide">
+              <div class="create button">
                 <i class="fa fa-plus" aria-hidden="true"></i>
-                <a class="button"  href="#popUp1">Create Chatroom</a>
+                Create Chatroom
+              </div>
+              <div class="pop-up">
+                <div class="item_wrapper">
+                  <div class="label">Name</div>
+                  <input type="text" name="chatroom_name"/>
+                </div>
+                <div class="item_wrapper">
+                  <div class="label">Description</div>
+                  <input type="text" name="room_discription"/>
+                </div>
+                <div class="item_wrapper">
+                  <div class="label" id="start">Start Time</div>
+                  <input type="range" min="0" max="96" value="48" id="start_slide"/>
+                  <div class="time" id="start_time">12:00</div>
+                </div>
+                <div class="item_wrapper">
+                  <div class="label" id="duration">Duration</div>
+                  <input type="range" min="0" max="88" value="12" id="duration_slide"/>
+                  <div class="time right" id="duration_time">01:00</div>
+                </div>
+
+                    <div class="item_wrapper">
+                      <div class="label">Repeat</div>
+                      <div class="repeat_wrapper">
+                        <label class="check" data-val="64">S</label>
+                        <label class="check" data-val="32">M</label>
+                        <label class="check" data-val="16">T</label>
+                        <label class="check" data-val="8">W</label>
+                        <label class="check" data-val="4">Th</label>
+                        <label class="check" data-val="2">F</label>
+                        <label class="check" data-val="1">S</label>
+                        <label class="check all" data-val="0">All</label>
+                      </div>
+                    </div>
+                    <div class="submit button">Submit</div>
+                  </div>
+                </div>
             </div>
 
             <hr>
-            <!--<p class="welcome_join">
-                <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                Captain, wanna join a chatroom?
-            </p>
-            <div class="wifi_tags">No tags found:(</div>
-            <p class="welcome_create">
-                <i class="fa fa-circle-o" aria-hidden="true"></i>
-                Not interest? Create a new one!
-            </p>-->
-            <div id="popUp1" class="overlay">
-                <div class="popUpWindow">
-                    <a class="close" href="#">&times;</a>
-                    <div class="form_wrapper createRoom">
-                      <form class="create_new_chat">
-                        <label for="Cname">Chatroom name</label>
-                        <input type="text" name="chatroom_name" placeholder="New Chatroom Name"/>
-                        <label for="Discription">Description</label>
-                        <input type="text" name="room_discription" placeholder = "Brief description for your chatroom"/>
-                        <label for="interval">Start Time</label>
-                        <select class="time" id="start_time" name="time">
-                            <option value="8am">8 a.m.</option>
-                            <option value="9am">9 a.m.</option>
-                            <option value="10am">10 a.m.</option>
-                            <option value="11am">11 a.m.</option>
-                            <option value="12pm">12 p.m.</option>
-                            <option value="1pm">1 p.m.</option>
-                            <option value="2pm">2 p.m.</option>
-                            <option value="3pm">3 p.m.</option>
-                            <option value="4pm">4 p.m.</option>
-                            <option value="5pm">5 p.m.</option>
-                            <option value="6pm">6 p.m.</option>
-                            <option value="7pm">7 p.m.</option>
-                            <option value="8pm">8 p.m.</option>
-                            <option value="9pm">9 p.m.</option>
-                            <option value="10pm">10 p.m.</option>
-                            <option value="11pm">11 p.m.</option>
-                            <option value="12am">12 a.m.</option>
-                            <option value="1am">1 a.m.</option>
-                            <option value="2am">2 a.m.</option>
-                            <option value="3am">3 a.m.</option>
-                            <option value="4am">4 a.m.</option>
-                            <option value="5am">5 a.m.</option>
-                            <option value="6am">6 a.m.</option>
-                            <option value="7am">7 a.m.</option>
-                         </select>
-                         <label for="interval">End Time</label>
-                         <select id="end_time" name="time">
-                            <option value="8am">8 a.m.</option>
-                            <option value="9am">9 a.m.</option>
-                            <option value="10am">10 a.m.</option>
-                            <option value="11am">11 a.m.</option>
-                            <option value="12pm">12 p.m.</option>
-                            <option value="1pm">1 p.m.</option>
-                            <option value="2pm">2 p.m.</option>
-                            <option value="3pm">3 p.m.</option>
-                            <option value="4pm">4 p.m.</option>
-                            <option value="5pm">5 p.m.</option>
-                            <option value="6pm">6 p.m.</option>
-                            <option value="7pm">7 p.m.</option>
-                            <option value="8pm">8 p.m.</option>
-                            <option value="9pm">9 p.m.</option>
-                            <option value="10pm">10 p.m.</option>
-                            <option value="11pm">11 p.m.</option>
-                            <option value="12am">12 a.m.</option>
-                            <option value="1am">1 a.m.</option>
-                            <option value="2am">2 a.m.</option>
-                            <option value="3am">3 a.m.</option>
-                            <option value="4am">4 a.m.</option>
-                            <option value="5am">5 a.m.</option>
-                            <option value="6am">6 a.m.</option>
-                            <option value="7am">7 a.m.</option>
-                         </select>
-                         <label for="repeat" class="repeat">Repeat Pattern</label>
-                         <div class="repeat_wrapper">
-                             <label class="check"><input type="checkbox" value="Sun" data-val="64">Sun</label>
-                             <label class="check"><input type="checkbox" value="Mon" data-val="32">Mon</label>
-                             <label class="check"><input type="checkbox" value="Tue" data-val="16">Tue</label>
-                             <label class="check"><input type="checkbox" value="Wed" data-val="8">Wed</label>
-                             <label class="check"><input type="checkbox" value="Thur" data-val="4">Thur</label>
-                             <label class="check"><input type="checkbox" value="Fri" data-val="2">Fri</label>
-                             <label class="check"><input type="checkbox" value="Sat" data-val="1">Sat</label>
-                             <label class="check"><input type="checkbox" value="Allday" data-val="127">All</label>
-                         </div>
-                         <div class="create submit_button">Submit</div>
 
-
-                      </form>
-                    </div>
-                </div>
+            <div class="refreshing {{isRefreshing}}">
+              <i class="fa fa-circle-o-notch fa-spin"></i>
             </div>
-            <div class="tagContent">
-                {{#each getTagList}}
+
+            <div class="tagContent {{isNotRefreshing}}">
+
+              {{#each getTagList}}
                 <div class="tag_wrapper">
-                    <div class="tagName">
-                        <i class="fa fa-anchor" aria-hidden="true"></i>
-                        {{this}}
-                    </div>
-                    <div class="tagDescription"></div>
+                  <div class="tag_name">
+                    <i class="fa fa-anchor" aria-hidden="true"></i>
+                    {{trimName this.name}}
+                  </div>
+                  <div class="tag_content">
+                    <div class="tag_avatar">{{avatar this._id}}</div>
+                    <div class="tag_duration">{{getDuration this}}</div>
+                    <div class="tag_repeat">{{getRepetition this}}</div>
+                    <div class="tag_description">{{this.description}}</div>
+                  </div>
                 </div>
-                {{/each}}
+                {{checkRefreshDone this.index}}
+              {{/each}}
             </div>
-            <!--<div class="refresh_tag">
-                <a class="refresh_icon">
-                    <i class="fa fa-refresh fa-5x" aria-hidden="true"></i>
-                </a>
-                <p>Refresh to discover more chatrooms!</p>
-            </div> -->
         </div>
-    </div>
 
     <div class="submarine_bg">
       <svg class="submarine" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="37.5 0 375 280">

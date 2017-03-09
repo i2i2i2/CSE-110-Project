@@ -35,13 +35,14 @@ Template.StrangerProfile.events({
   },
   "click .chat.button": function (e,t) {
     var id = t.$(e.currentTarget).data('id');
+    Meteor.call('friends/addStranger', Meteor.userId(), id);
     FlowRouter.go('/chats/friend/'+id);
   },
- /* "click .add_friend.button": function (e,t) {
+  "click .add_friend.button": function (e,t) {
      var id = t.$(e.currentTarget).data('id');
 
     self.friendId = t.$(e.currentTarget).data('userid');
     $(".popAdd").css({"display": "block"});
-  }*/
+  }
 
 });
