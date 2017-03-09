@@ -56,6 +56,10 @@
     }
 
     .profi_wrap{
+      i{
+        color:#888888;
+        font-size: 200%;
+      }
         .account_facebook{
           padding-left: 4vw;
           display: inline;
@@ -101,22 +105,75 @@
       }
     }
     
-    .delete_friend{
-      width: 60vw;
-      height: 10vw;
-      background-color: rgba(88,88,88,0.9);
-      text-align: center;
-      font-size: 160%;
+    .prof_button_wrapper{
+      display: inline-block;
       position: absolute;
+      margin-left: 10vw;
       top: 90vh;
-      margin-left: 20vw;
-      vertical-align: middle;
-      line-height: 0vw;
-      border-radius: 10px;
-      p{
-        color: rgba(255,255,255,0.5);
+      .chat_friend{
+        width: 40vw;
+        height: 10vw;
+        background-color: rgba(88,88,88,0.9);
+        text-align: center;
+        font-size: 145%;
+        vertical-align: middle;
+        line-height: 0vw;
+        border-radius: 10px;
+        display: inline-block;
+        p{
+          color: rgba(255,255,255,0.5);
+        }
+      }
+
+      .delete_friend{
+        width: 40vw;
+        height: 10vw;
+        background-color: rgba(88,88,88,0.9);
+        text-align: center;
+        font-size: 145%;
+        vertical-align: middle;
+        line-height: 0vw;
+        border-radius: 10px;
+        display: inline-block;
+        p{
+          color: rgba(255,255,255,0.5);
+        }
       }
     }
   }
+
+  .popDelete{
+  border-radius: 1.3em;
+  width: 90vw;
+  height: 44vw;
+  background-color: rgba(168,168,168,0.9);
+  z-index: 1;
+  position: absolute;
+  top:23vh;
+  left: 5vw;
+  color: rgb(50,50,50);
+  display: none;
+  p{
+    margin: 9vw;
+    font-size: 200%;
+  }
+
+  .cancel{
+    width: 20vw;
+    height: 8vw;
+    left: 13vw;
+    top: 31vw;
+    color: black;
+  }
+
+  .confirm{
+    width: 20vw;
+    height: 8vw;
+    left: 50vw;
+    top: 31vw;
+    color: black;
+  }
+
+}
 
 }

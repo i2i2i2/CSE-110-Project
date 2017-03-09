@@ -55,8 +55,7 @@ Template.FriendProfile.helpers({
 
 Template.FriendProfile.events({
   "click .button_back": function (e, t) {
-    var id = t.$(e.currentTarget).data('userid');
-    FlowRouter.go('/chats/friend/'+id);
+    FlowRouter.go('/user/friends/');
   },
     
   "blur .editName": function(){
@@ -67,10 +66,24 @@ Template.FriendProfile.events({
     }
   },
   
+  "click .chat_friend": function (e,t) {
+    var id = FlowRouter.current().params._id;
+    FlowRouter.go('/chats/friend/'+id);
+  },
+
   "click .delete_friend": function (e,t) {
+    $(".popDelete").css({"display": "block"});
+  },
+
+
+  "click .confirm": function (e,t) {
     Meteor.call('friends/deleteFriend', Meteor.userId(),
                FlowRouter.current().params._id);
     FlowRouter.go('/user/friends');
+  },
+
+  "click .cancel": function (e,t) {
+    $(".popDelete").css({"display": "none"});
   }
     
 });
