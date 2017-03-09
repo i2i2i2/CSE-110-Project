@@ -58,6 +58,19 @@ Meteor.methods({
     }
   },
 
+ 'user/changeAllowRecommend': function() {
+    if (this.isSimulation) return;
+  	console.log("change allow to be recommended option");
+    if(Meteor.user().allowBeRecommended) {
+      console.log("Do not allow");
+      return Meteor.users.update({_id:this.userId},{$set: {"allowBeRecommended": false}});
+    }
+    else {
+        console.log("Allow");
+        return Meteor.users.update({_id:this.userId},{$set: {"allowBeRecommended": true}});
+    }
+  },
+
   'user/changeUserName': function(newUserName) {
   	if (this.isSimulation) return;
   	console.log(newUserName);
