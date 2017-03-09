@@ -65,6 +65,12 @@ Template.FriendProfile.events({
       self.message = message;
       Meteor.call('friends/editNickname', Meteor.userId(), FlowRouter.current().params._id, message);
     }
+  },
+  
+  "click .delete_friend": function (e,t) {
+    Meteor.call('friends/deleteFriend', Meteor.userId(),
+               FlowRouter.current().params._id);
+    FlowRouter.go('/user/friends');
   }
     
 });
