@@ -85,6 +85,11 @@ Template.Profile.events({
       //$('.checkFacebook').removeClass("check_transition");
       $('.fa[data-action=changeGithub]').addClass('active');
     },
+
+    "click .checkboxThree label": function(e,t){
+        console.log("change allow recommended");
+        Meteor.call('user/changeAllowRecommend');
+    },
 /*    "click .fa[data-action=changeEmail]": function(e, t) {
     console.log("changeEmail");
     var newEmail = $('.email').val();
