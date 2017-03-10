@@ -15,7 +15,7 @@ Meteor.publish("users/relatedUsersAndTags", function() {
                                                     "profile.socialMedia": 1
                                                   });
   // publish user seed and also social media
-  var userIds = [].concat(user.profile.friendRequest.map(requests => requests.userId),user.profile.socialMedia,
+  var userIds = [].concat(user.profile.profileSeed, user.profile.friendRequest.map(requests => requests.userId), user.profile.socialMedia,
                           user.profile.recommendedFriends.map(recommendation => recommendation.userId),
                           user.profile.friends.map(friend => friend.userId));
 
@@ -53,15 +53,21 @@ Meteor.publish("users/strangersInfo", function() {
   if (!this.userId)
     return this.ready();
 
-  var strangers = Meteor.users.findOne(this.userId).profile.strangers;
-  if (!strangers || !strangers.length)
-    return this.ready();
+  var strangers = Meteor.users.findOne(this.userId).profile.strangers.map(stranger => stranger.userId);
+  if (!strangers || !strangers.length){
+     console.log("no strangers found");
+     return this.ready();
+  }
+    console.log("there are"+strangers.length+" strangers");
+    console.log(strangers[0].userId);
+    //return this.ready();
 
-  return Meteor.users.find({"_id": {"$in": strangers}},
+  return Meteor.users.find({"_id": {$in: strangers}},
                            {
                              "fields": {
-                               "username": 1,
+                               
                                "profile.profileSeed": 1,
+                               "username": 1
                              }
                            });
 });

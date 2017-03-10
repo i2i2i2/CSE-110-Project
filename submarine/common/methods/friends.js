@@ -22,16 +22,19 @@ Meteor.methods({
       console.log("for current user, no stranger field in db, add one");
       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}, false, true);
     }
-    else{
-       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}); 
+    else if(Meteor.users.findOne({$and:[{_id: userId},{'profile.strangers.userId':friendId}]}) == null){
+         // avoid adding duplicated values
+        Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}); 
     }
       
     if(!user2.profile.strangers){
       console.log("for target user, no stranger field in db, add one");
       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}, false, true);
     }
-    else{
-       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}); 
+      
+    else if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friends.userId':userId}]}) == null){
+         // avoid adding duplicated values
+        Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}); 
     }
     
   },
@@ -66,7 +69,7 @@ Meteor.methods({
         
   },
 
-  // Add  friend id  to  each person's db
+  // Add  friend id to each person's db
   "friends/addFriend" : function(userId, friendId) {
     if (this.isSimulation) return;
     console.log("on serve, welcome called addFriend: ");
@@ -83,16 +86,16 @@ Meteor.methods({
       // Add user2 to user1's collection
       if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) == null){
         console.log("Adding user2 to user1");    
-	Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
+	   Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
 	// remove user 2 from friend Request
 	if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendRequest.userId':friendId}]}) != null){
 	  Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});  
 	}
       }
       // Add user1 to user2's collection
-      if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friends':{'userId':userId}}]}) == null){
-	console.log("Adding user1 to user2");
-	Meteor.users.update({_id:friendId}, {$push:{"profile.friends":{"userId":userId}}});
+    if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friends':{'userId':userId}}]}) == null){
+	   console.log("Adding user1 to user2");
+	   Meteor.users.update({_id:friendId}, {$push:{"profile.friends":{"userId":userId}}});
 
       }
 
@@ -114,16 +117,16 @@ Meteor.methods({
 	     console.log("Dismissing user2 as friends");
 	     // Add user2 to user1's turndownFriends collection
 	     if(Meteor.users.findOne({$and:[{_id: userId},{'profile.turndownFriends.userId':friendId}]}) == null){
-		var today = new Date();
-		var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
+		  var today = new Date();
+		  var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
 
-		Meteor.users.update({_id: userId}, {$push:{"profile.turndownFriends":{"userId":friendId,"validThru":nextweek}}});
+		  Meteor.users.update({_id: userId}, {$push:{"profile.turndownFriends":{"userId":friendId,"validThru":nextweek}}});
 
 	     }
 	    // remove user 2 from friend Request
 	    if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendRequest.userId':friendId}]}) != null){
-		console.log("removing user 2 from friend request array");
-		Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
+		  console.log("removing user 2 from friend request array");
+		  Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
 	    }
 
   }
@@ -132,14 +135,14 @@ Meteor.methods({
   "friends/ignoreRecommendation" : function(userId, friendId) {
     if (this.isSimulation) return;
     console.log("on serve, welcome called ignoreRecommendation: ");
-    console.log("on serve, welcome called ignoreRecommendation: ");
+
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
     
     if (user1==null || user2==null) {
-    // invalid userid
-    console.log("Invalid user or friend id");
-    return;
+      // invalid userid
+      console.log("Invalid user or friend id");
+      return;
     }
     else {
       console.log("removing user 2 from recommend");
@@ -170,7 +173,7 @@ Meteor.methods({
         console.log("letting the friend know your request");
         if(Meteor.users.findOne({$and:[{_id: friendId},{'profile.friendRequest.userId':userId}]}) == null){
           Meteor.users.update({_id: friendId}, {$push:{"profile.friendRequest":{"userId":userId,"requestReason":message}}});
-	}
+	    }
       }
       // remove user 2 from user 1's recommended list
       console.log("removing recommended friend from db");
@@ -196,8 +199,8 @@ Meteor.methods({
       console.log("Editting nickname of user 2");
       // check whether there are friends
       if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) != null){
-	// add nickname entry     
-	Meteor.users.update({_id: userId,"profile.friends.userId":friendId}, {$set:{"profile.friends.$.nickname":name}});	
+	    // add nickname entry     
+	    Meteor.users.update({_id: userId,"profile.friends.userId":friendId}, {$set:{"profile.friends.$.nickname":name}});	
       }
         
     }
