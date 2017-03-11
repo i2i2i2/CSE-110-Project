@@ -9,6 +9,23 @@ Template.FriendProfile.onCreated(function() {
   }
 
   $(".bottom.nav").addClass("hidden");
+
+  this.displaySpan = function(parent, msg, isErr) {
+    console.log(msg);
+    parent.append('<div class="' + (isErr ? "error" : "pass") + '">'
+                  + (isErr ? '<i class="fa fa-minus-circle"></i>' : '<i class="fa fa-check-circle"></i>')
+                  + msg + '</div>');
+    var span;
+    if (isErr)
+      span = parent.find(".error");
+    else
+      span = parent.find(".pass");
+
+    span.fadeOut(400).fadeIn(400).fadeOut(400);
+    setTimeout(function() {
+      span.remove();
+    }, 1200);
+  }
 });
 
 Template.FriendProfile.onDestroyed(function() {
@@ -88,7 +105,7 @@ Template.FriendProfile.helpers({
     for (var i = 0; i < myTags.length; i++) {
       for (var j = 0; j < tagList.length; j++) {
         if (tagList[j].tagId == myTags[i].tagId) {
-          return true;
+          return false;
         }
       }
     }
@@ -122,5 +139,53 @@ Template.FriendProfile.helpers({
 });
 
 Template.FriendProfile.events({
+  "click .fa-pencil": function(e, t) {
+    // change wrapper to editing
+    console.log("click pencil");
+    var wrapper = $(e.currentTarget).parent();
+    wrapper.addClass("editting");
 
+    // focus to input
+    var input = wrapper.find("input");
+    input.prop("disabled", false);
+    input.focus();
+  },
+
+  "click .fa-check-circle-o": function(e, t) {
+    console.log("clicked");
+
+    var self = Template.instance();
+    var wrapper = $(e.currentTarget).parent();
+    var input = wrapper.find("input");
+
+    var newNickName = $(".nickName").val();
+    if(newNickName.length < 6) {
+        self.displaySpan(wrapper, "Empty Entry", true);
+
+    } else {
+      wrapper.addClass("load");
+      Meteor.call('friends/editNickname', self.userId, newNickName, (error, res) => {
+        if(error){
+          self.displaySpan(wrapper, "Internal Error", true);
+          $(".userName").val("");
+        } else{
+          self.displaySpan(wrapper, "Updated", false);
+        }
+        wrapper.removeClass("load");
+      });
+    }
+  },
+  "blur input": function(e, t) {
+    var input = $(e.currentTarget);
+    var wrapper = input.parent();
+    var self = Template.instance();
+
+    input.prop("disabled", true);
+    setTimeout(function() {
+      wrapper.removeClass("editting");
+      if (!wrapper.hasClass("load")) {
+        input.val("");
+      }
+    }, 100);
+  }
 });

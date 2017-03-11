@@ -2,47 +2,47 @@
 
 
 Meteor.methods({
-    
+
   "friends/addStranger": function(userId, friendId) {
     if (this.isSimulation) return;
-    
+
     console.log("on serve, welcome called addStranger: ");
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
-  
+
     if (user1==null || user2==null) {
       // invalid userid
       console.log("Invalid user or friend id");
       return;
     }
     var today = new Date();
-	var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);  
+	var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
     console.log("Add each other to stranger");
     if(!user1.profile.strangers){
       console.log("for current user, no stranger field in db, add one");
       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}, false, true);
     }
     else{
-       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }}); 
+       Meteor.users.update({_id:userId},{$push: {"profile.strangers": {'userId': friendId, 'validThru': nextweek} }});
     }
-      
+
     if(!user2.profile.strangers){
       console.log("for target user, no stranger field in db, add one");
       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}, false, true);
     }
     else{
-       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }}); 
+       Meteor.users.update({_id:friendId},{$push: {"profile.strangers": {'userId': userId, 'validThru': nextweek} }});
     }
-    
+
   },
-    
+
   // Remove friend from firend list
   "friends/deleteFriend" : function(userId, friendId) {
     if (this.isSimulation) return;
     console.log("on serve, welcome called deleteFriend: ");
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
-  
+
     if (user1==null || user2==null) {
       // invalid userid
       console.log("Invalid user or friend id");
@@ -50,7 +50,7 @@ Meteor.methods({
     }
     else {
       // Remove user2 from user1's collection
-      console.log("Deleting user2 from user1");    
+      console.log("Deleting user2 from user1");
       Meteor.users.update({_id: userId}, {$pull:{"profile.friends":{"userId":friendId}}});
       // do the other way too.
       console.log("Deleting user1 from user2");
@@ -63,7 +63,7 @@ Meteor.methods({
 
       }
     }
-        
+
   },
 
   // Add  friend id  to  each person's db
@@ -72,21 +72,21 @@ Meteor.methods({
     console.log("on serve, welcome called addFriend: ");
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
-    
+
     if (user1==null || user2==null) {
       // invalid userid
       console.log("Invalid user or friend id");
       return;
     }
     else {
-    
+
       // Add user2 to user1's collection
       if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) == null){
-        console.log("Adding user2 to user1");    
+        console.log("Adding user2 to user1");
 	Meteor.users.update({_id: userId}, {$push:{"profile.friends":{"userId":friendId}}});
 	// remove user 2 from friend Request
 	if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friendRequest.userId':friendId}]}) != null){
-	  Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});  
+	  Meteor.users.update({_id: userId},{$pull:{"profile.friendRequest":{"userId":friendId}}});
 	}
       }
       // Add user1 to user2's collection
@@ -104,7 +104,7 @@ Meteor.methods({
   console.log("on serve, welcome called dismissFriend: ");
   var user1 = Meteor.users.findOne(userId);
   var user2 = Meteor.users.findOne(friendId);
-  
+
   if (user1==null || user2==null) {
    // invalid userid
    console.log("Invalid user or friend id");
@@ -135,7 +135,7 @@ Meteor.methods({
     console.log("on serve, welcome called ignoreRecommendation: ");
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
-    
+
     if (user1==null || user2==null) {
     // invalid userid
     console.log("Invalid user or friend id");
@@ -146,7 +146,7 @@ Meteor.methods({
       // if user 2 is not blocking user 1, add user 1 to user 2's db
 
       Meteor.users.update({_id: userId},{$pull:{"profile.recommendedFriends":{"userId":friendId}}});
-    
+
     }
   },
 
@@ -157,7 +157,7 @@ Meteor.methods({
     console.log("on serve, welcome called sendRequest: ");
     var user1 = Meteor.users.findOne(userId);
     var user2 = Meteor.users.findOne(friendId);
-    
+
     if (user1==null || user2==null) {
      // invalid userid
      console.log("Invalid user or friend id");
@@ -175,33 +175,31 @@ Meteor.methods({
       // remove user 2 from user 1's recommended list
       console.log("removing recommended friend from db");
       Meteor.users.update({_id: userId},{$pull:{"profile.recommendedFriends":{"userId":friendId}}});
-    
+
     }
   },
 
   // call this function if and only if user 1 and user 2 are already friends
   // Not implement this prerequisite yet
-  "friends/editNickname" : function(userId, friendId, name){
+  "friends/editNickname" : function(friendId, name){
     if (this.isSimulation) return;
-    console.log("on serve, welcome called editNickname: ");
-    var user1 = Meteor.users.findOne(userId);
-    var user2 = Meteor.users.findOne(friendId);
-    
-    if (user1==null || user2==null) {
-      // invalid userid
-      console.log("Invalid user or friend id");
+
+    // check whether there are friends
+    var index = 0;
+    var friendList = Meteor.user().profile.friends;
+    for (index = 0; index < friendList.length; index++) {
+      if (friendList[index].userId == friendId) {
+        friendList[index].nickname = name;
+        break;
+      }
+
+    }
+
+    if (index < friendList.length) {
+      Meteor.users.update(this.userId, {$set:{"profile.friends": friendList}});
+    } else {
+      throw new Meteor.Error("Not Friend");
       return;
     }
-    else {
-      console.log("Editting nickname of user 2");
-      // check whether there are friends
-      if(Meteor.users.findOne({$and:[{_id: userId},{'profile.friends.userId':friendId}]}) != null){
-	// add nickname entry     
-	Meteor.users.update({_id: userId,"profile.friends.userId":friendId}, {$set:{"profile.friends.$.nickname":name}});	
-      }
-        
-    }
-  }  
-
+  }
 });
-
