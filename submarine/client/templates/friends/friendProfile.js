@@ -159,7 +159,7 @@ Template.FriendProfile.events({
     var input = wrapper.find("input");
 
     var newNickName = $(".nickName").val();
-    if(newNickName.length < 6) {
+    if(!newNickName.length) {
         self.displaySpan(wrapper, "Empty Entry", true);
 
     } else {
@@ -175,6 +175,31 @@ Template.FriendProfile.events({
       });
     }
   },
+
+  "click .change_wrapper": function(e, t) {
+    console.log("click");
+    var input = $(e.currentTarget).find("input");
+
+    var url;
+    if (input.hasClass("email")) {
+      url = "mailto:";
+    } else if (input.hasClass("facebook")) {
+      url = "https://www.facebook.com/";
+    } else if (input.hasClass("github")) {
+      url = "http://www.github.com/";
+    }
+
+    if (!url) return;
+    url += input.attr("placeholder");
+
+    console.log(url);
+    if (Meteor.isCordova) {
+      navigator.app.loadUrl(url, { openExternal: true });
+    } else {
+      window.open(url);
+    }
+  },
+
   "blur input": function(e, t) {
     var input = $(e.currentTarget);
     var wrapper = input.parent();
@@ -186,6 +211,6 @@ Template.FriendProfile.events({
       if (!wrapper.hasClass("load")) {
         input.val("");
       }
-    }, 100);
+    }, 200);
   }
 });

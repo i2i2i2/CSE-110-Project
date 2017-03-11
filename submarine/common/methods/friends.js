@@ -192,7 +192,6 @@ Meteor.methods({
         friendList[index].nickname = name;
         break;
       }
-
     }
 
     if (index < friendList.length) {

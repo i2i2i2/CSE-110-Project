@@ -108,7 +108,7 @@ Template.Home.helpers({
     }
 });
 
-Template.mainLayout.events({
+Template.Home.events({
   "click .avatar_circle": function () {
     FlowRouter.go('/user/profile');
   },

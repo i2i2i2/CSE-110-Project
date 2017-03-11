@@ -111,7 +111,7 @@ function onSuccess2(network) {
 /*
  * Handler for getNearbyWifi when failed
  */
-function onErr2(network){
+function onErr2(err){
   var error = {err: true, msg: err};
   Session.set('wifiList', error);
   console.log("error when trying to scan wifi");
