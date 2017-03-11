@@ -1,57 +1,90 @@
 <template name="FriendProfile">
-  <div class="profile_content">
-    <div class="top_pic">
-       <div class="button_back" data-userid="{{userId}}">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="mid_avatar">
-      {{{avatar (profileSeed userId)}}}
-    </div>
-    <div class="bottom_information">
-      <div class="name">
-        {{getName userId false}}
-      </div>
-      <form class="editName">
-        <input id="edit_name" type="text" class="nickname" placeholder="Click To Add A Nickname" value="{{getName userId true}}">
-      </form>
-      <div class="profi_facebook profi_wrap">
-        <i class="fa fa-facebook" aria-hidden="true"></i>
-        <p class="account_facebook">
-          {{getFacebook userId}}
-        </p>
-      </div>
-      <div class="profi_google profi_wrap">
-        <i class="fa fa-google" aria-hidden="true"></i>
-        <p class="account_google">
-          {{getGoogle userId}}
-        </p>
-      </div>
-      <div class="profi_github profi_wrap">
-        <i class="fa fa-github" aria-hidden="true"></i>
-        <p class="account_github">
-          {{getGithub userId}}
-        </p>
-      </div>
-    
-      <div class="prof_button_wrapper">
-        <div class="chat_friend">
-          <p>Chat</p>
-        </div>
-        <div class="delete_friend">
-          <p>Delete Friend</p>
-        </div>
-      </div>
+  <div class="top_wrapper">
+    <div class="top_pic"></div>
+
+    <div class="profile_picture">{{{avatar randomSeed}}}</div>
+
+    <div class="changeUserName_wrapper">
+      <input type="text" class="userName" placeholder="{{getUserName}}" disabled>
     </div>
 
-    <div class="popDelete">
-      <p>Are you sure to delete this friend?</p>
-      <div class="popDelete button cancel">
-        Cancel
+    {{#if isFriend}}
+      <div class="changeNickName_wrapper">
+        <input type="text" class="nickName" placeholder="{{getNickName}}" disabled>
+        <i class="fa fa-pencil"></i>
+        <i class="fa fa-check-circle-o"></i>
+        <i class="fa fa-spin fa-circle-o-notch"></i>
       </div>
-      <div class="popDelete button confirm">
-        Confirm
+    {{/if}}
+  </div>
+
+  <div class="socialMedia_wrapper">
+    {{#if isFriend}}
+      <div class="change_wrapper">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <input type="text" class="email" placeholder="{{getEmail}}" disabled>
       </div>
+      {{else}}
+      <div class="warning">
+        You and the user are not friends yet. Your personal infos are still undisclosed.
+        Be careful sending/accepting the friend request. The user is accessible to your social media account,
+        once you sent/accepted the friend request.
+      </div>
+    {{/if}}
+
+    {{#if hasFacebook}}
+      <hr id="inProfile">
+      <div class="change_wrapper">
+        <i class="fa fa-facebook" aria-hidden="true"></i>
+        <input type="text" class="facebook" placeholder="{{getFacebook}}" disabled>
+      </div>
+    {{/if}}
+
+    {{#if hasGithub}}
+      <hr id="inProfile">
+      <div class="change_wrapper">
+        <i class="fa fa-github" aria-hidden="true"></i>
+        <input type="text" class="github" placeholder="{{getGithub}}" disabled>
+      </div>
+    {{/if}}
+
+    <hr id="inProfile">
+    <div class= "recent_tags">
+      <h3>Common Interested Chatrooms</h3>
+      {{#if hasNoIntersection}}
+        <p>You and the user shares no common chatrooms.</p>
+      {{else}}
+        <div class= "recent_tag_name">
+          {{#each getIntersection}}
+            <div class="tag_circle_wrapper">
+              <div class="tag_circle" data-tagid="{{tagId}}">
+                {{{avatar this}}}
+              </div>
+              <a href="#">{{getName this}}</a>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
     </div>
   </div>
+
+  <div class="buttons">
+    {{#if isFriend}}
+      <div class="unFriend button">
+        <i class="fa fa-chain-broken"></i>
+        UnFriend
+      </div>
+    {{else}}
+      <div class="addFriend button">
+        <i class="fa fa-handshake-o"></i>
+        Add Friend
+      </div>
+    {{/if}}
+
+    <div class="chat button">
+      <i class="fa fa-comment"></i>
+      Chat
+    </div>
+  </div>
+
 </template>

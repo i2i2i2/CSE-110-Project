@@ -6,13 +6,14 @@ Template.mainLayout.onCreated(function() {
     }
 
     this.subHandle = this.subscribe("users/relatedUsersAndTags");
-    this.subHandle2 = this.subscribe("users/strangersUserId");
-    this.subHandle3 = this.subscribe("users/strangersInfo");
+
+    if (Meteor.user() && Meteor.user().profile.strangers && Meteor.user().profile.strangers.length)
+      this.subHandle2 = this.subscribe("users/strangersInfo", Meteor.user().profile.strangers);
   });
 
   this.autorun(() => {
     FlowRouter.watchPathChange();
-    
+
     if (Meteor.user()) {
       var tags = Meteor.user().profile.savedTags.map((tag) => tag.tagId);
       var friends = Meteor.user().profile.friends.map((user) => user.userId);

@@ -71,7 +71,7 @@
     }
   }
 
-  .changeUserName_wrapper{
+  .changeUserName_wrapper, .changeNickName_wrapper {
       //height: 67vh;
       position: absolute;
       background-color: transparent;
@@ -81,7 +81,7 @@
 
       input {
         background-color: transparent;
-        width: 45vw;
+        width: 50vw;
         color: white;
         padding:0;
         border: 0;
@@ -151,13 +151,26 @@
         visibility: hidden;
       }
   }
+
+  .changeNickName_wrapper {
+    top: 53vw;
+    font-size: 65%;
+
+    input::-webkit-input-placeholder{
+      color: #bcbcbc;
+    }
+
+    .fa {
+      top: 0;
+    }
+  }
 }
 
 #inProfile{
     position: relative;
     border-color: @sub_color2;
     margin-top: 4vw;
-    margin-left: 11vw;
+    margin-left: 3vw;
     margin-right: 0;
     margin-bottom: 2vw;
 
@@ -165,6 +178,20 @@
 
 .socialMedia_wrapper {
   margin-top: 16vw;
+
+  .recent_tags {
+    position: relative;
+    bottom: 0;
+
+    * {
+      background-color: transparent;
+    }
+
+    .recent_tag_name {
+      margin-left: 4vw;
+      margin-top: 2vw;
+    }
+  }
 }
 
 .change_wrapper.load {
@@ -301,8 +328,8 @@
 
 
 .private_concern {
-    position: relative;
-    margin-top: 25vw;
+    position: fixed;
+    bottom: 30vw;
     width: 100vw;
     text-align: center;
     .recommendOrNot{
@@ -341,7 +368,7 @@
         top: 2vw;
         left: 2vw;
         height: 1vw;
-        color: #ddd;
+        color: darkorange;
         font-size: 14px;
     }
 
@@ -351,7 +378,7 @@
         top: 2vw;
         left: 11vw;
         height: 1vw;
-        color: darkorange;
+        color: #ddd;
         font-size: 14px;
     }
 
@@ -373,4 +400,45 @@
         left: 7.5vw;
         background-color: darkorange;
     }
+}
+
+.buttons {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 12vw;
+  bottom: 0vw;
+
+  .button {
+    position: absolute;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    width: 44vw;
+    height: 12vw;
+    font-size: 145%;
+    line-height: 12vw;
+    font-weight: bolder;
+    color: #f9f2d2;
+    text-align: right;
+    padding-right: 6vw;
+
+    .fa {
+      position: absolute;
+      top: 0;
+      left: 4vw;
+      line-height: 12vw;
+    }
+  }
+
+  .unFriend.button, .addFriend.button {
+    left: 0;
+    background-color: #4c4c4c;
+
+  }
+
+  .chat.button {
+    left: 50vw;
+    background-color: #626262;
+  }
 }

@@ -36,32 +36,34 @@ Meteor.publish("users/relatedUsersAndTags", function() {
                           "profile.profileSeed": 1,
                           "username": 1,
                           "emails": 1,
-                          "profile.socialMedia": 1
+                          "profile.socialMedia": 1,
+                          "profile.savedTags": 1
                         }
                       }),
-    App.Collections.Tags.find({"_id": {"$in": tagIds}},
-                              {
-                                "fields": {
-                                  "users": 0
-                                }
-                              })
+    App.Collections.Tags.find({"_id": {"$in": tagIds}})
   ];
 });
 
 // publish stranger user info only the profile seed for profile picture.
-Meteor.publish("users/strangersInfo", function() {
+Meteor.publish("users/strangersInfo", function(strangers) {
   if (!this.userId)
-    return this.ready();
-
-  var strangers = Meteor.users.findOne(this.userId).profile.strangers;
-  if (!strangers || !strangers.length)
     return this.ready();
 
   return Meteor.users.find({"_id": {"$in": strangers}},
                            {
                              "fields": {
-                               "username": 1,
                                "profile.profileSeed": 1,
+                               "profile.savedTags": 1
                              }
                            });
 });
+
+// publish only one stranger info
+Meteor.publish("users/getStrangerProfile", function(strangerId) {
+  return Meteor.users.find(strangerId, {
+    "fields": {
+      "profile.profileSeed": 1,
+      "profile.savedTags": 1
+    }
+  });
+})

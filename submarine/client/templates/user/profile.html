@@ -15,50 +15,50 @@
     </div>
   </div>
 
-<div class="socialMedia_wrapper">
+  <div class="socialMedia_wrapper">
 
-  <div class="change_wrapper">
-    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-    <input type="text" class="email" placeholder="{{getEmail}}" disabled>
-    <i class="fa fa-pencil"></i>
-    <i class="fa fa-check-circle-o"></i>
-    <i class="fa fa-spin fa-circle-o-notch"></i>
-  </div>
-
-  <hr id="inProfile">
-
-  <div class="change_wrapper">
-    <i class="fa fa-facebook" aria-hidden="true"></i>
-      {{#if hasFacebook}}
-        <input type="text" class="facebook" placeholder="{{getFacebook}}" disabled>
-      {{else}}
-        <input type="text" class="facebook" placeholder="Connect on Facebook" disabled>
-      {{/if}}
+    <div class="change_wrapper">
+      <i class="fa fa-envelope-o" aria-hidden="true"></i>
+      <input type="text" class="email" placeholder="{{getEmail}}" disabled>
       <i class="fa fa-pencil"></i>
       <i class="fa fa-check-circle-o"></i>
       <i class="fa fa-spin fa-circle-o-notch"></i>
-  </div>
+    </div>
 
-  <hr id="inProfile">
+    <hr id="inProfile">
 
-  <div class="change_wrapper">
-    <i class="fa fa-github" aria-hidden="true"></i>
-      {{#if hasGithub}}
-        <input type="text" class="github" placeholder="{{getGithub}}" disabled>
-      {{else}}
-        <input type="text" class="github" placeholder="Connect on Github" disabled>
-      {{/if}}
-      <i class="fa fa-pencil"></i>
-      <i class="fa fa-spin fa-circle-o-notch"></i>
-      <i class="fa fa-check-circle-o"></i>
-  </div>
+    <div class="change_wrapper">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+        {{#if hasFacebook}}
+          <input type="text" class="facebook" placeholder="{{getFacebook}}" disabled>
+        {{else}}
+          <input type="text" class="facebook" placeholder="Connect on Facebook" disabled>
+        {{/if}}
+        <i class="fa fa-pencil"></i>
+        <i class="fa fa-check-circle-o"></i>
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+    </div>
 
-  <div class="private_concern">
-    <div class="recommendOrNot">Recommend to others?</div>
-    <div class="checkboxThree">
-  		<input type="checkbox" value="1" id="checkboxThreeInput" name="" />
-	  	<label for="checkboxThreeInput"></label>
-  	</div>
+    <hr id="inProfile">
+
+    <div class="change_wrapper">
+      <i class="fa fa-github" aria-hidden="true"></i>
+        {{#if hasGithub}}
+          <input type="text" class="github" placeholder="{{getGithub}}" disabled>
+        {{else}}
+          <input type="text" class="github" placeholder="Connect on Github" disabled>
+        {{/if}}
+        <i class="fa fa-pencil"></i>
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+        <i class="fa fa-check-circle-o"></i>
+    </div>
+
+    <div class="private_concern">
+      <div class="recommendOrNot">Recommend to others?</div>
+      <div class="checkboxThree">
+    		<input type="checkbox" value="1" id="checkboxThreeInput" name="" />
+  	  	<label for="checkboxThreeInput"></label>
+    	</div>
+    </div>
   </div>
-</div>
 </template>
