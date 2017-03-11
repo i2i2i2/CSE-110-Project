@@ -22,6 +22,15 @@
     color: white;
     font-weight: bold;
   }
+
+  .fa {
+    color: white;
+    position: absolute;
+    right: 4vw;
+    top: 0;
+    line-height: 6vw;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
 }
 
 .friendsRecommend {
@@ -74,7 +83,21 @@
       display: inline-block;
     }
 
+    .buttons {
+      position: relative;
+      width: 26vw;
+      height: 8vw;
+      float: right;
+      font-size: 155%;
+      border: 0;
+      margin-right: 2vw;
+      margin-top: 5vw;
+    }
+
     .button.add {
+      left: 13vw;
+      top: 0;
+      border-radius: 0 8px 8px 0;
       background-color: rgba(249, 233, 47,0.85);
       .fa {
           vertical-align: text-bottom;;
@@ -82,19 +105,25 @@
     }
 
     .button.ignore {
+      left: 0;
+      top: 0;
+      border-radius: 8px 0 0 8px;
       background-color: rgba(151, 151, 151, 0.9);
     }
 
     .button.add, .button.ignore {
-      width: 11vw;
+      position: absolute;
+      width: 13vw;
       height: 8vw;
       line-height: 8vw;
-      float: right;
-      font-size: 155%;
-      border-width: 0;
-      margin-right: 2vw;
-      margin-top: 5vw;
+      margin: 0;
+      padding: 0;
       color: white;
+      font-size: 100%;
+
+      .fa {
+        line-height: 8vw;
+      }
     }
   }
 }
@@ -139,92 +168,180 @@
       font-size: 105%;
       display: inline-block;
     }
-    .button {
-      width: 11vw ;
+
+    .buttons {
+      position: relative;
+      width: 26vw;
       height: 8vw;
       float: right;
       font-size: 155%;
-      line-height: 8vw;
-      border-width: 0;
+      border: 0;
       margin-right: 2vw;
       margin-top: 5vw;
-      color: white;
     }
+
+    .button.accept {
+      left: 13vw;
+      top: 0;
+      border-radius: 0 8px 8px 0;
+      background-color: rgba(249, 233, 47,0.85);
+      .fa {
+          vertical-align: text-bottom;;
+      }
+    }
+
     .button.dismiss {
+      left: 0;
+      top: 0;
+      border-radius: 8px 0 0 8px;
       background-color: rgba(151, 151, 151, 0.9);
     }
-    .button.accept {
-      background-color: rgba(249, 233, 47,0.85);
+
+    .button.accept, .button.dismiss {
+      position: absolute;
+      width: 13vw;
+      height: 8vw;
+      line-height: 8vw;
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-size: 100%;
+
+      .fa {
+        line-height: 8vw;
+      }
     }
   }
+}
 
+
+.friendList.alpha {
+  .bar {
+    .fa-user {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .fa-comment {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  .friendList_content {
+    visibility: visible;
+    opacity: 1;
+  }
+  .friendChatList_content {
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
 .friendList {
   position: relative;
-  margin-bottom: 8vw;
+
+  .bar {
+    .fa-user {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .fa-comment {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
   .friendList_content {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .friendList_content {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .friendList_content, .friendChatList_content {
+    position: absolute;
+    top: 6vw;
+    left: 0;
     margin-left: 2vw;
     background-color: #444;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 96vw;
+    height: 78vh;
+    overflow: scroll;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
   }
-  .friend_wrap {
 
-    width: 31vw;
-    height: 31vw;
+  .friend_row {
+    position: relative;
+    width: 96vw;
+    height: 16vw;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid #2d2d2d;
+
+    .avatar {
+      position: absolute;
+      top: 1vw;
+      left: 4vw;
+      width: 14vw;
+      height: 14vw;
+    }
+
+    .name {
+      position: absolute;
+      top: 1.5vw;
+      width: 40vw;
+      left: 22vw;
+      font-size: 110%;
+      color: #c2c2c2;
+    }
+
+    .msg {
+      position: absolute;
+      top: 8vw;
+      width: 70;
+      left: 22vw;
+      font-size: 120%;
+      color: #efefef;
+    }
+
+    .time {
+      position: absolute;
+      top: 2vw;
+      width: 10vw;
+      right: 5vw;
+      font-size: 110%;
+      color: #c2c2c2;
+    }
+  }
+
+  .friend_wrap {
+    margin-left: 1vw;
+    width: 22vw;
+    height: 22vw;
     display: inline-block;
     margin-top: 3vw;
     .avatar {
-      width: 17vw;
-      height: 17vw;
+      width: 15vw;
+      height: 12vw;
       padding-top: 2vw;
-      margin-left: 7vw;
+      margin-left: 4.5vw;
     }
 
     .name {
       text-align: center;
-      font-size: 140%;
-      margin-top: 2vw;
+      font-size: 110%;
+      margin-top: 4vw;
+      width: 22vw;
+      margin-left: 1vw;
       color: white;
     }
   }
-}
-
-.popAdd{
-  border-radius: 1.3em;
-  width: 90vw;
-  height: 44vw;
-  background-color: rgba(168,168,168,0.9);
-  z-index: 1;
-  position: absolute;
-  top:23vh;
-  left: 5vw;
-  display: none;
-  p{
-    margin-left: 3vw;
-    margin-top: 1vw;
-    font-size: 130%;
+  .friend_wrap:last-child {
+    padding-bottom: 20vh;
   }
-
-  .input{
-    textarea{
-      width: 75vw;
-      height: 15vw;
-      margin-left: 5vw;
-      font-size: 100%;
-    }
-  }
-
-  .cancel{
-    left: 10vw;
-    top: 31vw;
-  }
-
-  .confirm{
-    left: 50vw;
-    top: 31vw;
-  }
-
 }

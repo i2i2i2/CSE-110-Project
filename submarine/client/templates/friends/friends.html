@@ -19,11 +19,13 @@
                 {{recommendReason}}
               </div>
             </div>
-            <div class="button add" data-userid="{{userId}}">
-              <i class="fa fa-plus"></i>
-            </div>
-            <div class="button ignore" data-userid="{{userId}}">
-              <i class="fa fa-close"></i>
+            <div class="buttons">
+              <div class="button add" data-userid="{{userId}}">
+                <i class="fa fa-plus"></i>
+              </div>
+              <div class="button ignore" data-userid="{{userId}}">
+                <i class="fa fa-close"></i>
+              </div>
             </div>
           </div>
         {{/each}}
@@ -50,11 +52,13 @@
                 {{requestReason}}
               </div>
             </div>
-            <div class="button accept" data-userid="{{userId}}">
-              <i class="fa fa-check" aria-hidden="true"></i>
-            </div>
-            <div class="button dismiss" data-userid="{{userId}}">
-              <i class="fa fa-times" aria-hidden="true"></i>
+            <div class="buttons">
+              <div class="button accept" data-userid="{{userId}}">
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </div>
+              <div class="button dismiss" data-userid="{{userId}}">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </div>
             </div>
           </div>
         {{/each}}
@@ -65,19 +69,39 @@
   <div class="friendList">
     <div class="friend_list bar">
       <p>My Friends</p>
+      <i class="fa fa-comment switch"></i>
+      <i class="fa fa-user switch"></i>
     </div>
+    <div class="friendChatList_content">
+      {{#if emptyFriends}}
+        <p>Find some friends and enjoy!</p>
+      {{else}}
+        {{#each friendChatList}}
+          <div class="friend_row">
+            <div class="avatar" data-userid="{{userId}}">
+              {{{avatar (profileSeed userId)}}}
+            </div>
+
+            <div class="name">{{getName this}}</div>
+            <div class="msg">{{message}}</div>
+            <div class="time">{{getTime time}}</div>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+
     <div class="friendList_content">
       {{#if emptyFriends}}
             <p>Find some friends and enjoy!</p>
       {{else}}
-        {{#each friendList}}
+        {{#each friendAlphaList}}
           <div class="friend_wrap">
             <div class="avatar connect_profile" data-userid="{{userId}}">
                 {{{avatar (profileSeed userId)}}}
               </div>
 
               <div class="name">
-                {{getName userId nickname}}
+                {{getName this}}
               </div>
           </div>
         {{/each}}
@@ -85,17 +109,5 @@
     </div>
   </div>
 
-  <div class="popAdd">
-    <p>Add a new friend</p>
-    <div class="input">
-      <textarea id="paragraph_text" placeholder="Leave some comment" cols="50" rows="10"></textarea>
-    </div>
-    <div class="popAdd button cancel">
-      Cancel
-    </div>
-    <div class="popAdd button confirm">
-      Submit
-    </div>
-  </div>
   </div>
 </template>
