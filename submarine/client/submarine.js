@@ -10,11 +10,7 @@ Meteor.startup(function() {
       // override navigation back button
       document.addEventListener("backbutton", function(e) {
         e.preventDefault();
-        if (/^\/user/.test(FlowRouter.current().path)) {
-          navigator.app.exitApp();
-        } else {
-          window.history.back();
-        }
+        window.history.back();
       });
 
       // gcm init
