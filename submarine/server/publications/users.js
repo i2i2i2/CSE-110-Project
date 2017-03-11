@@ -15,7 +15,7 @@ Meteor.publish("users/relatedUsersAndTags", function() {
                                                     "profile.socialMedia": 1
                                                   });
   // publish user seed and also social media
-  var userIds = [].concat(user.profile.friendRequest.map(requests => requests.userId),user.profile.socialMedia,
+  var userIds = [].concat(user.profile.profileSeed, user.profile.friendRequest.map(requests => requests.userId), user.profile.socialMedia,
                           user.profile.recommendedFriends.map(recommendation => recommendation.userId),
                           user.profile.friends.map(friend => friend.userId));
 
