@@ -26,9 +26,7 @@
       </div>
       {{else}}
       <div class="warning">
-        You and the user are not friends yet. Your personal infos are still undisclosed.
-        Be careful sending/accepting the friend request. The user is accessible to your social media account,
-        once you sent/accepted the friend request.
+        You and the user are not friends yet.
       </div>
     {{/if}}
 
@@ -52,7 +50,7 @@
     <div class= "recent_tags">
       <h3>Common Interested Chatrooms</h3>
       {{#if hasNoIntersection}}
-        <p>You and the user shares no common chatrooms.</p>
+        <p>You and the user share no common chatrooms.</p>
       {{else}}
         <div class= "recent_tag_name">
           {{#each getIntersection}}

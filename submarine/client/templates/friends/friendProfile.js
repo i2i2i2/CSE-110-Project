@@ -83,21 +83,35 @@ Template.FriendProfile.helpers({
     var user = Meteor.users.findOne(Template.instance().userId);
     if (!user) return false;
 
+    var tagList = user.profile.savedTags;
+    var myTags = Meteor.user().profile.savedTags;
+    for (var i = 0; i < myTags.length; i++) {
+      for (var j = 0; j < tagList.length; j++) {
+        if (tagList[j].tagId == myTags[i].tagId) {
+          return true;
+        }
+      }
+    }
 
-    self.intersectTag = [];
+    return true;
+  },
+
+  getIntersection: function() {
+    var self = Template.instance();
+    var user = Meteor.users.findOne(Template.instance().userId);
+    if (!user) return false;
+
+
+    var intersectTag = [];
     var tagList = user.profile.savedTags;
     Meteor.user().profile.savedTags.forEach((tagA) => {
        tagList.forEach((tagB) => {
          if (tagA.tagId == tagB.tagId)
-           self.intersectTag.push(tagA.tagId);
+           intersectTag.push(tagA.tagId);
        });
     });
 
-    return self.intersectTag.length == 0;
-  },
-
-  getIntersection: function() {
-    return Template.instance().intersectTag;
+    return intersectTag;
   },
 
   getName: function(tagId) {

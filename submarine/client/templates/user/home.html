@@ -11,10 +11,11 @@
 
     <div class= "recent_tags">
         <h3>Recent tags</h3>
-        {{#if emptyTagas}}
-            <p>Try drag the yellow bar on the top. Surprise!</p>
-        {{else}}
+
             <div class= "recent_tag_name">
+              {{#if emptyTagas}}
+                  <p>Try drag the yellow bar on the top. Surprise!</p>
+              {{else}}
                 {{#each recentTags}}
                 <div class="tag_circle_wrapper">
                   <div class="tag_circle" data-tagid="{{tagId}}">
@@ -26,17 +27,17 @@
                   <a href="/chats/tag/{{tagId}}">{{tagName tagId}}</a>
                 </div>
                 {{/each}}
+              {{/if}}
             </div>
-        {{/if}}
-
     </div>
 
     <div class="recent_friends">
         <h3>Recent friends</h3>
-        {{#if emptyFriends}}
-            <p>Find some friends and enjoy!</p>
-        {{else}}
+
         <div class= "recent_friend_name">
+          {{#if emptyFriends}}
+              <p>Find some friends and enjoy!</p>
+          {{else}}
             {{#each recentFriends}}
             <div class="name_circle_wrapper">
               <div class="name_circle" data-userid="{{userId}}">
@@ -50,7 +51,7 @@
               </a>
             </div>
             {{/each}}
+          {{/if}}
         </div>
-        {{/if}}
     </div>
 </template>
