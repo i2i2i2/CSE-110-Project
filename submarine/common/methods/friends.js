@@ -142,6 +142,7 @@ Meteor.methods({
   "friends/addFriend" : function(friendId) {
     if (this.isSimulation) return;
 
+    console.log(friendId);
     var user = Meteor.user();
     var myFriends = user.profile.friends;
     var friendRecommend = user.profile.recommendedFriends;

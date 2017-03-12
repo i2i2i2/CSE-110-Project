@@ -45,4 +45,3 @@ userRoutes.route('/other_profile/:_id', {
     BlazeLayout.render('mainLayout', {content: 'FriendProfile'})
   }
 });
-

@@ -190,21 +190,14 @@ Template.Profile.events({
 Template.Profile.helpers({
 
   "hasFacebook": function() {
-      if(Meteor.user().profile.socialMedia != null) {
+      if(Meteor.userId() && Meteor.user().profile.socialMedia != null) {
         if(Meteor.user().profile.socialMedia.facebook != null)
             return true;
       }
   },
 
-  "hasGoogle": function() {
-       if(Meteor.user().profile.socialMedia != null) {
-        if(Meteor.user().profile.socialMedia.google)
-            return true;
-       }
-  },
-
   "hasGithub": function() {
-      if(Meteor.user().profile.socialMedia != null) {
+      if(Meteor.userId() && Meteor.user().profile.socialMedia != null) {
         if(Meteor.user().profile.socialMedia.github != null)
             return true;
       }
