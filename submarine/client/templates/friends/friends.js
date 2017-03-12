@@ -40,7 +40,8 @@ Template.Friends.helpers({
 
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
-  getName: (friend) => friend.nickname? friend.nickname: Meteor.users.findOne(friend.userId).username,
+  getName: (friend) => friend.nickname? friend.nickname:
+    (Meteor.users.findOne(friend.userId) ? Meteor.users.findOne(friend.userId).username: null),
 
   emptyChat: () => {
     var latestMsg = Session.get("latestMsg");
