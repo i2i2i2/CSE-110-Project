@@ -253,7 +253,7 @@ Template.tagChats.events({
   },
   "click .other.avatar": function(e,t) {
     var otherId = t.$(e.currentTarget).data('id');
-    FlowRouter.go('/user/stranger_profile/'+otherId);
+    FlowRouter.go('/user/other_profile/'+otherId);
   }
 })
 

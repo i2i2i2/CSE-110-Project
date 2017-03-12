@@ -1,5 +1,6 @@
 Template.FriendProfile.onCreated(function() {
   var self = this;
+  self.change = false;
   self.userId = FlowRouter.current().params._id;
   self.isFriend = Meteor.user().profile.friends.find(user => user.userId == self.userId)? true: false;
 
@@ -33,6 +34,7 @@ Template.FriendProfile.onDestroyed(function() {
 })
 
 Template.FriendProfile.helpers({
+  userId: () => FlowRouter.current().params._id,
   randomSeed: () => {
     var self = Template.instance();
     var user = Meteor.users.findOne(self.userId);
@@ -79,6 +81,21 @@ Template.FriendProfile.helpers({
     var user = Meteor.users.findOne(Template.instance().userId);
     return user.profile.socialMedia.facebook;
   },
+  
+  hasGoogle: () => {
+    var user = Meteor.users.findOne(Template.instance().userId);
+    if (!user) return false;
+
+    if(user.profile.socialMedia != null) {
+      if(user.profile.socialMedia.google != null)
+          return true;
+    }
+  },
+
+  getGoogle: () => {
+    var user = Meteor.users.findOne(Template.instance().userId);
+    return user.profile.socialMedia.google;
+  },
 
   hasGithub: () => {
     var user = Meteor.users.findOne(Template.instance().userId);
@@ -102,10 +119,12 @@ Template.FriendProfile.helpers({
 
     var tagList = user.profile.savedTags;
     var myTags = Meteor.user().profile.savedTags;
-    for (var i = 0; i < myTags.length; i++) {
-      for (var j = 0; j < tagList.length; j++) {
-        if (tagList[j].tagId == myTags[i].tagId) {
-          return false;
+    if (myTags){
+      for (var i = 0; i < myTags.length; i++) {
+        for (var j = 0; j < tagList.length; j++) {
+          if (tagList[j].tagId == myTags[i].tagId) {
+            return false;
+          }
         }
       }
     }
@@ -121,13 +140,14 @@ Template.FriendProfile.helpers({
 
     var intersectTag = [];
     var tagList = user.profile.savedTags;
-    Meteor.user().profile.savedTags.forEach((tagA) => {
+    if (tagList) {
+      Meteor.user().profile.savedTags.forEach((tagA) => {
        tagList.forEach((tagB) => {
          if (tagA.tagId == tagB.tagId)
            intersectTag.push(tagA.tagId);
        });
-    });
-
+      });
+    }
     return intersectTag;
   },
 
@@ -198,6 +218,76 @@ Template.FriendProfile.events({
     } else {
       window.open(url);
     }
+  },
+    
+  "click .unFriend.button": function(e, t){
+    console.log("value of change when we call the function: "+self.change);
+    if (!self.change) {
+      t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
+      t.$(e.currentTarget).attr('style','background-color:red');
+      self.change = true;
+      setTimeout(function() {
+        self.change = false;
+        t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
+        console.log("settimeout now make change value: "+self.change);                          
+        t.$(e.currentTarget).removeAttr('style');
+      }, 10000);
+      
+    }
+    else {
+    
+      //t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
+      //t.$(e.currentTarget).removeAttr('style');
+      var idNumber = t.$(e.currentTarget).data('userid');
+    
+      Meteor.call('friends/deleteFriend', idNumber, function(err, res) {
+ 
+      });
+      self.change = false;
+      FlowRouter.go('/user/friends');
+      
+    }
+    
+  },
+  
+  "click .addFriend.button": function(e, t){
+    if (!self.change) {
+      t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Sure?');
+      t.$(e.currentTarget).attr('style','background-color:green');
+      self.change = true;
+      setTimeout(function() {
+        self.change = false;
+        t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
+                                  
+        t.$(e.currentTarget).removeAttr('style');
+      }, 10000);
+      
+    }
+    else {
+      t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
+      t.$(e.currentTarget).removeAttr('style');
+      var idNumber = t.$(e.currentTarget).data('userid');
+      var friendRequest = Meteor.user().profile.friendRequest.map(user => user.userId);
+    
+      if(friendRequest && friendRequest.indexOf(idNumber) > -1){
+        // call addFriend
+        // console.log("call add friend");
+      
+        Meteor.call('friends/addFriend', idNumber, function(err, res) {
+
+        });
+      }
+      else{
+        // call sendRequest
+        console.log("call send request");
+        
+        Meteor.call('friends/sendRequest', idNumber, function(err, res) {
+
+        });
+      }
+      self.change = false;
+    }
+    //＄(e.currentTarget).attr('text',"Sure?");
   },
 
   "click .chat.button": function (e, t) {
