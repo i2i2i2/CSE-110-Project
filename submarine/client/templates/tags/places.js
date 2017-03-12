@@ -3,6 +3,7 @@ Template.Places.onRendered(function() {
   Session.set("currentTemplate", "places");
 });
 
+
 Template.Places.helpers({
 	"emptyTag": function() {
 		if(Meteor.user().profile.savedTags == null || Meteor.user().profile.savedTags.length === 0) {
