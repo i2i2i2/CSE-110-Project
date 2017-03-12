@@ -200,6 +200,12 @@ Template.FriendProfile.events({
     }
   },
 
+  "click .chat.button": function (e, t) {
+     var idNumber = t.$(e.currentTarget).data('userid');
+
+     FlowRouter.go('/chats/friend/'+idNumber);
+  },
+
   "blur input": function(e, t) {
     var input = $(e.currentTarget);
     var wrapper = input.parent();
@@ -214,3 +220,4 @@ Template.FriendProfile.events({
     }, 200);
   }
 });
+
