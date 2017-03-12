@@ -1,3 +1,35 @@
 <template name="Places">
-  <p>Places, where user review visited wifis, and set wifi preference</p>
+<div>
+<p>1</p>
+<p>1</p>
+<p>1</p>
+
+
+</div>
+	<div>
+    	<h3>Recent tags</h3>
+    </div>
+    <div class="tagContent {{isNotRefreshing}}">
+        {{#if emptyTag}}
+        	<p>Try drag the yellow bar on the top. Surprise!</p>
+      	{{else}}
+
+         	{{#each recentTags}}
+            <div class="tag_wrapper">
+                <div class="tag_name">
+                    <i class="fa fa-anchor" aria-hidden="true"></i>
+                    {{tagName tagId}}
+                </div>
+                <div class="tag_content">
+                    <div class="tag_avatar">{{avatar tagId}}</div>
+                    <div class="tag_duration">{{getDuration this}}</div>
+                    <div class="tag_repeat">{{getRepetition this}}</div>
+                    <div class="tag_description">{{this.description}}</div>
+                </div>
+            </div>
+           	{{/each}}
+        {{/if}}
+    </div>
+
 </template>
+

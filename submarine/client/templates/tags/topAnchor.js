@@ -220,6 +220,21 @@ Template.TopAnchor.events({
     }, 100);
   },
 
+  "click .tag_avatar, click .tag_duration, click .tag_repeat, click .tag_description": function (e, t) {
+     var idNumber = t.$(e.currentTarget).data('tagId');
+      if (!t.moved) {
+          t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
+          $('.drag').removeClass("drag");
+          if ($(".top_anchor").hasClass("bottom")) {
+              $("body > .content").css({"filter": "blur(30px)",});
+          }
+          else {
+              $("body > .content").removeAttr("style");
+          }
+      }
+     FlowRouter.go('/chats/tag/'+idNumber);
+  },
+
   "click .check": function(e, t) {
     if ($(e.currentTarget).hasClass("all")) {
       if ($(e.currentTarget).hasClass("selected"))
