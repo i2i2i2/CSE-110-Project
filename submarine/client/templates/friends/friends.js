@@ -98,7 +98,7 @@ Template.Friends.helpers({
 Template.Friends.events({
   "click .connect_profile": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('userid');
-    FlowRouter.go('/user/friend_profile/'+idNumber);
+    FlowRouter.go('/user/other_profile/'+idNumber);
   },
 
   "click .add": function (e, t) {

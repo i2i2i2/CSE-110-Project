@@ -39,16 +39,10 @@ userRoutes.route('/profile', {
   }
 });
 
-userRoutes.route('/friend_profile/:_id', {
+userRoutes.route('/other_profile/:_id', {
   name: "friend_profile",
   action() {
     BlazeLayout.render('mainLayout', {content: 'FriendProfile'})
   }
 });
 
-userRoutes.route('/stranger_profile/:_id', {
-  name: "stranger_profile",
-  action() {
-    BlazeLayout.render('mainLayout', {content: 'StrangerProfile'})
-  }
-});

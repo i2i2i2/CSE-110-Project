@@ -79,6 +79,21 @@ Template.FriendProfile.helpers({
     var user = Meteor.users.findOne(Template.instance().userId);
     return user.profile.socialMedia.facebook;
   },
+  
+  hasGoogle: () => {
+    var user = Meteor.users.findOne(Template.instance().userId);
+    if (!user) return false;
+
+    if(user.profile.socialMedia != null) {
+      if(user.profile.socialMedia.google != null)
+          return true;
+    }
+  },
+
+  getGoogle: () => {
+    var user = Meteor.users.findOne(Template.instance().userId);
+    return user.profile.socialMedia.google;
+  },
 
   hasGithub: () => {
     var user = Meteor.users.findOne(Template.instance().userId);
