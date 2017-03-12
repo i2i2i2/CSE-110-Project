@@ -222,7 +222,7 @@ Template.FriendProfile.events({
     
   "click .unFriend.button": function(e, t){
     if (!this.change) {
-      t.$(e.currentTarget).html("Sure?");
+      t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
       t.$(e.currentTarget).attr('style','background-color:red');
       this.change = true;
       setTimeout(function() {
@@ -230,7 +230,7 @@ Template.FriendProfile.events({
         t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
                                   
         t.$(e.currentTarget).removeAttr('style');
-      }, 7000);
+      }, 10000);
       
     }
     else {
@@ -239,7 +239,6 @@ Template.FriendProfile.events({
       var idNumber = t.$(e.currentTarget).data('userid');
     
       Meteor.call('friends/deleteFriend', idNumber, function(err, res) {
-
  
       });
       this.change = false;
@@ -251,7 +250,7 @@ Template.FriendProfile.events({
   
   "click .addFriend.button": function(e, t){
     if (!this.change) {
-      t.$(e.currentTarget).html("Sure?");
+      t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Sure?');
       t.$(e.currentTarget).attr('style','background-color:green');
       this.change = true;
       setTimeout(function() {
@@ -259,7 +258,7 @@ Template.FriendProfile.events({
         t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
                                   
         t.$(e.currentTarget).removeAttr('style');
-      }, 7000);
+      }, 10000);
       
     }
     else {
