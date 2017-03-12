@@ -25,6 +25,7 @@ Template.Places.helpers({
     if (!latestMsg) return tags;
 
     tags = tags.map((tag) => {
+      var tag = App.Collections.Tags.findOne(tag.tagId);
       tag.latestMsg = latestMsg[tag.tagId];
       tag.lastRead = localStorage.getItem(tag.tagId);
       return tag;
@@ -45,6 +46,7 @@ Template.Places.helpers({
       }
     });
 
+    console.log(tags);
     return tags;
   },
 
@@ -62,7 +64,6 @@ Template.Places.helpers({
       return false;
     }
   },
-  tagName: (id) => App.Collections.Tags.findOne(id).name,
 
   "getRepetition": function(tag) {
        if (tag.repeat == 127) return "All Days";
@@ -99,7 +100,7 @@ Template.Places.helpers({
 })
   Template.Places.events({
    "click .tag_avatar": function (e, t) {
-    var idNumber = t.$(e.currentTarget).data('tagid');
+    var idNumber = t.$(e.currentTarget).data('tagId');
 
     FlowRouter.go('/chats/tag/'+idNumber);
     },
