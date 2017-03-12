@@ -1,6 +1,6 @@
 Template.FriendProfile.onCreated(function() {
   var self = this;
-  this.change = false;
+  self.change = false;
   self.userId = FlowRouter.current().params._id;
   self.isFriend = Meteor.user().profile.friends.find(user => user.userId == self.userId)? true: false;
 
@@ -221,27 +221,29 @@ Template.FriendProfile.events({
   },
     
   "click .unFriend.button": function(e, t){
-    if (!this.change) {
+    console.log("value of change when we call the function: "+self.change);
+    if (!self.change) {
       t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
       t.$(e.currentTarget).attr('style','background-color:red');
-      this.change = true;
+      self.change = true;
       setTimeout(function() {
-        this.change = false;
+        self.change = false;
         t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
-                                  
+        console.log("settimeout now make change value: "+self.change);                          
         t.$(e.currentTarget).removeAttr('style');
       }, 10000);
       
     }
     else {
-      t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
-      t.$(e.currentTarget).removeAttr('style');
+    
+      //t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
+      //t.$(e.currentTarget).removeAttr('style');
       var idNumber = t.$(e.currentTarget).data('userid');
     
       Meteor.call('friends/deleteFriend', idNumber, function(err, res) {
  
       });
-      this.change = false;
+      self.change = false;
       FlowRouter.go('/user/friends');
       
     }
@@ -249,12 +251,12 @@ Template.FriendProfile.events({
   },
   
   "click .addFriend.button": function(e, t){
-    if (!this.change) {
+    if (!self.change) {
       t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Sure?');
       t.$(e.currentTarget).attr('style','background-color:green');
-      this.change = true;
+      self.change = true;
       setTimeout(function() {
-        this.change = false;
+        self.change = false;
         t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
                                   
         t.$(e.currentTarget).removeAttr('style');
@@ -283,7 +285,7 @@ Template.FriendProfile.events({
 
         });
       }
-      this.change = false;
+      self.change = false;
     }
     //＄(e.currentTarget).attr('text',"Sure?");
   },
