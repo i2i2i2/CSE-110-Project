@@ -40,7 +40,15 @@ Template.Friends.helpers({
 
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
-  getName: (friend) => friend.nickname? friend.nickname: Meteor.users.findOne(friend.userId).username,
+  getName: (friend) => {
+    if (friend.nickname) {
+      return friend.nickname;
+    } else {
+      var user = Meteor.users.findOne(friend.userId);
+      if (user) return user.username;
+      else return "";
+    }
+  },
 
   emptyChat: () => {
     var latestMsg = Session.get("latestMsg");
@@ -87,7 +95,6 @@ Template.Friends.helpers({
       return name1 > name2;
     });
 
-    console.log(list);
     return list;
   },
   getTime: (time) => {
@@ -97,13 +104,14 @@ Template.Friends.helpers({
 
 Template.Friends.events({
   "click .connect_profile": function (e, t) {
-    var idNumber = t.$(e.currentTarget).data('userid');
+    var idNumber =e.currentTarget.dataset.userid;
     FlowRouter.go('/user/friend_profile/'+idNumber);
   },
 
   "click .add": function (e, t) {
     var self = Template.instance();
-    var friendId = t.$(e.currentTarget).data('userid');
+    var friendId = e.currentTarget.dataset.userid;
+    console.log(friendId);
     $(e.currentTarget).find(".fa-plus").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
     Meteor.call('friends/sendRequest', friendId, function(err, res) {
 
@@ -114,7 +122,7 @@ Template.Friends.events({
 
   "click .ignore": function (e, t) {
     var self = Template.instance();
-    var friendId = t.$(e.currentTarget).data('userid');
+    var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-close").removeClass("fa-close").addClass("fa-spin").addClass("fa-circle-o-notch");
     Meteor.call('friends/ignoreRecommendation', friendId, function(err, res) {
 
@@ -125,7 +133,7 @@ Template.Friends.events({
 
   "click .dismiss": function (e, t) {
     var self = Template.instance();
-    var friendId = t.$(e.currentTarget).data('userid');
+    var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-times").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
     Meteor.call('friends/dismissFriend', friendId, function(err, res) {
 
@@ -136,7 +144,7 @@ Template.Friends.events({
 
   "click .accept": function (e, t) {
     var self = Template.instance();
-    var friendId = t.$(e.currentTarget).data('userid');
+    var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-check").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
     Meteor.call('friends/addFriend', friendId, function(err, res) {
 

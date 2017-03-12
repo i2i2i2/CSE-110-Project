@@ -91,7 +91,7 @@ Meteor.methods({
       return;
     }
     var otherTurndown = friend.profile.turndownFriends;
-    if (otherTurndown.find(user => user.userId == this.userId)) {
+    if (otherTurndown && otherTurndown.find(user => user.userId == this.userId)) {
       throw new Meteor.Error("You are Blocked");
       return;
     }
@@ -141,6 +141,7 @@ Meteor.methods({
   "friends/addFriend" : function(friendId) {
     if (this.isSimulation) return;
 
+    console.log(friendId);
     var user = Meteor.user();
     var myFriends = user.profile.friends;
     var friendRecommend = user.profile.recommendedFriends;
