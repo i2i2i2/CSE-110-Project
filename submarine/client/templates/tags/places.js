@@ -95,23 +95,6 @@ Template.Places.helpers({
        }
        return start + " - " + end;
   },
-  "checkRefreshDone": function(index) {
-       var self = Template.instance();
-       if (index == self.tagCount - 1) {
-         console.log("done");
-         self.isRefreshing.set(false);
-       }
-  },
-
-  "isRefreshing": function() {
-       return Template.instance().isRefreshing.get()? "": "hidden";
-  },
-
-  "isNotRefreshing": function() {
-       return Template.instance().isRefreshing.get()? "hidden": "";
-  },
-
-
 
 })
   Template.Places.events({
