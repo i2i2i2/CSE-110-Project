@@ -73,8 +73,8 @@
       <i class="fa fa-user switch"></i>
     </div>
     <div class="friendChatList_content">
-      {{#if emptyFriends}}
-        <p>Find some friends and enjoy!</p>
+      {{#if emptyChat}}
+        <p>Go Chat with some friends!</p>
       {{else}}
         {{#each friendChatList}}
           <div class="friend_row">
@@ -92,7 +92,7 @@
 
     <div class="friendList_content">
       {{#if emptyFriends}}
-            <p>Find some friends and enjoy!</p>
+        <p>Add some friends and enjoy!</p>
       {{else}}
         {{#each friendAlphaList}}
           <div class="friend_wrap">

@@ -1,6 +1,13 @@
 Template.Friends.onRendered(function() {
   var self = this;
+  self.displayPopUp = function(message) {
+    $("body").append('<p class="popup">' + message + '</p>');
+    $(".popup").delay(1000).fadeOut(400);
 
+    setTimeout(function() {
+      $(".popup").remove();
+    }, 1400);
+  }
   Session.set("currentTemplate", "friends");
 });
 
@@ -34,6 +41,22 @@ Template.Friends.helpers({
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
 
   getName: (friend) => friend.nickname? friend.nickname: Meteor.users.findOne(friend.userId).username,
+
+  emptyChat: () => {
+    var latestMsg = Session.get("latestMsg");
+    var friends = Meteor.user().profile.friends;
+
+    if (!latestMsg) return true;
+
+    friends = friends.map((friend) => {
+      if (latestMsg[friend.userId]) {
+        friend.time = latestMsg[friend.userId].time;
+      }
+      return friend;
+    }).filter(friend => !!friend.time);
+
+    return !friends.length;
+  },
 
   friendChatList: () => {
     var latestMsg = Session.get("latestMsg");
@@ -78,41 +101,48 @@ Template.Friends.events({
     FlowRouter.go('/user/friend_profile/'+idNumber);
   },
 
-  "click .cancel": function () {
-    $('#paragraph_text').val('');
-    $(".popAdd").css({"display": "none"});
-  },
-
-  "click .confirm": function () {
-    var selfId = Meteor.userId();
-    var message = $('#paragraph_text').val();
-    Meteor.call('friends/sendRequest', selfId, self.friendId, message);
-    $(".popAdd").css({"display": "none"});
-  },
-
-
   "click .add": function (e, t) {
-    self.friendId = t.$(e.currentTarget).data('userid');
-    $(".popAdd").css({"display": "block"});
+    var self = Template.instance();
+    var friendId = t.$(e.currentTarget).data('userid');
+    $(e.currentTarget).find(".fa-plus").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
+    Meteor.call('friends/sendRequest', friendId, function(err, res) {
+
+      self.displayPopUp("Friend Request Sent");
+      $(e.currentTarget).find(".fa-spin").removeClass("fa-spin").removeClass("fa-circle-o-notch").addClass("fa-plus");
+    });
   },
 
   "click .ignore": function (e, t) {
-    var selfId = Meteor.userId();
+    var self = Template.instance();
     var friendId = t.$(e.currentTarget).data('userid');
-    console.log(friendId);
-    Meteor.call('friends/ignoreRecommendation',selfId,friendId);
+    $(e.currentTarget).find(".fa-close").removeClass("fa-close").addClass("fa-spin").addClass("fa-circle-o-notch");
+    Meteor.call('friends/ignoreRecommendation', friendId, function(err, res) {
+
+      self.displayPopUp("Recommendation Dismissed");
+      $(e.currentTarget).find(".fa-spin").removeClass("fa-spin").removeClass("fa-circle-o-notch").addClass("fa-close");
+    });
   },
 
   "click .dismiss": function (e, t) {
-    var selfId = Meteor.userId();
+    var self = Template.instance();
     var friendId = t.$(e.currentTarget).data('userid');
-    Meteor.call('friends/dismissFriend',selfId,friendId);
+    $(e.currentTarget).find(".fa-times").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
+    Meteor.call('friends/dismissFriend', friendId, function(err, res) {
+
+      self.displayPopUp("Friend Request Blocked");
+      $(e.currentTarget).find(".fa-spin").removeClass("fa-spin").removeClass("fa-circle-o-notch").addClass("fa-times");
+    });
   },
 
   "click .accept": function (e, t) {
-    var selfId = Meteor.userId();
+    var self = Template.instance();
     var friendId = t.$(e.currentTarget).data('userid');
-    Meteor.call('friends/addFriend',selfId,friendId);
+    $(e.currentTarget).find(".fa-check").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
+    Meteor.call('friends/addFriend', friendId, function(err, res) {
+
+      self.displayPopUp("Friend Added");
+      $(e.currentTarget).find(".fa-spin").removeClass("fa-spin").removeClass("fa-circle-o-notch").addClass("fa-check");
+    });
   },
 
   "click .switch": function(e, t) {

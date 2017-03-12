@@ -15,7 +15,7 @@ App.Schemas.UserProfile = new SimpleSchema({
     type: Object,
     optional: true
   },
-    
+
   "friendRequest.$.userId": {
     type: String,
     optional: true

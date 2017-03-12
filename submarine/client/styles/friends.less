@@ -274,6 +274,13 @@
     height: 78vh;
     overflow: scroll;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+
+    p {
+      width: 96vw;
+      text-align: center;
+      color: #efefef;
+      font-size: 140%;
+    }
   }
 
   .friend_row {
@@ -346,4 +353,19 @@
   .friend_wrap:last-child {
     padding-bottom: 20vh;
   }
+}
+
+p.popup {
+  z-index: 1000;
+  position: absolute;
+  left: 20vw;
+  bottom: 15vw;
+  height: 8vw;
+  width: 60vw;
+  text-align: center;
+  font-size: 120%;
+  line-height: 8vw;
+  border-radius: 8vw;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
 }
