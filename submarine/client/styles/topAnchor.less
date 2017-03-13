@@ -46,6 +46,12 @@
       transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
+    .refreshing.hidden {
+      display: block !important;
+      opacity: 0;
+      visibility: hidden;
+    }
+
     .lower_content{
 
         .button_wrapper.hide {
@@ -239,6 +245,16 @@
 
     .tagContent.small {
       height: ~"calc(100vh - 120vw)";
+    }
+
+    .refreshing {
+
+    }
+
+    .tagContent.hidden {
+      display: block !important;
+      opacity: 0;
+      visibility: hidden;
     }
 
     .tagContent {
