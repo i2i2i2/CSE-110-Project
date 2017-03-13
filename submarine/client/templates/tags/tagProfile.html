@@ -1,0 +1,113 @@
+<template name="TagProfile">
+  <div class="top_wrapper">
+    <div class="top_pic"></div>
+
+    <div class="profile_picture">{{{avatar randomSeed}}}</div>
+
+    <div class="changeUserName_wrapper">
+      <input type="text" class="userName" placeholder="{{getTagName}}" disabled>
+    </div>
+
+    {{#if isSubbed}}
+      <div class="changeNickName_wrapper">
+        <div class="private_concern inline">
+          <div class="label">Show in Calender?</div>
+          <div class="checkboxThree">
+        		<input type="checkbox" value="1" id="checkboxThreeInput"/>
+            <label for="checkboxThreeInput"></label>
+        	</div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="socialMedia_wrapper">
+
+    <hr id="inProfile">
+    <div class="change_wrapper">
+      <i class="fa fa-calender" aria-hidden="true"></i>
+      <div class="time">{{getDuration}}</div>
+      <div class="repeat">{{getRepeat}}</div>
+    </div>
+
+    <hr id="inProfile">
+    <div class="change_wrapper">
+      <div class="recent_friends">
+        <h3>Group Members</h3>
+          <div class="member_count">{{getSubNumber}}</div>
+          <div class= "recent_friend_name">
+            {{#each members}}
+              <div class="name_circle_wrapper">
+                <div class="name_circle" data-userid="{{this}}">
+                  {{{avatar (profileSeed this)}}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+    </div>
+
+    <hr id="inProfile">
+    <div class="change_wrapper">
+      <i class="fa fa-sticky-note" aria-hidden="true"></i>
+      <textarea class="description" placeholder="{{getDescription}}" disabled></textarea>
+      {{#if isSubbed}}
+        <i class="fa fa-pencil"></i>
+        <i class="fa fa-check-circle-o"></i>
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="buttons">
+    {{#if isSubbed}}
+      <div class="unFriend button">
+        <i class="fa fa-chain-broken"></i>
+        UnSubscribe
+      </div>
+      <div class="chat button">
+        <i class="fa fa-comment"></i>
+        Chat
+      </div>
+    {{else}}
+      {{#if isOnTime}}
+        {{#if isInRange}}
+          <div class="addFriend button">
+            <i class="fa fa-handshake-o"></i>
+            Subscribe
+          </div>
+        {{else}}
+          <div class="addFriend button">
+            <i class="fa fa-ban"></i>
+            Not in Range
+          </div>
+          <div class="chat button">
+            <i class="fa fa-refresh"></i>
+            Refresh
+          </div>
+        {{/if}}
+      {{else}}
+        {{#if exist}}
+          <div class="addFriend button">
+            <i class="fa fa-clock"></i>
+            Not On Time
+          </div>
+          <div class="chat button">
+            <i class="fa fa-ban"></i>
+            Chat
+          </div>
+        {{else}}
+          <div class="addFriend button">
+            <i class="fa fa-refresh fa-spin"></i>
+            Loading...
+          </div>
+          <div class="chat button">
+            <i class="fa fa-refresh fa-spin"></i>
+            Loading...
+          </div>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>
+
+</template>

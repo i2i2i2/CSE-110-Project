@@ -66,4 +66,8 @@ Meteor.publish("users/getStrangerProfile", function(strangerId) {
       "profile.savedTags": 1
     }
   });
+});
+
+Meteor.publish("users/getSingleTag", function(tagId) {
+  return App.Collections.find(tagId);
 })

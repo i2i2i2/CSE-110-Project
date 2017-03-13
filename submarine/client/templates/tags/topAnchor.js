@@ -8,7 +8,6 @@ Template.TopAnchor.onCreated(function() {
   self.velocity = -1;
   self.moved = false;
   self.windowHeight = $(window).height();
-  self.nearbyTags = new ReactiveVar([]);
   self.isRefreshing = new ReactiveVar(false);
 
   self.handleTouchDown = function(event) {
@@ -43,6 +42,7 @@ Template.TopAnchor.onCreated(function() {
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
       if ($(".top_anchor").hasClass("top")) {
         $("body > .content").css({"filter": "blur(30px)"});
+        App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
       }
       else{
         $("body > .content").removeAttr('style');
@@ -114,32 +114,100 @@ Template.TopAnchor.onCreated(function() {
   };
 
   if (Meteor.isCordova)
-    App.Utils.WifiWizard.getNearbyWifi();
+    App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
 
-  self.autorun(function() {
+  self.resubscribe = (function() {
+    var self = this;
     var wifiList = Session.get("wifiList");
+    console.log("refresh wifiList");
+
     if (wifiList && wifiList.length) {
-      self.wifiSubHandle = self.subscribe("wifis/nearbyWifis", wifiList);
+      if (self.subHandle) self.subHandle.stop();
+      self.subHandle = Meteor.subscribe("wifis/nearbyWifis", wifiList, function() {
+        var wifis = App.Collections.Wifis.find().fetch();
+        if (!wifis.length) return;
+
+        var tagIds = [];
+        wifis.forEach((wifi) => {
+          tagIds = tagIds.concat(wifi.tags);
+        });
+
+        self.isRefreshing.set(true);
+
+        Meteor.call("tags/getTagsById", tagIds, function(err, res) {
+          console.log("refresh tags");
+          if (err) return;
+          var tagList = res;
+
+          var wifiList = Session.get("wifiList");
+          if (!wifiList || !wifiList.length) return false;
+
+          console.log("New tag get" + tagList.length);
+
+          // turn wifi into dictionary
+          wifiDict = {};
+          wifiList.forEach(wifi => {
+            wifiDict[wifi.bssid] = wifi.level;
+          });
+
+          // filter out tag not in time range
+          var mmt = moment();
+          // Your moment at midnight
+          var mmtMidnight = mmt.clone().startOf('day');
+          // Difference in minutes
+          var diff = mmt.diff(mmtMidnight, 'minutes');
+          tagList = tagList.filter((tag) => {
+            // filter by wifi
+            if (!tag.wifis || !tag.wifis.length) return false;
+
+            // filter by weekday
+            var day = 7 - (new Date()).getDay();
+            var repeat = tag.repeat.toString(2);
+            if (repeat.length < day || repeat.charAt(repeat.length - day) == "0")
+              return false;
+
+            // filter by time
+            var start = tag.startTime;
+            var end = (tag.startTime + tag.duration) % 1440;
+            if (end <= start) {
+              return diff > start || diff < end;
+            } else {
+              return diff > start && diff < end;
+            }
+          })
+
+          // calc std of dist of each tag in wifi network + add index
+          tagList.forEach((tag, index) => {
+            tag.index = index;
+            tag.std = 0;
+            tag.wifis.forEach((wifi) => {
+              var level1 = wifi.level;
+              var level2 = wifiDict[wifi.bssid] ? wifiDict: -100;
+              var dist1 = Math.pow(10, (-30 - level1)/20);
+              var dist2 = Math.pow(10, (-30 - level2)/20);
+              tag.std += (dist1 - dist2) * (dist1 - dist2);
+            });
+            tag.std /= tag.wifis.length;
+          });
+
+          // sort by std in distance
+          tagList.sort(function(tag1, tag2) {
+            if (tag1.std == self.newCreate) return -1;
+            if (tag2.std == self.newCreate) return 1;
+            return tag1.std - tag2.std;
+          })
+
+          // record length for checkRenderDone
+          self.tagCount = tagList.length;
+
+          console.log(tagList.length);
+          self.isRefreshing.set(false);
+
+          Session.set("nearbyTags", tagList);
+        })
+      });
     }
-  })
-
-  self.autorun(function() {
-
-    var wifis = App.Collections.Wifis.find().fetch();
-    if (!wifis.length) return;
-
-    var tagIds = [];
-    wifis.forEach((wifi) => {
-      tagIds = tagIds.concat(wifi.tags);
-    });
-
-    self.isRefreshing.set(true);
-
-    Meteor.call("tags/getTagsById", tagIds, function(err, res) {
-      if (err) return;
-      self.nearbyTags.set(res);
-    })
-  })
+  }).bind(self);
 });
 
 Template.TopAnchor.onRendered(function() {
@@ -202,6 +270,7 @@ Template.TopAnchor.events({
       $('.drag').removeClass("drag");
       if ($(".top_anchor").hasClass("bottom")) {
         $("body > .content").css({"filter": "blur(30px)",});
+        App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
       }
       else {
         $("body > .content").removeAttr("style");
@@ -359,74 +428,8 @@ Template.TopAnchor.events({
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
      "getTagList": () => {
-       var wifiList = Session.get("wifiList");
-       if (!wifiList || !wifiList.length) return false;
-
-       var self = Template.instance();
-       var tagList = self.nearbyTags.get();
-
-
-       console.log(tagList.length);
-
-       // turn wifi into dictionary
-       wifiDict = {};
-       wifiList.forEach(wifi => {
-         wifiDict[wifi.bssid] = wifi.level;
-       });
-
-       // filter out tag not in time range
-       var mmt = moment();
-       // Your moment at midnight
-       var mmtMidnight = mmt.clone().startOf('day');
-       // Difference in minutes
-       var diff = mmt.diff(mmtMidnight, 'minutes');
-       tagList = tagList.filter((tag) => {
-         // filter by wifi
-         if (!tag.wifis || !tag.wifis.length) return false;
-
-         // filter by weekday
-         var day = 7 - (new Date()).getDay();
-         var repeat = tag.repeat.toString(2);
-         if (repeat.length < day || repeat.charAt(repeat.length - day) == "0")
-           return false;
-
-         // filter by time
-         var start = tag.startTime;
-         var end = (tag.startTime + tag.duration) % 1440;
-         if (end <= start) {
-           return diff > start || diff < end;
-         } else {
-           return diff > start && diff < end;
-         }
-       })
-
-       // calc std of dist of each tag in wifi network + add index
-       tagList.forEach((tag, index) => {
-         tag.index = index;
-         tag.std = 0;
-         tag.wifis.forEach((wifi) => {
-           var level1 = wifi.level;
-           var level2 = wifiDict[wifi.bssid] ? wifiDict: -100;
-           var dist1 = Math.pow(10, (-30 - level1)/20);
-           var dist2 = Math.pow(10, (-30 - level2)/20);
-           tag.std += (dist1 - dist2) * (dist1 - dist2);
-         });
-         tag.std /= tag.wifis.length;
-       });
-
-       // sort by std in distance
-       tagList.sort(function(tag1, tag2) {
-         if (tag1._id == self.newCreate) return -1;
-         if (tag2._id == self.newCreate) return 1;
-         return tag1.std - tag2.std;
-       })
-
-       // record length for checkRenderDone
-       self.tagCount = tagList.length;
-
-       console.log(tagList.length);
-
-       return tagList;
+       Template.instance().isRefreshing.set(false);
+       return Session.get("nearbyTags");
      },
 
      "getDuration": function(tag) {

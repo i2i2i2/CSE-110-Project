@@ -1,7 +1,14 @@
 Template.FriendProfile.onCreated(function() {
   var self = this;
   self.userId = FlowRouter.current().params._id;
-  self.isFriend = Meteor.user().profile.friends.find(user => user.userId == self.userId)? true: false;
+  self.autorun(function() {
+    var isFriend = Meteor.user().profile.friends.find(user => user.userId == self.userId)? true: false;
+    if (self.isFriend) {
+      self.isFriend.set(isFriend);
+    } else {
+      self.isFriend = new ReactiveVar(isFriend);
+    }
+  });
 
   if (!self.isFriend) {
     // temporarily add this person to client database
@@ -58,7 +65,7 @@ Template.FriendProfile.helpers({
     }
   },
 
-  isFriend: () => Template.instance().isFriend,
+  isFriend: () => Template.instance().isFriend.get(),
 
   getEmail: () => {
     var user = Meteor.users.findOne(Template.instance().userId);
@@ -79,7 +86,7 @@ Template.FriendProfile.helpers({
     var user = Meteor.users.findOne(Template.instance().userId);
     return user.profile.socialMedia.facebook;
   },
-  
+
   hasGoogle: () => {
     var user = Meteor.users.findOne(Template.instance().userId);
     if (!user) return false;
@@ -235,4 +242,3 @@ Template.FriendProfile.events({
     }, 200);
   }
 });
-

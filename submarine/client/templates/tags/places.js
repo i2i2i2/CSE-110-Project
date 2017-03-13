@@ -11,11 +11,6 @@ Template.Places.helpers({
   	}
 	},
 
-//	"incomingTags": () => {
-//    if (!Meteor.userId()) return;
-
-//	}
-
   "recentTags": () => {
     if (!Meteor.userId()) return;
 
@@ -40,7 +35,7 @@ Template.Places.helpers({
       } else {
         if (tag2.latestMsg) {
           return tag2.latestMsg.time.getTime();
-        } else {           
+        } else {
         	return 0;
         }
       }
@@ -57,7 +52,7 @@ Template.Places.helpers({
     } else if (target.tagId) {
       lastRead = localStorage.getItem(target.tagId);
     }
-  
+
     if (lastRead && target.latestMsg) {
       return (new Date(lastRead)).getTime() < target.latestMsg.time.getTime();
     } else {
@@ -66,6 +61,7 @@ Template.Places.helpers({
   },
 
   "getRepetition": function(tag) {
+			if (!tag.repeat) return;
        if (tag.repeat == 127) return "All Days";
        if (tag.repeat == 65) return "Weekends";
        if (tag.repeat == 62) return "Weekdays";

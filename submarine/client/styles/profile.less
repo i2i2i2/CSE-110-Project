@@ -343,6 +343,60 @@
   bottom: 0;
 }
 
+.private_concern.inline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  .label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 5vw;
+    line-height: 5vw;
+    border-radius: 5vw;
+    background-color: #333;
+    color: #ddd;
+  }
+
+  .checkboxThree {
+    right: 2vw;
+    width: 12vw;
+    height: 5vw;
+    border-radius: 5vw;
+  }
+
+  .checkboxThree:before {
+      top: 1vw;
+      left: 1vw;
+      line-height: 2vw;
+      color: darkorange;
+      font-size: 10px;
+  }
+
+  .checkboxThree:after {
+      top: 1vw;
+      left: 9vw;
+      line-height: 2vw;
+      font-size: 10px;
+  }
+
+  .checkboxThree label {
+      display: block;
+      width: 5vw;
+      height: 5vw;
+      border-radius: 5vw;
+      top: 1vw;
+      left: 1.5vw;
+  }
+
+  .checkboxThree input[type=checkbox]:checked + label {
+      left: 7.5vw;
+      background-color: darkorange;
+  }
+}
 
 .private_concern {
     position: fixed;
@@ -458,4 +512,13 @@
     left: 50vw;
     background-color: #626262;
   }
+}
+
+textarea.description {
+  border: none;
+  overflow: hidden;
+  padding: 0;
+  outline: none;
+  background-color: transparent
+  resize: none;
 }
