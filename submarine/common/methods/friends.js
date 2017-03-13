@@ -96,11 +96,12 @@ Meteor.methods({
       return;
     }
     var otherRequest = friend.profile.friendRequest;
-    if (otherRequest) {
-      otherRequest.push({userId: this.userId});
-    } else {
+    if (!otherRequest) {
       otherRequest = [{userId: this.userId}];
+    } else if(! otherRequest.find(user => user.userId == this.userId) ){
+      otherRequest.push({userId: this.userId});
     }
+      
     var otherRecommend = friend.profile.recommendedFriends;
     if (otherRecommend)
       otherRecommend =  otherRecommend.filter(user => user.userId != this.userId);

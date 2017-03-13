@@ -1,5 +1,5 @@
 Template.Friends.onRendered(function() {
-  var self = this;
+ var self = this;
   self.displayPopUp = function(message) {
     $("body").append('<p class="popup">' + message + '</p>');
     $(".popup").delay(1000).fadeOut(400);
@@ -39,6 +39,7 @@ Template.Friends.helpers({
   },
 
   profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
+
 
   getName: (friend) => {
     if (friend.nickname) {
@@ -105,7 +106,7 @@ Template.Friends.helpers({
 Template.Friends.events({
   "click .connect_profile": function (e, t) {
     var idNumber =e.currentTarget.dataset.userid;
-    FlowRouter.go('/user/friend_profile/'+idNumber);
+    FlowRouter.go('/user/other_profile/'+idNumber);
   },
 
   "click .add": function (e, t) {

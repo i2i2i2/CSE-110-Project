@@ -63,7 +63,7 @@
         <div class= "recent_tag_name">
           {{#each getIntersection}}
             <div class="tag_circle_wrapper">
-              <div class="tag_circle" data-tagid="{{tagId}}">
+              <div class="tag_circle" data-tagid="{{this}}">
                 {{{avatar this}}}
               </div>
               <a href="#">{{getName this}}</a>
@@ -76,18 +76,18 @@
 
   <div class="buttons">
     {{#if isFriend}}
-      <div class="unFriend button">
+      <div class="unFriend button" data-userid="{{userId}}">
         <i class="fa fa-chain-broken"></i>
         UnFriend
       </div>
     {{else}}
-      <div class="addFriend button">
+      <div class="addFriend button" data-userid="{{userId}}">
         <i class="fa fa-handshake-o"></i>
         Add Friend
       </div>
     {{/if}}
 
-    <div class="chat button">
+    <div class="chat button" data-userid="{{userId}}">
       <i class="fa fa-comment"></i>
       Chat
     </div>

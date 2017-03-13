@@ -40,7 +40,7 @@ userRoutes.route('/profile', {
 });
 
 userRoutes.route('/other_profile/:_id', {
-  name: "friend_profile",
+  name: "other_profile",
   action() {
     BlazeLayout.render('mainLayout', {content: 'FriendProfile'})
   }
