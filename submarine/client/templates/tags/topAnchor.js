@@ -9,6 +9,7 @@ Template.TopAnchor.onCreated(function() {
   self.moved = false;
   self.windowHeight = $(window).height();
   self.isRefreshing = new ReactiveVar(false);
+  self.refreshCount = new ReactiveVar(1);
 
   self.handleTouchDown = function(event) {
 
@@ -192,6 +193,7 @@ Template.TopAnchor.onCreated(function() {
 
       console.log(tagList.length);
       Session.set("nearbyTags", tagList);
+      self.refreshCount.set(self.refreshCount.get() + 1);
     });
   }).bind(self);
 
@@ -424,6 +426,7 @@ Template.TopAnchor.events({
 Template.TopAnchor.helpers({
     //"getTagList": () => this.tagList
      "getTagList": () => {
+       var count = Template.instance().refreshCount.get();
        console.log(JSON.stringify(Session.get("nearbyTags"), undefined, 2));
        return Session.get("nearbyTags");
      },
