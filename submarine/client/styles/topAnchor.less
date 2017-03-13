@@ -244,6 +244,9 @@
     .tagContent {
         transition: opacity 0.5s ease, visibility 0.5s ease;
         overflow: auto;
+        position: relative;
+        top: 3vw;
+        width: 100vw;
         height: ~"calc(100vh - 64vw)";
         padding-bottom: 50vw;
         .tag_wrapper{
@@ -330,6 +333,12 @@
   .top_anchor.bottom {
     .submarine_bg {
       display: none;
+    }
+    .tagContent {
+      padding-bottom: 0;
+    }
+    .tagContent.small {
+      height: ~"calc(100vh - 64vw)";
     }
   }
 

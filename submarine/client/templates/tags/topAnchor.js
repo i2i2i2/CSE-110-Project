@@ -42,12 +42,14 @@ Template.TopAnchor.onCreated(function() {
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
       if ($(".top_anchor").hasClass("top")) {
         $("body > .content").css({"filter": "blur(30px)"});
-        App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
+        if (Meteor.isCordova)
+          App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
       }
       else{
         $("body > .content").removeAttr('style');
       }
       $('.top_anchor').toggleClass('top').toggleClass('bottom');
+
     } else {
       if ($(".top_anchor").hasClass("bottom")) {
         $("body > .content").css({"filter": "blur(30px)"});
@@ -263,20 +265,6 @@ Template.TopAnchor.onDestroyed(function() {
 });
 
 Template.TopAnchor.events({
-
-  "click .submarine_bg": function(e, t) {
-    if (!t.moved) {
-      t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
-      $('.drag').removeClass("drag");
-      if ($(".top_anchor").hasClass("bottom")) {
-        $("body > .content").css({"filter": "blur(30px)",});
-        App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
-      }
-      else {
-        $("body > .content").removeAttr("style");
-      }
-    }
-  },
 
   "click .create.button": function(e, t) {
     if (Template.instance().creating) return;
