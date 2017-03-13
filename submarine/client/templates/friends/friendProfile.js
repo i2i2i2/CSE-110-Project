@@ -137,7 +137,6 @@ Template.FriendProfile.helpers({
     var user = Meteor.users.findOne(Template.instance().userId);
     if (!user) return false;
 
-
     var intersectTag = [];
     var tagList = user.profile.savedTags;
     if (tagList) {
@@ -218,6 +217,12 @@ Template.FriendProfile.events({
     } else {
       window.open(url);
     }
+  },
+
+  "click .tag_circle": function(e, t){
+    var tagNumber = t.$(e.currentTarget).data('tagid');
+    console.log(tagNumber);
+    FlowRouter.go('/chats/tag/'+tagNumber);
   },
     
   "click .unFriend.button": function(e, t){
