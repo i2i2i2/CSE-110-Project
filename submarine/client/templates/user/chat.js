@@ -104,13 +104,13 @@ Template.Chats.onRendered(function() {
   self.mouseDownY = -1;
   self.lastPointY = -1;
   self.threshHold = $(window).width() * 1.5 / 6.67;
-  self.refreshing = false;
+  self.refresh = false;
   self.moved = false;
   self.container = document.getElementsByClassName("messages")[0];
 
   self.handleTouchMove = function(event) {
     $(".floater").addClass("hidden");
-    if (self.refreshing || self.container.scrollTop != 0) return;
+    if (self.refresh || self.container.scrollTop != 0) return;
 
     if (!self.moved) {
       self.lastPointY = self.mouseDownY = event.touches.item(0).pageY;
@@ -124,12 +124,12 @@ Template.Chats.onRendered(function() {
     if (diff < 0) diff = 0;
     if (diff > self.threshHold) {
       diff = self.windowHeight;
-      if (!self.refreshing) {
-        self.refreshing = true;
+      if (!self.refresh) {
+        self.refresh = true;
         $(".loading.hidden").removeClass("hidden");
 
         $(".messages").removeAttr("style");
-        $(".messages").addClass("refreshing");
+        $(".messages").addClass("refresh");
       }
     }
 
@@ -137,14 +137,14 @@ Template.Chats.onRendered(function() {
   };
 
   self.handleTouchDown = function(event) {
-    if (self.historyChange.get() == 0 || self.refreshing) return;;
+    if (self.historyChange.get() == 0 || self.refresh) return;;
 
     self.container.addEventListener('touchmove', self.handleTouchMove);
   };
 
   self.handleTouchUp = function(event) {
     $(".messages").removeAttr("style");
-    if (self.refreshing) {
+    if (self.refresh) {
       // call pastHistory
       if (self.oldestMsg == 0) {
         self.oldestMsg = new Date();
@@ -155,8 +155,8 @@ Template.Chats.onRendered(function() {
         self.addToBottom = false;
         if (err) return;
 
-        $(".messages").removeClass("refreshing");
-        self.refreshing = false;
+        $(".messages").removeClass("refresh");
+        self.refresh = false;
 
         if (res.history.length) {
           var history = self.history.get();
@@ -229,13 +229,13 @@ Template.Chats.events({
     } else {
 
       t.container.scrollTop = 0;
-      $(".messages").addClass("refreshing");
+      $(".messages").addClass("refresh");
 
       Meteor.call("chats/getHistory", t.friendId, t.oldestMsg, t.lastRead, false, false, function(err, res) {
         t.addToBottom  = false;
         if (err) return;
 
-        $(".messages").removeClass("refreshing");
+        $(".messages").removeClass("refresh");
         var history = t.history.get();
         t.historyChange.set(t.historyChange.get() + 1);
         t.history.set(res.history.reverse().concat(history));
