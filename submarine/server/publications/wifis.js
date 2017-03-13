@@ -1,6 +1,4 @@
 Meteor.publish("wifis/nearbyWifis", function(wifiList) {
-  console.log("wifis subbed");
-  console.log(JSON.stringify(wifiList, undefined, 2));
   for (var index = 0; index < 5; index++) {
     if (!wifiList[index]) break;
 

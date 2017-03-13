@@ -27,7 +27,7 @@ Meteor.methods({
 
     var wifiInTag = wifiArray.map((wifi) => {
       return {
-        wifiId: wifi.id,
+        wifiId: wifi.bssid,
         level: wifi.level
       };
     });
