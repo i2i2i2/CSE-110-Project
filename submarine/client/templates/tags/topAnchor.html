@@ -56,13 +56,13 @@
                 <p> No Nearby Chatrooms, Turn on Wifi, Or Change your Location. </p>
               {{else}}
                 {{#each getTagList}}
-                  <div class="tag_wrapper">
+                  <div class="tag_wrapper" data-tag-id="{{this._id}}">
                     <div class="tag_name">
                       <i class="fa fa-anchor" aria-hidden="true"></i>
                       {{trimName this.name}}
                     </div>
                     <div class="tag_content">
-                      <div class="tag_avatar" data-tag-id="{{this._id}}">{{avatar this._id}}</div>
+                      <div class="tag_avatar">{{avatar this._id}}</div>
                       <div class="tag_duration">{{getDuration this}}</div>
                       <div class="tag_repeat">{{getRepetition this}}</div>
                       <div class="tag_description">{{this.description}}</div>

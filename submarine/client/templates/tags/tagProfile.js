@@ -1,5 +1,8 @@
 Template.TagProfile.onCreated(function() {
   var self = this;
+  self.tag = new ReactiveVar(false);
+  self.repeat = new ReactiveVar(0);
+  self.isSubbed = new ReactiveVar(false);
 
   self.autorun(function() {
     FlowRouter.watchPathChange();
@@ -12,41 +15,20 @@ Template.TagProfile.onCreated(function() {
       isSubbed = false;
     }
 
-    if (self.isSubbed) {
-      self.isSubbed.set(isSubbed);
-    } else {
-      self.isSubbed = new ReactiveVar(isSubbed);
-    }
+    self.isSubbed.set(isSubbed)
 
     if (!isSubbed) {
       // user profile picture included
       self.subscribe("users/getSingleTag", self.tagId, function() {
         var tag = App.Collections.Tags.findOne(self.tagId);
-        if (self.tag) {
-          self.tag.set(tag);
-        } else {
-          self.tag = new ReactiveVar(tag);
-        }
-
-        if (self.repeat) {
-          self.repeat.set(tag.repeat);
-        } else {
-          self.repeat = new ReactiveVar(tag.repeat);
-        }
+        self.tag.set(tag);
+        self.repeat.set(tag.repeat);
       });
+
     } else {
       var tag = App.Collections.Tags.findOne(self.tagId);
-      if (self.tag) {
-        self.tag.set(tag);
-      } else {
-        self.tag = new ReactiveVar(tag);
-      }
-
-      if (self.repeat) {
-        self.repeat.set(tag.repeat);
-      } else {
-        self.repeat = new ReactiveVar(tag.repeat);
-      }
+      self.tag.set(tag);
+      self.repeat.set(tag.repeat);
 
       // get user profile_picture
       self.subscribe("users/profilePicUnderTag", self.tagId);
@@ -74,7 +56,7 @@ Template.TagProfile.onCreated(function() {
 });
 
 Template.TagProfile.onDestroyed(function() {
-  $(".bottom.nav").addClass("hidden");
+  $(".bottom.nav").removeClass("hidden");
 });
 
 Template.TagProfile.helpers({
@@ -146,6 +128,8 @@ Template.TagProfile.helpers({
     var mmt = moment();
     var mmtMidnight = mmt.clone().startOf('day');
     var diff = mmt.diff(mmtMidnight, 'minutes');
+    var tag = Template.instance().tag.get();
+    if (!tag) return;
 
     var day = 7 - (new Date()).getDay();
     var repeat = tag.repeat.toString(2);
@@ -154,19 +138,24 @@ Template.TagProfile.helpers({
 
     var start = tag.startTime;
     var end = (tag.startTime + tag.duration) % 1440;
+    var isOnTime;
     if (end <= start) {
-      return diff > start || diff < end;
+      isOnTime = diff > start || diff < end;
     } else {
-      return diff > start && diff < end;
+      isOnTime = diff > start && diff < end;
     }
+    Template.instance().isOnTime = isOnTime;
+    return isOnTime;
   },
   isInRange: function() {
     var tag = Template.instance().tag.get();
     if (!tag) return false;
     var tagList = Session.get("nearbyTags");
-    if ((typeof tagList) != Array) return false;
-    var found = tagList.find(tagtag => tagtag.tagId == tag._id);
-    return found? true: false;
+    if ((typeof tagList) != (typeof [])) return false;
+    console.log("List:  " + JSON.stringify(tagList, undefined, 2))
+    var found = tagList.find(tagtag => tagtag._id == tag._id);
+    Template.instance().isInRange = found? true: false;
+    return Template.instance().isInRange;
   },
   exist: function() {
     var tag = Template.instance().tag.get();
@@ -175,7 +164,8 @@ Template.TagProfile.helpers({
   isCheck: function(day) {
     var repeat = Template.instance().repeat.get();
     repeat = repeat.toString(2);
-    if (repeat.length < 7 - day || repeat.charAt(day) == '0') {
+    console.log(repeat);
+    if (repeat.length < 7 - day || repeat.charAt(repeat.length - 7 + day) == '0') {
       return "";
     } else {
       return "select";

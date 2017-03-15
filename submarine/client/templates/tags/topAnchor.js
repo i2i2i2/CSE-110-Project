@@ -10,7 +10,6 @@ Template.TopAnchor.onCreated(function() {
   self.windowHeight = $(window).height();
   self.isRefreshing = new ReactiveVar(false);
   self.noNearbyTag = new ReactiveVar(false);
-  self.refreshCount = new ReactiveVar(1);
   self.forceRefresh = new Tracker.Dependency;
 
 
@@ -198,16 +197,14 @@ Template.TopAnchor.onCreated(function() {
       // record length for checkRenderDone
       self.tagCount = tagList.length;
 
-      console.log(tagList.length);
+      console.log("TagList Length: " + tagList.length);
 
-
-      if (!tagList || !tagList.length) {
+      if (!tagList || tagList.length == 0) {
         self.noNearbyTag.set(true);
         self.isRefreshing.set(false);
       }
 
       Session.set("nearbyTags", tagList);
-      self.refreshCount.set(self.refreshCount.get() + 1);
       self.forceRefresh.changed();
     });
   }).bind(self);
@@ -306,8 +303,8 @@ Template.TopAnchor.events({
     }, 100);
   },
 
-  "click .tag_avatar, click .tag_duration, click .tag_repeat, click .tag_description": function (e, t) {
-    var idNumber = t.$(e.currentTarget).data('tagId');
+  "click .tag_wrapper": function (e, t) {
+    var idNumber = e.currentTarget.dataset.tagId;
 
     $('.top_anchor').addClass('top').removeClass('bottom');
     $('.drag').removeClass("drag");
@@ -440,7 +437,6 @@ Template.TopAnchor.helpers({
   "getTagList": () => {
     var self = Template.instance();
     self.forceRefresh.depend();
-    var count = Template.instance().refreshCount.get();
     var tagList = Session.get("nearbyTags");
     console.log(JSON.stringify(tagList, undefined, 2));
 

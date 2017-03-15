@@ -69,10 +69,11 @@ Meteor.publish("users/getStrangerProfile", function(strangerId) {
 });
 
 Meteor.publish("users/getSingleTag", function(tagId) {
+  console.log("Sub " + tagId);
   var tag = App.Collections.Tags.findOne(tagId);
   if (tag) {
     var users = tag.users;
-    return [App.Collections.find(tagId),
+    return [App.Collections.Tags.find(tagId),
             Meteor.users.find({
               "_id": { "$in": users }
             }, {

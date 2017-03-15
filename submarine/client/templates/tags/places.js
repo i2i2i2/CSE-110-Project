@@ -95,9 +95,8 @@ Template.Places.helpers({
 
 })
   Template.Places.events({
-   "click .tag_avatar": function (e, t) {
-    var idNumber = t.$(e.currentTarget).data('tagId');
-
-    FlowRouter.go('/chats/tag/'+idNumber);
+   "click .tag_wrapper": function (e, t) {
+	    var idNumber = e.currentTarget.dataset.tagId;
+	    FlowRouter.go('/user/tag_profile/'+idNumber);
     },
   });

@@ -6,7 +6,7 @@
       	{{else}}
 
          	{{#each recentTags}}
-            <div class="tag_wrapper">
+            <div class="tag_wrapper" data-tag-id="{{this._id}}">
                 <div class="tag_name">
                     <i class="fa fa-anchor" aria-hidden="true"></i>
                     {{this.name}}
@@ -23,4 +23,3 @@
     </div>
 
 </template>
-
