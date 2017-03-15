@@ -132,8 +132,8 @@ App.Schemas.UserProfile = new SimpleSchema({
     optional: true
   },
 
-  "savedTags.$.joinSince": {
-    type: Date,
+  "savedTags.$.calendar": {
+    type: Boolean,
     optional: true
   },
 

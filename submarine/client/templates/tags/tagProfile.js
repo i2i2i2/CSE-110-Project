@@ -152,7 +152,6 @@ Template.TagProfile.helpers({
     if (!tag) return false;
     var tagList = Session.get("nearbyTags");
     if ((typeof tagList) != (typeof [])) return false;
-    console.log("List:  " + JSON.stringify(tagList, undefined, 2))
     var found = tagList.find(tagtag => tagtag._id == tag._id);
     Template.instance().isInRange = found? true: false;
     return Template.instance().isInRange;
@@ -164,11 +163,56 @@ Template.TagProfile.helpers({
   isCheck: function(day) {
     var repeat = Template.instance().repeat.get();
     repeat = repeat.toString(2);
-    console.log(repeat);
     if (repeat.length < 7 - day || repeat.charAt(repeat.length - 7 + day) == '0') {
       return "";
     } else {
       return "select";
+    }
+  }
+})
+
+Template.TagProfile.events({
+  "click .addFriend.button": function(e, t) {
+    console.log(t.tagId);
+    console.log(t.isSubbed.get());
+    console.log(t.isOnTime && t.isInRange);
+    if (!t.isSubbed.get() && !(t.isOnTime && t.isInRange))
+      return;
+
+    if ($(e.currentTarget).hasClass("green")) {
+      clearTimeout(t.dblclickTimeout);
+      Meteor.call("tags/subscribe", t.tagId, (err, res) => {
+        $(e.currentTarget).removeClass("green");
+        t.isSubbed.set(true);
+      });
+      $(e.currentTarget).html('<i class="fa fa-refresh fa-spin"></i>Subbing...');
+
+    } else if ($(e.currentTarget).hasClass("red")) {
+      clearTimeout(t.dblclickTimeout);
+      Meteor.call("tags/unsubscribe", t.tagId, (err, res) => {
+        $(e.currentTarget).removeClass("red");
+        t.isSubbed.set(false);
+      });
+      $(e.currentTarget).html('<i class="fa fa-refresh fa-spin"></i>UnSubbing...');
+
+    } else {
+      if (t.isSubbed.get()) {
+        $(e.currentTarget).addClass("red");
+        $(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
+
+        t.dblclickTimeout = setTimeout(function() {
+          $(e.currentTarget).removeClass("red");
+          $(e.currentTarget).html('<i class="fa fa-chain-broken"></i>unsubscribe');
+        }, 2000);
+      } else {
+        $(e.currentTarget).addClass("green");
+        $(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
+
+        t.dblclickTimeout = setTimeout(function() {
+          $(e.currentTarget).removeClass("red");
+          $(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Sure?');
+        }, 2000);
+      }
     }
   }
 })
