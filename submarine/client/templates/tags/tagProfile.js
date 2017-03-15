@@ -19,19 +19,37 @@ Template.TagProfile.onCreated(function() {
     }
 
     if (!isSubbed) {
+      // user profile picture included
       self.subscribe("users/getSingleTag", self.tagId, function() {
+        var tag = App.Collections.Tags.findOne(self.tagId);
         if (self.tag) {
-          self.tag.set(App.Collections.Tags.findOne(self.tagId));
+          self.tag.set(tag);
         } else {
-          self.tag = new ReactiveVar(App.Collections.Tags.findOne(self.tagId));
+          self.tag = new ReactiveVar(tag);
+        }
+
+        if (self.repeat) {
+          self.repeat.set(tag.repeat);
+        } else {
+          self.repeat = new ReactiveVar(tag.repeat);
         }
       });
     } else {
+      var tag = App.Collections.Tags.findOne(self.tagId);
       if (self.tag) {
-        self.tag.set(App.Collections.Tags.findOne(self.tagId));
+        self.tag.set(tag);
       } else {
-        self.tag = new ReactiveVar(App.Collections.Tags.findOne(self.tagId));
+        self.tag = new ReactiveVar(tag);
       }
+
+      if (self.repeat) {
+        self.repeat.set(tag.repeat);
+      } else {
+        self.repeat = new ReactiveVar(tag.repeat);
+      }
+
+      // get user profile_picture
+      self.subscribe("users/profilePicUnderTag", self.tagId);
     }
   });
 
@@ -155,6 +173,12 @@ Template.TagProfile.helpers({
     return tag? true: false;
   },
   isCheck: function(day) {
-    return "";
+    var repeat = Template.instance().repeat.get();
+    repeat = repeat.toString(2);
+    if (repeat.length < 7 - day || repeat.charAt(day) == '0') {
+      return "";
+    } else {
+      return "select";
+    }
   }
 })

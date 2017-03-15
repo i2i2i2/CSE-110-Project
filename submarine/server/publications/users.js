@@ -69,5 +69,30 @@ Meteor.publish("users/getStrangerProfile", function(strangerId) {
 });
 
 Meteor.publish("users/getSingleTag", function(tagId) {
-  return App.Collections.find(tagId);
+  var tag = App.Collections.Tags.findOne(tagId);
+  if (tag) {
+    var users = tag.users;
+    return [App.Collections.find(tagId),
+            Meteor.users.find({
+              "_id": { "$in": users }
+            }, {
+              "fields": {
+                "profile.profileSeed": 1
+              }
+            })];
+  }
+});
+
+Meteor.publish("users/profilePicUnderTag", function(tagId) {
+  var tag = App.Collections.Tags.findOne(tagId);
+  if (tag) {
+    var users = tag.users;
+    return Meteor.users.find({
+              "_id": { "$in": users }
+            }, {
+              "fields": {
+                "profile.profileSeed": 1
+              }
+            });
+  }
 })

@@ -11,6 +11,7 @@ Template.TopAnchor.onCreated(function() {
   self.isRefreshing = new ReactiveVar(false);
   self.noNearbyTag = new ReactiveVar(false);
   self.refreshCount = new ReactiveVar(1);
+  self.forceRefresh = new Tracker.Dependency;
 
 
   self.handleTouchDown = function(event) {
@@ -198,8 +199,16 @@ Template.TopAnchor.onCreated(function() {
       self.tagCount = tagList.length;
 
       console.log(tagList.length);
+
+
+      if (!tagList || !tagList.length) {
+        self.noNearbyTag.set(true);
+        self.isRefreshing.set(false);
+      }
+
       Session.set("nearbyTags", tagList);
       self.refreshCount.set(self.refreshCount.get() + 1);
+      self.forceRefresh.changed();
     });
   }).bind(self);
 
@@ -297,20 +306,14 @@ Template.TopAnchor.events({
     }, 100);
   },
 
-  // TODO:
   "click .tag_avatar, click .tag_duration, click .tag_repeat, click .tag_description": function (e, t) {
-     var idNumber = t.$(e.currentTarget).data('tagId');
-      if (!t.moved) {
-          t.$('.top_anchor').toggleClass('top').toggleClass('bottom');
-          $('.drag').removeClass("drag");
-          if ($(".top_anchor").hasClass("bottom")) {
-              $("body > .content").css({"filter": "blur(30px)",});
-          }
-          else {
-              $("body > .content").removeAttr("style");
-          }
-      }
-     FlowRouter.go('/chats/tag/'+idNumber);
+    var idNumber = t.$(e.currentTarget).data('tagId');
+
+    $('.top_anchor').addClass('top').removeClass('bottom');
+    $('.drag').removeClass("drag");
+    $("body > .content").removeAttr("style");
+
+    FlowRouter.go('/user/tag_profile/' + idNumber);
   },
 
   "click .check": function(e, t) {
@@ -436,6 +439,7 @@ Template.TopAnchor.helpers({
   //"getTagList": () => this.tagList
   "getTagList": () => {
     var self = Template.instance();
+    self.forceRefresh.depend();
     var count = Template.instance().refreshCount.get();
     var tagList = Session.get("nearbyTags");
     console.log(JSON.stringify(tagList, undefined, 2));
