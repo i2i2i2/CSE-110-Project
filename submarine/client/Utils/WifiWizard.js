@@ -4,38 +4,31 @@
  * Wrap wifi wifizard functions to App.Utils.WifiWizard
  * Get user's current wifi ssid and bssid
  */
-App.Utils.WifiWizard.getWifiConfigSession = function() {
-  WifiWizard.getCurrentSSID(onSuccess, onErr);
+App.Utils.WifiWizard.startScan = function() {
+  WifiWizard.startScan(function() {
+    console.log("Scan Started");
+  }, function() {
+    console.log("Scan Failed");
+  })
 };
 
 /**
  * watch wifi change, update session only if wifi config change
  * @param watch time interval in milliseconds.
  */
-App.Utils.WifiWizard.updateWifiConfigOnChange = function(interval) {
+App.Utils.WifiWizard.scanWifiOnInterval = function(interval) {
   if ('WatchId' in App.Utils.WifiWizard) {
     clearInterval(App.Utils.WifiWizard.watchId);
   }
 
-  WifiWizard.getCurrentSSID(function (wifiConfig) {
-    var pastConfig = Session.get('wifiConfig');
-
-    if (!pastConfig || pastConfig.bssid != wifiConfig.bssid) {
-      Session.set('wifiConfig', wifiConfig);
-    }
-  }, function (err) {
-    var error = {err: true, msg: err};
-    Session.set('wifiConfig', error);
-  });
-
   App.Utils.WifiWizard.watchId =
-      setInterval(App.Utils.WifiWizard.getWifiConfigSession, interval);
+      setInterval(App.Utils.WifiWizard.startScan, interval);
 };
 
 /**
  * stop watch wifi change
  */
-App.Utils.WifiWizard.stopWatchWifiChange = function() {
+App.Utils.WifiWizard.stopScanWifi = function() {
   if ('WatchId' in App.Utils.WifiWizard) {
     clearInterval(App.Utils.WifiWizard.watchId);
     delete App.Utils.WifiWizard.WatchId;
@@ -50,12 +43,14 @@ App.Utils.WifiWizard.stopWatchWifiChange = function() {
 App.Utils.WifiWizard.getNearbyWifi = function(callback) {
   if (callback) {
     WifiWizard.getScanResults(function (res) {
-      var network = res;
-      var repeatIndex = 0;
-      var networkList = network.sort(function(wifi1, wifi2) {
-        return wifi1.bssid > wifi2.bssid? 1 : -1;
+      console.log(JSON.stringify(res[0], undefined, 2));
 
-      }).filter(function(wifi, index, wifiList){
+      var repeatIndex = 0;
+      var networkList = res.sort(function(wifi1, wifi2) {
+        return wifi1.bssid > wifi2.bssid? 1 : -1;
+      }).slice(0, res.length);
+
+      networkList = networkList.filter(function(wifi, index, wifiList) {
         var repeat = false;
         if (index > repeatIndex) {
           if (wifi.BSSID.substr(0, 14) == wifiList[repeatIndex].BSSID.substr(0, 14)) {
@@ -66,17 +61,22 @@ App.Utils.WifiWizard.getNearbyWifi = function(callback) {
 
         return !repeat && (wifi.level > -85);
 
-      }).map(function(wifi){
+      })
+
+      networkList = networkList.map(function(wifi){
         return{
           bssid: wifi.BSSID,
           ssid: wifi.SSID,
           level: wifi.level
         };
-      }).sort(function(wifi1, wifi2) {
+      })
+
+      networkList = networkList.sort(function(wifi1, wifi2) {
         return wifi2.level - wifi2.level;
       });
 
-      console.log(JSON.stringify(networkList.slice(0, 4), undefined, 2));
+      console.log("wifiList get  " + Date.now());
+      console.log(JSON.stringify(networkList[0], undefined, 2));
       Session.set('wifiList', networkList);
       callback(networkList);
 
@@ -87,6 +87,7 @@ App.Utils.WifiWizard.getNearbyWifi = function(callback) {
     });
   } else {
     WifiWizard.getScanResults(function (network) {
+      console.log(JSON.stringify(network[0], undefined, 2));
 
       var repeatIndex = 0;
       var networkList = network.sort(function(wifi1, wifi2) {
@@ -114,7 +115,7 @@ App.Utils.WifiWizard.getNearbyWifi = function(callback) {
       });
 
 
-      console.log(JSON.stringify(networkList.slice(0, 4), undefined, 2));
+      console.log("wifiList get  " + Date.now());
       Session.set('wifiList', networkList);
       return networkList;
     }, function (err){

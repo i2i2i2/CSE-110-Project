@@ -206,7 +206,7 @@ var WifiWizard = {
             console.log("getScanResults first parameter must be a function to handle list.");
             return;
         }
-
+        console.log("getScanResults  " + Date.now());
         cordova.exec(win, fail, 'WifiWizard', 'getScanResults', [options]);
     },
 

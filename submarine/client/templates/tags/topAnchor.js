@@ -9,7 +9,9 @@ Template.TopAnchor.onCreated(function() {
   self.moved = false;
   self.windowHeight = $(window).height();
   self.isRefreshing = new ReactiveVar(false);
+  self.noNearbyTag = new ReactiveVar(false);
   self.refreshCount = new ReactiveVar(1);
+
 
   self.handleTouchDown = function(event) {
 
@@ -43,8 +45,10 @@ Template.TopAnchor.onCreated(function() {
     if (Math.abs(self.mouseDownY - self.lastPointY) > 200 || self.velocity > 1) {
       if ($(".top_anchor").hasClass("top")) {
         $("body > .content").css({"filter": "blur(30px)"});
-        if (Meteor.isCordova)
+        if (Meteor.isCordova) {
           App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
+          self.isRefreshing.set(true);
+        }
       }
       else{
         $("body > .content").removeAttr('style');
@@ -118,7 +122,9 @@ Template.TopAnchor.onCreated(function() {
 
   if (Meteor.isCordova)
     App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
-
+  else {
+    self.isRefreshing.set(false);
+  }
   self.refreshNearbyTags = (function() {
     var self = this;
     var wifis = App.Collections.Wifis.find().fetch();
@@ -132,7 +138,7 @@ Template.TopAnchor.onCreated(function() {
     self.isRefreshing.set(true);
 
     Meteor.call("tags/getTagsById", tagIds, function(err, res) {
-      console.log("refresh tags");
+      console.log("refresh tags  " + Date.now());
       if (err) return;
       var tagList = res;
 
@@ -199,7 +205,7 @@ Template.TopAnchor.onCreated(function() {
 
   self.resubscribe = (function(wifiList) {
     var self = this;
-    console.log("refresh wifiList");
+    console.log("refresh wifiList  " + Date.now());
 
     if (wifiList && wifiList.length) {
       if (self.subHandle) self.subHandle.stop();
@@ -274,6 +280,8 @@ Template.TopAnchor.onRendered(function() {
 Template.TopAnchor.onDestroyed(function() {
   document.removeEventListener('touchstart', this.handleTouchDown);
   document.removeEventListener('touchend', this.handleTouchUp);
+  if (self.observeWifiChange)
+    self.observeWifiChange.stop();
 });
 
 Template.TopAnchor.events({
@@ -289,6 +297,7 @@ Template.TopAnchor.events({
     }, 100);
   },
 
+  // TODO:
   "click .tag_avatar, click .tag_duration, click .tag_repeat, click .tag_description": function (e, t) {
      var idNumber = t.$(e.currentTarget).data('tagId');
       if (!t.moved) {
@@ -424,67 +433,79 @@ Template.TopAnchor.events({
 });
 
 Template.TopAnchor.helpers({
-    //"getTagList": () => this.tagList
-     "getTagList": () => {
-       var count = Template.instance().refreshCount.get();
-       console.log(JSON.stringify(Session.get("nearbyTags"), undefined, 2));
-       return Session.get("nearbyTags");
-     },
+  //"getTagList": () => this.tagList
+  "getTagList": () => {
+    var self = Template.instance();
+    var count = Template.instance().refreshCount.get();
+    var tagList = Session.get("nearbyTags");
+    console.log(JSON.stringify(tagList, undefined, 2));
 
-     "getDuration": function(tag) {
-       var start, end;
-       if (tag.duration == 1440) {
-         var start = "00:00";
-         var end = "24:00";
-       } else {
-         var start = moment("1970-01-01").add(tag.startTime, "minutes").format("HH:mm");
-         var end = moment("1970-01-01").add(tag.startTime + tag.duration, "minutes").format("HH:mm");
-       }
-       return start + " - " + end;
-     },
+    if (!tagList || !tagList.length) {
+      self.noNearbyTag.set(true);
+      self.isRefreshing.set(false);
+      return;
+    }
 
-     "getRepetition": function(tag) {
-       if (tag.repeat == 127) return "All Days";
-       if (tag.repeat == 65) return "Weekends";
-       if (tag.repeat == 62) return "Weekdays";
+    self.noNearbyTag.set(false);
+    return tagList;
+  },
 
-       var weekday = ["S ", "M ", "T ", "W ", "Th ", "F ", "S"];
-       var repeat = tag.repeat.toString(2);
-       var paddingL = 7 - repeat.length;
-       for (var index = 0; index < paddingL; index++) {
-         repeat = "0" + repeat;
-       }
+  "noNearbyTag": () => Template.instance().noNearbyTag.get(),
 
-       var repeatStr = "";
-       for (var index = 0; index < 7; index++) {
-         if (repeat.charAt(index) == "1") {
-           repeatStr += weekday[index];
-         }
-       }
-       return repeatStr;
-     },
+  "getDuration": function(tag) {
+    var start, end;
+   if (tag.duration == 1440) {
+     var start = "00:00";
+     var end = "24:00";
+   } else {
+     var start = moment("1970-01-01").add(tag.startTime, "minutes").format("HH:mm");
+     var end = moment("1970-01-01").add(tag.startTime + tag.duration, "minutes").format("HH:mm");
+   }
+   return start + " - " + end;
+  },
 
-     "checkRefreshDone": function(index) {
-       var self = Template.instance();
-       if (index == self.tagCount - 1) {
-         console.log("done");
-         self.isRefreshing.set(false);
-       }
-     },
+  "getRepetition": function(tag) {
+   if (tag.repeat == 127) return "All Days";
+   if (tag.repeat == 65) return "Weekends";
+   if (tag.repeat == 62) return "Weekdays";
 
-     "isRefreshing": function() {
-       return Template.instance().isRefreshing.get()? "": "hidden";
-     },
+   var weekday = ["S ", "M ", "T ", "W ", "Th ", "F ", "S"];
+   var repeat = tag.repeat.toString(2);
+   var paddingL = 7 - repeat.length;
+   for (var index = 0; index < paddingL; index++) {
+     repeat = "0" + repeat;
+   }
 
-     "isNotRefreshing": function() {
-       return Template.instance().isRefreshing.get()? "hidden": "";
-     },
-
-     "trimName": function(str) {
-       if (str.length > 10) {
-         return str.substr(0, 10) + "...";
-       } else {
-         return str;
-       }
+   var repeatStr = "";
+   for (var index = 0; index < 7; index++) {
+     if (repeat.charAt(index) == "1") {
+       repeatStr += weekday[index];
      }
+   }
+   return repeatStr;
+  },
+
+  "checkRefreshDone": function(index) {
+   var self = Template.instance();
+   if (index == self.tagCount - 1) {
+     console.log("done");
+     self.isRefreshing.set(false);
+   }
+  },
+
+  "isRefreshing": function() {
+   return Template.instance().isRefreshing.get()? "": "hidden";
+  },
+
+  "isNotRefreshing": function() {
+   return Template.instance().isRefreshing.get()? "hidden": "";
+  },
+
+  "trimName": function(str) {
+   if (str.length > 10) {
+     return str.substr(0, 10) + "...";
+   } else {
+     return str;
+   }
+  }
 });

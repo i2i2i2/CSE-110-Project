@@ -36,6 +36,9 @@ Meteor.startup(function() {
       }, function(error) {
         console.error(error);
       });
+
+      App.Utils.WifiWizard.scanWifiOnInterval(10000);
+      
     }, false);
   }
 });
