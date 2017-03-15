@@ -153,5 +153,8 @@ Template.TagProfile.helpers({
   exist: function() {
     var tag = Template.instance().tag.get();
     return tag? true: false;
+  },
+  isCheck: function(day) {
+    return "";
   }
 })
