@@ -1,7 +1,10 @@
 .friend_content {
   padding-top: 15vw;
-  overflow-y: auto;
-  height: 86vh;
+  height: 82vh;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 
 .bar {
@@ -37,14 +40,18 @@
 
   position: relative;
   margin-top: 3vw;
+  max-height: 45vw;
 
   .recommend_content {
+    max-height: 35vw;
     background-color: #444;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     margin-left: 2vw;
     margin-bottom: 4vw;
     width: 96vw;
+    overflow-y: scroll;
+    overflow-scrolling: touch;
   }
 
   .recommend_wrap:last-child {
@@ -52,7 +59,7 @@
   }
 
   .recommend_wrap {
-    border-bottom: 1.5px solid #383838;
+    border-bottom: 3px solid #383838;
     margin-left: 2vw;
     width: 94vw;
     height: 19vw;
@@ -131,6 +138,8 @@
 .friendsRequests {
 
   position: relative;
+  max-height: 45vw;
+
   .requests_content {
     margin-left: 2vw;
     margin-bottom: 4vw;
@@ -138,8 +147,12 @@
     background-color: #444;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    overflow-y: scroll;
+    overflow-scrolling: touch;
+    max-height: 35vw;
   }
   .request_wrap {
+    border-bottom: 3px solid #383838;
     margin-left: 2vw;
     width: 94vw;
     height: 19vw;
@@ -239,6 +252,7 @@
 
 .friendList {
   position: relative;
+  flex: auto;
 
   .bar {
     .fa-user {
@@ -264,14 +278,14 @@
 
   .friendList_content, .friendChatList_content {
     position: absolute;
-    top: 6vw;
+    top: 7vw;
     left: 0;
     margin-left: 2vw;
     background-color: #444;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 96vw;
-    height: 78vh;
+    height: ~"calc(100% - 5vw)";
     overflow: scroll;
     transition: opacity 0.5s ease, visibility 0.5s ease;
 
