@@ -1,7 +1,10 @@
 .friend_content {
-  padding-top: 15vw;
-  overflow-y: auto;
-  height: 86vh;
+  padding: 15vw 0;
+  height: ~"calc(86vh - 15vw)";
+  display: flex;
+  flex-flow: column;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 
 .bar {
@@ -37,6 +40,9 @@
 
   position: relative;
   margin-top: 3vw;
+  max-height: 45vw;
+  overflow-y: scroll;
+  overflow-scrolling: touch;
 
   .recommend_content {
     background-color: #444;

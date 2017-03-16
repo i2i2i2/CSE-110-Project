@@ -72,6 +72,7 @@
       <i class="fa fa-comment switch"></i>
       <i class="fa fa-user switch"></i>
     </div>
+    
     <div class="friendChatList_content">
       {{#if emptyChat}}
         <p>Go Chat with some friends!</p>
@@ -97,12 +98,12 @@
         {{#each friendAlphaList}}
           <div class="friend_wrap">
             <div class="avatar connect_profile" data-userid="{{userId}}">
-                {{{avatar (profileSeed userId)}}}
-              </div>
+              {{{avatar (profileSeed userId)}}}
+            </div>
 
-              <div class="name">
-                {{getName this}}
-              </div>
+            <div class="name">
+              {{getName this}}
+            </div>
           </div>
         {{/each}}
       {{/if}}
