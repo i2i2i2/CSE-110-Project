@@ -10,4 +10,4 @@ FlowRouter.route('/chats/tag/:tagId', {
   action: () => {
     BlazeLayout.render('mainLayout', {content: 'tagChats'});
   }
-})
+});

@@ -214,5 +214,21 @@ Template.TagProfile.events({
         }, 2000);
       }
     }
+  },
+
+  "click .chat.button": function(e, t) {
+    if (!t.isSubbed.get()) {
+      Meteor.call("tags/addActiveUser", self.tagId, function(err, res) {
+        $("body > .content").fadeOut(100).fadeIn(100);
+        setTimeout(function() {
+          FlowRouter.go("/chats/tag/" + self.tagId);
+        }, 100);
+      });
+    } else {
+      $("body > .content").fadeOut(100).fadeIn(100);
+      setTimeout(function() {
+        FlowRouter.go("/chats/tag/" + self.tagId);
+      }, 100);
+    }
   }
 })

@@ -32,7 +32,6 @@ Meteor.methods({
       };
     });
     App.Collections.Tags.update(tagId, {$set: {wifis: wifiInTag}});
-
     return tagId;
   },
 
