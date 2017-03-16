@@ -175,12 +175,21 @@ Template.Chats.onRendered(function() {
   // add touch move event listeners here
   self.container.addEventListener("touchstart", self.handleTouchDown);
   self.container.addEventListener("touchend", self.handleTouchUp);
+
+  self.handleAnchor = function(event) {
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go("/user/other_profile/" + self.friendId);
+    }, 100);
+  }
+  $(".click_anchor").on("click", self.handleAnchor);
 });
 
 Template.Chats.onDestroyed(function() {
   if (self.watchCursor)
     self.watchCursor.stop();
 
+  $(".click_anchor").off("click", self.handleAnchor);
   $(".bottom.nav").removeClass("hidden");
 });
 
@@ -218,7 +227,7 @@ Template.Chats.events({
     $("floater[data-action=\"down\"]").addClass("hidden");
     setTimeout(function() { t.newMsg.set(0); }, 500);
   },
-  
+
   "click .floater[data-action=\"up\"]": function(e, t) {
     if ($(".new_msg").length) {
       t.container.scrollTop = $(".new_msg")[0].offsetTop - 0.4 * t.container.clientHeight;
