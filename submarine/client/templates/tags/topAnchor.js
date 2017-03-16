@@ -308,9 +308,10 @@ Template.TopAnchor.events({
 
     $('.top_anchor').addClass('top').removeClass('bottom');
     $('.drag').removeClass("drag");
-    $("body > .content").removeAttr("style");
-
-    FlowRouter.go('/user/tag_profile/' + idNumber);
+    $("body > .content").removeAttr("style").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/tag_profile/' + idNumber);
+    }, 100);
   },
 
   "click .check": function(e, t) {

@@ -39,8 +39,10 @@ Template.mainLayout.events({
     var link = t.$(e.currentTarget).data('link');
 
     if (!link) return;
-
-    FlowRouter.go('/user/' + link);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/' + link);
+    }, 100);
   }
 });
 

@@ -23,8 +23,6 @@ Template.TagProfile.onCreated(function() {
         var tag = App.Collections.Tags.findOne(self.tagId);
         self.tag.set(tag);
         self.repeat.set(tag.repeat);
-
-        
       });
 
     } else {

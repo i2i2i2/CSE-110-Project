@@ -106,10 +106,15 @@ Template.Friends.helpers({
 Template.Friends.events({
   "click .connect_profile": function (e, t) {
     var idNumber =e.currentTarget.dataset.userid;
-    FlowRouter.go('/user/other_profile/'+idNumber);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/other_profile/'+idNumber);
+    }, 100);
   },
 
   "click .add": function (e, t) {
+    e.preventDefault();
+    e.stopPropagation();
     var self = Template.instance();
     var friendId = e.currentTarget.dataset.userid;
     console.log(friendId);
@@ -122,6 +127,8 @@ Template.Friends.events({
   },
 
   "click .ignore": function (e, t) {
+    e.preventDefault();
+    e.stopPropagation();
     var self = Template.instance();
     var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-close").removeClass("fa-close").addClass("fa-spin").addClass("fa-circle-o-notch");
@@ -133,6 +140,8 @@ Template.Friends.events({
   },
 
   "click .dismiss": function (e, t) {
+    e.preventDefault();
+    e.stopPropagation();
     var self = Template.instance();
     var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-times").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
@@ -144,6 +153,8 @@ Template.Friends.events({
   },
 
   "click .accept": function (e, t) {
+    e.preventDefault();
+    e.stopPropagation();
     var self = Template.instance();
     var friendId = e.currentTarget.dataset.userid;
     $(e.currentTarget).find(".fa-check").removeClass("fa-plus").addClass("fa-spin").addClass("fa-circle-o-notch");
@@ -156,5 +167,25 @@ Template.Friends.events({
 
   "click .switch": function(e, t) {
     $(".friendList").toggleClass("alpha");
+  },
+
+  "click .recommend_wrap": function(e, t) {
+    if ($(e.target).hasClass("button")) return;
+
+    var userId = e.currentTarget.dataset.userid;
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go("/user/other_profile/" + userId);
+    }, 100);
+  },
+
+  "click .request_wrap": function(e, t) {
+    if ($(e.target).hasClass("button")) return;
+
+    var userId = e.currentTarget.dataset.userid;
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go("/user/other_profile/" + userId);
+    }, 100);
   }
 });

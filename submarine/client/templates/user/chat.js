@@ -211,15 +211,14 @@ Template.Chats.events({
       Meteor.call("chats/sendMsg", msg);
    }
   },
-  "click .button[data-action=\"back\"]": function(e, t) {
-    FlowRouter.go("/user/home");
-  },
+
   "click .floater[data-action=\"down\"]":function(e, t) {
     var container = document.getElementsByClassName("messages")[0];
     container.scrollTop = container.scrollHeight - container.clientHeight;
     $("floater[data-action=\"down\"]").addClass("hidden");
     setTimeout(function() { t.newMsg.set(0); }, 500);
   },
+  
   "click .floater[data-action=\"up\"]": function(e, t) {
     if ($(".new_msg").length) {
       t.container.scrollTop = $(".new_msg")[0].offsetTop - 0.4 * t.container.clientHeight;

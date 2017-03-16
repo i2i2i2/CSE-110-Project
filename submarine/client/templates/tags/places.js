@@ -97,6 +97,9 @@ Template.Places.helpers({
   Template.Places.events({
    "click .tag_wrapper": function (e, t) {
 	    var idNumber = e.currentTarget.dataset.tagId;
-	    FlowRouter.go('/user/tag_profile/'+idNumber);
+			$("body > .content").fadeOut(100).fadeIn(100);
+			setTimeout(function() {
+				FlowRouter.go('/user/tag_profile/'+idNumber);
+			}, 100);
     },
   });

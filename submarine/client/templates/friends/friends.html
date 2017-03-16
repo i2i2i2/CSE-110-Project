@@ -7,7 +7,7 @@
       </div>
       <div class="recommend_content">
         {{#each recommendations}}
-          <div class="recommend_wrap">
+          <div class="recommend_wrap" data-userid="{{this.userId}}">
             <div class="avatar">
               {{{avatar (profileSeed userId)}}}
             </div>
@@ -20,10 +20,10 @@
               </div>
             </div>
             <div class="buttons">
-              <div class="button add" data-userid="{{userId}}">
+              <div class="button add" data-userid="{{this.userId}}">
                 <i class="fa fa-plus"></i>
               </div>
-              <div class="button ignore" data-userid="{{userId}}">
+              <div class="button ignore" data-userid="{{this.userId}}">
                 <i class="fa fa-close"></i>
               </div>
             </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="requests_content">
         {{#each requests}}
-          <div class="request_wrap">
+          <div class="request_wrap" data-userid="{{this.userId}}">
             <div class="avatar">
               {{{avatar (profileSeed userId)}}}
             </div>
@@ -53,10 +53,10 @@
               </div>
             </div>
             <div class="buttons">
-              <div class="button accept" data-userid="{{userId}}">
+              <div class="button accept" data-userid="{{this.userId}}">
                 <i class="fa fa-check" aria-hidden="true"></i>
               </div>
-              <div class="button dismiss" data-userid="{{userId}}">
+              <div class="button dismiss" data-userid="{{this.userId}}">
                 <i class="fa fa-times" aria-hidden="true"></i>
               </div>
             </div>

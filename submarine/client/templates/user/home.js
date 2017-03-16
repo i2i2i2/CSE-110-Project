@@ -110,19 +110,25 @@ Template.Home.helpers({
 
 Template.Home.events({
   "click .avatar_circle": function () {
-    FlowRouter.go('/user/profile');
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/profile');
+    }, 100);
   },
 
   "click .tag_circle": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('tagid');
-
-    FlowRouter.go('/chats/tag/'+idNumber);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/chats/tag/'+idNumber);
+    }, 100)
   },
 
   "click .name_circle": function (e, t) {
     var idNumber = t.$(e.currentTarget).data('userid');
-
-    FlowRouter.go('/chats/friend/'+idNumber);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/chats/friend/'+idNumber);
+    }, 100);
   }
-
 });

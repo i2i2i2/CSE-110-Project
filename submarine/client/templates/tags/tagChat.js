@@ -217,9 +217,6 @@ Template.tagChats.events({
     }
   },
 
-  "click .button[data-action=\"back\"]": function(e, t) {
-    FlowRouter.go("/user/home");
-  },
   "click .floater[data-action=\"down\"]":function(e, t) {
     var container = document.getElementsByClassName("messages")[0];
     container.scrollTop = container.scrollHeight - container.clientHeight;
@@ -253,7 +250,10 @@ Template.tagChats.events({
   },
   "click .other.avatar": function(e,t) {
     var otherId = t.$(e.currentTarget).data('id');
-    FlowRouter.go('/user/other_profile/'+otherId);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/other_profile/'+otherId);
+    }, 100);
   }
 })
 

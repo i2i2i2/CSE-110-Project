@@ -34,6 +34,15 @@ Template.FriendProfile.onCreated(function() {
       span.remove();
     }, 1200);
   }
+
+  self.displayPopUp = function(message) {
+    $("body").append('<p class="popup">' + message + '</p>');
+    $(".popup").delay(1000).fadeOut(400);
+
+    setTimeout(function() {
+      $(".popup").remove();
+    }, 1400);
+  }
 });
 
 Template.FriendProfile.onDestroyed(function() {
@@ -228,84 +237,81 @@ Template.FriendProfile.events({
 
   "click .tag_circle": function(e, t){
     var tagNumber = t.$(e.currentTarget).data('tagid');
-    console.log(tagNumber);
-    FlowRouter.go('/chats/tag/'+tagNumber);
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go('/user/tag_profile/' + tagNumber);
+    }, 100);
   },
-    
+
   "click .unFriend.button": function(e, t){
-    console.log("value of change when we call the function: "+self.change);
-    if (!self.change) {
+
+    if (!$(e.currentTarget).hasClass("red")) {
       t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>Sure?');
-      t.$(e.currentTarget).attr('style','background-color:red');
-      self.change = true;
-      setTimeout(function() {
+      t.$(e.currentTarget).addClass("red");
+
+      self.dblclickTimeout = setTimeout(function() {
         self.change = false;
         t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
-        console.log("settimeout now make change value: "+self.change);                          
-        t.$(e.currentTarget).removeAttr('style');
-      }, 10000);
-      
-    }
-    else {
-    
-      //t.$(e.currentTarget).html('<i class="fa fa-chain-broken"></i>UnFriend');
-      //t.$(e.currentTarget).removeAttr('style');
+        t.$(e.currentTarget).removeClass("red");
+      }, 2000);
+
+    } else {
+
+      $(e.currentTarget).html('<i class="fa fa-refresh fa-spin"></i>Removing');
       var idNumber = t.$(e.currentTarget).data('userid');
-    
       Meteor.call('friends/deleteFriend', idNumber, function(err, res) {
- 
+        $("body > .content").fadeOut(800).fadeIn();
+        setTimeout(function() {
+          FlowRouter.go("/user/friends");
+        }, 800);
+        t.displayPopUp("UnFriended");
       });
-      self.change = false;
-      FlowRouter.go('/user/friends');
-      
     }
-    
   },
-  
+
   "click .addFriend.button": function(e, t){
-    if (!self.change) {
+    if (!$(e.currentTarget).hasClass("green")) {
       t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Sure?');
-      t.$(e.currentTarget).attr('style','background-color:green');
-      self.change = true;
+      t.$(e.currentTarget).addClass("green");
+
       setTimeout(function() {
-        self.change = false;
         t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
-                                  
-        t.$(e.currentTarget).removeAttr('style');
-      }, 10000);
-      
+        t.$(e.currentTarget).removeClass('green');
+      }, 2000);
+
     }
     else {
-      t.$(e.currentTarget).html('<i class="fa fa-handshake-o"></i>Add Friend');
-      t.$(e.currentTarget).removeAttr('style');
+      t.$(e.currentTarget).html('<i class="fa fa-refresh fa-spin"></i>Adding');
+
       var idNumber = t.$(e.currentTarget).data('userid');
       var friendRequest = Meteor.user().profile.friendRequest.map(user => user.userId);
-    
-      if(friendRequest && friendRequest.indexOf(idNumber) > -1){
-        // call addFriend
-        // console.log("call add friend");
-      
-        Meteor.call('friends/addFriend', idNumber, function(err, res) {
 
+      if(friendRequest && friendRequest.indexOf(idNumber) > -1){
+        // Add friend
+        Meteor.call('friends/addFriend', idNumber, function(err, res) {
+          t.displayPopUp("Friend Added");
         });
-      }
-      else{
+
+      } else {
         // call sendRequest
-        console.log("call send request");
-        
         Meteor.call('friends/sendRequest', idNumber, function(err, res) {
 
+          if (err) {
+            t.displayPopUp("You are blocked")
+          } else {
+            t.displayPopUp("Request Sent");
+          }
         });
       }
-      self.change = false;
     }
-    //＄(e.currentTarget).attr('text',"Sure?");
   },
 
   "click .chat.button": function (e, t) {
      var idNumber = t.$(e.currentTarget).data('userid');
-
-     FlowRouter.go('/chats/friend/'+idNumber);
+     $("body > .content").fadeOut(100).fadeIn(100);
+     setTimeout(function() {
+       FlowRouter.go('/chats/friend/'+idNumber);
+     }, 100);
   },
 
   "blur input": function(e, t) {
