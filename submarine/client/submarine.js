@@ -7,18 +7,13 @@ Meteor.startup(function() {
 
     document.addEventListener("deviceready", function () {
 
-      // override navigation back button
-      document.addEventListener("backbutton", function(e) {
-        e.preventDefault();
-        window.history.back();
-      });
-
       // gcm init
       window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
         if (Meteor.userId())
             console.log(JSON.stringify(token));
-          Meteor.call("user/updateToken", token);
+
+        Meteor.call("user/updateToken", token);
 
       }, function(error) {
         console.error(error);
@@ -32,13 +27,14 @@ Meteor.startup(function() {
 
         latestMsg[notification.sender] = notification;
         Session.set("latestMsg", latestMsg);
-        //
+
       }, function(error) {
         console.error(error);
       });
 
       App.Utils.WifiWizard.scanWifiOnInterval(10000);
-      
+      // sdfsd
+      Session.set("deviceready", true);
     }, false);
   }
 });

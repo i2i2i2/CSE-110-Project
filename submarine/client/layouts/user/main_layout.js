@@ -22,7 +22,7 @@ Template.mainLayout.onCreated(function() {
         Session.set("latestMsg", res);
       });
     }
-  })
+  });
 });
 
 Template.mainLayout.onRendered(function() {

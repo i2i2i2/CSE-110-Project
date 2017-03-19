@@ -8,10 +8,6 @@ Template.TopAnchor.onCreated(function() {
   self.velocity = -1;
   self.moved = false;
   self.windowHeight = $(window).height();
-  self.isRefreshing = new ReactiveVar(false);
-  self.noNearbyTag = new ReactiveVar(false);
-  self.forceRefresh = new Tracker.Dependency;
-
 
   self.handleTouchDown = function(event) {
 
@@ -47,7 +43,7 @@ Template.TopAnchor.onCreated(function() {
         $("body > .content").css({"filter": "blur(30px)"});
         if (Meteor.isCordova) {
           App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
-          self.isRefreshing.set(true);
+          self.refreshing();
         }
       }
       else{
@@ -123,19 +119,20 @@ Template.TopAnchor.onCreated(function() {
   if (Meteor.isCordova)
     App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
   else {
-    self.isRefreshing.set(false);
+    self.refreshing();
   }
+
   self.refreshNearbyTags = (function() {
     var self = this;
     var wifis = App.Collections.Wifis.find().fetch();
     if (!wifis.length) return;
 
     var tagIds = [];
-    wifis.forEach((wifi) => {
+    wifis.forEach((wifi) => {//jhj
       tagIds = tagIds.concat(wifi.tags);
     });
 
-    self.isRefreshing.set(true);
+    self.refreshing();
 
     Meteor.call("tags/getTagsById", tagIds, function(err, res) {
       console.log("refresh tags  " + Date.now());
@@ -199,13 +196,18 @@ Template.TopAnchor.onCreated(function() {
 
       console.log("TagList Length: " + tagList.length);
 
+      self.clearTag();
       if (!tagList || tagList.length == 0) {
-        self.noNearbyTag.set(true);
-        self.isRefreshing.set(false);
-      }
 
-      Session.set("nearbyTags", tagList);
-      self.forceRefresh.changed();
+        self.noTag();
+        self.doneRefresh();
+
+      } else {
+        tagList.forEach(tag => {
+          self.appendTag(tag);
+        });
+        self.doneRefresh();
+      }
     });
   }).bind(self);
 
@@ -233,7 +235,199 @@ Template.TopAnchor.onCreated(function() {
         }, 50);
       }
     });
-  })
+  });
+
+  self.trimName = function(str) {
+    if (str.length > 10) {
+      return str.substr(0, 10) + "...";
+    } else {
+      return str;
+    }
+  };
+
+  self.avatar = function (profileSeed) {
+    // map string to number array
+    if (!profileSeed) return;
+
+    var numArr = profileSeed.split("").map(char => {
+      var num = char.charCodeAt(0);
+      if (num < 65) {
+        return (num - 48)/62;
+      } else if (num < 97) {
+        return (num - 55)/62;
+      } else {
+        return (num - 61)/62;
+      }
+    });
+
+    // generate rgb color
+    var num = Math.ceil((numArr[0] + numArr[1]/10) / 1.1 * 12);
+    var h = numArr[2];
+    var s = 0.7 * numArr[3];
+    var v = 1 - 0.7 * numArr[4];
+    var main = HSVtoRGB(h, s, v);
+
+    if (numArr[5] < 0.33)
+      var h1 = (h + 0.5) % 1;
+    else if (numArr[5] < 0.67)
+      var h1 = (h + 0.1) % 1;
+    else
+      var h1 = h;
+    var s1 = 0.3 * numArr[6];
+    var v1 = 1 - 0.3 * numArr[7];
+    var sub = HSVtoRGB(h1, s1, v1);
+    colorDist(main, sub)
+
+    var svg =
+        '<svg style="' + "--main:" + toBase16Color(main) + ";--sub:" + toBase16Color(sub) + ';" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
+      +   '<use href="/avatar' + num + '.svg#avatar"></use>'
+      + '</svg>';
+
+    return Spacebars.SafeString(svg);
+
+    function HSVtoRGB(h, s, v) {
+      var r, g, b, i, f, p, q, t;
+
+      i = Math.floor(h * 6);
+      f = h * 6 - i;
+      p = v * (1 - s);
+      q = v * (1 - f * s);
+      t = v * (1 - (1 - f) * s);
+      switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+      }
+
+      return { r: Math.round(r * 255),
+               g: Math.round(g * 255),
+               b: Math.round(b * 255)};
+    }
+
+    function toBase16Color(color) {
+      function padding(str) {
+        if (str.length == 1) return "0" + str;
+        else return str;
+      }
+      return "#" + color.r.toString(16)
+                 + color.g.toString(16)
+                 + color.b.toString(16);
+    }
+
+    function colorDist(color1, color2) {
+      var bright1 = Math.sqrt(.241 * color1.r * color1.r
+                            + .691 * color1.g * color1.g
+                            + .068 * color1.b * color1.b);
+      var bright2 = Math.sqrt(.241 * color2.r * color2.r
+                            + .691 * color2.g * color2.g
+                            + .068 * color2.b * color2.b);
+      if (bright1 - bright2 > 100) {
+        return;
+      } else if (bright1 - bright2 < -100) {
+        return;
+      } else if (bright1 - bright2 > 0) {
+        color2.r -= 6;
+        if (color2.r < 0) color2.r = 0;
+        color2.g -= 14;
+        if (color2.g < 0) color2.g = 0;
+        color2.b -= 2;
+        if (color2.b < 0) color2.b = 0;
+        color1.r += 6;
+        if (color1.r > 255) color1.r = 255;
+        color1.g += 14;
+        if (color1.g > 255) color1.g = 255;
+        color1.b += 2;
+        if (color1.b > 255) color1.b = 255;
+        return;
+      } else {
+        color1.r -= 6;
+        if (color1.r < 0) color1.r = 0;
+        color1.g -= 14;
+        if (color1.g < 0) color1.g = 0;
+        color1.b -= 2;
+        if (color1.b < 0) color1.b = 0;
+        color2.r += 6;
+        if (color2.r > 255) color2.r = 255;
+        color2.g += 14;
+        if (color2.g > 255) color2.g = 255;
+        color2.b += 2;
+        if (color2.b > 255) color2.b = 255;
+        return;
+      }
+    }
+  };
+
+  self.getDuration = function(tag) {
+    var start, end;
+    if (tag.duration == 1440) {
+      var start = "00:00";
+      var end = "24:00";
+    } else {
+      var start = moment("1970-01-01").add(tag.startTime, "minutes").format("HH:mm");
+      var end = moment("1970-01-01").add(tag.startTime + tag.duration, "minutes").format("HH:mm");
+    }
+    return start + " - " + end;
+  };
+
+  self.getRepetition = function(tag) {
+    if (tag.repeat == 127) return "All Days";
+    if (tag.repeat == 65) return "Weekends";
+    if (tag.repeat == 62) return "Weekdays";
+
+    var weekday = ["S ", "M ", "T ", "W ", "Th ", "F ", "S"];
+    var repeat = tag.repeat.toString(2);
+    var paddingL = 7 - repeat.length;
+    for (var index = 0; index < paddingL; index++) {
+      repeat = "0" + repeat;
+    }
+
+    var repeatStr = "";
+    for (var index = 0; index < 7; index++) {
+      if (repeat.charAt(index) == "1") {
+        repeatStr += weekday[index];
+      }
+    }
+    return repeatStr;
+  };
+
+  self.appendTag = function(tag) {
+    var html = "";
+    html += '<div class="tag_wrapper" data-tag-id="' + tag._id + '">'
+            + '<div class="tag_name">'
+              + '<i class="fa fa-anchor" aria-hidden="true"></i>'
+              + self.trimName(tag.name)
+            + '</div>'
+            + '<div class="tag_content">'
+              + '<div class="tag_avatar">' + self.avatar(tag._id) + '</div>'
+              + '<div class="tag_duration">' + self.getDuration(tag) + '</div>'
+              + '<div class="tag_repeat">' + self.getRepetition(tag) + '</div>'
+              + '<div class="tag_description">' + tag.description + '</div>'
+            + '</div>'
+          + '</div>';
+
+    $('.tagContent').append(html);
+  }
+
+  self.refreshing = function() {
+    $('.tagContent').addClass('hidden');
+    $('.refreshing').removeClass('hidden');
+  }
+
+  self.doneRefresh = function() {
+    $('.tagContent').removeClass('hidden');
+    $('.refreshing').addClass('hidden');
+  }
+
+  self.noTag = function() {
+    $('.tagContent').html('<p> No Nearby Chatrooms, <br> Turn on Wifi, <br> Or Change your Location. </p>');
+  }
+
+  self.clearTag = function() {
+    $('.tagContent').html("");
+  }
 });
 
 Template.TopAnchor.onRendered(function() {
@@ -430,83 +624,5 @@ Template.TopAnchor.events({
     $("input").prop('disabled', true);
     self.$(".button.submit, .button.create").append('<i class="fa fa-refresh fa-spin"></i>');
     self.creating = true;
-  }
-});
-
-Template.TopAnchor.helpers({
-  //"getTagList": () => this.tagList
-  "getTagList": () => {
-    var self = Template.instance();
-    self.forceRefresh.depend();
-    var tagList = Session.get("nearbyTags");
-    console.log(JSON.stringify(tagList, undefined, 2));
-
-    if (!tagList || !tagList.length) {
-      self.noNearbyTag.set(true);
-      self.isRefreshing.set(false);
-      return;
-    }
-
-    self.noNearbyTag.set(false);
-    return tagList;
-  },
-
-  "noNearbyTag": () => Template.instance().noNearbyTag.get(),
-
-  "getDuration": function(tag) {
-    var start, end;
-   if (tag.duration == 1440) {
-     var start = "00:00";
-     var end = "24:00";
-   } else {
-     var start = moment("1970-01-01").add(tag.startTime, "minutes").format("HH:mm");
-     var end = moment("1970-01-01").add(tag.startTime + tag.duration, "minutes").format("HH:mm");
-   }
-   return start + " - " + end;
-  },
-
-  "getRepetition": function(tag) {
-   if (tag.repeat == 127) return "All Days";
-   if (tag.repeat == 65) return "Weekends";
-   if (tag.repeat == 62) return "Weekdays";
-
-   var weekday = ["S ", "M ", "T ", "W ", "Th ", "F ", "S"];
-   var repeat = tag.repeat.toString(2);
-   var paddingL = 7 - repeat.length;
-   for (var index = 0; index < paddingL; index++) {
-     repeat = "0" + repeat;
-   }
-
-   var repeatStr = "";
-   for (var index = 0; index < 7; index++) {
-     if (repeat.charAt(index) == "1") {
-       repeatStr += weekday[index];
-     }
-   }
-   return repeatStr;
-  },
-
-  "checkRefreshDone": function(index) {
-   var self = Template.instance();
-   if (index == self.tagCount - 1) {
-     console.log("done");
-     self.isRefreshing.set(false);
-   }
-  },
-
-  "isRefreshing": function() {
-   return Template.instance().isRefreshing.get()? "": "hidden";
-  },
-
-  "isNotRefreshing": function() {
-   return Template.instance().isRefreshing.get()? "hidden": "";
-  },
-
-  "trimName": function(str) {
-   if (str.length > 10) {
-     return str.substr(0, 10) + "...";
-   } else {
-     return str;
-   }
   }
 });
