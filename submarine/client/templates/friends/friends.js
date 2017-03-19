@@ -104,14 +104,6 @@ Template.Friends.helpers({
 });
 
 Template.Friends.events({
-  "click .connect_profile": function (e, t) {
-    var idNumber =e.currentTarget.dataset.userid;
-    $("body > .content").fadeOut(100).fadeIn(100);
-    setTimeout(function() {
-      FlowRouter.go('/user/other_profile/'+idNumber);
-    }, 100);
-  },
-
   "click .add": function (e, t) {
     e.preventDefault();
     e.stopPropagation();
@@ -181,6 +173,24 @@ Template.Friends.events({
 
   "click .request_wrap": function(e, t) {
     if ($(e.target).hasClass("button")) return;
+
+    var userId = e.currentTarget.dataset.userid;
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go("/user/other_profile/" + userId);
+    }, 100);
+  },
+
+  "click .friend_row": function(e, t) {
+
+    var userId = e.currentTarget.dataset.userid;
+    $("body > .content").fadeOut(100).fadeIn(100);
+    setTimeout(function() {
+      FlowRouter.go("/chats/friend/" + userId);
+    }, 100);
+  },
+
+  "click .friend_wrap": function(e, t) {
 
     var userId = e.currentTarget.dataset.userid;
     $("body > .content").fadeOut(100).fadeIn(100);

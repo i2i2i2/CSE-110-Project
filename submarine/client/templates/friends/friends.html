@@ -77,8 +77,8 @@
         <p>Go Chat with some friends!</p>
       {{else}}
         {{#each friendChatList}}
-          <div class="friend_row">
-            <div class="avatar" data-userid="{{userId}}">
+          <div class="friend_row" data-userid="{{userId}}">
+            <div class="avatar">
               {{{avatar (profileSeed userId)}}}
             </div>
 
@@ -95,8 +95,8 @@
         <p>Add some friends and enjoy!</p>
       {{else}}
         {{#each friendAlphaList}}
-          <div class="friend_wrap">
-            <div class="avatar connect_profile" data-userid="{{userId}}">
+          <div class="friend_wrap" data-userid="{{userId}}">
+            <div class="avatar">
                 {{{avatar (profileSeed userId)}}}
               </div>
 

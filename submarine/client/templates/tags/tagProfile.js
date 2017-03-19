@@ -184,6 +184,8 @@ Template.TagProfile.events({
       Meteor.call("tags/subscribe", t.tagId, (err, res) => {
         $(e.currentTarget).removeClass("green");
         t.isSubbed.set(true);
+
+        window.FirebasePlugin.subscribe(t.tagId);
       });
       $(e.currentTarget).html('<i class="fa fa-refresh fa-spin"></i>Subbing...');
 
@@ -231,6 +233,21 @@ Template.TagProfile.events({
       $("body > .content").fadeOut(100).fadeIn(100);
       setTimeout(function() {
         FlowRouter.go("/chats/tag/" + self.tagId);
+      }, 100);
+    }
+  },
+
+  "click .name_circle": function(e, t) {
+    var userId = e.currentTarget.dataset.userid;
+    if (userId != Meteor.userId()) {
+      $("body > .content").fadeOut(100).fadeIn(100);
+      setTimeout(function() {
+        FlowRouter.go("/user/other_profile/" + userId);
+      }, 100);
+    } else {
+      $("body > .content").fadeOut(100).fadeIn(100);
+      setTimeout(function() {
+        FlowRouter.go("/user/profile");
       }, 100);
     }
   }
