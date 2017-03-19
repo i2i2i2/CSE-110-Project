@@ -23,6 +23,13 @@ Template.mainLayout.onCreated(function() {
       });
     }
   });
+
+  this.autorun(() => {
+    var user = Meteor.user();
+
+    this.subHandle.stop();
+    this.subHandle = this.subscribe("users/relatedUsersAndTags");
+  });
 });
 
 Template.mainLayout.onRendered(function() {

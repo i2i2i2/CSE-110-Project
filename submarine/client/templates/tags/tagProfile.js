@@ -218,6 +218,9 @@ Template.TagProfile.events({
 
   "click .chat.button": function(e, t) {
     if (!t.isSubbed.get()) {
+
+      if (!t.isOnTime || !t.isInRange) return;
+
       Meteor.call("tags/addActiveUser", self.tagId, function(err, res) {
         $("body > .content").fadeOut(100).fadeIn(100);
         setTimeout(function() {

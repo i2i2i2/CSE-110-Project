@@ -203,6 +203,7 @@ Template.TopAnchor.onCreated(function() {
         self.doneRefresh();
 
       } else {
+        Session.set("nearbyTags", tagList);
         tagList.forEach(tag => {
           self.appendTag(tag);
         });

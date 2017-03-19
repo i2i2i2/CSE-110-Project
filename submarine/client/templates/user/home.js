@@ -86,11 +86,30 @@ Template.Home.helpers({
 
     randomSeed: () => Meteor.userId()? Meteor.user().profile.profileSeed : null,
 
-    tagName: (id) => App.Collections.Tags.findOne(id).name,
+    tagName: (id) => {
+      var tag = App.Collections.Tags.findOne(id);
+      if (tag) return tag.name;
+      else return "";
+    },
 
-    profileSeed: (id) => Meteor.users.findOne(id).profile.profileSeed,
+    profileSeed: (id) => {
+      var user = Meteor.users.findOne(id)
+      if (user) return user.profile.profileSeed;
+      else return "";
+    },
 
-    getName: (id, nickname) => nickname? nickname: Meteor.users.findOne(id).username,
+    getName: (id, nickname) => {
+      if (nickname) {
+        return nickname;
+      } else {
+        var user = Meteor.users.findOne(id);
+        if (user) {
+          return user.username;
+        } else {
+          return "";
+        }
+      }
+    },
 
     unreadMessage: (target) => {
       var lastRead;
