@@ -1,0 +1,16 @@
+<svg id="avatar" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <ellipse ry="40" rx="40" style="fill: var(--main);" cy="40" cx="40" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <path style="fill: var(--sub);" d="m6.5,40.819997l66.67,0l0.47,0.79c-5.59,3.84 -8.22,11.34 -17.29,10.95c-13.12,-0.58 -26.3,-0.09 -39.45,-0.14c-1.12,0 -2.7,-0.31 -3.28,-1.07c-2.37,-3.13 -4.43,-6.49 -7.12,-10.53z" class="cls-1"/>
+  <path style="fill: var(--sub);" d="m52.04,30.949997l-6.41,-12l1.27,-0.74c1,1.44 1.84,2.95 2.9,4.31c2.48,3.2 2.73,8.28 8.41,8.92c1.27,0.14 2.15,3.73 3.5,6.29l-34.87,0c0.42,-4.54 1.41,-6.11 4.64,-7.28l-6.09,-11.36l1.37,-0.78c1.81,3 3.92,5.77 5.33,8.9s3.47,4 6.69,3.77c4.2,-0.19 8.47,-0.03 13.26,-0.03z" class="cls-1"/>
+  <path style="fill: var(--sub);" d="m60.57,56.999997c-0.76,2.68 -2.22,3.79 -4.94,2.88a6.46,6.46 0 0 0 -2.35,-0.39c-2.9,0.17 -5.8,0.67 -8.69,0.61s-5.76,-0.95 -8.63,-0.94c-4.93,0 -9.85,0.59 -14.78,0.63c-1.22,0 -2.45,-1.11 -3.67,-1.71l0.51,-1.1l42.55,0.02z" class="cls-1"/>
+  <path style="fill: var(--sub);" d="m41.6,26.659997c-1.45,-0.71 -4.13,-1.42 -4.13,-2.14c0,-2.91 2.61,-2.12 4.44,-2.25a4.07,4.07 0 0 1 2.17,0.12a15.74,15.74 0 0 1 2.46,2.22a14.41,14.41 0 0 1 -2.47,1.4a7.12,7.12 0 0 1 -2.19,0l-0.28,0.65z" class="cls-1"/>
+  <path style="fill: var(--sub);" d="m47.34,28.869997l-10.52,0l-0.33,-1.28a15.72,15.72 0 0 1 3.61,-1c6.15,-0.25 6.15,-0.2 7.24,2.28z" class="cls-1"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="19.177601" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="27.056347" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="34.559916" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="42.438662" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="49.567052" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+  <ellipse ry="1.750833" rx="1.750833" style="fill: var(--main);" cy="46.503093" cx="57.445799" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="null"/>
+ </g>
+</svg>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Submarine</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    <string name="google_app_id">1:450785665666:android:4fb0a51e981caacc</string>
+    <string name="google_api_key">AIzaSyCF-6U6C7r1hcAgUVFzhbjfH2u3MDcodUc</string>
+    <string name="google_app_id">@string/google_app_id</string>
+    <string name="google_api_key">@string/google_api_key</string>
+</resources>

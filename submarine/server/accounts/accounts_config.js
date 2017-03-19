@@ -13,47 +13,15 @@ Accounts.config({
  * Initialize student User account with basic data on first login
  */
 Accounts.onCreateUser((options, user) => {
-  // make friends
-  if (["Ensign", "Lieutenant", "Commander", "Captain", "Admiral", "JohnD", "JaneD"].indexOf(user.username) == -1) {
-    var ensign = Accounts.findUserByUsername("Ensign")._id;
-    var lieutenant = Accounts.findUserByUsername("Lieutenant")._id;
-    var commander = Accounts.findUserByUsername("Commander")._id;
-    var captain = Accounts.findUserByUsername("Captain")._id;
-    var admiral = Accounts.findUserByUsername("Admiral")._id;
-    var john = Accounts.findUserByUsername("JohnD")._id;
-    var jane = Accounts.findUserByUsername("JaneD")._id;
 
-    Meteor.users.update({username: {$in: ["Ensign", "Lieutenant", "Commander", "Captain", "Admiral"]}}, {$push: {"profile.friends": {userId: user._id}}});
-
-    user.profile = {
-      profileSeed: Random.id(8),
-      friendRequest: [{userId: john, requestReason:"You have this request by default"}],
-      recommendedFriends: [{userId: jane, recommendReason: "You have this recommendation by default"}],
-      turndownFriends: [],
-      friends: [{userId: ensign}, {userId: lieutenant}, {userId: commander}, {userId: captain}, {userId: admiral}],
-      Strangers: []
-    };
-  } else {
-    user.profile = {
-      profileSeed: Random.id(8),
-      friendRequest: [],
-      recommendedFriends: [],
-      turndownFriends: [],
-      friends: [],
-      Strangers: []
-    };
-  }
-
-  var earth = App.Collections.Tags.findOne({name: "Earth"})._id;
-  var mars = App.Collections.Tags.findOne({name: "Mars"})._id;
-  var moon = App.Collections.Tags.findOne({name: "Moon"})._id;
-  user.profile.savedTags = [{tagId: earth, validThru: new Date(2018, 1, 1)}, {tagId: mars, validThru: new Date(2018, 1, 1)}, {tagId: moon, validThru: new Date(2018, 1, 1)}];
-  user.allowBeRecommended = true;
-
-  // subscribe tags
-  App.Collections.Tags.update({name: "Earth"}, {$push: {"users": user._id}});
-  App.Collections.Tags.update({name: "Moon"}, {$push: {"users": user._id}});
-  App.Collections.Tags.update({name: "Mars"}, {$push: {"users": user._id}});
+  user.profile = {
+    profileSeed: Random.id(8),
+    friendRequest: [],
+    recommendedFriends: [],
+    turndownFriends: [],
+    friends: [],
+    Strangers: []
+  };
 
   return user;
 });
