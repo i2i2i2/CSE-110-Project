@@ -52,7 +52,7 @@ Meteor.methods({
         if (returnObj.leftNew)
           returnObj.history[returnObj.leftNew - 1].startNew = true;
 
-        delete selector.time.$lt;
+        delete selector.time.$lte;
         delete selector.time.$gt;
         selector.time.$lte = lastRead;
         var olderMsg = App.Collections.Message.find(selector, { sort: {time: -1}, limit: 25 }).fetch();
