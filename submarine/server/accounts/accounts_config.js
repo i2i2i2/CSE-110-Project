@@ -20,8 +20,11 @@ Accounts.onCreateUser((options, user) => {
     recommendedFriends: [],
     turndownFriends: [],
     friends: [],
-    Strangers: []
+    Strangers: [],
+    savedTags: []
   };
+
+  user.allowBeRecommended = true;
 
   return user;
 });

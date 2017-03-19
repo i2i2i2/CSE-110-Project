@@ -116,10 +116,8 @@ Template.TopAnchor.onCreated(function() {
     }, 2000);
   };
 
-  if (Meteor.isCordova)
+  if (Meteor.isCordova) {
     App.Utils.WifiWizard.getNearbyWifi(self.resubscribe);
-  else {
-    self.refreshing();
   }
 
   self.refreshNearbyTags = (function() {

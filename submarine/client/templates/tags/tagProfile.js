@@ -223,16 +223,16 @@ Template.TagProfile.events({
 
       if (!t.isOnTime || !t.isInRange) return;
 
-      Meteor.call("tags/addActiveUser", self.tagId, function(err, res) {
+      Meteor.call("tags/addActiveUser", t.tagId, function(err, res) {
         $("body > .content").fadeOut(100).fadeIn(100);
         setTimeout(function() {
-          FlowRouter.go("/chats/tag/" + self.tagId);
+          FlowRouter.go("/chats/tag/" + t.tagId);
         }, 100);
       });
     } else {
       $("body > .content").fadeOut(100).fadeIn(100);
       setTimeout(function() {
-        FlowRouter.go("/chats/tag/" + self.tagId);
+        FlowRouter.go("/chats/tag/" + t.tagId);
       }, 100);
     }
   },
