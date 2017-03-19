@@ -1,6 +1,6 @@
 Template.FriendProfile.onCreated(function() {
   var self = this;
-  self.change = false;
+
   self.userId = FlowRouter.current().params._id;
   self.autorun(function() {
     var isFriend = Meteor.user().profile.friends.find(user => user.userId == self.userId)? true: false;
@@ -11,7 +11,7 @@ Template.FriendProfile.onCreated(function() {
     }
   });
 
-  if (!self.isFriend) {
+  if (!self.isFriend.get()) {
     // temporarily add this person to client database
     self.subscribe("users/getStrangerProfile", self.userId);
   }
@@ -54,6 +54,7 @@ Template.FriendProfile.helpers({
   randomSeed: () => {
     var self = Template.instance();
     var user = Meteor.users.findOne(self.userId);
+    console.log(user);
     return user? user.profile.profileSeed : "";
   },
 
@@ -135,7 +136,7 @@ Template.FriendProfile.helpers({
 
     var tagList = user.profile.savedTags;
     var myTags = Meteor.user().profile.savedTags;
-    if (myTags){
+    if (myTags && tagList){
       for (var i = 0; i < myTags.length; i++) {
         for (var j = 0; j < tagList.length; j++) {
           if (tagList[j].tagId == myTags[i].tagId) {
