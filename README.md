@@ -7,6 +7,8 @@
 
 Yellow Submarine is an Android app that is built for anonymous chatting. Users are like submarine under water, remains anonymous most of the time. User joining chatroom or creating a chatroom is like submarine droping a sonar floater. User/Submarine can then be discovered and discover others nearby.
 
+https://www.youtube.com/watch?v=IS-Es5uFN7M&t=1s
+
 
 ## Requirements
 
