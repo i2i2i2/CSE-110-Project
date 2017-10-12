@@ -69,7 +69,7 @@ You may always create new account in the system. The account would be brand new.
  * Yuandong Zhang, philzhang01
  * Pengyu Chen, EasonChan236
  * Ruitian Lin, lrt98802
- * Zijin Fu, Zijin
+ * Zijin Fu, fuzijin
  * Tianyi Wang, secondkimi
  * Jiaqi Wu, QDQD
  * Shuyi Ni, ShuyiNi
